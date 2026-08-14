@@ -14,6 +14,8 @@ const GoogleReviews: any = (GoogleReviewsModule as any).GoogleReviews;
 const TrustStrip: any = (TrustStripModule as any).TrustStrip;
 const TestimonialQuote: any = (TestimonialQuoteModule as any).TestimonialQuote;
 
+import Footer from "@/components/Footer";
+
 const Arrow = () => (
   <svg
     width="14"
@@ -488,6 +490,7 @@ export default function Home() {
       <Header />
       <Hero />
       <AshleySection />
+      <Footer />
     </>
   );
 }

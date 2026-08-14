@@ -70,7 +70,7 @@ function AshleySection() {
     { quote: <>Ashley made me <strong>feel at ease right away</strong>, talking me through appointments and the entire process.</>, author: 'Stephanie D' },
   ];
   return (
-    <section style={{ position: 'relative', padding: '90px 53px', overflow: 'hidden', backgroundImage: 'url(../../assets/ashley-section-bg.png)', backgroundSize: 'auto 118%', backgroundPosition: 'center 8%', backgroundRepeat: 'no-repeat' }}>
+    <section style={{ position: 'relative', padding: '90px 53px', overflow: 'hidden', backgroundImage: 'url(../../assets/ashley-section-bg-4.png)', backgroundSize: 'auto 118%', backgroundPosition: 'center 8%', backgroundRepeat: 'no-repeat' }}>
       <div style={{ position: 'relative', maxWidth: 'var(--container-max)', margin: '0 auto', display: 'flex', flexWrap: 'wrap', gap: 32, alignItems: 'flex-start' }}>
         <div style={{ flex: '1 1 320px', minWidth: 280, maxWidth: 380 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 13, marginBottom: 22 }}>

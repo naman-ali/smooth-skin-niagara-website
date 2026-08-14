@@ -354,7 +354,7 @@ function AshleySection() {
         position: "relative",
         padding: "90px 53px",
         overflow: "hidden",
-        backgroundImage: "url(/assets/ashley-section-bg.png)",
+        backgroundImage: "url(/assets/ashley-section-bg-4.png)",
         backgroundSize: "auto 118%",
         backgroundPosition: "center 8%",
         backgroundRepeat: "no-repeat",

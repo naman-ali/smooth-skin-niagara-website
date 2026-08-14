@@ -92,74 +92,84 @@ function Header() {
         borderBottom: "1px solid var(--color-border)",
       }}
     >
-      <img
-        src="/assets/logo.png"
-        alt="Smooth Skin Niagara"
-        style={{ height: 46, flexShrink: 0 }}
-      />
-      <nav
-        className="ssn-header-nav"
+      <div
         style={{
           display: "flex",
           alignItems: "center",
-          gap: 16,
-          fontSize: 14,
+          gap: 24,
+          flex: "1 1 auto",
           minWidth: 0,
         }}
       >
-        <NavDropdown
-          label="Services"
-          items={[
-            "Laser Hair Removal",
-            "Microneedling",
-            "Chemical Peels",
-            "OxyGeneo Facials",
-            "RF Skin Tightening",
-            "LED Therapy",
-            "Lash Services",
-          ]}
+        <img
+          src="/assets/logo.png"
+          alt="Smooth Skin Niagara"
+          style={{ height: 64, flexShrink: 0 }}
         />
-        <a
-          href="#"
+        <nav
+          className="ssn-header-nav"
           style={{
-            color: "var(--color-text-primary)",
-            textDecoration: "none",
-            fontSize: 14,
-            fontWeight: 500,
-            fontFamily: "var(--font-body)",
-            whiteSpace: "nowrap",
+            display: "flex",
+            alignItems: "center",
+            gap: 32,
+            fontSize: 16,
+            minWidth: 0,
           }}
         >
-          About
-        </a>
-        <a
-          href="#"
-          style={{
-            color: "var(--color-text-primary)",
-            textDecoration: "none",
-            fontSize: 14,
-            fontWeight: 500,
-            fontFamily: "var(--font-body)",
-            whiteSpace: "nowrap",
-          }}
-        >
-          Results
-        </a>
-        <a
-          href="#"
-          style={{
-            color: "var(--color-text-primary)",
-            textDecoration: "none",
-            fontSize: 14,
-            fontWeight: 500,
-            fontFamily: "var(--font-body)",
-            whiteSpace: "nowrap",
-          }}
-        >
-          Pricing
-        </a>
-        <NavDropdown label="More" items={["FAQ", "Careers", "Contact"]} />
-      </nav>
+          <NavDropdown
+            label="Services"
+            items={[
+              "Laser Hair Removal",
+              "Microneedling",
+              "Chemical Peels",
+              "OxyGeneo Facials",
+              "RF Skin Tightening",
+              "LED Therapy",
+              "Lash Services",
+            ]}
+          />
+          <a
+            href="#"
+            style={{
+              color: "var(--color-text-primary)",
+              textDecoration: "none",
+              fontSize: 16,
+              fontWeight: 500,
+              fontFamily: "var(--font-body)",
+              whiteSpace: "nowrap",
+            }}
+          >
+            About
+          </a>
+          <a
+            href="#"
+            style={{
+              color: "var(--color-text-primary)",
+              textDecoration: "none",
+              fontSize: 16,
+              fontWeight: 500,
+              fontFamily: "var(--font-body)",
+              whiteSpace: "nowrap",
+            }}
+          >
+            Results
+          </a>
+          <a
+            href="#"
+            style={{
+              color: "var(--color-text-primary)",
+              textDecoration: "none",
+              fontSize: 16,
+              fontWeight: 500,
+              fontFamily: "var(--font-body)",
+              whiteSpace: "nowrap",
+            }}
+          >
+            Pricing
+          </a>
+          <NavDropdown label="More" items={["FAQ", "Careers", "Contact"]} />
+        </nav>
+      </div>
       <div
         style={{
           display: "flex",

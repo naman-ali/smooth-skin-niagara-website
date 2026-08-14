@@ -6,7 +6,7 @@ export function NavDropdown({ label, items = [] }) {
     <div style={{ position: 'relative' }} onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
       <button style={{
         display: 'flex', alignItems: 'center', gap: 4, background: 'none', border: 'none',
-        font: 'inherit', fontFamily: 'var(--font-body)', fontSize: 15, fontWeight: 500,
+        font: 'inherit', fontFamily: 'var(--font-body)', fontSize: 16, fontWeight: 500,
         color: 'var(--color-text-primary)', cursor: 'pointer', padding: '8px 4px',
       }}>
         {label}
@@ -19,7 +19,7 @@ export function NavDropdown({ label, items = [] }) {
           padding: 8, display: 'flex', flexDirection: 'column', zIndex: 10,
         }}>
           {items.map(i => (
-            <a key={i} href="#" style={{ padding: '10px 12px', borderRadius: 'var(--radius-sm)', color: 'var(--color-text-primary)', textDecoration: 'none', fontSize: 14 }}>{i}</a>
+            <a key={i} href="#" style={{ padding: '10px 12px', borderRadius: 'var(--radius-sm)', color: 'var(--color-text-primary)', textDecoration: 'none', fontSize: 16 }}>{i}</a>
           ))}
         </div>
       )}

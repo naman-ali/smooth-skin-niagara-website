@@ -177,14 +177,11 @@ function Header() {
         style={{
           display: "flex",
           alignItems: "center",
-          gap: 14,
+          gap: 28,
           flexShrink: 0,
         }}
       >
         <PhoneCallout />
-        <span
-          style={{ width: 1, height: 32, background: "var(--color-border)" }}
-        />
         <Button variant="primary" size="sm">
           Book a Free Consultation
         </Button>

@@ -2,7 +2,7 @@ import React from 'react';
 
 const sizeStyles = {
   md: { padding: '15px 27px', fontSize: 16 },
-  sm: { padding: '10px 20px', fontSize: 15 },
+  sm: { padding: '14px 22px', fontSize: 16 },
 };
 
 export function Button({ variant = 'primary', size = 'md', icon, iconPosition = 'right', disabled = false, children, onClick, style }) {
@@ -13,7 +13,7 @@ export function Button({ variant = 'primary', size = 'md', icon, iconPosition = 
     gap: 8,
     fontFamily: 'var(--font-body)',
     fontWeight: 600,
-    borderRadius: 'var(--radius-md)',
+    borderRadius: '12px',
     border: '1px solid transparent',
     cursor: disabled ? 'not-allowed' : 'pointer',
     whiteSpace: 'nowrap',
@@ -23,7 +23,7 @@ export function Button({ variant = 'primary', size = 'md', icon, iconPosition = 
     ...sizeStyles[size],
   };
   const variants = {
-    primary: { background: 'var(--cta-primary-bg)', color: 'var(--cta-primary-text)' },
+    primary: { background: '#4F5B3A', color: '#FBFAF7' },
     secondary: { background: 'var(--cta-secondary-bg)', color: 'var(--cta-secondary-text)', borderColor: 'var(--cta-secondary-border)' },
     ghost: { background: 'transparent', color: 'var(--color-brand-deep)' },
   };

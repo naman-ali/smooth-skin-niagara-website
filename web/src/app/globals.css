@@ -1,0 +1,32 @@
+@import "tailwindcss";
+@import "../styles/design-system/styles.css";
+
+@theme inline {
+  --color-olive-50: var(--olive-50);
+  --color-olive-100: var(--olive-100);
+  --color-olive-200: var(--olive-200);
+  --color-olive-300: var(--olive-300);
+  --color-olive-500: var(--olive-500);
+  --color-olive-600: var(--olive-600);
+  --color-olive-700: var(--olive-700);
+  --color-ink-900: var(--ink-900);
+  --color-ink-600: var(--ink-600);
+  --color-star: var(--star-yellow);
+  --font-display: var(--font-display), Georgia, serif;
+  --font-body: var(--font-body), -apple-system, sans-serif;
+}
+
+body {
+  background: var(--olive-50);
+  color: var(--ink-900);
+  font-family: var(--font-body);
+}
+
+@media (max-width: 1080px) {
+  .ssn-header-nav {
+    flex-basis: 100%;
+    order: 3;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}

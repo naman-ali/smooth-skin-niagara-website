@@ -197,6 +197,7 @@ function Hero() {
         position: "relative",
         padding: "80px 53px 70px",
         overflow: "hidden",
+        borderBottom: "2px solid #bfae97",
       }}
     >
       <div

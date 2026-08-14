@@ -96,7 +96,7 @@ function Header() {
         style={{
           display: "flex",
           alignItems: "center",
-          gap: 24,
+          gap: 56,
           flex: "1 1 auto",
           minWidth: 0,
         }}

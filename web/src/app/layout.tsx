@@ -12,7 +12,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className="antialiased">
       <body className="min-h-screen bg-olive-50 text-ink-900 font-body">
-        {children}
+        <div className="mx-auto w-full min-h-screen max-w-[1480px] bg-olive-50 shadow-lg">
+          {children}
+        </div>
       </body>
     </html>
   );

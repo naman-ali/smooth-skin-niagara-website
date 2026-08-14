@@ -109,9 +109,9 @@ export default function Footer() {
               {[
                 "About Us",
                 "Testimonials",
-                "Our Blog",
                 "Contact",
-                "Privacy / Return / Refund Policies",
+                "Privacy",
+                "Terms of Service",
               ].map((item) => (
                 <li key={item} style={{ marginBottom: 8 }}>
                   <a href="#" style={linkStyle}>
@@ -151,7 +151,7 @@ export default function Footer() {
             </p>
             <p style={{ margin: 0 }}>
               <a
-                href="mailto:Ashley@smoothskinniagara.com"
+                href="mailto:ashley@smoothskinniagara.com"
                 style={{
                   color: "var(--color-text-secondary)",
                   textDecoration: "none",
@@ -177,8 +177,11 @@ export default function Footer() {
             color: "var(--color-text-secondary)",
           }}
         >
-          <span>&copy; {new Date().getFullYear()} Smooth Skin Niagara. All rights reserved.</span>
-          <span>Designed with care in Niagara Falls, ON.</span>
+          <span>
+            &copy; {new Date().getFullYear()} Smooth Skin Niagara. All rights
+            reserved.
+          </span>
+          <span>Designed with love.</span>
         </div>
       </div>
     </footer>

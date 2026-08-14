@@ -15,6 +15,7 @@ const TrustStrip: any = (TrustStripModule as any).TrustStrip;
 const TestimonialQuote: any = (TestimonialQuoteModule as any).TestimonialQuote;
 
 import Footer from "@/components/Footer";
+import { useEffect, useRef } from "react";
 
 const Arrow = () => (
   <svg
@@ -351,6 +352,40 @@ function AshleySection() {
       author: "Stephanie D",
     },
   ];
+
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const mouse = useRef({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const onMove = (e: MouseEvent) => {
+      mouse.current = { x: e.clientX, y: e.clientY };
+    };
+    window.addEventListener("mousemove", onMove);
+
+    let raf = 0;
+    const onFrame = () => {
+      const now = performance.now() / 1000;
+      cardRefs.current.forEach((el, i) => {
+        if (!el) return;
+        const phase = i * Math.PI;
+        const loopX = Math.sin(now * 0.8 + phase) * 6;
+        const loopY = Math.cos(now * 0.6 + phase) * 5;
+
+        const mouseX = (mouse.current.x / window.innerWidth - 0.5) * 14;
+        const mouseY = (mouse.current.y / window.innerHeight - 0.5) * 12;
+        el.style.transform = `translate3d(${loopX + mouseX}px, ${loopY + mouseY}px, 0)`;
+        el.style.willChange = "transform";
+      });
+      raf = requestAnimationFrame(onFrame);
+    };
+    raf = requestAnimationFrame(onFrame);
+
+    return () => {
+      window.removeEventListener("mousemove", onMove);
+      cancelAnimationFrame(raf);
+    };
+  }, []);
+
   return (
     <section
       style={{
@@ -471,12 +506,15 @@ function AshleySection() {
           }}
         >
           {rightTestimonials.map((t, i) => (
-            <TestimonialQuote
+            <div
               key={i}
-              quote={t.quote}
-              author={t.author}
-              rating={5}
-            />
+              ref={(el) => {
+                cardRefs.current[i] = el;
+              }}
+              style={{ willChange: "transform" }}
+            >
+              <TestimonialQuote quote={t.quote} author={t.author} rating={5} />
+            </div>
           ))}
         </div>
       </div>

@@ -525,6 +525,26 @@ export default function Home() {
       <Header />
       <Hero />
       <AshleySection />
+      <section
+        style={{
+          padding: "80px 20px",
+          textAlign: "center",
+          background: "var(--olive-50)",
+        }}
+      >
+        <p
+          style={{
+            fontFamily: "var(--font-display)",
+            fontSize: 24,
+            fontWeight: 500,
+            color: "var(--color-text-primary)",
+            margin: 0,
+            letterSpacing: "0.04em",
+          }}
+        >
+          Coming soon…
+        </p>
+      </section>
       <Footer />
     </>
   );

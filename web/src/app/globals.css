@@ -18,7 +18,7 @@
 }
 
 body {
-  background: var(--olive-100);
+  background: var(--olive-700);
   color: var(--ink-900);
   font-family: var(--font-body);
 }

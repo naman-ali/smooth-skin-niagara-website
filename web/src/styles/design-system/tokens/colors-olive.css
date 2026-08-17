@@ -1,17 +1,17 @@
 :root{
---olive-50:#FBFAF7;
---olive-100:#F5F2EB;
+--olive-50:#F5F2EB;
+--olive-100:#FBFAF7;
 --olive-200:#D9D5C8;
 --olive-300:#DDD8CF;
---olive-500:#6C95B7;
---olive-600:#304B74;
---olive-700:#223653;
+--olive-500:#87907A;
+--olive-600:#667052;
+--olive-700:#4F5B3A;
 --ink-900:#252624;
 --ink-600:#64655F;
 --white:#FFFFFF;
 
---color-bg-linen:var(--olive-100);
---color-bg-warm-white:var(--olive-50);
+--color-bg-linen:var(--olive-50);
+--color-bg-warm-white:var(--olive-100);
 --color-bg-stone:var(--olive-200);
 --color-brand-primary:var(--olive-600);
 --color-brand-deep:var(--olive-700);
@@ -26,8 +26,7 @@
 --surface-inverse:var(--ink-900);
 
 --cta-primary-bg:var(--olive-700);
---cta-primary-text:var(--olive-50);
---cta-primary-hover:var(--olive-600);
+--cta-primary-text:var(--olive-100);
 --cta-secondary-bg:transparent;
 --cta-secondary-border:var(--olive-600);
 --cta-secondary-text:var(--ink-900);

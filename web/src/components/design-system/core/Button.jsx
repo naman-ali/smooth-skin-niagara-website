@@ -23,14 +23,14 @@ export function Button({ variant = 'primary', size = 'md', icon, iconPosition = 
     ...sizeStyles[size],
   };
   const variants = {
-    primary: { background: '#4F5B3A', color: '#FBFAF7' },
+    primary: { background: 'var(--cta-primary-bg)', color: 'var(--cta-primary-text)' },
     secondary: { background: 'var(--cta-secondary-bg)', color: 'var(--cta-secondary-text)', borderColor: 'var(--cta-secondary-border)' },
     ghost: { background: 'transparent', color: 'var(--color-brand-deep)' },
   };
   const hover = {
-    primary: { background: '#3d4630' },
-    secondary: { background: 'rgba(102,112,82,0.08)' },
-    ghost: { background: 'rgba(102,112,82,0.06)' },
+    primary: { background: 'var(--cta-primary-hover)' },
+    secondary: { background: 'rgba(108,149,183,0.08)' },
+    ghost: { background: 'rgba(108,149,183,0.06)' },
   };
   const [isHover, setHover] = React.useState(false);
   return (

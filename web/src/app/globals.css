@@ -18,7 +18,7 @@
 }
 
 body {
-  background: #404733;
+  background: var(--olive-100);
   color: var(--ink-900);
   font-family: var(--font-body);
 }

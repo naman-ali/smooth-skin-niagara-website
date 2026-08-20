@@ -1,9 +1,9 @@
 .DS_Store
 .thumbnail
-web/.next
-web/node_modules
-web/out
-web/dist
+.next/
+node_modules/
+out/
+dist/
 *.log
 .env
 .env.local

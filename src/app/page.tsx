@@ -16,7 +16,7 @@ const TestimonialQuote: any = (TestimonialQuoteModule as any).TestimonialQuote;
 
 import Footer from "@/components/Footer";
 import React, { useEffect, useRef } from "react";
-import { SignInButton, SignUpButton, UserButton, useAuth } from "@clerk/nextjs";
+import { UserButton, useAuth } from "@clerk/nextjs";
 
 const Arrow = () => (
   <svg
@@ -259,15 +259,7 @@ function Header() {
             gap: 12,
           }}
         >
-          {isLoaded &&
-            (userId ? (
-              <UserButton />
-            ) : (
-              <>
-                <SignInButton />
-                <SignUpButton />
-              </>
-            ))}
+          {isLoaded && userId && <UserButton />}
         </div>
       </div>
     </header>

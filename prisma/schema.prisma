@@ -21,3 +21,11 @@ model Contact {
   message   String
   createdAt DateTime @default(now())
 }
+
+model Profile {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @unique
+  email     String?
+  role      String   @default("user")
+  createdAt DateTime @default(now())
+}

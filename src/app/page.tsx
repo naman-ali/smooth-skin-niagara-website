@@ -16,6 +16,7 @@ const TestimonialQuote: any = (TestimonialQuoteModule as any).TestimonialQuote;
 
 import Footer from "@/components/Footer";
 import React, { useEffect, useRef } from "react";
+import { SignInButton, SignUpButton, UserButton, useAuth } from "@clerk/nextjs";
 
 const Arrow = () => (
   <svg
@@ -147,6 +148,7 @@ const Check = () => (
 );
 
 function Header() {
+  const { isLoaded, userId } = useAuth();
   return (
     <header
       style={{
@@ -250,6 +252,23 @@ function Header() {
         <Button variant="primary" size="sm">
           Book a Free Consultation
         </Button>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 12,
+          }}
+        >
+          {isLoaded &&
+            (userId ? (
+              <UserButton />
+            ) : (
+              <>
+                <SignInButton />
+                <SignUpButton />
+              </>
+            ))}
+        </div>
       </div>
     </header>
   );

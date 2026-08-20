@@ -1,6 +1,8 @@
+import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata } from "next";
 import { ReactNode } from "react";
 import "./globals.css";
+import "../styles/design-system/styles.css";
 
 export const metadata: Metadata = {
   title: "Smooth Skin Niagara",
@@ -12,9 +14,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className="antialiased">
       <body className="min-h-screen bg-olive-700 text-ink-900 font-body">
-        <div className="mx-auto w-full min-h-screen max-w-[1480px] bg-olive-50 shadow-lg">
-          {children}
-        </div>
+        <ClerkProvider>
+          <div className="mx-auto w-full min-h-screen max-w-[1480px] bg-olive-50 shadow-lg">
+            {children}
+          </div>
+        </ClerkProvider>
       </body>
     </html>
   );

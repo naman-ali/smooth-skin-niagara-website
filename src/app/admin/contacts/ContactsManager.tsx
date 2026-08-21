@@ -12,6 +12,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { PhoneInput } from "@/components/ui/phone-input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import {
@@ -210,12 +211,11 @@ export default function ContactsManager({
               </div>
               <div className="space-y-2 md:col-span-2">
                 <Label htmlFor="phone">Phone</Label>
-                <Input
+                <PhoneInput
                   id="phone"
-                  type="text"
-                  placeholder="Phone"
                   value={form.phone}
-                  onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                  onChange={(value) => setForm({ ...form, phone: value || "" })}
+                  placeholder="Phone"
                 />
               </div>
               <div className="space-y-2 md:col-span-2">

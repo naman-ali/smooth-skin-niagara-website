@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { parsePhoneNumber } from "libphonenumber-js";
 import {
   Loader2,
   Upload,
@@ -11,6 +12,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { PhoneInput } from "@/components/ui/phone-input";
 import { Label } from "@/components/ui/label";
 import {
   Dialog,
@@ -90,11 +92,15 @@ export default function ImportDialog({
         throw new Error(data.error || "Import failed");
       }
 
-      const contacts = (data.contacts || []).map((c: any) => ({
-        name: c.name || "",
-        email: c.email || "",
-        phone: c.phone || "",
-      }));
+      const contacts = (data.contacts || []).map((c: any) => {
+        const rawPhone = c.phone || "";
+        const parsed = rawPhone ? parsePhoneNumber(rawPhone, "US") : undefined;
+        return {
+          name: c.name || "",
+          email: c.email || "",
+          phone: parsed ? parsed.format("E.164") : rawPhone,
+        };
+      });
 
       setImages(imageUrls);
       setImported(contacts);
@@ -252,11 +258,11 @@ export default function ImportDialog({
 
                 <div className="space-y-2">
                   <Label htmlFor="phone">Phone</Label>
-                  <Input
+                  <PhoneInput
                     id="phone"
                     value={current.phone}
-                    onChange={(e) =>
-                      updateContact(currentIndex, "phone", e.target.value)
+                    onChange={(value) =>
+                      updateContact(currentIndex, "phone", value || "")
                     }
                     placeholder="Phone"
                   />

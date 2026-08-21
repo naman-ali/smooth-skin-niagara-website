@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Pencil, Trash2 } from "lucide-react";
+import { Pencil, Plus, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -21,6 +21,13 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 type Contact = {
   id: string;
@@ -44,10 +51,17 @@ export default function ContactsManager({
     message: "",
   });
   const [editing, setEditing] = useState<string | null>(null);
+  const [open, setOpen] = useState(false);
 
   const resetForm = () => {
     setForm({ name: "", email: "", phone: "", message: "" });
     setEditing(null);
+    setOpen(false);
+  };
+
+  const startAdd = () => {
+    resetForm();
+    setOpen(true);
   };
 
   const onSubmit = async (e: React.FormEvent) => {
@@ -83,86 +97,21 @@ export default function ContactsManager({
       phone: contact.phone || "",
       message: contact.message,
     });
+    setOpen(true);
   };
 
   return (
     <div className="space-y-8 max-w-6xl mx-auto">
       <Card>
-        <CardHeader>
-          <CardTitle>{editing ? "Edit Contact" : "Add Contact"}</CardTitle>
-          <CardDescription>
-            {editing
-              ? "Update the selected contact and save changes."
-              : "Create a new contact record."}
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={onSubmit} className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="name">Name</Label>
-                <Input
-                  id="name"
-                  type="text"
-                  placeholder="Name"
-                  value={form.name}
-                  onChange={(e) => setForm({ ...form, name: e.target.value })}
-                  required
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="Email"
-                  value={form.email}
-                  onChange={(e) => setForm({ ...form, email: e.target.value })}
-                  required
-                />
-              </div>
-              <div className="space-y-2 md:col-span-2">
-                <Label htmlFor="phone">Phone</Label>
-                <Input
-                  id="phone"
-                  type="text"
-                  placeholder="Phone"
-                  value={form.phone}
-                  onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                />
-              </div>
-              <div className="space-y-2 md:col-span-2">
-                <Label htmlFor="message">Message</Label>
-                <Textarea
-                  id="message"
-                  placeholder="Message"
-                  value={form.message}
-                  onChange={(e) =>
-                    setForm({ ...form, message: e.target.value })
-                  }
-                  rows={3}
-                  required
-                />
-              </div>
-            </div>
-            <div className="flex gap-2">
-              <Button type="submit">
-                {editing ? "Update Contact" : "Add Contact"}
-              </Button>
-              {editing && (
-                <Button type="button" variant="outline" onClick={resetForm}>
-                  Cancel
-                </Button>
-              )}
-            </div>
-          </form>
-        </CardContent>
-      </Card>
-
-      <Card>
-        <CardHeader>
-          <CardTitle>Contacts</CardTitle>
-          <CardDescription>Manage all contact records.</CardDescription>
+        <CardHeader className="flex flex-row items-center justify-between gap-4">
+          <div className="space-y-1.5">
+            <CardTitle>Contacts</CardTitle>
+            <CardDescription>Manage all contact records.</CardDescription>
+          </div>
+          <Button onClick={startAdd}>
+            <Plus className="size-4 mr-2" />
+            Add Contact
+          </Button>
         </CardHeader>
         <CardContent>
           <Table>
@@ -214,6 +163,82 @@ export default function ContactsManager({
           </Table>
         </CardContent>
       </Card>
+
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>
+              {editing ? "Edit Contact" : "Add Contact"}
+            </DialogTitle>
+            <DialogDescription>
+              {editing
+                ? "Update the selected contact and save changes."
+                : "Create a new contact record."}
+            </DialogDescription>
+          </DialogHeader>
+          <form onSubmit={onSubmit} className="space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="name">Name</Label>
+                <Input
+                  id="name"
+                  type="text"
+                  placeholder="Name"
+                  value={form.name}
+                  onChange={(e) => setForm({ ...form, name: e.target.value })}
+                  required
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="email">Email</Label>
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder="Email"
+                  value={form.email}
+                  onChange={(e) => setForm({ ...form, email: e.target.value })}
+                  required
+                />
+              </div>
+              <div className="space-y-2 md:col-span-2">
+                <Label htmlFor="phone">Phone</Label>
+                <Input
+                  id="phone"
+                  type="text"
+                  placeholder="Phone"
+                  value={form.phone}
+                  onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                />
+              </div>
+              <div className="space-y-2 md:col-span-2">
+                <Label htmlFor="message">Message</Label>
+                <Textarea
+                  id="message"
+                  placeholder="Message"
+                  value={form.message}
+                  onChange={(e) =>
+                    setForm({ ...form, message: e.target.value })
+                  }
+                  rows={3}
+                  required
+                />
+              </div>
+            </div>
+            <div className="flex gap-2 pt-2">
+              <Button type="submit">
+                {editing ? "Update Contact" : "Add Contact"}
+              </Button>
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => resetForm()}
+              >
+                Cancel
+              </Button>
+            </div>
+          </form>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

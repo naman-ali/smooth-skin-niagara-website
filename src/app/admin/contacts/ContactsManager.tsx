@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Pencil, Plus, Trash2 } from "lucide-react";
+import { Pencil, Plus, Trash2, Upload } from "lucide-react";
+import ImportDialog from "./ImportDialog";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -52,6 +53,7 @@ export default function ContactsManager({
   });
   const [editing, setEditing] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
+  const [importOpen, setImportOpen] = useState(false);
 
   const resetForm = () => {
     setForm({ name: "", email: "", phone: "", message: "" });
@@ -108,10 +110,16 @@ export default function ContactsManager({
             <CardTitle>Contacts</CardTitle>
             <CardDescription>Manage all contact records.</CardDescription>
           </div>
-          <Button onClick={startAdd}>
-            <Plus className="size-4 mr-2" />
-            Add Contact
-          </Button>
+          <div className="flex gap-2">
+            <Button variant="outline" onClick={() => setImportOpen(true)}>
+              <Upload className="size-4 mr-2" />
+              Import
+            </Button>
+            <Button onClick={startAdd}>
+              <Plus className="size-4 mr-2" />
+              Add Contact
+            </Button>
+          </div>
         </CardHeader>
         <CardContent>
           <Table>
@@ -239,6 +247,14 @@ export default function ContactsManager({
           </form>
         </DialogContent>
       </Dialog>
+
+      <ImportDialog
+        open={importOpen}
+        onOpenChange={setImportOpen}
+        onImport={(saved) =>
+          setContacts((prev) => [...(saved as Contact[]), ...prev])
+        }
+      />
     </div>
   );
 }

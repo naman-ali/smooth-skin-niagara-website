@@ -26,6 +26,15 @@ export async function POST(request: NextRequest) {
     return new NextResponse("Forbidden", { status: 403 });
   }
   const body = await request.json();
-  const contact = await prisma.contact.create({ data: body });
-  return NextResponse.json(contact, { status: 201 });
+  const items = Array.isArray(body) ? body : [body];
+  const contacts = await Promise.all(
+    items.map((data: any) =>
+      prisma.contact.create({
+        data: { ...data, phone: data.phone || null },
+      }),
+    ),
+  );
+  return NextResponse.json(Array.isArray(body) ? contacts : contacts[0], {
+    status: 201,
+  });
 }

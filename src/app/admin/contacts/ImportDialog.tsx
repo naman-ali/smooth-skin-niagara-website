@@ -25,7 +25,6 @@ type DraftContact = {
   name: string;
   email: string;
   phone: string;
-  message: string;
 };
 
 interface ImportDialogProps {
@@ -72,7 +71,7 @@ export default function ImportDialog({
             reader.onerror = reject;
             reader.readAsDataURL(file);
           });
-        })
+        }),
       );
 
       const res = await fetch("/api/import", {
@@ -90,7 +89,6 @@ export default function ImportDialog({
         name: c.name || "",
         email: c.email || "",
         phone: c.phone || "",
-        message: c.message || "",
       }));
 
       setImported(contacts);
@@ -104,10 +102,10 @@ export default function ImportDialog({
   const updateContact = (
     index: number,
     field: keyof DraftContact,
-    value: string
+    value: string,
   ) => {
     setImported((prev) =>
-      prev.map((c, i) => (i === index ? { ...c, [field]: value } : c))
+      prev.map((c, i) => (i === index ? { ...c, [field]: value } : c)),
     );
   };
 
@@ -119,10 +117,11 @@ export default function ImportDialog({
     if (imported.length === 0) return;
     setSaving(true);
     try {
+      const payload = imported.map((c) => ({ ...c, message: "" }));
       const res = await fetch("/api/contacts", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(imported),
+        body: JSON.stringify(payload),
       });
       if (!res.ok) throw new Error("Failed to save contacts");
       const saved = await res.json();
@@ -181,10 +180,9 @@ export default function ImportDialog({
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead className="w-32">Name</TableHead>
-                    <TableHead className="w-32">Email</TableHead>
-                    <TableHead className="w-32">Phone</TableHead>
-                    <TableHead>Message</TableHead>
+                    <TableHead className="w-1/3">Name</TableHead>
+                    <TableHead className="w-1/3">Email</TableHead>
+                    <TableHead className="w-1/3">Phone</TableHead>
                     <TableHead className="w-12"></TableHead>
                   </TableRow>
                 </TableHeader>
@@ -216,15 +214,6 @@ export default function ImportDialog({
                             updateContact(i, "phone", e.target.value)
                           }
                           placeholder="Phone"
-                        />
-                      </TableCell>
-                      <TableCell>
-                        <Input
-                          value={c.message}
-                          onChange={(e) =>
-                            updateContact(i, "message", e.target.value)
-                          }
-                          placeholder="Message"
                         />
                       </TableCell>
                       <TableCell>

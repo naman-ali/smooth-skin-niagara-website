@@ -25,17 +25,16 @@ function parseContacts(text: string) {
 
 async function extractContactsFromImage(
   imageDataUrl: string,
-  apiKey: string
+  apiKey: string,
 ): Promise<any[]> {
   const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${apiKey}`,
-      "HTTP-Referer":
-        process.env.VERCEL_URL
-          ? `https://${process.env.VERCEL_URL}`
-          : "http://localhost:3000",
+      "HTTP-Referer": process.env.VERCEL_URL
+        ? `https://${process.env.VERCEL_URL}`
+        : "http://localhost:3000",
       "X-Title": "Smooth Skin Niagara",
     },
     body: JSON.stringify({
@@ -44,7 +43,7 @@ async function extractContactsFromImage(
         {
           role: "system",
           content:
-            "You extract customer contact information from images. Return a JSON array of objects with fields: name, email, phone, message. If the image contains no contact information, return []. Do not wrap the JSON in markdown.",
+            "You extract customer contact information from images. Return a JSON array of objects with fields: name, email, phone. If the image contains no contact information, return []. Do not wrap the JSON in markdown.",
         },
         {
           role: "user",
@@ -80,28 +79,25 @@ export async function POST(request: NextRequest) {
   if (!apiKey) {
     return NextResponse.json(
       { error: "OpenRouter API key is not configured" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 
   const { images } = await request.json();
   if (!Array.isArray(images) || images.length === 0) {
-    return NextResponse.json(
-      { error: "No images provided" },
-      { status: 400 }
-    );
+    return NextResponse.json({ error: "No images provided" }, { status: 400 });
   }
 
   try {
     const results = await Promise.all(
-      images.map((image: string) => extractContactsFromImage(image, apiKey))
+      images.map((image: string) => extractContactsFromImage(image, apiKey)),
     );
     const contacts = results.flat();
     return NextResponse.json({ contacts });
   } catch (error: any) {
     return NextResponse.json(
       { error: error.message || "Image import failed" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

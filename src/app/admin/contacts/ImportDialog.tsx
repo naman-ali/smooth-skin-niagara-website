@@ -1,7 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { Loader2, Upload, X } from "lucide-react";
+import {
+  Loader2,
+  Upload,
+  ChevronLeft,
+  ChevronRight,
+  Check,
+  X,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -12,14 +19,6 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 
 type DraftContact = {
   name: string;
@@ -38,13 +37,19 @@ export default function ImportDialog({
   onOpenChange,
   onImport,
 }: ImportDialogProps) {
+  const [images, setImages] = useState<string[]>([]);
   const [imported, setImported] = useState<DraftContact[]>([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [approved, setApproved] = useState<Set<number>>(new Set());
   const [importing, setImporting] = useState(false);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const reset = () => {
+    setImages([]);
     setImported([]);
+    setCurrentIndex(0);
+    setApproved(new Set());
     setError(null);
     setImporting(false);
     setSaving(false);
@@ -63,7 +68,7 @@ export default function ImportDialog({
     setError(null);
 
     try {
-      const images = await Promise.all(
+      const imageUrls = await Promise.all(
         Array.from(files).map((file) => {
           return new Promise<string>((resolve, reject) => {
             const reader = new FileReader();
@@ -77,7 +82,7 @@ export default function ImportDialog({
       const res = await fetch("/api/import", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ images }),
+        body: JSON.stringify({ images: imageUrls }),
       });
 
       const data = await res.json();
@@ -91,7 +96,10 @@ export default function ImportDialog({
         phone: c.phone || "",
       }));
 
+      setImages(imageUrls);
       setImported(contacts);
+      setCurrentIndex(0);
+      setApproved(new Set());
     } catch (err: any) {
       setError(err.message || "Something went wrong");
     } finally {
@@ -109,15 +117,36 @@ export default function ImportDialog({
     );
   };
 
-  const removeContact = (index: number) => {
-    setImported((prev) => prev.filter((_, i) => i !== index));
+  const handlePrev = () => {
+    setCurrentIndex((i) => Math.max(0, i - 1));
+  };
+
+  const handleNext = () => {
+    setCurrentIndex((i) => Math.min(imported.length - 1, i + 1));
+  };
+
+  const handleApprove = () => {
+    setApproved((prev) => {
+      const next = new Set(prev);
+      if (next.has(currentIndex)) {
+        next.delete(currentIndex);
+      } else {
+        next.add(currentIndex);
+        if (currentIndex < imported.length - 1) {
+          setCurrentIndex(currentIndex + 1);
+        }
+      }
+      return next;
+    });
   };
 
   const handleSave = async () => {
-    if (imported.length === 0) return;
+    if (approved.size === 0) return;
     setSaving(true);
     try {
-      const payload = imported.map((c) => ({ ...c, message: "" }));
+      const payload = imported
+        .filter((_, i) => approved.has(i))
+        .map((c) => ({ ...c, message: "" }));
       const res = await fetch("/api/contacts", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -134,29 +163,39 @@ export default function ImportDialog({
     }
   };
 
+  const isApproved = approved.has(currentIndex);
+  const current = imported[currentIndex];
+
   return (
     <Dialog open={open} onOpenChange={handleClose}>
-      <DialogContent className="max-w-4xl">
+      <DialogContent
+        className={
+          imported.length > 0 ? "max-w-7xl w-[95vw] h-[90vh]" : "max-w-4xl"
+        }
+      >
         <DialogHeader>
           <DialogTitle>Import Contacts from Images</DialogTitle>
           <DialogDescription>
-            Upload one or more images. OpenRouter will extract customer
-            information, which you can review and edit before saving.
+            {imported.length > 0
+              ? `Review and approve each extracted contact. ${approved.size} of ${imported.length} approved.`
+              : "Upload one or more images. OpenRouter will extract customer information for you to review."}
           </DialogDescription>
         </DialogHeader>
 
         <div className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="images">Images</Label>
-            <Input
-              id="images"
-              type="file"
-              accept="image/*"
-              multiple
-              onChange={handleFiles}
-              disabled={importing}
-            />
-          </div>
+          {imported.length === 0 && (
+            <div className="space-y-2">
+              <Label htmlFor="images">Images</Label>
+              <Input
+                id="images"
+                type="file"
+                accept="image/*"
+                multiple
+                onChange={handleFiles}
+                disabled={importing}
+              />
+            </div>
+          )}
 
           {importing && (
             <div className="flex items-center gap-2 text-muted-foreground">
@@ -171,85 +210,117 @@ export default function ImportDialog({
             </div>
           )}
 
-          {imported.length > 0 && (
-            <div className="space-y-2">
-              <p className="text-sm text-muted-foreground">
-                {imported.length} contact
-                {imported.length === 1 ? "" : "s"} found. Edit before saving.
-              </p>
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead className="w-1/3">Name</TableHead>
-                    <TableHead className="w-1/3">Email</TableHead>
-                    <TableHead className="w-1/3">Phone</TableHead>
-                    <TableHead className="w-12"></TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {imported.map((c, i) => (
-                    <TableRow key={i}>
-                      <TableCell>
-                        <Input
-                          value={c.name}
-                          onChange={(e) =>
-                            updateContact(i, "name", e.target.value)
-                          }
-                          placeholder="Name"
-                        />
-                      </TableCell>
-                      <TableCell>
-                        <Input
-                          value={c.email}
-                          onChange={(e) =>
-                            updateContact(i, "email", e.target.value)
-                          }
-                          placeholder="Email"
-                        />
-                      </TableCell>
-                      <TableCell>
-                        <Input
-                          value={c.phone}
-                          onChange={(e) =>
-                            updateContact(i, "phone", e.target.value)
-                          }
-                          placeholder="Phone"
-                        />
-                      </TableCell>
-                      <TableCell>
-                        <Button
-                          size="icon"
-                          variant="ghost"
-                          onClick={() => removeContact(i)}
-                        >
-                          <X className="size-4" />
-                          <span className="sr-only">Remove</span>
-                        </Button>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+          {imported.length > 0 && current && (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 h-[75vh] overflow-hidden">
+              <div className="relative h-full w-full rounded-lg border bg-muted">
+                <img
+                  src={images[currentIndex]}
+                  alt={`Image ${currentIndex + 1}`}
+                  className="h-full w-full object-contain rounded-lg"
+                />
+              </div>
+
+              <div className="flex flex-col h-full space-y-4 overflow-y-auto pr-2">
+                <p className="text-sm text-muted-foreground">
+                  Image {currentIndex + 1} of {imported.length}
+                </p>
+
+                <div className="space-y-2">
+                  <Label htmlFor="name">Name</Label>
+                  <Input
+                    id="name"
+                    value={current.name}
+                    onChange={(e) =>
+                      updateContact(currentIndex, "name", e.target.value)
+                    }
+                    placeholder="Name"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="email">Email</Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    value={current.email}
+                    onChange={(e) =>
+                      updateContact(currentIndex, "email", e.target.value)
+                    }
+                    placeholder="Email"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="phone">Phone</Label>
+                  <Input
+                    id="phone"
+                    value={current.phone}
+                    onChange={(e) =>
+                      updateContact(currentIndex, "phone", e.target.value)
+                    }
+                    placeholder="Phone"
+                  />
+                </div>
+
+                <div className="mt-auto pt-4 flex flex-wrap items-center gap-2">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={handlePrev}
+                    disabled={currentIndex === 0}
+                  >
+                    <ChevronLeft className="size-4 mr-2" />
+                    Prev
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={handleNext}
+                    disabled={currentIndex === imported.length - 1}
+                  >
+                    Next
+                    <ChevronRight className="size-4 ml-2" />
+                  </Button>
+                  <Button
+                    type="button"
+                    onClick={handleApprove}
+                    variant={isApproved ? "outline" : "default"}
+                  >
+                    {isApproved ? (
+                      <>
+                        <X className="size-4 mr-2" />
+                        Unapprove
+                      </>
+                    ) : (
+                      <>
+                        <Check className="size-4 mr-2" />
+                        {currentIndex === imported.length - 1
+                          ? "Approve"
+                          : "Approve & Next"}
+                      </>
+                    )}
+                  </Button>
+                  <div className="flex-1" />
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => handleClose(false)}
+                    disabled={importing || saving}
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    type="button"
+                    onClick={handleSave}
+                    disabled={approved.size === 0 || saving}
+                  >
+                    {saving && <Loader2 className="size-4 mr-2 animate-spin" />}
+                    Save {approved.size} Approved
+                  </Button>
+                </div>
+              </div>
             </div>
           )}
-
-          <div className="flex justify-end gap-2 pt-2">
-            <Button
-              variant="outline"
-              onClick={() => handleClose(false)}
-              disabled={importing || saving}
-            >
-              Cancel
-            </Button>
-            <Button
-              onClick={handleSave}
-              disabled={imported.length === 0 || importing || saving}
-            >
-              {saving && <Loader2 className="size-4 mr-2 animate-spin" />}
-              Save {imported.length > 0 ? imported.length : ""} Contact
-              {imported.length === 1 ? "" : "s"}
-            </Button>
-          </div>
         </div>
       </DialogContent>
     </Dialog>

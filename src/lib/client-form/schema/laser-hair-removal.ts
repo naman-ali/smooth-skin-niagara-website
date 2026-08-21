@@ -1,4 +1,19 @@
-import type { TreatmentFormDefinition } from "../types";
+import type { SelectOption, TreatmentFormDefinition } from "../types";
+
+const LASER_TREATMENT_AREA_OPTIONS: SelectOption[] = [
+  { value: "face", label: "Face" },
+  { value: "upper_lip", label: "Upper Lip" },
+  { value: "chin", label: "Chin" },
+  { value: "neck", label: "Neck" },
+  { value: "underarms", label: "Underarms" },
+  { value: "arms", label: "Arms" },
+  { value: "bikini", label: "Bikini" },
+  { value: "brazilian", label: "Brazilian" },
+  { value: "legs", label: "Legs" },
+  { value: "back", label: "Back" },
+  { value: "chest", label: "Chest" },
+  { value: "abdomen", label: "Abdomen" },
+];
 
 export const laserHairRemoval: TreatmentFormDefinition = {
   id: "laser-hair-removal",
@@ -181,10 +196,18 @@ export const laserHairRemoval: TreatmentFormDefinition = {
         },
         {
           id: "laser_alcohol_consumption",
-          type: "text",
-          label: "Daily consumption of alcohol",
-          helperText: "For example: none, occasional, 1 drink per day.",
+          type: "singleSelectWithOther",
+          label: "How often do you consume alcohol?",
           required: true,
+          options: [
+            { value: "never", label: "Never" },
+            { value: "occasionally", label: "Occasionally" },
+            { value: "1_2_per_week", label: "1\u20132 times per week" },
+            { value: "3_5_per_week", label: "3\u20135 times per week" },
+            { value: "daily", label: "Daily" },
+          ],
+          allowOther: true,
+          otherFieldLabel: "Please describe.",
         },
         {
           id: "laser_allergies",
@@ -237,19 +260,54 @@ export const laserHairRemoval: TreatmentFormDefinition = {
         },
         {
           id: "laser_sun_response",
-          type: "textarea",
+          type: "singleSelectWithOther",
           label:
             "What happens to your skin when exposed to the sun without protection?",
-          placeholder: "For example: burns easily, freckles, tans, rarely burns.",
           required: true,
+          options: [
+            {
+              value: "burns_very_easily_no_tan",
+              label: "Burns very easily and does not tan",
+            },
+            {
+              value: "burns_easily_tans_minimally",
+              label: "Burns easily and tans minimally",
+            },
+            {
+              value: "sometimes_burns_gradually_tans",
+              label: "Sometimes burns and gradually tans",
+            },
+            {
+              value: "rarely_burns_tans_easily",
+              label: "Rarely burns and tans easily",
+            },
+            {
+              value: "very_rarely_never_burns_tans_very_easily",
+              label: "Very rarely/never burns and tans very easily",
+            },
+          ],
+          allowOther: true,
+          otherFieldLabel: "Please describe how your skin responds to the sun.",
         },
         {
           id: "laser_last_sun_exposure",
-          type: "text",
+          type: "singleSelectWithOther",
           label:
             "When were you last exposed to the sun for a long period, including a tanning booth?",
-          placeholder: "e.g. October 2025 or 3 months ago",
           required: true,
+          options: [
+            { value: "within_last_week", label: "Within the last week" },
+            { value: "1_2_weeks_ago", label: "1\u20132 weeks ago" },
+            { value: "3_4_weeks_ago", label: "3\u20134 weeks ago" },
+            { value: "1_3_months_ago", label: "1\u20133 months ago" },
+            {
+              value: "more_than_3_months_ago",
+              label: "More than 3 months ago",
+            },
+            { value: "dont_remember", label: "I don't remember" },
+          ],
+          allowOther: true,
+          otherFieldLabel: "Please specify approximately when.",
         },
         {
           id: "laser_chemical_tanning",
@@ -275,9 +333,12 @@ export const laserHairRemoval: TreatmentFormDefinition = {
         },
         {
           id: "laser_treatment_area",
-          type: "textarea",
+          type: "multiSelectWithOther",
           label: "What area or areas would you like treated?",
           required: true,
+          options: LASER_TREATMENT_AREA_OPTIONS,
+          allowOther: true,
+          otherFieldLabel: "Please specify treatment area(s).",
         },
         {
           id: "laser_previous_treatment",
@@ -286,13 +347,23 @@ export const laserHairRemoval: TreatmentFormDefinition = {
             "Have you previously had laser or light-based hair removal treatment in these areas?",
           required: true,
           followUp: {
-            id: "laser_previous_treatment_details",
-            type: "textarea",
-            label: "Please provide details about your previous treatment.",
+            id: "laser_previous_treatment_areas",
+            type: "multiSelectWithOther",
+            label: "Which area(s) were previously treated?",
             required: true,
+            options: LASER_TREATMENT_AREA_OPTIONS,
+            allowOther: true,
+            otherFieldLabel: "Please specify treatment area(s).",
             showWhen: {
               questionId: "laser_previous_treatment",
               equals: true,
+            },
+            followUp: {
+              id: "laser_previous_treatment_details",
+              type: "textarea",
+              label:
+                "Is there anything else you'd like us to know about your previous treatment?",
+              required: false,
             },
           },
         },

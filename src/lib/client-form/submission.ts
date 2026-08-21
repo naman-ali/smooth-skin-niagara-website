@@ -1,6 +1,15 @@
 import { FORM_VERSION } from "./schema";
-import type { ClientInfoValues, FormValues } from "./form-values";
+import type {
+  ClientInfoValues,
+  FormValues,
+  ReferralSourceValue,
+} from "./form-values";
 import { getTreatmentDefinition } from "./schema";
+import {
+  REFERRAL_OTHER_VALUE,
+  REFERRER_NAME_VALUES,
+  getReferralSourceLabel,
+} from "./referral-source";
 
 export type ClientFormSubmission = {
   formVersion: string;
@@ -18,7 +27,12 @@ export type ClientFormSubmission = {
       postalCode: string;
     };
     age?: number;
-    referralSource?: string;
+    referralSource?: {
+      value: string;
+      label: string;
+      otherText?: string;
+      referrerName?: string;
+    };
   };
 
   treatmentResponses: {
@@ -45,6 +59,28 @@ export type ClientFormSubmission = {
   submittedAt: string;
 };
 
+function buildReferralSource(
+  referral: ReferralSourceValue,
+): ClientFormSubmission["client"]["referralSource"] {
+  if (!referral.value) return undefined;
+
+  const result: NonNullable<ClientFormSubmission["client"]["referralSource"]> =
+    {
+      value: referral.value,
+      label: getReferralSourceLabel(referral.value),
+    };
+  if (referral.value === REFERRAL_OTHER_VALUE && referral.otherText.trim()) {
+    result.otherText = referral.otherText.trim();
+  }
+  if (
+    REFERRER_NAME_VALUES.includes(referral.value) &&
+    referral.referrerName.trim()
+  ) {
+    result.referrerName = referral.referrerName.trim();
+  }
+  return result;
+}
+
 function buildClient(client: ClientInfoValues): ClientFormSubmission["client"] {
   const parsedAge = client.age?.trim() ? Number(client.age) : undefined;
   return {
@@ -59,7 +95,7 @@ function buildClient(client: ClientInfoValues): ClientFormSubmission["client"] {
       postalCode: client.postalCode.trim(),
     },
     age: Number.isFinite(parsedAge) ? parsedAge : undefined,
-    referralSource: client.referralSource?.trim() || undefined,
+    referralSource: buildReferralSource(client.referralSource),
   };
 }
 
@@ -67,7 +103,9 @@ function buildClient(client: ClientInfoValues): ClientFormSubmission["client"] {
  * Builds the single typed submission object from current form state.
  * The timestamp is generated only at the moment of (mock) submission.
  */
-export function buildClientFormSubmission(values: FormValues): ClientFormSubmission {
+export function buildClientFormSubmission(
+  values: FormValues,
+): ClientFormSubmission {
   const submittedAt = new Date().toISOString();
 
   const treatmentResponses: ClientFormSubmission["treatmentResponses"] = {};
@@ -111,7 +149,7 @@ export function buildClientFormSubmission(values: FormValues): ClientFormSubmiss
  * be dropped in without changing any form/rendering code.
  */
 export async function mockSubmitClientForm(
-  values: FormValues
+  values: FormValues,
 ): Promise<ClientFormSubmission> {
   const submission = buildClientFormSubmission(values);
   // Simulate network latency for a realistic submit experience.

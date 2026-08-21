@@ -3,6 +3,12 @@
 // wizard validate only the fields relevant to the current step while
 // preserving every other answer when navigating Back/Continue/Edit.
 
+export type ReferralSourceValue = {
+  value: string;
+  otherText: string;
+  referrerName: string;
+};
+
 export type ClientInfoValues = {
   firstName: string;
   lastName: string;
@@ -13,7 +19,7 @@ export type ClientInfoValues = {
   province: string;
   postalCode: string;
   age: string;
-  referralSource: string;
+  referralSource: ReferralSourceValue;
 };
 
 /** Answers for a single treatment, keyed by stable question id. */
@@ -46,7 +52,7 @@ export const EMPTY_CLIENT_INFO: ClientInfoValues = {
   province: "",
   postalCode: "",
   age: "",
-  referralSource: "",
+  referralSource: { value: "", otherText: "", referrerName: "" },
 };
 
 export const DEFAULT_FORM_VALUES: FormValues = {

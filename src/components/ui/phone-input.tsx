@@ -19,7 +19,6 @@ export function PhoneInput({ ...props }: PhoneInputProps) {
       inputComponent={Input}
       defaultCountry="US"
       international
-      withCountryCallingCode
       {...props}
     />
   );

@@ -7,26 +7,30 @@ import type { FormQuestion, FormSection, ShowWhen } from "./types";
  */
 export function isQuestionVisible(
   showWhen: ShowWhen | undefined,
-  answers: Record<string, unknown>
+  answers: Record<string, unknown>,
 ): boolean {
   if (!showWhen) return true;
   const value = answers[showWhen.questionId];
   return value === showWhen.equals;
 }
 
-/** Flattens a section's questions with their (possible) followUp question. */
-export function flattenSectionQuestions(section: FormSection): FormQuestion[] {
-  const result: FormQuestion[] = [];
-  for (const question of section.questions) {
-    result.push(question);
-    if (question.followUp) {
-      result.push(question.followUp);
-    }
+/** Flattens a question and its (possibly chained) followUp questions. */
+export function flattenQuestionChain(question: FormQuestion): FormQuestion[] {
+  const result: FormQuestion[] = [question];
+  if (question.followUp) {
+    result.push(...flattenQuestionChain(question.followUp));
   }
   return result;
 }
 
-export function flattenSectionsQuestions(sections: FormSection[]): FormQuestion[] {
+/** Flattens a section's questions along with any chained followUp questions. */
+export function flattenSectionQuestions(section: FormSection): FormQuestion[] {
+  return section.questions.flatMap(flattenQuestionChain);
+}
+
+export function flattenSectionsQuestions(
+  sections: FormSection[],
+): FormQuestion[] {
   return sections.flatMap(flattenSectionQuestions);
 }
 
@@ -38,7 +42,7 @@ export function flattenSectionsQuestions(sections: FormSection[]): FormQuestion[
  */
 export function clearHiddenAnswers(
   questions: FormQuestion[],
-  answers: Record<string, unknown>
+  answers: Record<string, unknown>,
 ): Record<string, unknown> {
   const next = { ...answers };
   let changed = false;

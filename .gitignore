@@ -11,3 +11,7 @@ dist/
 .agents/
 skills-lock.json
 .env*
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/

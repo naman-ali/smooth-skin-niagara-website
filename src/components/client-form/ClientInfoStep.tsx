@@ -1,11 +1,20 @@
 "use client";
 
-import { useFormContext, useWatch } from "react-hook-form";
+import { Controller, useFormContext, useWatch } from "react-hook-form";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { FieldError } from "./questions/FieldError";
-import type { FormValues } from "@/lib/client-form/form-values";
+import { OptionChip } from "./questions/OptionChip";
+import { OtherTextField } from "./questions/OtherTextField";
+import type {
+  FormValues,
+  ReferralSourceValue,
+} from "@/lib/client-form/form-values";
+import {
+  REFERRAL_OTHER_VALUE,
+  REFERRAL_SOURCE_OPTIONS,
+  REFERRER_NAME_VALUES,
+} from "@/lib/client-form/referral-source";
 
 type FieldConfig = {
   name: keyof FormValues["clientInfo"];
@@ -29,7 +38,13 @@ const ADDRESS_FIELDS: FieldConfig[] = [
 ];
 
 const CONTACT_FIELDS: FieldConfig[] = [
-  { name: "email", label: "Email address", type: "email", required: true, span: "half" },
+  {
+    name: "email",
+    label: "Email address",
+    type: "email",
+    required: true,
+    span: "half",
+  },
   {
     name: "phone",
     label: "Phone number",
@@ -47,7 +62,8 @@ export function ClientInfoStep() {
     formState: { errors },
   } = useFormContext<FormValues>();
 
-  const selectedTreatments = useWatch({ control, name: "selectedTreatments" }) ?? [];
+  const selectedTreatments =
+    useWatch({ control, name: "selectedTreatments" }) ?? [];
   const ageRequired = selectedTreatments.includes("laser-hair-removal");
 
   const renderField = (field: FieldConfig) => {
@@ -76,20 +92,29 @@ export function ClientInfoStep() {
           className="mt-1.5 h-12 text-base"
           {...register(`clientInfo.${field.name}` as const)}
         />
-        <FieldError id={`${id}-error`} message={error?.message as string | undefined} />
+        <FieldError
+          id={`${id}-error`}
+          message={error?.message as string | undefined}
+        />
       </div>
     );
   };
 
   return (
     <div className="space-y-8">
-      <div className="grid gap-5 sm:grid-cols-2">{NAME_FIELDS.map(renderField)}</div>
+      <div className="grid gap-5 sm:grid-cols-2">
+        {NAME_FIELDS.map(renderField)}
+      </div>
 
-      <div className="grid gap-5 sm:grid-cols-2">{CONTACT_FIELDS.map(renderField)}</div>
+      <div className="grid gap-5 sm:grid-cols-2">
+        {CONTACT_FIELDS.map(renderField)}
+      </div>
 
       <div className="space-y-1.5">
         <p className="text-[15px] font-medium text-foreground">Address</p>
-        <div className="grid gap-5 sm:grid-cols-2">{ADDRESS_FIELDS.map(renderField)}</div>
+        <div className="grid gap-5 sm:grid-cols-2">
+          {ADDRESS_FIELDS.map(renderField)}
+        </div>
       </div>
 
       <div>
@@ -101,7 +126,10 @@ export function ClientInfoStep() {
               *
             </span>
           ) : (
-            <span className="text-muted-foreground font-normal"> (optional)</span>
+            <span className="text-muted-foreground font-normal">
+              {" "}
+              (optional)
+            </span>
           )}
         </Label>
         <Input
@@ -109,7 +137,9 @@ export function ClientInfoStep() {
           inputMode="numeric"
           className="mt-1.5 h-12 max-w-[160px] text-base"
           aria-invalid={errors.clientInfo?.age ? true : undefined}
-          aria-describedby={errors.clientInfo?.age ? "clientInfo.age-error" : undefined}
+          aria-describedby={
+            errors.clientInfo?.age ? "clientInfo.age-error" : undefined
+          }
           {...register("clientInfo.age")}
         />
         <FieldError
@@ -118,18 +148,104 @@ export function ClientInfoStep() {
         />
       </div>
 
-      <div>
-        <Label htmlFor="clientInfo.referralSource" className="text-[15px] font-medium">
-          How did you hear about us? If someone referred you, please include their
-          name.
-        </Label>
-        <Textarea
-          id="clientInfo.referralSource"
-          rows={2}
-          className="mt-1.5 min-h-[80px] text-base"
-          {...register("clientInfo.referralSource")}
-        />
-      </div>
+      <ReferralSourceField />
     </div>
+  );
+}
+
+function ReferralSourceField() {
+  const {
+    control,
+    formState: { errors },
+  } = useFormContext<FormValues>();
+  const error = errors.clientInfo?.referralSource;
+
+  return (
+    <Controller
+      name="clientInfo.referralSource"
+      control={control}
+      render={({ field }) => {
+        const answer: ReferralSourceValue = field.value;
+        const isOther = answer.value === REFERRAL_OTHER_VALUE;
+        const showReferrerName = REFERRER_NAME_VALUES.includes(answer.value);
+
+        const select = (value: string) => {
+          field.onChange({
+            value,
+            otherText: value === REFERRAL_OTHER_VALUE ? answer.otherText : "",
+            referrerName: REFERRER_NAME_VALUES.includes(value)
+              ? answer.referrerName
+              : "",
+          });
+        };
+
+        return (
+          <fieldset id="clientInfo.referralSource" className="space-y-2">
+            <legend className="text-[15px] font-medium leading-snug text-foreground">
+              How did you hear about us?
+            </legend>
+            <div
+              role="radiogroup"
+              aria-label="How did you hear about us?"
+              className="flex flex-wrap gap-2"
+            >
+              {REFERRAL_SOURCE_OPTIONS.map((option) => (
+                <OptionChip
+                  key={option.value}
+                  role="radio"
+                  label={option.label}
+                  selected={answer.value === option.value}
+                  onClick={() => select(option.value)}
+                />
+              ))}
+              <OptionChip
+                role="radio"
+                label="Other"
+                selected={isOther}
+                onClick={() => select(REFERRAL_OTHER_VALUE)}
+              />
+            </div>
+            <FieldError
+              id="clientInfo.referralSource-error"
+              message={error?.message as string | undefined}
+            />
+
+            {showReferrerName ? (
+              <div className="mt-2 max-w-md space-y-1.5">
+                <Label
+                  htmlFor="clientInfo.referralSource.referrerName"
+                  className="text-sm font-medium text-foreground"
+                >
+                  Who referred you?{" "}
+                  <span className="font-normal text-muted-foreground">
+                    (optional)
+                  </span>
+                </Label>
+                <Input
+                  id="clientInfo.referralSource.referrerName"
+                  value={answer.referrerName}
+                  onChange={(e) =>
+                    field.onChange({ ...answer, referrerName: e.target.value })
+                  }
+                  className="h-11 text-base"
+                />
+              </div>
+            ) : null}
+
+            {isOther ? (
+              <OtherTextField
+                id="clientInfo.referralSource.otherText"
+                label="Please tell us how you heard about us."
+                value={answer.otherText}
+                onChange={(text) =>
+                  field.onChange({ ...answer, otherText: text })
+                }
+                required
+              />
+            ) : null}
+          </fieldset>
+        );
+      }}
+    />
   );
 }

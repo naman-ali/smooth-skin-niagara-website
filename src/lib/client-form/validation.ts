@@ -1,7 +1,11 @@
 import { z } from "zod";
 import type { FieldErrors, Resolver } from "react-hook-form";
 import type { FormValues } from "./form-values";
-import type { FormQuestion } from "./types";
+import type {
+  FormQuestion,
+  MultiSelectWithOtherAnswer,
+  SingleSelectWithOtherAnswer,
+} from "./types";
 import { getSelectedTreatmentDefinitions } from "./schema";
 import { flattenSectionsQuestions, isQuestionVisible } from "./conditional";
 
@@ -42,6 +46,38 @@ function firstIssueMessage(
   return result.error.issues[0]?.message ?? "This field is required.";
 }
 
+function singleSelectWithOtherError(
+  question: FormQuestion,
+  value: unknown,
+): string | undefined {
+  const answer = (value ?? {}) as Partial<SingleSelectWithOtherAnswer>;
+  if (!answer.value) return "Please select an option.";
+  const otherValue = question.otherValue ?? "other";
+  if (question.allowOther && answer.value === otherValue) {
+    if (!answer.otherText || !answer.otherText.trim()) {
+      return "Please provide more detail.";
+    }
+  }
+  return undefined;
+}
+
+function multiSelectWithOtherError(
+  question: FormQuestion,
+  value: unknown,
+): string | undefined {
+  const answer = (value ?? {}) as Partial<MultiSelectWithOtherAnswer>;
+  if (!answer.values || answer.values.length === 0) {
+    return "Please select at least one option.";
+  }
+  const otherValue = question.otherValue ?? "other";
+  if (question.allowOther && answer.values.includes(otherValue)) {
+    if (!answer.otherText || !answer.otherText.trim()) {
+      return "Please provide more detail.";
+    }
+  }
+  return undefined;
+}
+
 function questionError(
   question: FormQuestion,
   value: unknown,
@@ -55,6 +91,10 @@ function questionError(
       return firstIssueMessage(
         requiredText("Please select an option.").safeParse(value),
       );
+    case "singleSelectWithOther":
+      return singleSelectWithOtherError(question, value);
+    case "multiSelectWithOther":
+      return multiSelectWithOtherError(question, value);
     case "checkbox":
     case "acknowledgement":
       return value === true ? undefined : "This must be accepted to continue.";
@@ -131,6 +171,16 @@ function buildClientInfoErrors(
     );
   } else if (clientInfo.age.trim()) {
     setIfError("age", ageSchema.safeParse(clientInfo.age));
+  }
+
+  if (
+    clientInfo.referralSource.value === "other" &&
+    !clientInfo.referralSource.otherText.trim()
+  ) {
+    errors.referralSource = {
+      type: "validation",
+      message: "Please tell us how you heard about us.",
+    };
   }
 
   return errors;

@@ -11,6 +11,8 @@ export type QuestionType =
   | "textarea"
   | "yesNo"
   | "singleSelect"
+  | "singleSelectWithOther"
+  | "multiSelectWithOther"
   | "checkbox"
   | "acknowledgement"
   | "consentPlaceholder";
@@ -26,6 +28,18 @@ export type SelectOption = {
   label: string;
 };
 
+/** Answer shape stored for a `singleSelectWithOther` question. */
+export type SingleSelectWithOtherAnswer = {
+  value: string;
+  otherText?: string;
+};
+
+/** Answer shape stored for a `multiSelectWithOther` question. */
+export type MultiSelectWithOtherAnswer = {
+  values: string[];
+  otherText?: string;
+};
+
 export type FormQuestion = {
   /** Stable, machine-friendly identifier. Never derived from label text. */
   id: string;
@@ -39,8 +53,24 @@ export type FormQuestion = {
   helperText?: string;
   /** Show this question only when the referenced question's answer matches. */
   showWhen?: ShowWhen;
-  /** A follow-up question rendered indented directly beneath this one. */
+  /** A follow-up question rendered indented directly beneath this one. Can be chained (a followUp may itself have a followUp). */
   followUp?: FormQuestion;
+
+  // --- singleSelectWithOther / multiSelectWithOther only ---
+  /** Whether an "Other" option is offered alongside `options`. */
+  allowOther?: boolean;
+  /** Stable machine value stored when "Other" is selected. Defaults to "other". */
+  otherValue?: string;
+  /** Label shown on the selectable "Other" chip. Defaults to "Other". */
+  otherLabel?: string;
+  /** Label shown above the free-text field revealed when "Other" is selected. */
+  otherFieldLabel?: string;
+  otherPlaceholder?: string;
+  /**
+   * Option values (for multiSelectWithOther) that are mutually exclusive with
+   * every other option, e.g. a "None" choice that clears any other selection.
+   */
+  exclusiveOptions?: string[];
 };
 
 export type FormSection = {

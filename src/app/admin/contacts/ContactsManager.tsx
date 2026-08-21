@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Pencil, Plus, Trash2, Upload } from "lucide-react";
 import ImportDialog from "./ImportDialog";
+import ApproveDialog from "./ApproveDialog";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -37,6 +38,9 @@ type Contact = {
   email: string;
   phone: string | null;
   message: string;
+  approved: boolean;
+  source: string;
+  imageUrl: string | null;
   createdAt: string;
 };
 
@@ -55,6 +59,7 @@ export default function ContactsManager({
   const [editing, setEditing] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
   const [importOpen, setImportOpen] = useState(false);
+  const [approveOpen, setApproveOpen] = useState(false);
 
   const resetForm = () => {
     setForm({ name: "", email: "", phone: "", message: "" });
@@ -71,10 +76,11 @@ export default function ContactsManager({
     e.preventDefault();
     const url = editing ? `/api/contacts/${editing}` : "/api/contacts";
     const method = editing ? "PATCH" : "POST";
+    const body = editing ? form : { ...form, approved: true, source: "manual" };
     const res = await fetch(url, {
       method,
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
+      body: JSON.stringify(body),
     });
     if (!res.ok) return;
     const saved = await res.json();
@@ -116,6 +122,13 @@ export default function ContactsManager({
               <Upload className="size-4 mr-2" />
               Import
             </Button>
+            <Button
+              variant="outline"
+              onClick={() => setApproveOpen(true)}
+              disabled={!contacts.some((c) => !c.approved)}
+            >
+              Approve Unapproved
+            </Button>
             <Button onClick={startAdd}>
               <Plus className="size-4 mr-2" />
               Add Contact
@@ -130,6 +143,8 @@ export default function ContactsManager({
                 <TableHead>Email</TableHead>
                 <TableHead>Phone</TableHead>
                 <TableHead>Message</TableHead>
+                <TableHead>Source</TableHead>
+                <TableHead>Approved</TableHead>
                 <TableHead>Created</TableHead>
                 <TableHead className="text-right">Actions</TableHead>
               </TableRow>
@@ -142,6 +157,14 @@ export default function ContactsManager({
                   <TableCell>{c.phone || "-"}</TableCell>
                   <TableCell className="max-w-xs truncate">
                     {c.message}
+                  </TableCell>
+                  <TableCell>{c.source}</TableCell>
+                  <TableCell>
+                    {c.approved ? (
+                      <span className="text-green-600">Yes</span>
+                    ) : (
+                      <span className="text-amber-600">No</span>
+                    )}
                   </TableCell>
                   <TableCell>
                     {new Date(c.createdAt).toLocaleString()}
@@ -253,6 +276,17 @@ export default function ContactsManager({
         onOpenChange={setImportOpen}
         onImport={(saved) =>
           setContacts((prev) => [...(saved as Contact[]), ...prev])
+        }
+      />
+
+      <ApproveDialog
+        open={approveOpen}
+        onOpenChange={setApproveOpen}
+        contacts={contacts}
+        onUpdate={(updated) =>
+          setContacts((prev) =>
+            prev.map((c) => (c.id === updated.id ? updated : c)),
+          )
         }
       />
     </div>

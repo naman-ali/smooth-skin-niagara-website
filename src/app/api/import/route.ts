@@ -1,5 +1,8 @@
+import { put } from "@vercel/blob";
+import { parsePhoneNumber } from "libphonenumber-js";
 import { auth } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
+import { prisma } from "@/lib/prisma";
 
 async function requireAdmin() {
   const { userId } = await auth();
@@ -21,6 +24,24 @@ function parseContacts(text: string) {
   } catch {
     return [];
   }
+}
+
+async function uploadImageToBlob(imageDataUrl: string) {
+  const match = imageDataUrl.match(/^data:(.+);base64,(.+)$/);
+  if (!match) {
+    throw new Error("Invalid image data");
+  }
+  const [, contentType, base64] = match;
+  const buffer = Buffer.from(base64, "base64");
+  const extension = contentType.split("/")[1] || "png";
+  const filename = `imports/${Date.now()}-${Math.random()
+    .toString(36)
+    .slice(2)}.${extension}`;
+  const blob = await put(filename, buffer, {
+    access: "public",
+    contentType,
+  });
+  return blob.url;
 }
 
 async function extractContactsFromImage(
@@ -89,11 +110,39 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    const results = await Promise.all(
-      images.map((image: string) => extractContactsFromImage(image, apiKey)),
+    const created = await Promise.all(
+      images.map(async (image: string) => {
+        const imageUrl = await uploadImageToBlob(image);
+        const extracted = await extractContactsFromImage(image, apiKey);
+
+        const contactsToCreate = extracted.length
+          ? extracted
+          : [{ name: "", email: "", phone: "" }];
+
+        return Promise.all(
+          contactsToCreate.map(async (c: any) => {
+            const rawPhone = c.phone || "";
+            const parsed = rawPhone
+              ? parsePhoneNumber(rawPhone, "US")
+              : undefined;
+            return prisma.contact.create({
+              data: {
+                name: c.name || "",
+                email: c.email || "",
+                phone: parsed ? parsed.format("E.164") : rawPhone || null,
+                message: "",
+                approved: false,
+                source: "image_import",
+                imageUrl,
+              },
+            });
+          }),
+        );
+      }),
     );
-    const contacts = results.flat();
-    return NextResponse.json({ contacts });
+
+    const contacts = created.flat();
+    return NextResponse.json({ contacts }, { status: 201 });
   } catch (error: any) {
     return NextResponse.json(
       { error: error.message || "Image import failed" },

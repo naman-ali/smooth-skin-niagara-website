@@ -19,6 +19,9 @@ model Contact {
   email     String
   phone     String?
   message   String
+  approved  Boolean  @default(false)
+  source    String   @default("manual")
+  imageUrl  String?
   createdAt DateTime @default(now())
 }
 

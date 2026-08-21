@@ -1,6 +1,26 @@
 "use client";
 
 import { useState } from "react";
+import { Pencil, Trash2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
 type Contact = {
   id: string;
@@ -42,9 +62,7 @@ export default function ContactsManager({
     if (!res.ok) return;
     const saved = await res.json();
     if (editing) {
-      setContacts((prev) =>
-        prev.map((c) => (c.id === saved.id ? saved : c))
-      );
+      setContacts((prev) => prev.map((c) => (c.id === saved.id ? saved : c)));
     } else {
       setContacts((prev) => [saved, ...prev]);
     }
@@ -68,99 +86,134 @@ export default function ContactsManager({
   };
 
   return (
-    <div className="space-y-8">
-      <form onSubmit={onSubmit} className="space-y-4 max-w-2xl">
-        <div className="grid grid-cols-2 gap-4">
-          <input
-            type="text"
-            placeholder="Name"
-            value={form.name}
-            onChange={(e) => setForm({ ...form, name: e.target.value })}
-            className="border p-2 rounded"
-            required
-          />
-          <input
-            type="email"
-            placeholder="Email"
-            value={form.email}
-            onChange={(e) => setForm({ ...form, email: e.target.value })}
-            className="border p-2 rounded"
-            required
-          />
-          <input
-            type="text"
-            placeholder="Phone"
-            value={form.phone}
-            onChange={(e) => setForm({ ...form, phone: e.target.value })}
-            className="border p-2 rounded col-span-2"
-          />
-        </div>
-        <textarea
-          placeholder="Message"
-          value={form.message}
-          onChange={(e) => setForm({ ...form, message: e.target.value })}
-          className="border p-2 rounded w-full"
-          rows={3}
-          required
-        />
-        <div className="flex gap-2">
-          <button
-            type="submit"
-            className="px-4 py-2 bg-blue-700 text-white rounded"
-          >
-            {editing ? "Update Contact" : "Add Contact"}
-          </button>
-          {editing && (
-            <button
-              type="button"
-              onClick={resetForm}
-              className="px-4 py-2 border rounded"
-            >
-              Cancel
-            </button>
-          )}
-        </div>
-      </form>
+    <div className="space-y-8 max-w-6xl mx-auto">
+      <Card>
+        <CardHeader>
+          <CardTitle>{editing ? "Edit Contact" : "Add Contact"}</CardTitle>
+          <CardDescription>
+            {editing
+              ? "Update the selected contact and save changes."
+              : "Create a new contact record."}
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={onSubmit} className="space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="name">Name</Label>
+                <Input
+                  id="name"
+                  type="text"
+                  placeholder="Name"
+                  value={form.name}
+                  onChange={(e) => setForm({ ...form, name: e.target.value })}
+                  required
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="email">Email</Label>
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder="Email"
+                  value={form.email}
+                  onChange={(e) => setForm({ ...form, email: e.target.value })}
+                  required
+                />
+              </div>
+              <div className="space-y-2 md:col-span-2">
+                <Label htmlFor="phone">Phone</Label>
+                <Input
+                  id="phone"
+                  type="text"
+                  placeholder="Phone"
+                  value={form.phone}
+                  onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                />
+              </div>
+              <div className="space-y-2 md:col-span-2">
+                <Label htmlFor="message">Message</Label>
+                <Textarea
+                  id="message"
+                  placeholder="Message"
+                  value={form.message}
+                  onChange={(e) =>
+                    setForm({ ...form, message: e.target.value })
+                  }
+                  rows={3}
+                  required
+                />
+              </div>
+            </div>
+            <div className="flex gap-2">
+              <Button type="submit">
+                {editing ? "Update Contact" : "Add Contact"}
+              </Button>
+              {editing && (
+                <Button type="button" variant="outline" onClick={resetForm}>
+                  Cancel
+                </Button>
+              )}
+            </div>
+          </form>
+        </CardContent>
+      </Card>
 
-      <table className="w-full border-collapse border">
-        <thead>
-          <tr className="bg-gray-100">
-            <th className="border p-2 text-left">Name</th>
-            <th className="border p-2 text-left">Email</th>
-            <th className="border p-2 text-left">Phone</th>
-            <th className="border p-2 text-left">Message</th>
-            <th className="border p-2 text-left">Created</th>
-            <th className="border p-2 text-left">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {contacts.map((c) => (
-            <tr key={c.id} className="border">
-              <td className="border p-2">{c.name}</td>
-              <td className="border p-2">{c.email}</td>
-              <td className="border p-2">{c.phone || "-"}</td>
-              <td className="border p-2 max-w-sm truncate">{c.message}</td>
-              <td className="border p-2">
-                {new Date(c.createdAt).toLocaleString()}
-              </td>
-              <td className="border p-2 space-x-2">
-                <button
-                  onClick={() => startEdit(c)}
-                  className="text-blue-700 underline"
-                >
-                  Edit
-                </button>
-                <button
-                  onClick={() => onDelete(c.id)}
-                  className="text-red-700 underline"
-                >
-                  Delete
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <Card>
+        <CardHeader>
+          <CardTitle>Contacts</CardTitle>
+          <CardDescription>Manage all contact records.</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Name</TableHead>
+                <TableHead>Email</TableHead>
+                <TableHead>Phone</TableHead>
+                <TableHead>Message</TableHead>
+                <TableHead>Created</TableHead>
+                <TableHead className="text-right">Actions</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {contacts.map((c) => (
+                <TableRow key={c.id}>
+                  <TableCell className="font-medium">{c.name}</TableCell>
+                  <TableCell>{c.email}</TableCell>
+                  <TableCell>{c.phone || "-"}</TableCell>
+                  <TableCell className="max-w-xs truncate">
+                    {c.message}
+                  </TableCell>
+                  <TableCell>
+                    {new Date(c.createdAt).toLocaleString()}
+                  </TableCell>
+                  <TableCell className="text-right">
+                    <div className="flex justify-end gap-2">
+                      <Button
+                        size="icon"
+                        variant="outline"
+                        onClick={() => startEdit(c)}
+                      >
+                        <Pencil className="size-4" />
+                        <span className="sr-only">Edit</span>
+                      </Button>
+                      <Button
+                        size="icon"
+                        variant="destructive"
+                        onClick={() => onDelete(c.id)}
+                      >
+                        <Trash2 className="size-4" />
+                        <span className="sr-only">Delete</span>
+                      </Button>
+                    </div>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </CardContent>
+      </Card>
     </div>
   );
 }

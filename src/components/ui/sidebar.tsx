@@ -4,6 +4,7 @@ import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Mail, Menu, PanelLeft, Users } from "lucide-react";
+import { UserButton } from "@clerk/nextjs";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
@@ -17,11 +18,7 @@ const nav: NavItem[] = [
   { label: "Contacts", href: "/admin/contacts", icon: Users },
 ];
 
-export function AdminSidebar({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export function AdminSidebar({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = React.useState(true);
   const pathname = usePathname();
 
@@ -30,13 +27,11 @@ export function AdminSidebar({
       <aside
         className={cn(
           "flex flex-col border-r bg-card transition-all duration-300",
-          open ? "w-64" : "w-16"
+          open ? "w-64" : "w-16",
         )}
       >
         <div className="flex h-16 items-center justify-between border-b px-4">
-          {open && (
-            <span className="font-semibold tracking-tight">Admin</span>
-          )}
+          {open && <span className="font-semibold tracking-tight">Admin</span>}
           <Button
             type="button"
             variant="ghost"
@@ -64,7 +59,7 @@ export function AdminSidebar({
                   "flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors",
                   active
                     ? "bg-primary text-primary-foreground"
-                    : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                    : "text-muted-foreground hover:bg-accent hover:text-accent-foreground",
                 )}
               >
                 <Icon className="size-4 shrink-0" />
@@ -74,9 +69,10 @@ export function AdminSidebar({
           })}
         </nav>
 
-        <div className="border-t p-4">
+        <div className="border-t p-4 flex items-center gap-3">
+          <UserButton />
           {open && (
-            <p className="text-xs text-muted-foreground">Smooth Skin Niagara</p>
+            <span className="text-sm text-muted-foreground">My Account</span>
           )}
         </div>
       </aside>
@@ -84,7 +80,7 @@ export function AdminSidebar({
       <main
         className={cn(
           "flex-1 overflow-auto transition-all",
-          open ? "p-8" : "p-6"
+          open ? "p-8" : "p-6",
         )}
       >
         {children}

@@ -15,23 +15,23 @@
   --font-display: var(--font-display), Georgia, serif;
   --font-body: var(--font-body), -apple-system, sans-serif;
 
-  --color-background: #f8fafc;
-  --color-foreground: #334155;
-  --color-primary: #2563eb;
+  --color-background: #f0fdf4;
+  --color-foreground: #14532d;
+  --color-primary: #16a34a;
   --color-primary-foreground: #ffffff;
-  --color-secondary: #f1f5f9;
-  --color-secondary-foreground: #475569;
-  --color-muted: #f1f5f9;
-  --color-muted-foreground: #64748b;
-  --color-accent: #f1f5f9;
-  --color-accent-foreground: #475569;
+  --color-secondary: #dcfce7;
+  --color-secondary-foreground: #14532d;
+  --color-muted: #dcfce7;
+  --color-muted-foreground: #15803d;
+  --color-accent: #dcfce7;
+  --color-accent-foreground: #14532d;
   --color-destructive: #ef4444;
   --color-destructive-foreground: #ffffff;
-  --color-border: #cbd5e1;
-  --color-input: #cbd5e1;
-  --color-ring: #2563eb;
+  --color-border: #bbf7d0;
+  --color-input: #bbf7d0;
+  --color-ring: #16a34a;
   --color-card: #ffffff;
-  --color-card-foreground: #334155;
+  --color-card-foreground: #14532d;
 }
 
 body {

@@ -135,7 +135,9 @@ export default function ApproveDialog({
               <div className="relative h-full w-full rounded-lg border bg-muted">
                 {current.imageUrl ? (
                   <img
-                    src={`/api/images/${current.id}`}
+                    src={`/api/images/view?pathname=${encodeURIComponent(
+                      current.imageUrl,
+                    )}`}
                     alt="Contact source"
                     className="h-full w-full object-contain rounded-lg"
                   />

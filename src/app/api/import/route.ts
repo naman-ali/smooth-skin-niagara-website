@@ -40,7 +40,8 @@ async function uploadImageToBlob(imageDataUrl: string) {
   const blob = await put(filename, buffer, {
     access: "private",
     contentType,
-    storeId: process.env.BLOB_STORE_ID,
+    storeId: process.env.BLOB_SMOOTH_SKIN_NIAGARA_STORE_ID,
+    token: process.env.BLOB_SMOOTH_SKIN_NIAGARA_READ_WRITE_TOKEN,
   });
   return blob.pathname;
 }

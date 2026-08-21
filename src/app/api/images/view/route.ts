@@ -18,7 +18,11 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: "Missing pathname" }, { status: 400 });
   }
 
-  const result = await get(pathname, { access: "private" });
+  const result = await get(pathname, {
+    access: "private",
+    storeId: process.env.BLOB_SMOOTH_SKIN_NIAGARA_STORE_ID,
+    token: process.env.BLOB_SMOOTH_SKIN_NIAGARA_READ_WRITE_TOKEN,
+  });
   if (result?.statusCode !== 200 || !result.stream) {
     return new NextResponse("Not found", { status: 404 });
   }

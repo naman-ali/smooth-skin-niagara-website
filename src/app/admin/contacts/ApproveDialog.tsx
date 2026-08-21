@@ -65,7 +65,7 @@ export default function ApproveDialog({
 
   useEffect(() => {
     setCurrentIndex((i) =>
-      i >= unapproved.length ? Math.max(0, unapproved.length - 1) : i
+      i >= unapproved.length ? Math.max(0, unapproved.length - 1) : i,
     );
   }, [unapproved.length]);
 
@@ -106,9 +106,7 @@ export default function ApproveDialog({
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent
-        className={
-          allApproved ? "max-w-lg" : "max-w-7xl w-[95vw] h-[90vh]"
-        }
+        className={allApproved ? "max-w-lg" : "max-w-7xl w-[95vw] h-[90vh]"}
       >
         <DialogHeader>
           <DialogTitle>Approve Unapproved Contacts</DialogTitle>
@@ -137,7 +135,7 @@ export default function ApproveDialog({
               <div className="relative h-full w-full rounded-lg border bg-muted">
                 {current.imageUrl ? (
                   <img
-                    src={current.imageUrl}
+                    src={`/api/images/${current.id}`}
                     alt="Contact source"
                     className="h-full w-full object-contain rounded-lg"
                   />
@@ -150,7 +148,7 @@ export default function ApproveDialog({
 
               <div className="flex flex-col h-full space-y-4 overflow-y-auto pr-2">
                 <p className="text-sm text-muted-foreground">
-                  Contact {currentIndex + 1} of {unapproved.length} · Source: {" "}
+                  Contact {currentIndex + 1} of {unapproved.length} · Source:{" "}
                   {current.source}
                 </p>
 
@@ -225,9 +223,7 @@ export default function ApproveDialog({
                     onClick={handleApprove}
                     disabled={saving}
                   >
-                    {saving && (
-                      <Loader2 className="size-4 mr-2 animate-spin" />
-                    )}
+                    {saving && <Loader2 className="size-4 mr-2 animate-spin" />}
                     <Check className="size-4 mr-2" />
                     Approve
                   </Button>

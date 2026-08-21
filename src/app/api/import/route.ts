@@ -38,10 +38,10 @@ async function uploadImageToBlob(imageDataUrl: string) {
     .toString(36)
     .slice(2)}.${extension}`;
   const blob = await put(filename, buffer, {
-    access: "public",
+    access: "private",
     contentType,
   });
-  return blob.url;
+  return blob.pathname;
 }
 
 async function extractContactsFromImage(

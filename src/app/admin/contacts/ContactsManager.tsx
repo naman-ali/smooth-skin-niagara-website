@@ -158,7 +158,11 @@ export default function ContactsManager({
                   <TableCell className="max-w-xs truncate">
                     {c.message}
                   </TableCell>
-                  <TableCell>{c.source}</TableCell>
+                  <TableCell>
+                    {c.source
+                      .replace(/_/g, " ")
+                      .replace(/(^.|\s\w)/g, (m) => m.toUpperCase())}
+                  </TableCell>
                   <TableCell>
                     {c.approved ? (
                       <span className="text-green-600">Yes</span>

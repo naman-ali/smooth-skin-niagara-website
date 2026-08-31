@@ -2,6 +2,7 @@ import type { TreatmentFormDefinition } from "../types";
 import { laserHairRemoval } from "./laser-hair-removal";
 import { lashLiftTint } from "./lash-lift-tint";
 import { eyelashExtensions } from "./eyelash-extensions";
+import { cellumaLed } from "./celluma-led";
 
 /**
  * Frontend form version. Bump this whenever the shared client-information
@@ -19,6 +20,7 @@ export const TREATMENT_DEFINITIONS: TreatmentFormDefinition[] = [
   laserHairRemoval,
   lashLiftTint,
   eyelashExtensions,
+  cellumaLed,
 ];
 
 export function getTreatmentDefinition(
@@ -35,4 +37,4 @@ export function getSelectedTreatmentDefinitions(
     .filter((t): t is TreatmentFormDefinition => Boolean(t));
 }
 
-export { laserHairRemoval, lashLiftTint, eyelashExtensions };
+export { laserHairRemoval, lashLiftTint, eyelashExtensions, cellumaLed };

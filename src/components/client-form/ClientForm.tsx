@@ -18,6 +18,7 @@ import { FormNavigation } from "./FormNavigation";
 import { FormSectionCard } from "./FormSectionCard";
 import { TreatmentSelector } from "./TreatmentSelector";
 import { ClientInfoStep } from "./ClientInfoStep";
+import { SharedHealthStep } from "./SharedHealthStep";
 import { TreatmentSectionStep } from "./TreatmentSectionStep";
 import { ConsentsStep } from "./ConsentsStep";
 import { ReviewStep } from "./ReviewStep";
@@ -222,6 +223,15 @@ function StepContent({
           description="Please share your contact details. We only ask for this once."
         >
           <ClientInfoStep />
+        </FormSectionCard>
+      );
+    case "shared-health":
+      return (
+        <FormSectionCard
+          title="Health & Safety"
+          description="Please answer these health and safety questions once for all selected treatments."
+        >
+          <SharedHealthStep selectedTreatments={selectedTreatments} />
         </FormSectionCard>
       );
     case "treatment-section": {

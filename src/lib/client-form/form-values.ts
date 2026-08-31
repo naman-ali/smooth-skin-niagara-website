@@ -19,6 +19,7 @@ export type ClientInfoValues = {
   province: string;
   postalCode: string;
   age: string;
+  emergencyContact: string;
   referralSource: ReferralSourceValue;
 };
 
@@ -55,6 +56,7 @@ export type AcknowledgementValues = {
 export type FormValues = {
   selectedTreatments: string[];
   clientInfo: ClientInfoValues;
+  sharedAnswers: Record<string, unknown>;
   treatmentAnswers: Record<string, TreatmentAnswers>;
   consents: Record<string, ConsentValue>;
   acknowledgement: AcknowledgementValues;
@@ -70,12 +72,14 @@ export const EMPTY_CLIENT_INFO: ClientInfoValues = {
   province: "",
   postalCode: "",
   age: "",
+  emergencyContact: "",
   referralSource: { value: "", otherText: "", referrerName: "" },
 };
 
 export const DEFAULT_FORM_VALUES: FormValues = {
   selectedTreatments: [],
   clientInfo: { ...EMPTY_CLIENT_INFO },
+  sharedAnswers: {},
   treatmentAnswers: {},
   consents: {
     "laser-hair-removal": {

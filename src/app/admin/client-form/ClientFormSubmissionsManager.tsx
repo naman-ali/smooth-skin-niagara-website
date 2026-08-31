@@ -372,9 +372,9 @@ function SubmissionDetail({
           </div>
           <p className="inline-flex items-center gap-1.5 text-muted-foreground">
             <MapPin className="size-3.5 shrink-0" />
-            {submission.client.address.street}, {submission.client.address.city}
-            , {submission.client.address.province}{" "}
-            {submission.client.address.postalCode}
+            {submission.client.address
+              ? `${submission.client.address.street}, ${submission.client.address.city}, ${submission.client.address.province} ${submission.client.address.postalCode}`
+              : "No address provided"}
           </p>
           <div className="flex flex-wrap items-center gap-x-4 gap-y-1 pt-1 text-xs text-muted-foreground">
             {submission.client.age ? (

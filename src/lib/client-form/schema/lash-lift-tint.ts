@@ -83,22 +83,9 @@ export const lashLiftTint: TreatmentFormDefinition = {
           },
         },
         {
-          id: "lash_contact_lenses",
-          type: "yesNo",
-          label: "Do you wear contact lenses?",
-          helperText: "Contact lenses must be removed for treatment.",
-          required: true,
-        },
-        {
           id: "lash_back_pain",
           type: "yesNo",
           label: "Do you experience back pain?",
-          required: true,
-        },
-        {
-          id: "lash_pregnant",
-          type: "yesNo",
-          label: "Are you pregnant?",
           required: true,
         },
         {

@@ -98,6 +98,8 @@ export type ConsentDefinition = {
   acceptanceLabel: string;
 };
 
+export type SharedQuestion = FormQuestion & { appliesTo: string[] };
+
 export type TreatmentFormDefinition = {
   id: string;
   name: string;

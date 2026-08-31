@@ -10,6 +10,7 @@ import {
 } from "@/lib/client-form/form-values";
 import { clientFormResolver } from "@/lib/client-form/validation";
 import { getSelectedTreatmentDefinitions } from "@/lib/client-form/schema";
+import { getSharedQuestionsForTreatments } from "@/lib/client-form/schema/shared-questions";
 import { flattenSectionQuestions } from "@/lib/client-form/conditional";
 import { submitClientForm, ClientFormSubmitError } from "@/lib/client-form/api";
 import { scrollToTop } from "@/lib/client-form/scroll";
@@ -20,6 +21,7 @@ import { ClientInfoStep } from "./ClientInfoStep";
 import { TreatmentSectionStep } from "./TreatmentSectionStep";
 import { ConsentsStep } from "./ConsentsStep";
 import { AcknowledgementStep } from "./AcknowledgementStep";
+import { SharedHealthStep } from "./SharedHealthStep";
 import { SubmissionSuccess } from "./SubmissionSuccess";
 
 /**
@@ -87,6 +89,7 @@ export function OnePageClientForm() {
       "clientInfo.province",
       "clientInfo.postalCode",
       "clientInfo.age",
+      "clientInfo.emergencyContact",
       "clientInfo.referralSource",
     ];
 
@@ -98,6 +101,12 @@ export function OnePageClientForm() {
           );
         }
       }
+    }
+
+    for (const question of getSharedQuestionsForTreatments(
+      selectedTreatments,
+    )) {
+      names.push(`sharedAnswers.${question.id}` as Path<FormValues>);
     }
 
     for (const treatmentId of selectedTreatments) {
@@ -185,6 +194,16 @@ export function OnePageClientForm() {
           </FormSectionCard>
         )}
 
+        {getSharedQuestionsForTreatments(selectedTreatments).length > 0 && (
+          <FormSectionCard
+            title="3. Health & Safety"
+            description="Answered once for all selected treatments."
+            compact
+          >
+            <SharedHealthStep selectedTreatments={selectedTreatments} compact />
+          </FormSectionCard>
+        )}
+
         {selectedDefinitions.map((definition) => (
           <FormSectionCard
             key={definition.id}
@@ -213,7 +232,7 @@ export function OnePageClientForm() {
 
         {selectedTreatments.length > 0 && (
           <FormSectionCard
-            title="3. Consents"
+            title="4. Consents"
             description="Please review and accept the consent for each treatment."
           >
             <ConsentsStep selectedTreatments={selectedTreatments} />
@@ -222,7 +241,7 @@ export function OnePageClientForm() {
 
         {selectedTreatments.length > 0 && (
           <FormSectionCard
-            title="4. Final Acknowledgement"
+            title="5. Final Acknowledgement"
             description={null}
             compact
           >

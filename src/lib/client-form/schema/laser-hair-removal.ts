@@ -172,12 +172,6 @@ export const laserHairRemoval: TreatmentFormDefinition = {
             },
           },
         },
-        {
-          id: "laser_pregnant",
-          type: "yesNo",
-          label: "Are you pregnant?",
-          required: true,
-        },
       ],
     },
     {
@@ -235,12 +229,6 @@ export const laserHairRemoval: TreatmentFormDefinition = {
               equals: true,
             },
           },
-        },
-        {
-          id: "laser_contact_lenses",
-          type: "yesNo",
-          label: "Do you wear contact lenses?",
-          required: true,
         },
       ],
     },

@@ -10,6 +10,7 @@ import {
   getSelectedTreatmentDefinitions,
   getTreatmentDefinition,
 } from "./schema";
+import { getSharedQuestionsForTreatments } from "./schema/shared-questions";
 import { flattenSectionsQuestions, isQuestionVisible } from "./conditional";
 
 // Zod primitives used to validate individual leaf answers. The overall
@@ -147,24 +148,27 @@ function buildClientInfoErrors(
   );
   setIfError("email", emailSchema.safeParse(clientInfo.email));
   setIfError("phone", phoneSchema.safeParse(clientInfo.phone));
-  setIfError(
-    "street",
-    requiredText("Street address is required.").safeParse(clientInfo.street),
-  );
-  setIfError(
-    "city",
-    requiredText("City is required.").safeParse(clientInfo.city),
-  );
-  setIfError(
-    "province",
-    requiredText("Province is required.").safeParse(clientInfo.province),
-  );
-  setIfError(
-    "postalCode",
-    requiredText("Postal code is required.").safeParse(clientInfo.postalCode),
-  );
+  const laserSelected = selectedTreatments.includes("laser-hair-removal");
+  if (laserSelected) {
+    setIfError(
+      "street",
+      requiredText("Street address is required.").safeParse(clientInfo.street),
+    );
+    setIfError(
+      "city",
+      requiredText("City is required.").safeParse(clientInfo.city),
+    );
+    setIfError(
+      "province",
+      requiredText("Province is required.").safeParse(clientInfo.province),
+    );
+    setIfError(
+      "postalCode",
+      requiredText("Postal code is required.").safeParse(clientInfo.postalCode),
+    );
+  }
 
-  const ageRequired = selectedTreatments.includes("laser-hair-removal");
+  const ageRequired = laserSelected;
   if (ageRequired) {
     setIfError(
       "age",
@@ -174,6 +178,15 @@ function buildClientInfoErrors(
     );
   } else if (clientInfo.age.trim()) {
     setIfError("age", ageSchema.safeParse(clientInfo.age));
+  }
+
+  if (selectedTreatments.includes("eyelash-extensions")) {
+    setIfError(
+      "emergencyContact",
+      requiredText("Emergency contact is required.").safeParse(
+        clientInfo.emergencyContact,
+      ),
+    );
   }
 
   if (
@@ -211,6 +224,18 @@ function buildTreatmentAnswerErrors(
     }
   }
   return result;
+}
+
+function buildSharedAnswerErrors(
+  selectedTreatments: string[],
+  sharedAnswers: FormValues["sharedAnswers"],
+): Record<string, { type: string; message: string }> | undefined {
+  const result: Record<string, { type: string; message: string }> = {};
+  for (const question of getSharedQuestionsForTreatments(selectedTreatments)) {
+    const message = questionError(question, sharedAnswers[question.id]);
+    if (message) result[question.id] = { type: "validation", message };
+  }
+  return Object.keys(result).length ? result : undefined;
 }
 
 const ACKNOWLEDGEMENT_LABELS: Record<
@@ -345,6 +370,16 @@ const resolver = async (values: FormValues) => {
   );
   if (Object.keys(clientInfoErrors).length)
     errors.clientInfo = clientInfoErrors;
+
+  const sharedAnswerErrors = buildSharedAnswerErrors(
+    values.selectedTreatments,
+    values.sharedAnswers ?? {},
+  );
+  if (sharedAnswerErrors && Object.keys(sharedAnswerErrors).length) {
+    errors.sharedAnswers = sharedAnswerErrors as unknown as FieldErrors<
+      FormValues["sharedAnswers"]
+    >;
+  }
 
   const treatmentAnswerErrors = buildTreatmentAnswerErrors(
     values.selectedTreatments,

@@ -79,22 +79,9 @@ export const eyelashExtensions: TreatmentFormDefinition = {
           },
         },
         {
-          id: "eyelash_contact_lenses",
-          type: "yesNo",
-          label: "Do you wear contact lenses?",
-          helperText: "Contact lenses must be removed for treatment.",
-          required: true,
-        },
-        {
           id: "eyelash_back_pain",
           type: "yesNo",
           label: "Do you experience back pain?",
-          required: true,
-        },
-        {
-          id: "eyelash_pregnant",
-          type: "yesNo",
-          label: "Are you pregnant?",
           required: true,
         },
         {
@@ -112,8 +99,7 @@ export const eyelashExtensions: TreatmentFormDefinition = {
         {
           id: "eyelash_vitamin_serums",
           type: "yesNo",
-          label:
-            "Do you use Vitamin E or Vitamin C face/eye serums?",
+          label: "Do you use Vitamin E or Vitamin C face/eye serums?",
           required: true,
         },
         {
@@ -191,7 +177,8 @@ export const eyelashExtensions: TreatmentFormDefinition = {
     {
       id: "eyelash-photo-permission",
       title: "Photo & Marketing Release",
-      description: "This is optional. Answering no does not affect your treatment.",
+      description:
+        "This is optional. Answering no does not affect your treatment.",
       questions: [
         {
           id: "eyelash_photo_permission",

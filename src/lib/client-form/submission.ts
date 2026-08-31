@@ -38,13 +38,14 @@ export type ClientFormSubmission = {
     lastName: string;
     email: string;
     phone: string;
-    address: {
+    address?: {
       street: string;
       city: string;
       province: string;
       postalCode: string;
     };
     age?: number;
+    emergencyContact?: string;
     referralSource?: {
       value: string;
       label: string;
@@ -52,6 +53,8 @@ export type ClientFormSubmission = {
       referrerName?: string;
     };
   };
+
+  sharedAnswers: Record<string, unknown>;
 
   treatmentResponses: {
     [treatmentId: string]: {
@@ -101,20 +104,30 @@ function buildReferralSource(
   return result;
 }
 
-function buildClient(client: ClientInfoValues): ClientFormSubmission["client"] {
+function buildClient(
+  client: ClientInfoValues,
+  selectedTreatments: string[],
+): ClientFormSubmission["client"] {
   const parsedAge = client.age?.trim() ? Number(client.age) : undefined;
+  const laserSelected = selectedTreatments.includes("laser-hair-removal");
+  const eyelashSelected = selectedTreatments.includes("eyelash-extensions");
   return {
     firstName: client.firstName.trim(),
     lastName: client.lastName.trim(),
     email: client.email.trim(),
     phone: client.phone.trim(),
-    address: {
-      street: client.street.trim(),
-      city: client.city.trim(),
-      province: client.province.trim(),
-      postalCode: client.postalCode.trim(),
-    },
+    address: laserSelected
+      ? {
+          street: client.street.trim(),
+          city: client.city.trim(),
+          province: client.province.trim(),
+          postalCode: client.postalCode.trim(),
+        }
+      : undefined,
     age: Number.isFinite(parsedAge) ? parsedAge : undefined,
+    emergencyContact: eyelashSelected
+      ? client.emergencyContact.trim() || undefined
+      : undefined,
     referralSource: buildReferralSource(client.referralSource),
   };
 }
@@ -173,7 +186,8 @@ export function buildClientFormSubmission(
   return {
     formVersion: FORM_VERSION,
     selectedTreatments: values.selectedTreatments,
-    client: buildClient(values.clientInfo),
+    client: buildClient(values.clientInfo, values.selectedTreatments),
+    sharedAnswers: values.sharedAnswers ?? {},
     treatmentResponses,
     consents,
     laserConsent,

@@ -56,6 +56,13 @@ const CONTACT_FIELDS: FieldConfig[] = [
   },
 ];
 
+const EMERGENCY_CONTACT_FIELD: FieldConfig = {
+  name: "emergencyContact",
+  label: "Emergency contact",
+  required: true,
+  span: "full",
+};
+
 export function ClientInfoStep({ compact = false }: { compact?: boolean }) {
   const {
     register,
@@ -65,7 +72,9 @@ export function ClientInfoStep({ compact = false }: { compact?: boolean }) {
 
   const selectedTreatments =
     useWatch({ control, name: "selectedTreatments" }) ?? [];
-  const ageRequired = selectedTreatments.includes("laser-hair-removal");
+  const laserSelected = selectedTreatments.includes("laser-hair-removal");
+  const eyelashSelected = selectedTreatments.includes("eyelash-extensions");
+  const ageRequired = laserSelected;
 
   const renderField = (field: FieldConfig) => {
     const error = errors.clientInfo?.[field.name];
@@ -115,26 +124,29 @@ export function ClientInfoStep({ compact = false }: { compact?: boolean }) {
 
       <div className={cn("grid gap-5 sm:grid-cols-2", compact && "gap-3")}>
         {CONTACT_FIELDS.map(renderField)}
+        {eyelashSelected && renderField(EMERGENCY_CONTACT_FIELD)}
       </div>
 
-      <div className="space-y-1.5">
-        <p
-          className={cn(
-            "font-medium text-foreground",
-            compact ? "text-sm" : "text-[15px]",
-          )}
-        >
-          Address
-        </p>
-        <div
-          className={cn(
-            "grid gap-5 sm:grid-cols-2 lg:grid-cols-3",
-            compact && "gap-3",
-          )}
-        >
-          {ADDRESS_FIELDS.map(renderField)}
+      {laserSelected && (
+        <div className="space-y-1.5">
+          <p
+            className={cn(
+              "font-medium text-foreground",
+              compact ? "text-sm" : "text-[15px]",
+            )}
+          >
+            Address
+          </p>
+          <div
+            className={cn(
+              "grid gap-5 sm:grid-cols-2 lg:grid-cols-3",
+              compact && "gap-3",
+            )}
+          >
+            {ADDRESS_FIELDS.map(renderField)}
+          </div>
         </div>
-      </div>
+      )}
 
       <div>
         <Label

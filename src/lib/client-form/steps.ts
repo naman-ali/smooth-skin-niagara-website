@@ -4,11 +4,13 @@ import {
   getTreatmentDefinition,
 } from "./schema";
 import { flattenSectionQuestions } from "./conditional";
+import { getSharedQuestionsForTreatments } from "./schema/shared-questions";
 import type { FormValues } from "./form-values";
 
 export type WizardStep =
   | { kind: "treatment-select" }
   | { kind: "client-info" }
+  | { kind: "shared-health" }
   | {
       kind: "treatment-section";
       treatmentId: string;
@@ -33,6 +35,10 @@ export function buildWizardSteps(selectedTreatments: string[]): WizardStep[] {
   }
 
   steps.push({ kind: "client-info" });
+
+  if (getSharedQuestionsForTreatments(selectedTreatments).length > 0) {
+    steps.push({ kind: "shared-health" });
+  }
 
   for (const definition of getSelectedTreatmentDefinitions(
     selectedTreatments,
@@ -61,6 +67,8 @@ export function stepGroupLabel(step: WizardStep): string {
       return "Treatment";
     case "client-info":
       return "Information";
+    case "shared-health":
+      return "Health & Safety";
     case "treatment-section":
       return step.sectionTitle;
     case "consents":
@@ -98,6 +106,10 @@ export function getStepFieldNames(
         "clientInfo.age",
         "clientInfo.referralSource",
       ];
+    case "shared-health":
+      return getSharedQuestionsForTreatments(selectedTreatments).map(
+        (question) => `sharedAnswers.${question.id}` as Path<FormValues>,
+      );
     case "treatment-section": {
       const definition = getTreatmentDefinition(step.treatmentId);
       if (!definition) return [];

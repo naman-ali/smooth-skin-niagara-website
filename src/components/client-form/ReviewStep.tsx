@@ -23,6 +23,7 @@ import {
   getReferralSourceLabel,
   REFERRAL_OTHER_VALUE,
 } from "@/lib/client-form/referral-source";
+import { getSharedQuestionsForTreatments } from "@/lib/client-form/schema/shared-questions";
 
 function formatAnswer(question: FormQuestion, value: unknown): string {
   if (question.type === "singleSelectWithOther") {
@@ -95,8 +96,13 @@ export function ReviewStep({
   const values = getValues();
   const steps = buildWizardSteps(selectedTreatments);
   const clientInfoStepIndex = steps.findIndex((s) => s.kind === "client-info");
+  const sharedHealthStepIndex = steps.findIndex(
+    (s) => s.kind === "shared-health",
+  );
   const consentsStepIndex = steps.findIndex((s) => s.kind === "consents");
   const definitions = getSelectedTreatmentDefinitions(selectedTreatments);
+  const laserSelected = selectedTreatments.includes("laser-hair-removal");
+  const eyelashSelected = selectedTreatments.includes("eyelash-extensions");
 
   return (
     <div className="space-y-8">
@@ -111,19 +117,27 @@ export function ReviewStep({
           />
           <ReviewItem label="Phone" value={values.clientInfo.phone} />
           <ReviewItem label="Email" value={values.clientInfo.email} />
-          <ReviewItem
-            label="Address"
-            value={[
-              values.clientInfo.street,
-              values.clientInfo.city,
-              values.clientInfo.province,
-              values.clientInfo.postalCode,
-            ]
-              .filter(Boolean)
-              .join(", ")}
-          />
+          {laserSelected && (
+            <ReviewItem
+              label="Address"
+              value={[
+                values.clientInfo.street,
+                values.clientInfo.city,
+                values.clientInfo.province,
+                values.clientInfo.postalCode,
+              ]
+                .filter(Boolean)
+                .join(", ")}
+            />
+          )}
           {values.clientInfo.age ? (
             <ReviewItem label="Age" value={values.clientInfo.age} />
+          ) : null}
+          {eyelashSelected && values.clientInfo.emergencyContact ? (
+            <ReviewItem
+              label="Emergency contact"
+              value={values.clientInfo.emergencyContact}
+            />
           ) : null}
           {values.clientInfo.referralSource.value ? (
             <ReviewItem
@@ -133,6 +147,34 @@ export function ReviewStep({
           ) : null}
         </dl>
       </ReviewGroup>
+
+      {getSharedQuestionsForTreatments(selectedTreatments).length > 0 && (
+        <ReviewGroup
+          title="Health & Safety"
+          onEdit={() =>
+            onEditStep(
+              sharedHealthStepIndex >= 0
+                ? sharedHealthStepIndex
+                : clientInfoStepIndex,
+            )
+          }
+        >
+          <dl className="grid gap-x-6 gap-y-3 sm:grid-cols-2">
+            {getSharedQuestionsForTreatments(selectedTreatments).map(
+              (question) => (
+                <ReviewItem
+                  key={question.id}
+                  label={question.label}
+                  value={formatAnswer(
+                    question,
+                    values.sharedAnswers?.[question.id],
+                  )}
+                />
+              ),
+            )}
+          </dl>
+        </ReviewGroup>
+      )}
 
       {definitions.map((definition) => {
         const answers = values.treatmentAnswers[definition.id] ?? {};

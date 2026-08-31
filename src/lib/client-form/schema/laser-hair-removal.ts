@@ -31,7 +31,7 @@ export const laserHairRemoval: TreatmentFormDefinition = {
           id: "laser_cancer_history",
           type: "yesNo",
           label:
-            "Do you currently have, or have you previously had, cancer \u2014 especially malignant melanoma, recurrent non-melanoma skin cancer, or pre-cancerous lesions?",
+            "Do you currently have, or have you previously had, cancer \u2014 especially malignant melanoma, recurrent non-melanoma skin cancer, or pre-cancerous lesions such as multiple dysplastic nevi?",
           required: true,
           followUp: {
             id: "laser_cancer_history_details",
@@ -58,7 +58,7 @@ export const laserHairRemoval: TreatmentFormDefinition = {
           id: "laser_light_sensitive_condition",
           type: "yesNo",
           label:
-            "Do you have a condition that may be stimulated by light, such as recurrent Herpes Simplex, Systemic Lupus Erythematosus, or Porphyria?",
+            "Do you have a condition that may be stimulated by light, such as a history of recurrent Herpes Simplex, Systemic Lupus Erythematosus, or Porphyria?",
           required: true,
           followUp: {
             id: "laser_light_sensitive_condition_details",
@@ -75,7 +75,7 @@ export const laserHairRemoval: TreatmentFormDefinition = {
           id: "laser_photosensitive_medication",
           type: "yesNo",
           label:
-            "Do you use photosensitive medication or herbs that may cause sensitivity to light exposure, such as Isotretinoin, tetracycline, or St. John's Wort?",
+            "Do you use photosensitive medication and/or herbs that may cause sensitivity to light exposure, such as Isotretinoin, tetracycline, or St. John's Wort?",
           required: true,
           followUp: {
             id: "laser_photosensitive_medication_details",
@@ -92,9 +92,7 @@ export const laserHairRemoval: TreatmentFormDefinition = {
           id: "laser_immunosuppression",
           type: "yesNo",
           label:
-            "Do you have an immunosuppressive condition or use immunosuppressive medication?",
-          description:
-            "The existing clinic form includes conditions such as AIDS/HIV infection in this question.",
+            "Do you have an immunosuppressive disease, including AIDS and HIV infection, or use immunosuppressive medications?",
           required: true,
           followUp: {
             id: "laser_immunosuppression_details",
@@ -108,7 +106,7 @@ export const laserHairRemoval: TreatmentFormDefinition = {
           id: "laser_hormonal_disorder",
           type: "yesNo",
           label:
-            "Do you have a history of hormonal or endocrine disorders, such as polycystic ovary syndrome (PCOS)?",
+            "Do you have a history of hormonal or endocrine disorders, such as polycystic ovary syndrome?",
           required: true,
           followUp: {
             id: "laser_hormonal_disorder_details",
@@ -189,15 +187,14 @@ export const laserHairRemoval: TreatmentFormDefinition = {
         {
           id: "laser_medications",
           type: "textarea",
-          label:
-            "What medications are you currently taking, including aspirin?",
+          label: "What medications are you taking (including aspirin)?",
           placeholder: "List medications, or enter \u201cNone\u201d.",
           required: true,
         },
         {
           id: "laser_alcohol_consumption",
           type: "singleSelectWithOther",
-          label: "How often do you consume alcohol?",
+          label: "Daily consumption of alcohol:",
           required: true,
           options: [
             { value: "never", label: "Never" },
@@ -226,7 +223,7 @@ export const laserHairRemoval: TreatmentFormDefinition = {
           id: "laser_herbal_preparations",
           type: "yesNo",
           label:
-            "Are you currently taking any herbal preparations, such as St. John's Wort?",
+            "Are you taking any herbal preparations? If yes, list (St. John's Wort, etc.):",
           required: true,
           followUp: {
             id: "laser_herbal_preparations_details",
@@ -262,7 +259,7 @@ export const laserHairRemoval: TreatmentFormDefinition = {
           id: "laser_sun_response",
           type: "singleSelectWithOther",
           label:
-            "What happens to your skin when exposed to the sun without protection?",
+            "Skin type (when exposed to the sun without protection for about 1 hour):",
           required: true,
           options: [
             {
@@ -293,7 +290,7 @@ export const laserHairRemoval: TreatmentFormDefinition = {
           id: "laser_last_sun_exposure",
           type: "singleSelectWithOther",
           label:
-            "When were you last exposed to the sun for a long period, including a tanning booth?",
+            "When were you last exposed to the sun (including a tanning booth)?",
           required: true,
           options: [
             { value: "within_last_week", label: "Within the last week" },
@@ -318,7 +315,7 @@ export const laserHairRemoval: TreatmentFormDefinition = {
         {
           id: "laser_upcoming_sun_holiday",
           type: "yesNo",
-          label: "Are you planning a holiday in the sun soon?",
+          label: "Are you planning a holiday in the sun?",
           required: true,
           followUp: {
             id: "laser_upcoming_sun_holiday_details",
@@ -334,7 +331,7 @@ export const laserHairRemoval: TreatmentFormDefinition = {
         {
           id: "laser_treatment_area",
           type: "multiSelectWithOther",
-          label: "What area or areas would you like treated?",
+          label: "Reason for visit (area to be treated):",
           required: true,
           options: LASER_TREATMENT_AREA_OPTIONS,
           allowOther: true,
@@ -373,10 +370,10 @@ export const laserHairRemoval: TreatmentFormDefinition = {
   consent: {
     treatmentId: "laser-hair-removal",
     title: "Laser Hair Removal Consent & Waiver",
-    version: "laser-consent-2026-08",
+    version: "laser-waiver-2026-08-31",
     status: "approved",
     acceptanceLabel:
-      "I confirm that I have read and understood this consent and consent to proceed with the treatment.",
+      "I certify that I have been given the opportunity to ask questions and that I have read and fully understand the contents of this consent form.",
     content: [
       {
         kind: "notice",

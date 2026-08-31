@@ -3,7 +3,6 @@
 import { Controller, useFormContext } from "react-hook-form";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { FieldError } from "./questions/FieldError";
@@ -11,31 +10,39 @@ import { FieldError } from "./questions/FieldError";
 const ACKNOWLEDGEMENTS = [
   {
     id: "risks",
-    text: "I understand that the Soprano is a device used for laser hair removal and that clinical results may vary in different skin types and hair types. I understand there is a possibility of short-term effects such as reddening, blistering, scabbing, temporary bruising and temporary discoloration of the skin, as well as rare side effects such as scarring and permanent discoloration. These effects have been fully explained to me.",
+    text: "I understand that the Diode/Laser is a device used for hair removal and that clinical results may vary in different skin types and hair types. I understand there is a possibility of short-term effects such as reddening, blistering, scabbing, temporary bruising, and temporary discoloration of the skin, as well as rare side effects such as scarring and permanent discoloration. These effects have been fully explained to me.",
   },
   {
-    id: "treatmentResponse",
-    text: "Clinical results may vary depending on individual factors, including medical history, skin and hair type, patient compliance with pre/post treatment instructions, and individual response to treatment. Average hair reduction at the end of consecutive sessions may be approximately 70%–95%. Up to 20% of the population may not respond to laser or light treatment. I understand that epilation with the Soprano system is an alternative method used for removing unwanted hair, such as shaving, waxing, chemical epilation and electrolysis.",
+    id: "individualResults",
+    text: "Clinical results may vary depending on individual factors, including medical history, skin and hair type, patient compliance with pre/post treatment instructions, and individual response to treatment. I understand that epilation with the Diode laser system is a safe alternative to methods used for removing unwanted hair, such as shaving, waxing, chemical epilation, and electrolysis. Zero epilation will be done during/in between tx.",
   },
   {
     id: "treatmentSeries",
-    text: "I understand that treatment by the Soprano laser hair removal system involves a series of treatments and the fee structure has been fully explained to me.",
+    text: "I understand that treatment by the Diode laser hair removal system involves a series of treatments, and the fee structure has been fully explained to me.",
   },
   {
-    id: "outcomesAndComplications",
-    text: "I certify that I have been fully informed of the nature and purpose of the procedure, expected outcome and possible complications, and I understand that no guarantee can be given as to the final results obtained.",
-  },
-  {
-    id: "cosmeticDecision",
-    text: "I am fully aware that my condition is of cosmetic concern and that the decision to proceed is based solely on my expressed desire to do so.",
+    id: "naturePurpose",
+    text: "I certify that I have been fully informed of the nature and purpose of the procedure, expected outcomes and possible complications, and I understand that no guarantee can be given as to the result obtained. I am fully aware that my condition is of cosmetic concern and that the decision to proceed is based solely on my expressed desire to do so.",
   },
   {
     id: "pregnancyAccutaneDevices",
-    text: "I confirm that I am not pregnant or breastfeeding now, and that I have not taken Accutane within the last 6 months. I do not have a pacemaker or internal defibrillator.",
+    text: "I confirm that I am not pregnant at this time, and that I have not taken Accutane within the last 6 months. I do not have a pacemaker or internal defibrillator.",
   },
   {
-    id: "finalAcknowledgement",
-    text: "I certify that I have been given the opportunity to ask questions and that I have read and fully understand the contents of this consent form.",
+    id: "cancellationPolicy",
+    text: "I understand the cancellation policy. Failure to provide 24 notice or no show will require a deposit to be scheduled for the next appointment. If a package is purchased and there is a no show or less than 24hrs notice for the cancellation the amount for that session will be lost due to lost income for that appointment time.",
+  },
+  {
+    id: "photography",
+    text: "I consent to the taking of photographs and authorize their anonymous use for the purposes of medical audit and/or promotion.",
+  },
+  {
+    id: "recommendedTreatments",
+    text: "I understand it is recommended that I have between 6-10 treatments for optimal results and follow up with maintenance treatments as needed to maintain my results.",
+  },
+  {
+    id: "promotionalExpiry",
+    text: "I understand all laser promotional packages expire after 1 year from the date of purchase.",
   },
 ];
 
@@ -56,6 +63,12 @@ export function LaserConsentSection({
         </h2>
         <p className="mt-1 text-base text-muted-foreground">
           Please review each acknowledgement carefully before continuing.
+        </p>
+        <p className="mt-3 text-base text-foreground">
+          I duly authorize{" "}
+          <span className="font-semibold">Ashley Wojnowski</span> to perform the{" "}
+          <span className="font-semibold">DIODE Laser Hair Removal</span>{" "}
+          procedure.
         </p>
       </div>
 
@@ -117,67 +130,6 @@ export function LaserConsentSection({
         })}
       </ol>
 
-      <div className="rounded-lg border border-border bg-muted/20 p-4">
-        <h3 className="mb-2 font-display text-lg font-medium text-foreground">
-          Photography Permission
-        </h3>
-        <p className="mb-3 text-base leading-relaxed text-foreground">
-          This is a separate permission. Answering &ldquo;No&rdquo; does not
-          affect your ability to complete this treatment.
-        </p>
-        <Controller
-          name={`${basePath}.photoPermission` as never}
-          control={control}
-          render={({ field }) => (
-            <div className="space-y-3">
-              <div className="flex items-start gap-3">
-                <Checkbox
-                  id={`${basePath}.photoPermission`}
-                  checked={field.value === true}
-                  onCheckedChange={(checked) =>
-                    field.onChange(checked === true)
-                  }
-                  className="mt-0.5 h-5 w-5"
-                />
-                <Label
-                  htmlFor={`${basePath}.photoPermission`}
-                  className="cursor-pointer text-base font-normal leading-snug text-foreground"
-                >
-                  I consent to photographs being taken and authorize their
-                  anonymous use for medical audits, education and promotional
-                  purposes.
-                </Label>
-              </div>
-
-              {field.value === true ? (
-                <Controller
-                  name={`${basePath}.photoPermissionDetails` as never}
-                  control={control}
-                  render={({ field: detailsField }) => (
-                    <div className="pl-8">
-                      <Label
-                        htmlFor={`${basePath}.photoPermissionDetails`}
-                        className="text-sm font-normal text-muted-foreground"
-                      >
-                        Any restrictions or notes (optional)
-                      </Label>
-                      <Textarea
-                        id={`${basePath}.photoPermissionDetails`}
-                        value={detailsField.value ?? ""}
-                        onChange={(e) => detailsField.onChange(e.target.value)}
-                        placeholder="e.g. please avoid showing my face"
-                        rows={2}
-                        className="mt-1.5 min-h-[80px] text-sm"
-                      />
-                    </div>
-                  )}
-                />
-              ) : null}
-            </div>
-          )}
-        />
-      </div>
-
       <div className="rounded-lg border border-border p-5">
         <h3 className="mb-4 font-display text-lg font-medium text-foreground">
           Consent Confirmation
@@ -188,7 +140,7 @@ export function LaserConsentSection({
               htmlFor={`${basePath}.typedName`}
               className="text-[15px] font-medium"
             >
-              Type your full legal name
+              Patient's Name (Print)
               <span aria-hidden="true" className="text-primary">
                 {" "}
                 *
@@ -244,10 +196,9 @@ export function LaserConsentSection({
                     htmlFor={`${basePath}.accepted`}
                     className="cursor-pointer text-[15px] font-normal leading-relaxed"
                   >
-                    I confirm that I have read and understood the Laser Hair
-                    Removal Consent & Waiver above, that I have had the
-                    opportunity to ask questions, and that I consent to proceed
-                    with the treatment.
+                    I certify that I have been given the opportunity to ask
+                    questions and that I have read and fully understand the
+                    contents of this consent form.
                   </Label>
                 </div>
                 <div className="pl-9">

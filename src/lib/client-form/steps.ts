@@ -114,13 +114,14 @@ export function getStepFieldNames(
         if (treatmentId === "laser-hair-removal") {
           names.push(
             "consents.laser-hair-removal.acknowledgements.risks",
-            "consents.laser-hair-removal.acknowledgements.treatmentResponse",
+            "consents.laser-hair-removal.acknowledgements.individualResults",
             "consents.laser-hair-removal.acknowledgements.treatmentSeries",
-            "consents.laser-hair-removal.acknowledgements.outcomesAndComplications",
-            "consents.laser-hair-removal.acknowledgements.cosmeticDecision",
+            "consents.laser-hair-removal.acknowledgements.naturePurpose",
             "consents.laser-hair-removal.acknowledgements.pregnancyAccutaneDevices",
-            "consents.laser-hair-removal.acknowledgements.finalAcknowledgement",
-            "consents.laser-hair-removal.photoPermission",
+            "consents.laser-hair-removal.acknowledgements.cancellationPolicy",
+            "consents.laser-hair-removal.acknowledgements.photography",
+            "consents.laser-hair-removal.acknowledgements.recommendedTreatments",
+            "consents.laser-hair-removal.acknowledgements.promotionalExpiry",
             "consents.laser-hair-removal.typedName",
             "consents.laser-hair-removal.accepted",
           );

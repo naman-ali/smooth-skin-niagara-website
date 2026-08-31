@@ -1,6 +1,7 @@
 import type { TreatmentFormDefinition } from "../types";
 import { laserHairRemoval } from "./laser-hair-removal";
 import { lashLiftTint } from "./lash-lift-tint";
+import { eyelashExtensions } from "./eyelash-extensions";
 
 /**
  * Frontend form version. Bump this whenever the shared client-information
@@ -17,20 +18,21 @@ export const FORM_VERSION = "2026-08-21";
 export const TREATMENT_DEFINITIONS: TreatmentFormDefinition[] = [
   laserHairRemoval,
   lashLiftTint,
+  eyelashExtensions,
 ];
 
 export function getTreatmentDefinition(
-  treatmentId: string
+  treatmentId: string,
 ): TreatmentFormDefinition | undefined {
   return TREATMENT_DEFINITIONS.find((t) => t.id === treatmentId);
 }
 
 export function getSelectedTreatmentDefinitions(
-  selectedTreatments: string[]
+  selectedTreatments: string[],
 ): TreatmentFormDefinition[] {
   return selectedTreatments
     .map((id) => getTreatmentDefinition(id))
     .filter((t): t is TreatmentFormDefinition => Boolean(t));
 }
 
-export { laserHairRemoval, lashLiftTint };
+export { laserHairRemoval, lashLiftTint, eyelashExtensions };

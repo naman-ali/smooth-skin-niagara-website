@@ -65,6 +65,18 @@ const LASER_YES_NO_IDS = [
   "laser_pregnant",
 ];
 
+const LASER_ACKNOWLEDGEMENT_IDS = [
+  "risks",
+  "individualResults",
+  "treatmentSeries",
+  "naturePurpose",
+  "pregnancyAccutaneDevices",
+  "cancellationPolicy",
+  "photography",
+  "recommendedTreatments",
+  "promotionalExpiry",
+];
+
 const LASH_HEALTH_YES_NO_IDS = [
   "lash_thyroid",
   "lash_latex_acrylic_allergy",
@@ -177,12 +189,19 @@ test.describe("Client intake form", () => {
     await continueStep(page);
 
     // Consents
+    for (const ackId of LASER_ACKNOWLEDGEMENT_IDS) {
+      await page
+        .locator(
+          `[id="consents.laser-hair-removal.acknowledgements.${ackId}-checkbox"]`,
+        )
+        .check();
+    }
     await page
-      .getByRole("checkbox", { name: /Laser Hair Removal Consent/ })
-      .check();
-    await page
-      .getByRole("checkbox", { name: /Lash Lift & Tint Consent/ })
-      .check();
+      .locator('[id="consents.laser-hair-removal.typedName"]')
+      .fill("Jane Doe");
+    await page.locator('[id="consents.laser-hair-removal.accepted"]').check();
+    // Lash Lift & Tint consent is still marked as pending clinic content,
+    // so no acceptance checkbox is rendered for it.
     await continueStep(page);
 
     // Review screen: assert human-readable labels, not raw stable values.

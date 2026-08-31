@@ -15,15 +15,15 @@ type LaserConsentSubmission = {
   consentVersion: string;
   acknowledgements: {
     risks: boolean;
-    treatmentResponse: boolean;
+    individualResults: boolean;
     treatmentSeries: boolean;
-    outcomesAndComplications: boolean;
-    cosmeticDecision: boolean;
+    naturePurpose: boolean;
     pregnancyAccutaneDevices: boolean;
-    finalAcknowledgement: boolean;
+    cancellationPolicy: boolean;
+    photography: boolean;
+    recommendedTreatments: boolean;
+    promotionalExpiry: boolean;
   };
-  photoPermission: boolean;
-  photoPermissionDetails?: string;
   typedName: string;
   accepted: boolean;
   acceptedAt: string;
@@ -150,24 +150,19 @@ export function buildClientFormSubmission(
 
     if (treatmentId === "laser-hair-removal") {
       const ack = consentState?.acknowledgements ?? {};
-      const photoPermission = Boolean(consentState?.photoPermission);
-      const details =
-        photoPermission && consentState?.photoPermissionDetails?.trim()
-          ? consentState.photoPermissionDetails.trim()
-          : undefined;
       laserConsent = {
         consentVersion: definition.consent.version,
         acknowledgements: {
           risks: ack.risks ?? false,
-          treatmentResponse: ack.treatmentResponse ?? false,
+          individualResults: ack.individualResults ?? false,
           treatmentSeries: ack.treatmentSeries ?? false,
-          outcomesAndComplications: ack.outcomesAndComplications ?? false,
-          cosmeticDecision: ack.cosmeticDecision ?? false,
+          naturePurpose: ack.naturePurpose ?? false,
           pregnancyAccutaneDevices: ack.pregnancyAccutaneDevices ?? false,
-          finalAcknowledgement: ack.finalAcknowledgement ?? false,
+          cancellationPolicy: ack.cancellationPolicy ?? false,
+          photography: ack.photography ?? false,
+          recommendedTreatments: ack.recommendedTreatments ?? false,
+          promotionalExpiry: ack.promotionalExpiry ?? false,
         },
-        photoPermission,
-        photoPermissionDetails: details,
         typedName: (consentState?.typedName ?? "").trim(),
         accepted: consentState?.accepted ?? false,
         acceptedAt: submittedAt,

@@ -236,12 +236,14 @@ function LaserConsentReview({
   const ack = consent?.acknowledgements ?? {};
   const allAcknowledged =
     ack.risks === true &&
-    ack.treatmentResponse === true &&
+    ack.individualResults === true &&
     ack.treatmentSeries === true &&
-    ack.outcomesAndComplications === true &&
-    ack.cosmeticDecision === true &&
+    ack.naturePurpose === true &&
     ack.pregnancyAccutaneDevices === true &&
-    ack.finalAcknowledgement === true;
+    ack.cancellationPolicy === true &&
+    ack.photography === true &&
+    ack.recommendedTreatments === true &&
+    ack.promotionalExpiry === true;
 
   return (
     <div className="space-y-1">
@@ -250,16 +252,6 @@ function LaserConsentReview({
           ? "Required acknowledgements completed"
           : "Acknowledgements incomplete"}
       </p>
-      <p>
-        Photography permission:{" "}
-        {consent?.photoPermission === true ? "Yes" : "No"}
-      </p>
-      {consent?.photoPermission === true &&
-      consent?.photoPermissionDetails?.trim() ? (
-        <p className="text-sm text-muted-foreground">
-          Notes: {consent.photoPermissionDetails.trim()}
-        </p>
-      ) : null}
       <p>Consent name: {consent?.typedName?.trim() || "\u2014"}</p>
     </div>
   );

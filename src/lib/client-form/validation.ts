@@ -218,15 +218,18 @@ const ACKNOWLEDGEMENT_LABELS: Record<
   string
 > = {
   risks: "Please acknowledge the treatment risks.",
-  treatmentResponse: "Please acknowledge the treatment response information.",
+  individualResults: "Please acknowledge the treatment response information.",
   treatmentSeries: "Please acknowledge the treatment series information.",
-  outcomesAndComplications:
-    "Please acknowledge the outcome and complications information.",
-  cosmeticDecision: "Please acknowledge the cosmetic treatment decision.",
+  naturePurpose:
+    "Please acknowledge the nature, purpose and outcomes of the procedure.",
   pregnancyAccutaneDevices:
     "Please acknowledge the pregnancy, Accutane and device information.",
-  finalAcknowledgement:
-    "Please acknowledge that you have read and understand the consent form.",
+  cancellationPolicy: "Please acknowledge the cancellation policy.",
+  photography: "Please acknowledge the photography permission.",
+  recommendedTreatments:
+    "Please acknowledge the recommended number of treatments.",
+  promotionalExpiry:
+    "Please acknowledge the promotional package expiry information.",
 };
 
 function buildLaserConsentErrors(
@@ -254,7 +257,7 @@ function buildLaserConsentErrors(
   if (!name) {
     errors.typedName = {
       type: "validation",
-      message: "Please type your full legal name.",
+      message: "Please type the patient's name (print).",
     };
   }
 

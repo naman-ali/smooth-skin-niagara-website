@@ -1,12 +1,15 @@
 import { z } from "zod";
 import type { FieldErrors, Resolver } from "react-hook-form";
-import type { FormValues } from "./form-values";
+import type { FormValues, LaserConsentAcknowledgements } from "./form-values";
 import type {
   FormQuestion,
   MultiSelectWithOtherAnswer,
   SingleSelectWithOtherAnswer,
 } from "./types";
-import { getSelectedTreatmentDefinitions } from "./schema";
+import {
+  getSelectedTreatmentDefinitions,
+  getTreatmentDefinition,
+} from "./schema";
 import { flattenSectionsQuestions, isQuestionVisible } from "./conditional";
 
 // Zod primitives used to validate individual leaf answers. The overall
@@ -210,16 +213,82 @@ function buildTreatmentAnswerErrors(
   return result;
 }
 
+const ACKNOWLEDGEMENT_LABELS: Record<
+  keyof LaserConsentAcknowledgements,
+  string
+> = {
+  risks: "Please acknowledge the treatment risks.",
+  treatmentResponse: "Please acknowledge the treatment response information.",
+  treatmentSeries: "Please acknowledge the treatment series information.",
+  outcomesAndComplications:
+    "Please acknowledge the outcome and complications information.",
+  cosmeticDecision: "Please acknowledge the cosmetic treatment decision.",
+  pregnancyAccutaneDevices:
+    "Please acknowledge the pregnancy, Accutane and device information.",
+  finalAcknowledgement:
+    "Please acknowledge that you have read and understand the consent form.",
+};
+
+function buildLaserConsentErrors(
+  value: FormValues["consents"]["laser-hair-removal"],
+): Record<string, unknown> {
+  const errors: Record<string, unknown> = {};
+  const acknowledgements: Record<string, { type: string; message: string }> =
+    {};
+  const ack = value?.acknowledgements ?? {};
+  for (const key of Object.keys(
+    ACKNOWLEDGEMENT_LABELS,
+  ) as (keyof LaserConsentAcknowledgements)[]) {
+    if (!ack[key]) {
+      acknowledgements[key] = {
+        type: "validation",
+        message: ACKNOWLEDGEMENT_LABELS[key],
+      };
+    }
+  }
+  if (Object.keys(acknowledgements).length > 0) {
+    errors.acknowledgements = acknowledgements;
+  }
+
+  const name = value?.typedName?.trim() ?? "";
+  if (!name) {
+    errors.typedName = {
+      type: "validation",
+      message: "Please type your full legal name.",
+    };
+  }
+
+  if (!value?.accepted) {
+    errors.accepted = {
+      type: "validation",
+      message: "Please confirm your consent to proceed.",
+    };
+  }
+
+  return errors;
+}
+
 function buildConsentErrors(
   selectedTreatments: string[],
   consents: FormValues["consents"],
-): Record<string, { accepted: { type: string; message: string } }> {
-  const result: Record<
-    string,
-    { accepted: { type: string; message: string } }
-  > = {};
+): Record<string, unknown> {
+  const result: Record<string, unknown> = {};
   for (const treatmentId of selectedTreatments) {
-    if (!consents[treatmentId]?.accepted) {
+    const definition = getTreatmentDefinition(treatmentId);
+    if (!definition) continue;
+
+    if (treatmentId === "laser-hair-removal") {
+      const laserErrors = buildLaserConsentErrors(consents[treatmentId]);
+      if (Object.keys(laserErrors).length > 0) {
+        result[treatmentId] = laserErrors;
+      }
+      continue;
+    }
+
+    if (
+      definition.consent.status === "approved" &&
+      !consents[treatmentId]?.accepted
+    ) {
       result[treatmentId] = {
         accepted: {
           type: "validation",
@@ -286,7 +355,11 @@ const resolver = async (values: FormValues) => {
     values.selectedTreatments,
     values.consents,
   );
-  if (Object.keys(consentErrors).length) errors.consents = consentErrors;
+  if (Object.keys(consentErrors).length) {
+    errors.consents = consentErrors as unknown as FieldErrors<
+      FormValues["consents"]
+    >;
+  }
 
   const acknowledgementErrors = buildAcknowledgementErrors(
     values.acknowledgement,

@@ -1,11 +1,15 @@
 "use client";
 
 import { Controller, useFormContext } from "react-hook-form";
+import { cn } from "@/lib/utils";
 import { OptionChip } from "./OptionChip";
 import { OtherTextField } from "./OtherTextField";
 import { FieldError } from "./FieldError";
 import type { FormValues } from "@/lib/client-form/form-values";
-import type { SelectOption, MultiSelectWithOtherAnswer } from "@/lib/client-form/types";
+import type {
+  SelectOption,
+  MultiSelectWithOtherAnswer,
+} from "@/lib/client-form/types";
 
 export function MultiSelectWithOtherQuestion({
   name,
@@ -19,6 +23,7 @@ export function MultiSelectWithOtherQuestion({
   otherFieldLabel = "Please specify",
   otherPlaceholder,
   exclusiveOptions = [],
+  compact = false,
 }: {
   name: string;
   label: string;
@@ -31,6 +36,7 @@ export function MultiSelectWithOtherQuestion({
   otherFieldLabel?: string;
   otherPlaceholder?: string;
   exclusiveOptions?: string[];
+  compact?: boolean;
 }) {
   const { control } = useFormContext<FormValues>();
   const errorId = `${name}-error`;
@@ -52,7 +58,10 @@ export function MultiSelectWithOtherQuestion({
           } else if (isExclusive) {
             next = [value];
           } else {
-            next = [...values.filter((v) => !exclusiveOptions.includes(v)), value];
+            next = [
+              ...values.filter((v) => !exclusiveOptions.includes(v)),
+              value,
+            ];
           }
           field.onChange({
             values: next,
@@ -61,8 +70,16 @@ export function MultiSelectWithOtherQuestion({
         };
 
         return (
-          <fieldset id={name} className="space-y-2">
-            <legend className="text-[15px] font-medium leading-snug text-foreground">
+          <fieldset
+            id={name}
+            className={cn("space-y-2", compact && "space-y-1")}
+          >
+            <legend
+              className={cn(
+                "font-medium leading-snug text-foreground",
+                compact ? "text-sm" : "text-[15px]",
+              )}
+            >
               {label}
               {required ? (
                 <span aria-hidden="true" className="text-primary">
@@ -72,16 +89,28 @@ export function MultiSelectWithOtherQuestion({
               ) : null}
             </legend>
             {description ? (
-              <p className="text-sm text-muted-foreground">{description}</p>
+              <p
+                className={cn(
+                  "text-muted-foreground",
+                  compact ? "text-xs" : "text-sm",
+                )}
+              >
+                {description}
+              </p>
             ) : null}
 
-            <div role="group" aria-label={label} className="flex flex-wrap gap-2">
+            <div
+              role="group"
+              aria-label={label}
+              className={cn("flex flex-wrap", compact ? "gap-1.5" : "gap-2")}
+            >
               {options.map((option) => (
                 <OptionChip
                   key={option.value}
                   label={option.label}
                   selected={values.includes(option.value)}
                   onClick={() => toggle(option.value)}
+                  compact={compact}
                 />
               ))}
               {allowOther ? (
@@ -89,6 +118,7 @@ export function MultiSelectWithOtherQuestion({
                   label={otherLabel}
                   selected={isOtherSelected}
                   onClick={() => toggle(otherValue)}
+                  compact={compact}
                 />
               ) : null}
             </div>
@@ -103,6 +133,7 @@ export function MultiSelectWithOtherQuestion({
                 value={answer.otherText ?? ""}
                 onChange={(text) => field.onChange({ values, otherText: text })}
                 required
+                compact={compact}
               />
             ) : null}
           </fieldset>

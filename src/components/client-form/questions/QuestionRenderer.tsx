@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { cn } from "@/lib/utils";
 import { useFormContext, useWatch } from "react-hook-form";
 import type { FormQuestion } from "@/lib/client-form/types";
 import type { FormValues } from "@/lib/client-form/form-values";
@@ -20,31 +21,42 @@ import { CheckboxQuestion } from "./CheckboxQuestion";
 export function QuestionRenderer({
   question,
   fieldPrefix,
+  compact = false,
 }: {
   question: FormQuestion;
   /** e.g. "treatmentAnswers.laser-hair-removal" */
   fieldPrefix: string;
+  compact?: boolean;
 }) {
-  return <QuestionNode question={question} fieldPrefix={fieldPrefix} />;
+  return (
+    <QuestionNode
+      question={question}
+      fieldPrefix={fieldPrefix}
+      compact={compact}
+    />
+  );
 }
 
 function QuestionNode({
   question,
   fieldPrefix,
+  compact,
 }: {
   question: FormQuestion;
   fieldPrefix: string;
+  compact: boolean;
 }) {
   const name = `${fieldPrefix}.${question.id}`;
 
   return (
-    <div className="space-y-4">
-      <SingleQuestionField question={question} name={name} />
+    <div className={cn("space-y-4", compact && "space-y-2")}>
+      <SingleQuestionField question={question} name={name} compact={compact} />
       {question.followUp ? (
         <FollowUpQuestion
           followUp={question.followUp}
           fieldPrefix={fieldPrefix}
           parentName={name}
+          compact={compact}
         />
       ) : null}
     </div>
@@ -55,10 +67,12 @@ function FollowUpQuestion({
   followUp,
   fieldPrefix,
   parentName,
+  compact,
 }: {
   followUp: FormQuestion;
   fieldPrefix: string;
   parentName: string;
+  compact: boolean;
 }) {
   const { control, setValue } = useFormContext<FormValues>();
   const parentValue = useWatch({ control, name: parentName as never });
@@ -81,7 +95,11 @@ function FollowUpQuestion({
 
   return (
     <div className="ml-1 border-l-2 border-border pl-4">
-      <QuestionNode question={followUp} fieldPrefix={fieldPrefix} />
+      <QuestionNode
+        question={followUp}
+        fieldPrefix={fieldPrefix}
+        compact={compact}
+      />
     </div>
   );
 }
@@ -104,9 +122,11 @@ function clearQuestionChain(
 function SingleQuestionField({
   question,
   name,
+  compact = false,
 }: {
   question: FormQuestion;
   name: string;
+  compact?: boolean;
 }) {
   switch (question.type) {
     case "yesNo":
@@ -117,6 +137,7 @@ function SingleQuestionField({
           description={question.description}
           helperText={question.helperText}
           required={question.required}
+          compact={compact}
         />
       );
     case "singleSelect":
@@ -127,6 +148,7 @@ function SingleQuestionField({
           description={question.description}
           options={question.options ?? []}
           required={question.required}
+          compact={compact}
         />
       );
     case "singleSelectWithOther":
@@ -142,6 +164,7 @@ function SingleQuestionField({
           otherLabel={question.otherLabel}
           otherFieldLabel={question.otherFieldLabel}
           otherPlaceholder={question.otherPlaceholder}
+          compact={compact}
         />
       );
     case "multiSelectWithOther":
@@ -158,6 +181,7 @@ function SingleQuestionField({
           otherFieldLabel={question.otherFieldLabel}
           otherPlaceholder={question.otherPlaceholder}
           exclusiveOptions={question.exclusiveOptions}
+          compact={compact}
         />
       );
     case "checkbox":
@@ -167,6 +191,7 @@ function SingleQuestionField({
           name={name}
           label={question.label}
           description={question.description}
+          compact={compact}
         />
       );
     case "textarea":
@@ -180,6 +205,7 @@ function SingleQuestionField({
           placeholder={question.placeholder}
           required={question.required}
           multiline
+          compact={compact}
         />
       );
     case "consentPlaceholder":
@@ -198,6 +224,7 @@ function SingleQuestionField({
           helperText={question.helperText}
           placeholder={question.placeholder}
           required={question.required}
+          compact={compact}
         />
       );
   }

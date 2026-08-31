@@ -275,18 +275,11 @@ export const lashLiftTint: TreatmentFormDefinition = {
     content: [
       {
         kind: "notice",
-        text: "Clinic-approved Lash Lift & Tint consent and waiver wording will appear here before production launch. This placeholder is not a legally valid waiver.",
+        text: "Lash Lift & Tint consent wording is awaiting the clinic's current consent form.",
       },
       {
         kind: "paragraph",
-        text: "This section is reserved for the complete Lash Lift & Tint treatment consent, once the full legal text is supplied by Smooth Skin Niagara.",
-      },
-      {
-        kind: "clauses",
-        items: [
-          "Placeholder acknowledgement clause 1 \u2014 to be replaced with clinic-approved wording.",
-          "Placeholder acknowledgement clause 2 \u2014 to be replaced with clinic-approved wording.",
-        ],
+        text: "This consent will be replaced with the clinic's approved Lash Lift & Tint waiver before this form is used in production.",
       },
     ],
   },

@@ -280,7 +280,7 @@ function Hero() {
         style={{
           position: "absolute",
           inset: 0,
-          backgroundImage: "url(/assets/hero-treatment.png)",
+          backgroundImage: "url(/assets/hero-treatment-olive.png)",
           backgroundSize: "cover",
           backgroundPosition: "right center",
         }}

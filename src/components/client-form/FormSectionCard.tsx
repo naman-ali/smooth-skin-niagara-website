@@ -1,5 +1,12 @@
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import { cn } from "@/lib/utils";
 import type { ReactNode } from "react";
 
 /**
@@ -10,26 +17,39 @@ import type { ReactNode } from "react";
 export function FormSectionCard({
   title,
   description,
+  compact,
   children,
 }: {
   title: string;
-  description?: string;
+  description?: string | null;
+  compact?: boolean;
   children: ReactNode;
 }) {
   return (
     <Card className="border-border shadow-sm">
-      <CardHeader>
-        <CardTitle className="font-display text-2xl font-medium text-foreground">
+      <CardHeader className={compact ? "p-5" : undefined}>
+        <CardTitle
+          className={cn(
+            "font-display font-medium text-foreground",
+            compact ? "text-xl" : "text-2xl",
+          )}
+        >
           {title}
         </CardTitle>
         {description ? (
-          <CardDescription className="text-base leading-relaxed">
+          <CardDescription
+            className={cn("leading-relaxed", compact ? "text-sm" : "text-base")}
+          >
             {description}
           </CardDescription>
         ) : null}
       </CardHeader>
       <Separator />
-      <CardContent className="space-y-7 pt-6">{children}</CardContent>
+      <CardContent
+        className={cn("space-y-6", compact ? "p-5 pt-4" : "p-6 pt-6")}
+      >
+        {children}
+      </CardContent>
     </Card>
   );
 }

@@ -25,8 +25,28 @@ export type ClientInfoValues = {
 /** Answers for a single treatment, keyed by stable question id. */
 export type TreatmentAnswers = Record<string, unknown>;
 
+export type LaserConsentAcknowledgements = {
+  risks: boolean;
+  treatmentResponse: boolean;
+  treatmentSeries: boolean;
+  outcomesAndComplications: boolean;
+  cosmeticDecision: boolean;
+  pregnancyAccutaneDevices: boolean;
+  finalAcknowledgement: boolean;
+};
+
 export type ConsentValue = {
   accepted: boolean;
+  /** Detailed acknowledgements for Laser Hair Removal consent (optional). */
+  acknowledgements?: Partial<LaserConsentAcknowledgements>;
+  /** Separate photography permission for Laser Hair Removal. */
+  photoPermission?: boolean;
+  /** Optional notes/restrictions for the photography permission. */
+  photoPermissionDetails?: string;
+  /** Name typed for Laser Hair Removal consent final acceptance. */
+  typedName?: string;
+  /** Timestamp generated on submission. */
+  acceptedAt?: string;
 };
 
 export type AcknowledgementValues = {
@@ -59,7 +79,23 @@ export const DEFAULT_FORM_VALUES: FormValues = {
   selectedTreatments: [],
   clientInfo: { ...EMPTY_CLIENT_INFO },
   treatmentAnswers: {},
-  consents: {},
+  consents: {
+    "laser-hair-removal": {
+      accepted: false,
+      acknowledgements: {
+        risks: false,
+        treatmentResponse: false,
+        treatmentSeries: false,
+        outcomesAndComplications: false,
+        cosmeticDecision: false,
+        pregnancyAccutaneDevices: false,
+        finalAcknowledgement: false,
+      },
+      photoPermission: false,
+      photoPermissionDetails: "",
+      typedName: "",
+    },
+  },
   acknowledgement: {
     typedName: "",
     accepted: false,

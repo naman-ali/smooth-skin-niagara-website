@@ -108,10 +108,28 @@ export function getStepFieldNames(
           `treatmentAnswers.${step.treatmentId}.${question.id}` as Path<FormValues>,
       );
     }
-    case "consents":
-      return selectedTreatments.map(
-        (treatmentId) => `consents.${treatmentId}.accepted` as Path<FormValues>,
-      );
+    case "consents": {
+      const names: Path<FormValues>[] = [];
+      for (const treatmentId of selectedTreatments) {
+        if (treatmentId === "laser-hair-removal") {
+          names.push(
+            "consents.laser-hair-removal.acknowledgements.risks",
+            "consents.laser-hair-removal.acknowledgements.treatmentResponse",
+            "consents.laser-hair-removal.acknowledgements.treatmentSeries",
+            "consents.laser-hair-removal.acknowledgements.outcomesAndComplications",
+            "consents.laser-hair-removal.acknowledgements.cosmeticDecision",
+            "consents.laser-hair-removal.acknowledgements.pregnancyAccutaneDevices",
+            "consents.laser-hair-removal.acknowledgements.finalAcknowledgement",
+            "consents.laser-hair-removal.photoPermission",
+            "consents.laser-hair-removal.typedName",
+            "consents.laser-hair-removal.accepted",
+          );
+        } else {
+          names.push(`consents.${treatmentId}.accepted` as Path<FormValues>);
+        }
+      }
+      return names;
+    }
     case "review":
       return [];
     case "acknowledgement":

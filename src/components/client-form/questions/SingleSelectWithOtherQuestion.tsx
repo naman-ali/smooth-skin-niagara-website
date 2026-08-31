@@ -1,11 +1,15 @@
 "use client";
 
 import { Controller, useFormContext } from "react-hook-form";
+import { cn } from "@/lib/utils";
 import { OptionChip } from "./OptionChip";
 import { OtherTextField } from "./OtherTextField";
 import { FieldError } from "./FieldError";
 import type { FormValues } from "@/lib/client-form/form-values";
-import type { SelectOption, SingleSelectWithOtherAnswer } from "@/lib/client-form/types";
+import type {
+  SelectOption,
+  SingleSelectWithOtherAnswer,
+} from "@/lib/client-form/types";
 
 export function SingleSelectWithOtherQuestion({
   name,
@@ -18,6 +22,7 @@ export function SingleSelectWithOtherQuestion({
   otherLabel = "Other",
   otherFieldLabel = "Please specify",
   otherPlaceholder,
+  compact = false,
 }: {
   name: string;
   label: string;
@@ -29,6 +34,7 @@ export function SingleSelectWithOtherQuestion({
   otherLabel?: string;
   otherFieldLabel?: string;
   otherPlaceholder?: string;
+  compact?: boolean;
 }) {
   const { control } = useFormContext<FormValues>();
   const errorId = `${name}-error`;
@@ -45,13 +51,21 @@ export function SingleSelectWithOtherQuestion({
           field.onChange(
             value === otherValue
               ? { value, otherText: answer.otherText }
-              : { value }
+              : { value },
           );
         };
 
         return (
-          <fieldset id={name} className="space-y-2">
-            <legend className="text-[15px] font-medium leading-snug text-foreground">
+          <fieldset
+            id={name}
+            className={cn("space-y-2", compact && "space-y-1")}
+          >
+            <legend
+              className={cn(
+                "font-medium leading-snug text-foreground",
+                compact ? "text-sm" : "text-[15px]",
+              )}
+            >
               {label}
               {required ? (
                 <span aria-hidden="true" className="text-primary">
@@ -61,10 +75,21 @@ export function SingleSelectWithOtherQuestion({
               ) : null}
             </legend>
             {description ? (
-              <p className="text-sm text-muted-foreground">{description}</p>
+              <p
+                className={cn(
+                  "text-muted-foreground",
+                  compact ? "text-xs" : "text-sm",
+                )}
+              >
+                {description}
+              </p>
             ) : null}
 
-            <div role="radiogroup" aria-label={label} className="flex flex-wrap gap-2">
+            <div
+              role="radiogroup"
+              aria-label={label}
+              className={cn("flex flex-wrap", compact ? "gap-1.5" : "gap-2")}
+            >
               {options.map((option) => (
                 <OptionChip
                   key={option.value}
@@ -72,6 +97,7 @@ export function SingleSelectWithOtherQuestion({
                   label={option.label}
                   selected={answer.value === option.value}
                   onClick={() => select(option.value)}
+                  compact={compact}
                 />
               ))}
               {allowOther ? (
@@ -80,6 +106,7 @@ export function SingleSelectWithOtherQuestion({
                   label={otherLabel}
                   selected={isOtherSelected}
                   onClick={() => select(otherValue)}
+                  compact={compact}
                 />
               ) : null}
             </div>
@@ -92,8 +119,11 @@ export function SingleSelectWithOtherQuestion({
                 label={otherFieldLabel}
                 placeholder={otherPlaceholder}
                 value={answer.otherText ?? ""}
-                onChange={(text) => field.onChange({ value: answer.value, otherText: text })}
+                onChange={(text) =>
+                  field.onChange({ value: answer.value, otherText: text })
+                }
                 required
+                compact={compact}
               />
             ) : null}
           </fieldset>

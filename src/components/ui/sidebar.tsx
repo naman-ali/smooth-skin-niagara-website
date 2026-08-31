@@ -3,7 +3,15 @@
 import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Mail, Menu, PanelLeft, Users } from "lucide-react";
+import {
+  ClipboardList,
+  Mail,
+  Menu,
+  PanelLeft,
+  User,
+  UserPlus,
+  Users,
+} from "lucide-react";
 import { UserButton } from "@clerk/nextjs";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -15,7 +23,14 @@ interface NavItem {
 }
 
 const nav: NavItem[] = [
+  { label: "Clients", href: "/admin/clients", icon: User },
+  { label: "Leads", href: "/admin/leads", icon: UserPlus },
   { label: "Contacts", href: "/admin/contacts", icon: Users },
+  {
+    label: "Client Forms",
+    href: "/admin/client-form",
+    icon: ClipboardList,
+  },
 ];
 
 export function AdminSidebar({ children }: { children: React.ReactNode }) {

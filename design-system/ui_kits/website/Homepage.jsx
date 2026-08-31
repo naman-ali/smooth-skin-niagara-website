@@ -35,7 +35,7 @@ function Header() {
 function Hero() {
   return (
     <section style={{ position: 'relative', padding: '80px 53px 70px', overflow: 'hidden' }}>
-      <div style={{ position: 'absolute', inset: 0, backgroundImage: 'url(../../assets/hero-treatment.png)', backgroundSize: 'cover', backgroundPosition: 'right center' }} />
+      <div style={{ position: 'absolute', inset: 0, backgroundImage: 'url(../../assets/hero-treatment-olive.png)', backgroundSize: 'cover', backgroundPosition: 'right center' }} />
       <div style={{ position: 'absolute', inset: 0, backgroundImage: 'linear-gradient(to right, var(--olive-50) 0%, var(--olive-50) 44%, transparent 66%)' }} />
       <div style={{ position: 'relative', maxWidth: 'var(--container-max)', margin: '0 auto' }}>
         <div style={{ maxWidth: '42%', minWidth: 320 }}>

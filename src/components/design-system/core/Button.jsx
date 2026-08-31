@@ -29,8 +29,8 @@ export function Button({ variant = 'primary', size = 'md', icon, iconPosition = 
   };
   const hover = {
     primary: { background: 'var(--cta-primary-hover)' },
-    secondary: { background: 'rgba(108,149,183,0.08)' },
-    ghost: { background: 'rgba(108,149,183,0.06)' },
+    secondary: { background: 'rgba(102,112,82,0.08)' },
+    ghost: { background: 'rgba(102,112,82,0.06)' },
   };
   const [isHover, setHover] = React.useState(false);
   return (

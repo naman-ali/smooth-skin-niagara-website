@@ -1,6 +1,7 @@
 "use client";
 
 import { Controller, useFormContext, useWatch } from "react-hook-form";
+import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { FieldError } from "./questions/FieldError";
@@ -21,7 +22,7 @@ type FieldConfig = {
   label: string;
   type?: string;
   required?: boolean;
-  span?: "full" | "half";
+  span?: "full" | "half" | "third";
   inputMode?: React.HTMLAttributes<HTMLInputElement>["inputMode"];
 };
 
@@ -32,9 +33,9 @@ const NAME_FIELDS: FieldConfig[] = [
 
 const ADDRESS_FIELDS: FieldConfig[] = [
   { name: "street", label: "Street address", required: true, span: "full" },
-  { name: "city", label: "City", required: true, span: "half" },
-  { name: "province", label: "Province", required: true, span: "half" },
-  { name: "postalCode", label: "Postal code", required: true, span: "half" },
+  { name: "city", label: "City", required: true, span: "third" },
+  { name: "province", label: "Province", required: true, span: "third" },
+  { name: "postalCode", label: "Postal code", required: true, span: "third" },
 ];
 
 const CONTACT_FIELDS: FieldConfig[] = [
@@ -55,7 +56,7 @@ const CONTACT_FIELDS: FieldConfig[] = [
   },
 ];
 
-export function ClientInfoStep() {
+export function ClientInfoStep({ compact = false }: { compact?: boolean }) {
   const {
     register,
     control,
@@ -72,9 +73,15 @@ export function ClientInfoStep() {
     return (
       <div
         key={field.name}
-        className={field.span === "full" ? "sm:col-span-2" : undefined}
+        className={cn(
+          field.span === "full" && "sm:col-span-2",
+          field.span === "third" && "lg:col-span-1",
+        )}
       >
-        <Label htmlFor={id} className="text-[15px] font-medium">
+        <Label
+          htmlFor={id}
+          className={cn("font-medium", compact ? "text-sm" : "text-[15px]")}
+        >
           {field.label}
           {field.required ? (
             <span aria-hidden="true" className="text-primary">
@@ -89,7 +96,7 @@ export function ClientInfoStep() {
           inputMode={field.inputMode}
           aria-invalid={error ? true : undefined}
           aria-describedby={error ? `${id}-error` : undefined}
-          className="mt-1.5 h-12 text-base"
+          className={cn("mt-1.5", compact ? "h-9 text-sm" : "h-12 text-base")}
           {...register(`clientInfo.${field.name}` as const)}
         />
         <FieldError
@@ -101,24 +108,39 @@ export function ClientInfoStep() {
   };
 
   return (
-    <div className="space-y-8">
-      <div className="grid gap-5 sm:grid-cols-2">
+    <div className={cn("space-y-8", compact && "space-y-5")}>
+      <div className={cn("grid gap-5 sm:grid-cols-2", compact && "gap-3")}>
         {NAME_FIELDS.map(renderField)}
       </div>
 
-      <div className="grid gap-5 sm:grid-cols-2">
+      <div className={cn("grid gap-5 sm:grid-cols-2", compact && "gap-3")}>
         {CONTACT_FIELDS.map(renderField)}
       </div>
 
       <div className="space-y-1.5">
-        <p className="text-[15px] font-medium text-foreground">Address</p>
-        <div className="grid gap-5 sm:grid-cols-2">
+        <p
+          className={cn(
+            "font-medium text-foreground",
+            compact ? "text-sm" : "text-[15px]",
+          )}
+        >
+          Address
+        </p>
+        <div
+          className={cn(
+            "grid gap-5 sm:grid-cols-2 lg:grid-cols-3",
+            compact && "gap-3",
+          )}
+        >
           {ADDRESS_FIELDS.map(renderField)}
         </div>
       </div>
 
       <div>
-        <Label htmlFor="clientInfo.age" className="text-[15px] font-medium">
+        <Label
+          htmlFor="clientInfo.age"
+          className={cn("font-medium", compact ? "text-sm" : "text-[15px]")}
+        >
           Age
           {ageRequired ? (
             <span aria-hidden="true" className="text-primary">
@@ -135,7 +157,10 @@ export function ClientInfoStep() {
         <Input
           id="clientInfo.age"
           inputMode="numeric"
-          className="mt-1.5 h-12 max-w-[160px] text-base"
+          className={cn(
+            "mt-1.5 max-w-[160px]",
+            compact ? "h-9 text-sm" : "h-12 text-base",
+          )}
           aria-invalid={errors.clientInfo?.age ? true : undefined}
           aria-describedby={
             errors.clientInfo?.age ? "clientInfo.age-error" : undefined
@@ -148,12 +173,12 @@ export function ClientInfoStep() {
         />
       </div>
 
-      <ReferralSourceField />
+      <ReferralSourceField compact={compact} />
     </div>
   );
 }
 
-function ReferralSourceField() {
+function ReferralSourceField({ compact = false }: { compact?: boolean }) {
   const {
     control,
     formState: { errors },

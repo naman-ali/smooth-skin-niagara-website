@@ -14,15 +14,17 @@ datasource db {
 }
 
 model Contact {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  name      String
-  email     String
-  phone     String?
-  message   String
-  approved  Boolean  @default(false)
-  source    String   @default("manual")
-  imageUrl  String?
-  createdAt DateTime @default(now())
+  id                    String                 @id @default(auto()) @map("_id") @db.ObjectId
+  name                  String
+  email                 String
+  phone                 String?
+  message               String
+  approved              Boolean                @default(false)
+  contactType           String                 @default("client")
+  source                String                 @default("manual")
+  imageUrl              String?
+  createdAt             DateTime               @default(now())
+  clientFormSubmissions ClientFormSubmission[]
 }
 
 model Profile {
@@ -31,4 +33,21 @@ model Profile {
   email     String?
   role      String   @default("user")
   createdAt DateTime @default(now())
+}
+
+model ClientFormSubmission {
+  id                 String   @id @default(auto()) @map("_id") @db.ObjectId
+  formVersion        String
+  selectedTreatments String[]
+  firstName          String
+  lastName           String
+  email              String
+  phone              String
+  /// Full typed ClientFormSubmission payload (client info, treatment
+  /// answers, consents, acknowledgement) stored as-is for record keeping.
+  submission         Json
+  submittedAt        DateTime @default(now())
+  createdAt          DateTime @default(now())
+  contact            Contact? @relation(fields: [contactId], references: [id])
+  contactId          String?  @db.ObjectId
 }

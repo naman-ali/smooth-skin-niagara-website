@@ -14,12 +14,14 @@ export function YesNoQuestion({
   description,
   helperText,
   required,
+  compact = false,
 }: {
   name: string;
   label: string;
   description?: string;
   helperText?: string;
   required?: boolean;
+  compact?: boolean;
 }) {
   const { control } = useFormContext<FormValues>();
   const errorId = `${name}-error`;
@@ -38,8 +40,16 @@ export function YesNoQuestion({
               : undefined;
 
         return (
-          <fieldset id={name} className="space-y-2">
-            <legend className="text-[15px] font-medium leading-snug text-foreground">
+          <fieldset
+            id={name}
+            className={cn("space-y-2", compact && "space-y-1")}
+          >
+            <legend
+              className={cn(
+                "font-medium leading-snug text-foreground",
+                compact ? "text-sm" : "text-[15px]",
+              )}
+            >
               {label}
               {required ? (
                 <span aria-hidden="true" className="text-primary">
@@ -49,7 +59,13 @@ export function YesNoQuestion({
               ) : null}
             </legend>
             {description ? (
-              <p id={descriptionId} className="text-sm text-muted-foreground">
+              <p
+                id={descriptionId}
+                className={cn(
+                  "text-muted-foreground",
+                  compact ? "text-xs" : "text-sm",
+                )}
+              >
                 {description}
               </p>
             ) : null}
@@ -63,7 +79,10 @@ export function YesNoQuestion({
                   .join(" ") || undefined
               }
               aria-invalid={fieldState.error ? true : undefined}
-              className="grid grid-cols-2 gap-3"
+              className={cn(
+                "flex flex-wrap w-fit",
+                compact ? "gap-2" : "gap-3",
+              )}
             >
               {(
                 [
@@ -78,7 +97,10 @@ export function YesNoQuestion({
                     key={value}
                     htmlFor={optionId}
                     className={cn(
-                      "flex min-h-[48px] cursor-pointer items-center justify-center gap-2 rounded-lg border-2 px-4 py-3 text-base font-medium transition-colors focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2",
+                      "flex cursor-pointer items-center justify-center gap-2 rounded-lg border-2 px-4 font-medium transition-colors focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2",
+                      compact
+                        ? "min-h-[36px] py-1.5 text-sm"
+                        : "min-h-[48px] py-3 text-base",
                       selected
                         ? "border-primary bg-primary text-primary-foreground"
                         : "border-input bg-background text-foreground hover:bg-accent",

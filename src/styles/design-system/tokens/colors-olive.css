@@ -27,6 +27,7 @@
 
 --cta-primary-bg:var(--olive-700);
 --cta-primary-text:var(--olive-100);
+--cta-primary-hover:var(--olive-600);
 --cta-secondary-bg:transparent;
 --cta-secondary-border:var(--olive-600);
 --cta-secondary-text:var(--ink-900);

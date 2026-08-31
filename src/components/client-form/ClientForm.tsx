@@ -1,7 +1,8 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
-import { FormProvider, useForm, useWatch } from "react-hook-form";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { FormProvider, useForm, useWatch, type Path } from "react-hook-form";
+import { cn } from "@/lib/utils";
 import {
   DEFAULT_FORM_VALUES,
   type FormValues,
@@ -9,8 +10,9 @@ import {
 import { clientFormResolver } from "@/lib/client-form/validation";
 import { buildWizardSteps, getStepFieldNames } from "@/lib/client-form/steps";
 import { getTreatmentDefinition } from "@/lib/client-form/schema";
-import { mockSubmitClientForm } from "@/lib/client-form/submission";
+import { submitClientForm, ClientFormSubmitError } from "@/lib/client-form/api";
 import { scrollToTop, focusFirstErrorField } from "@/lib/client-form/scroll";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { FormProgress } from "./FormProgress";
 import { FormNavigation } from "./FormNavigation";
 import { FormSectionCard } from "./FormSectionCard";
@@ -22,17 +24,18 @@ import { ReviewStep } from "./ReviewStep";
 import { AcknowledgementStep } from "./AcknowledgementStep";
 import { SubmissionSuccess } from "./SubmissionSuccess";
 
-export function ClientForm() {
+export function ClientForm({ showHeader = true }: { showHeader?: boolean }) {
   const methods = useForm<FormValues>({
     defaultValues: DEFAULT_FORM_VALUES,
     resolver: clientFormResolver,
     mode: "onSubmit",
   });
-  const { control, trigger, getValues, formState } = methods;
+  const { control, trigger, getValues, setValue, formState } = methods;
 
   const [stepIndex, setStepIndex] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const topRef = useRef<HTMLDivElement>(null);
 
   const watchedTreatments = useWatch({ control, name: "selectedTreatments" });
@@ -44,6 +47,30 @@ export function ClientForm() {
     () => buildWizardSteps(selectedTreatments),
     [selectedTreatments],
   );
+
+  // Prefill any "typed legal name" fields from the client info entered at the
+  // top of the form. The user can still override each field manually.
+  const clientInfo = useWatch({ control, name: "clientInfo" });
+  const previousFullName = useRef("");
+  useEffect(() => {
+    const first = clientInfo?.firstName?.trim() ?? "";
+    const last = clientInfo?.lastName?.trim() ?? "";
+    const fullName = `${first} ${last}`.trim();
+    const nameFields: Path<FormValues>[] = [
+      "acknowledgement.typedName",
+      "consents.laser-hair-removal.typedName",
+    ];
+    for (const field of nameFields) {
+      const current = (getValues(field) as string | undefined) ?? "";
+      if (!current || current === previousFullName.current) {
+        setValue(field, fullName, {
+          shouldValidate: false,
+          shouldDirty: false,
+        });
+      }
+    }
+    previousFullName.current = fullName;
+  }, [clientInfo, getValues, setValue]);
 
   // Keep the step index in range if the number of steps shrinks (e.g. a
   // treatment is deselected while on the treatment-selection step).
@@ -82,11 +109,17 @@ export function ClientForm() {
   const handleSubmit = async () => {
     if (isSubmitting) return;
     setIsSubmitting(true);
+    setSubmitError(null);
     try {
-      // Mock submission only \u2014 no backend exists yet. The returned
-      // object is intentionally not logged or persisted anywhere.
-      await mockSubmitClientForm(getValues());
+      await submitClientForm(getValues());
       setIsSubmitted(true);
+      scrollToTop(topRef.current);
+    } catch (error) {
+      setSubmitError(
+        error instanceof ClientFormSubmitError
+          ? error.message
+          : "We couldn't submit your form. Please check your connection and try again.",
+      );
       scrollToTop(topRef.current);
     } finally {
       setIsSubmitting(false);
@@ -102,7 +135,13 @@ export function ClientForm() {
 
   if (isSubmitted) {
     return (
-      <div ref={topRef} className="mx-auto w-full max-w-3xl px-4 py-10 sm:px-6">
+      <div
+        ref={topRef}
+        className={cn(
+          "w-full",
+          showHeader ? "mx-auto max-w-3xl px-4 py-10 sm:px-6" : "py-10",
+        )}
+      >
         <SubmissionSuccess onDone={handleReset} />
       </div>
     );
@@ -112,18 +151,20 @@ export function ClientForm() {
     <FormProvider {...methods}>
       <div
         ref={topRef}
-        className="mx-auto w-full max-w-3xl px-4 pb-6 pt-8 sm:px-6 sm:pt-12"
+        className={cn("w-full", showHeader && "pb-6 pt-8 sm:pt-12")}
       >
-        <div className="mb-6 space-y-1">
-          <p className="text-sm font-medium uppercase tracking-wide text-primary">
-            Smooth Skin Niagara
-          </p>
-          <h1 className="font-display text-3xl font-medium text-foreground sm:text-4xl">
-            Client Intake Form
-          </h1>
-        </div>
+        {showHeader ? (
+          <div className="mb-6 space-y-1">
+            <p className="text-sm font-medium uppercase tracking-wide text-ink-600">
+              Smooth Skin Niagara
+            </p>
+            <h1 className="font-display text-3xl font-medium text-olive-700 sm:text-4xl">
+              Client Intake Form
+            </h1>
+          </div>
+        ) : null}
 
-        <div className="mb-6">
+        <div className={cn("mb-6", !showHeader && "hidden")}>
           <FormProgress steps={steps} currentIndex={clampedStepIndex} />
         </div>
 
@@ -132,6 +173,12 @@ export function ClientForm() {
           selectedTreatments={selectedTreatments}
           onEditStep={goToStep}
         />
+
+        {submitError ? (
+          <Alert variant="destructive" className="mt-6">
+            <AlertDescription>{submitError}</AlertDescription>
+          </Alert>
+        ) : null}
 
         <FormNavigation
           onBack={handleBack}

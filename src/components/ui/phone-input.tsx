@@ -17,7 +17,7 @@ export function PhoneInput({ ...props }: PhoneInputProps) {
   return (
     <BasePhoneInput
       inputComponent={Input}
-      defaultCountry="US"
+      country="CA"
       international
       {...props}
     />

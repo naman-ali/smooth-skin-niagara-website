@@ -1,6 +1,7 @@
 "use client";
 
 import { useFormContext } from "react-hook-form";
+import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
@@ -25,6 +26,7 @@ export function TextQuestion({
   placeholder,
   required,
   multiline,
+  compact = false,
 }: {
   name: string;
   type: QuestionType;
@@ -34,6 +36,7 @@ export function TextQuestion({
   placeholder?: string;
   required?: boolean;
   multiline?: boolean;
+  compact?: boolean;
 }) {
   const {
     register,
@@ -51,8 +54,14 @@ export function TextQuestion({
     undefined;
 
   return (
-    <div className="space-y-2">
-      <Label htmlFor={name} className="text-[15px] font-medium leading-snug">
+    <div className={cn("space-y-2", compact && "space-y-1")}>
+      <Label
+        htmlFor={name}
+        className={cn(
+          "font-medium leading-snug",
+          compact ? "text-sm" : "text-[15px]",
+        )}
+      >
         {label}
         {required ? (
           <span aria-hidden="true" className="text-primary">
@@ -62,7 +71,13 @@ export function TextQuestion({
         ) : null}
       </Label>
       {description ? (
-        <p id={descriptionId} className="text-sm text-muted-foreground">
+        <p
+          id={descriptionId}
+          className={cn(
+            "text-muted-foreground",
+            compact ? "text-xs" : "text-sm",
+          )}
+        >
           {description}
         </p>
       ) : null}
@@ -71,10 +86,10 @@ export function TextQuestion({
         <Textarea
           id={name}
           placeholder={placeholder}
-          rows={4}
+          rows={compact ? 2 : 4}
           aria-describedby={ariaDescribedBy}
           aria-invalid={error ? true : undefined}
-          className="min-h-[110px] text-base"
+          className={cn("text-sm", compact ? "min-h-[80px]" : "min-h-[110px]")}
           {...register(name as never)}
         />
       ) : (
@@ -87,13 +102,20 @@ export function TextQuestion({
           placeholder={placeholder}
           aria-describedby={ariaDescribedBy}
           aria-invalid={error ? true : undefined}
-          className="h-12 text-base"
+          className={cn(compact ? "h-9 text-sm" : "h-12 text-base")}
           {...register(name as never)}
         />
       )}
 
       {helperText ? (
-        <p className="text-sm text-muted-foreground">{helperText}</p>
+        <p
+          className={cn(
+            "text-muted-foreground",
+            compact ? "text-xs" : "text-sm",
+          )}
+        >
+          {helperText}
+        </p>
       ) : null}
       <FieldError id={errorId} message={error?.message as string | undefined} />
     </div>

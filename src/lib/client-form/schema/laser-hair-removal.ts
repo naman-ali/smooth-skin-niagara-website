@@ -373,34 +373,14 @@ export const laserHairRemoval: TreatmentFormDefinition = {
   consent: {
     treatmentId: "laser-hair-removal",
     title: "Laser Hair Removal Consent & Waiver",
-    version: "pending-1",
-    status: "pending-clinic-content",
+    version: "laser-consent-2026-08",
+    status: "approved",
     acceptanceLabel:
-      "I have read and agree to the Laser Hair Removal Consent & Waiver above.",
+      "I confirm that I have read and understood this consent and consent to proceed with the treatment.",
     content: [
       {
         kind: "notice",
-        text: "Clinic-approved Laser Hair Removal consent and waiver wording will appear here before production launch. This placeholder is not a legally valid waiver.",
-      },
-      {
-        kind: "paragraph",
-        text: "This section is reserved for the complete Informed Consent \u2014 Soprano Lite Laser Hair Removal System \u2014 Client Profile/Consent/Waiver & Release, once the full legal text is supplied by Smooth Skin Niagara.",
-      },
-      {
-        kind: "clauses",
-        items: [
-          "Placeholder acknowledgement clause 1 \u2014 to be replaced with clinic-approved wording.",
-          "Placeholder acknowledgement clause 2 \u2014 to be replaced with clinic-approved wording.",
-          "Placeholder acknowledgement clause 3 \u2014 to be replaced with clinic-approved wording.",
-        ],
-      },
-      {
-        kind: "bullets",
-        items: [
-          "Risks and side effects (pending clinic content)",
-          "Pre- and post-treatment care (pending clinic content)",
-          "Release and waiver terms (pending clinic content)",
-        ],
+        text: "Please review each acknowledgement carefully before continuing.",
       },
     ],
   },

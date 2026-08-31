@@ -1,10 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { Pencil, Plus, Trash2, Upload } from "lucide-react";
 import ImportDialog from "./ImportDialog";
 import ApproveDialog from "./ApproveDialog";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import {
   Card,
   CardContent,
@@ -39,6 +41,7 @@ type Contact = {
   phone: string | null;
   message: string;
   approved: boolean;
+  contactType: string;
   source: string;
   imageUrl: string | null;
   createdAt: string;
@@ -58,6 +61,7 @@ export default function ContactsManager({
   });
   const [editing, setEditing] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
+  const [typeFilter, setTypeFilter] = useState("all");
   const [importOpen, setImportOpen] = useState(false);
   const [approveOpen, setApproveOpen] = useState(false);
 
@@ -112,27 +116,44 @@ export default function ContactsManager({
   return (
     <div className="space-y-8 max-w-6xl mx-auto">
       <Card>
-        <CardHeader className="flex flex-row items-center justify-between gap-4">
+        <CardHeader className="flex flex-row flex-wrap items-center justify-between gap-4">
           <div className="space-y-1.5">
             <CardTitle>Contacts</CardTitle>
             <CardDescription>Manage all contact records.</CardDescription>
           </div>
-          <div className="flex gap-2">
-            <Button variant="outline" onClick={() => setImportOpen(true)}>
-              <Upload className="size-4 mr-2" />
-              Import
-            </Button>
-            <Button
-              variant="outline"
-              onClick={() => setApproveOpen(true)}
-              disabled={!contacts.some((c) => !c.approved)}
-            >
-              Approve Unapproved
-            </Button>
-            <Button onClick={startAdd}>
-              <Plus className="size-4 mr-2" />
-              Add Contact
-            </Button>
+          <div className="flex flex-wrap items-center gap-4">
+            <div className="flex items-center gap-2">
+              <label htmlFor="type-filter" className="text-sm font-medium">
+                Type
+              </label>
+              <select
+                id="type-filter"
+                value={typeFilter}
+                onChange={(e) => setTypeFilter(e.target.value)}
+                className="h-9 rounded-md border border-input bg-background px-3 py-1 text-sm"
+              >
+                <option value="all">All</option>
+                <option value="client">Client</option>
+                <option value="lead">Lead</option>
+              </select>
+            </div>
+            <div className="flex gap-2">
+              <Button variant="outline" onClick={() => setImportOpen(true)}>
+                <Upload className="size-4 mr-2" />
+                Import
+              </Button>
+              <Button
+                variant="outline"
+                onClick={() => setApproveOpen(true)}
+                disabled={!contacts.some((c) => !c.approved)}
+              >
+                Approve Unapproved
+              </Button>
+              <Button onClick={startAdd}>
+                <Plus className="size-4 mr-2" />
+                Add Contact
+              </Button>
+            </div>
           </div>
         </CardHeader>
         <CardContent>
@@ -142,6 +163,7 @@ export default function ContactsManager({
                 <TableHead>Name</TableHead>
                 <TableHead>Email</TableHead>
                 <TableHead>Phone</TableHead>
+                <TableHead>Type</TableHead>
                 <TableHead>Message</TableHead>
                 <TableHead>Source</TableHead>
                 <TableHead>Approved</TableHead>
@@ -150,51 +172,69 @@ export default function ContactsManager({
               </TableRow>
             </TableHeader>
             <TableBody>
-              {contacts.map((c) => (
-                <TableRow key={c.id}>
-                  <TableCell className="font-medium">{c.name}</TableCell>
-                  <TableCell>{c.email}</TableCell>
-                  <TableCell>{c.phone || "-"}</TableCell>
-                  <TableCell className="max-w-xs truncate">
-                    {c.message}
-                  </TableCell>
-                  <TableCell>
-                    {c.source
-                      .replace(/_/g, " ")
-                      .replace(/(^.|\s\w)/g, (m) => m.toUpperCase())}
-                  </TableCell>
-                  <TableCell>
-                    {c.approved ? (
-                      <span className="text-green-600">Yes</span>
-                    ) : (
-                      <span className="text-amber-600">No</span>
-                    )}
-                  </TableCell>
-                  <TableCell>
-                    {new Date(c.createdAt).toLocaleString()}
-                  </TableCell>
-                  <TableCell className="text-right">
-                    <div className="flex justify-end gap-2">
-                      <Button
-                        size="icon"
-                        variant="outline"
-                        onClick={() => startEdit(c)}
-                      >
-                        <Pencil className="size-4" />
-                        <span className="sr-only">Edit</span>
-                      </Button>
-                      <Button
-                        size="icon"
-                        variant="destructive"
-                        onClick={() => onDelete(c.id)}
-                      >
-                        <Trash2 className="size-4" />
-                        <span className="sr-only">Delete</span>
-                      </Button>
-                    </div>
-                  </TableCell>
-                </TableRow>
-              ))}
+              {contacts
+                .filter(
+                  (c) => typeFilter === "all" || c.contactType === typeFilter,
+                )
+                .map((c) => (
+                  <TableRow key={c.id}>
+                    <TableCell className="font-medium">{c.name}</TableCell>
+                    <TableCell>{c.email}</TableCell>
+                    <TableCell>{c.phone || "-"}</TableCell>
+                    <TableCell className="capitalize">
+                      {c.contactType || "client"}
+                    </TableCell>
+                    <TableCell className="max-w-xs truncate">
+                      {c.message}
+                    </TableCell>
+                    <TableCell>
+                      {c.source
+                        .replace(/_/g, " ")
+                        .replace(/(^.|\s\w)/g, (m) => m.toUpperCase())}
+                    </TableCell>
+                    <TableCell>
+                      {c.approved ? (
+                        <span className="text-green-600">Yes</span>
+                      ) : (
+                        <span className="text-amber-600">No</span>
+                      )}
+                    </TableCell>
+                    <TableCell>
+                      {new Date(c.createdAt).toLocaleString()}
+                    </TableCell>
+                    <TableCell className="text-right">
+                      <div className="flex justify-end gap-2">
+                        <Link
+                          href={`/admin/clients/${c.id}`}
+                          className={cn(
+                            buttonVariants({
+                              variant: "outline",
+                              size: "sm",
+                            }),
+                          )}
+                        >
+                          View
+                        </Link>
+                        <Button
+                          size="icon"
+                          variant="outline"
+                          onClick={() => startEdit(c)}
+                        >
+                          <Pencil className="size-4" />
+                          <span className="sr-only">Edit</span>
+                        </Button>
+                        <Button
+                          size="icon"
+                          variant="destructive"
+                          onClick={() => onDelete(c.id)}
+                        >
+                          <Trash2 className="size-4" />
+                          <span className="sr-only">Delete</span>
+                        </Button>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ))}
             </TableBody>
           </Table>
         </CardContent>

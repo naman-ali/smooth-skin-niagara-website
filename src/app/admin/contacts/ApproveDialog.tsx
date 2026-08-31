@@ -21,6 +21,7 @@ type Contact = {
   phone: string | null;
   message: string;
   approved: boolean;
+  contactType: string;
   source: string;
   imageUrl: string | null;
   createdAt: string;

@@ -21,7 +21,7 @@ export function FormNavigation({
       className="sticky bottom-0 -mx-4 mt-8 border-t border-border bg-background/95 px-4 py-4 backdrop-blur supports-[backdrop-filter]:bg-background/80 sm:static sm:mx-0 sm:border-0 sm:bg-transparent sm:px-0 sm:py-0 sm:backdrop-blur-none"
       style={{ paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 1rem)" }}
     >
-      <div className="mx-auto flex max-w-3xl items-center justify-between gap-3">
+      <div className="mx-auto flex max-w-3xl items-center justify-between gap-3 lg:max-w-4xl xl:max-w-5xl">
         <Button
           type="button"
           variant="outline"

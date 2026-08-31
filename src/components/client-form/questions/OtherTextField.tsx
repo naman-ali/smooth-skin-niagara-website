@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
@@ -15,6 +16,7 @@ export function OtherTextField({
   value,
   onChange,
   required,
+  compact = false,
 }: {
   id: string;
   label?: string;
@@ -22,10 +24,22 @@ export function OtherTextField({
   value: string;
   onChange: (value: string) => void;
   required?: boolean;
+  compact?: boolean;
 }) {
   return (
-    <div className="mt-1 max-w-md space-y-1.5 border-l-2 border-primary/30 pl-4">
-      <Label htmlFor={id} className="text-sm font-medium text-foreground">
+    <div
+      className={cn(
+        "mt-1 max-w-md border-l-2 border-primary/30 pl-4",
+        compact ? "space-y-1" : "space-y-1.5",
+      )}
+    >
+      <Label
+        htmlFor={id}
+        className={cn(
+          "font-medium text-foreground",
+          compact ? "text-xs" : "text-sm",
+        )}
+      >
         {label}
         {required ? (
           <span aria-hidden="true" className="text-primary">
@@ -39,7 +53,7 @@ export function OtherTextField({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className="h-11 text-base"
+        className={cn(compact ? "h-8 text-sm" : "h-11 text-base")}
       />
     </div>
   );

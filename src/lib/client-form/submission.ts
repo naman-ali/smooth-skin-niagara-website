@@ -11,6 +11,24 @@ import {
   getReferralSourceLabel,
 } from "./referral-source";
 
+type LaserConsentSubmission = {
+  consentVersion: string;
+  acknowledgements: {
+    risks: boolean;
+    treatmentResponse: boolean;
+    treatmentSeries: boolean;
+    outcomesAndComplications: boolean;
+    cosmeticDecision: boolean;
+    pregnancyAccutaneDevices: boolean;
+    finalAcknowledgement: boolean;
+  };
+  photoPermission: boolean;
+  photoPermissionDetails?: string;
+  typedName: string;
+  accepted: boolean;
+  acceptedAt: string;
+};
+
 export type ClientFormSubmission = {
   formVersion: string;
   selectedTreatments: string[];
@@ -49,6 +67,8 @@ export type ClientFormSubmission = {
       accepted?: boolean;
     };
   };
+
+  laserConsent?: LaserConsentSubmission;
 
   acknowledgement: {
     typedName: string;
@@ -110,6 +130,7 @@ export function buildClientFormSubmission(
 
   const treatmentResponses: ClientFormSubmission["treatmentResponses"] = {};
   const consents: ClientFormSubmission["consents"] = {};
+  let laserConsent: ClientFormSubmission["laserConsent"] | undefined;
 
   for (const treatmentId of values.selectedTreatments) {
     const definition = getTreatmentDefinition(treatmentId);
@@ -126,6 +147,32 @@ export function buildClientFormSubmission(
       consentStatus: definition.consent.status,
       accepted: consentState?.accepted ?? false,
     };
+
+    if (treatmentId === "laser-hair-removal") {
+      const ack = consentState?.acknowledgements ?? {};
+      const photoPermission = Boolean(consentState?.photoPermission);
+      const details =
+        photoPermission && consentState?.photoPermissionDetails?.trim()
+          ? consentState.photoPermissionDetails.trim()
+          : undefined;
+      laserConsent = {
+        consentVersion: definition.consent.version,
+        acknowledgements: {
+          risks: ack.risks ?? false,
+          treatmentResponse: ack.treatmentResponse ?? false,
+          treatmentSeries: ack.treatmentSeries ?? false,
+          outcomesAndComplications: ack.outcomesAndComplications ?? false,
+          cosmeticDecision: ack.cosmeticDecision ?? false,
+          pregnancyAccutaneDevices: ack.pregnancyAccutaneDevices ?? false,
+          finalAcknowledgement: ack.finalAcknowledgement ?? false,
+        },
+        photoPermission,
+        photoPermissionDetails: details,
+        typedName: (consentState?.typedName ?? "").trim(),
+        accepted: consentState?.accepted ?? false,
+        acceptedAt: submittedAt,
+      };
+    }
   }
 
   return {
@@ -134,6 +181,7 @@ export function buildClientFormSubmission(
     client: buildClient(values.clientInfo),
     treatmentResponses,
     consents,
+    laserConsent,
     acknowledgement: {
       typedName: values.acknowledgement.typedName.trim(),
       accepted: values.acknowledgement.accepted,
@@ -141,18 +189,4 @@ export function buildClientFormSubmission(
     },
     submittedAt,
   };
-}
-
-/**
- * Mock submission handler. There is no backend yet: this simply hands the
- * fully-typed submission object to a callback so the eventual API call can
- * be dropped in without changing any form/rendering code.
- */
-export async function mockSubmitClientForm(
-  values: FormValues,
-): Promise<ClientFormSubmission> {
-  const submission = buildClientFormSubmission(values);
-  // Simulate network latency for a realistic submit experience.
-  await new Promise((resolve) => setTimeout(resolve, 600));
-  return submission;
 }

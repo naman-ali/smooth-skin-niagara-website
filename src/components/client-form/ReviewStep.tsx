@@ -95,6 +95,7 @@ export function ReviewStep({
   const values = getValues();
   const steps = buildWizardSteps(selectedTreatments);
   const clientInfoStepIndex = steps.findIndex((s) => s.kind === "client-info");
+  const consentsStepIndex = steps.findIndex((s) => s.kind === "consents");
   const definitions = getSelectedTreatmentDefinitions(selectedTreatments);
 
   return (
@@ -191,6 +192,75 @@ export function ReviewStep({
           </ReviewGroup>
         );
       })}
+
+      <ReviewGroup
+        title="Consents"
+        onEdit={() => onEditStep(consentsStepIndex)}
+      >
+        <dl className="space-y-2.5">
+          {definitions.map((definition) => (
+            <div key={definition.id}>
+              <dt className="text-sm text-muted-foreground">
+                {definition.name}
+              </dt>
+              <dd className="text-[15px] font-medium text-foreground">
+                {definition.id === "laser-hair-removal" ? (
+                  <LaserConsentReview
+                    consent={values.consents["laser-hair-removal"]}
+                  />
+                ) : definition.consent.status === "pending-clinic-content" ? (
+                  <span className="text-muted-foreground">
+                    Awaiting clinic consent form
+                  </span>
+                ) : (
+                  <span>
+                    {values.consents[definition.id]?.accepted
+                      ? "Accepted"
+                      : "Not accepted"}
+                  </span>
+                )}
+              </dd>
+            </div>
+          ))}
+        </dl>
+      </ReviewGroup>
+    </div>
+  );
+}
+
+function LaserConsentReview({
+  consent,
+}: {
+  consent: FormValues["consents"]["laser-hair-removal"] | undefined;
+}) {
+  const ack = consent?.acknowledgements ?? {};
+  const allAcknowledged =
+    ack.risks === true &&
+    ack.treatmentResponse === true &&
+    ack.treatmentSeries === true &&
+    ack.outcomesAndComplications === true &&
+    ack.cosmeticDecision === true &&
+    ack.pregnancyAccutaneDevices === true &&
+    ack.finalAcknowledgement === true;
+
+  return (
+    <div className="space-y-1">
+      <p>
+        {allAcknowledged
+          ? "Required acknowledgements completed"
+          : "Acknowledgements incomplete"}
+      </p>
+      <p>
+        Photography permission:{" "}
+        {consent?.photoPermission === true ? "Yes" : "No"}
+      </p>
+      {consent?.photoPermission === true &&
+      consent?.photoPermissionDetails?.trim() ? (
+        <p className="text-sm text-muted-foreground">
+          Notes: {consent.photoPermissionDetails.trim()}
+        </p>
+      ) : null}
+      <p>Consent name: {consent?.typedName?.trim() || "\u2014"}</p>
     </div>
   );
 }

@@ -24,6 +24,10 @@ import {
   REFERRAL_OTHER_VALUE,
 } from "@/lib/client-form/referral-source";
 import { getSharedQuestionsForTreatments } from "@/lib/client-form/schema/shared-questions";
+import {
+  PHOTO_RELEASE_CONSENT_ID,
+  photoReleaseConsent,
+} from "@/lib/client-form/schema/photo-release";
 import { isMinorAge } from "@/lib/client-form/guardian";
 
 function formatAnswer(question: FormQuestion, value: unknown): string {
@@ -287,6 +291,16 @@ export function ReviewStep({
               </dd>
             </div>
           ))}
+          <div>
+            <dt className="text-sm text-muted-foreground">
+              {photoReleaseConsent.title}
+            </dt>
+            <dd className="text-[15px] font-medium text-foreground">
+              {values.consents[PHOTO_RELEASE_CONSENT_ID]?.accepted
+                ? "Accepted"
+                : "Not accepted"}
+            </dd>
+          </div>
         </dl>
       </ReviewGroup>
     </div>

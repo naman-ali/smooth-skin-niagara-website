@@ -11,6 +11,7 @@ import {
 import { clientFormResolver } from "@/lib/client-form/validation";
 import { getSelectedTreatmentDefinitions } from "@/lib/client-form/schema";
 import { getSharedQuestionsForTreatments } from "@/lib/client-form/schema/shared-questions";
+import { PHOTO_RELEASE_CONSENT_ID } from "@/lib/client-form/schema/photo-release";
 import { flattenSectionQuestions } from "@/lib/client-form/conditional";
 import { submitClientForm, ClientFormSubmitError } from "@/lib/client-form/api";
 import { scrollToTop } from "@/lib/client-form/scroll";
@@ -125,6 +126,7 @@ export function OnePageClientForm() {
     }
 
     names.push(
+      `consents.${PHOTO_RELEASE_CONSENT_ID}.accepted` as Path<FormValues>,
       "acknowledgement.typedName",
       "acknowledgement.accepted",
       "guardian.fullName",

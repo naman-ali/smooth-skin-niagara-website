@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import { getSelectedTreatmentDefinitions } from "@/lib/client-form/schema";
+import { photoReleaseConsent } from "@/lib/client-form/schema/photo-release";
 import { ConsentSection } from "./ConsentSection";
 import { LaserConsentSection } from "./LaserConsentSection";
 
@@ -25,6 +26,8 @@ export function ConsentsStep({
           />
         ),
       )}
+      {/* Applies once per submission regardless of which treatment(s) were selected. */}
+      <ConsentSection consent={photoReleaseConsent} compact={compact} />
     </div>
   );
 }

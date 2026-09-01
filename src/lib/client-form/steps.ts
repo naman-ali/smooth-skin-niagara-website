@@ -5,6 +5,7 @@ import {
 } from "./schema";
 import { flattenSectionQuestions } from "./conditional";
 import { getSharedQuestionsForTreatments } from "./schema/shared-questions";
+import { PHOTO_RELEASE_CONSENT_ID } from "./schema/photo-release";
 import type { FormValues } from "./form-values";
 
 export type WizardStep =
@@ -139,6 +140,9 @@ export function getStepFieldNames(
           names.push(`consents.${treatmentId}.accepted` as Path<FormValues>);
         }
       }
+      names.push(
+        `consents.${PHOTO_RELEASE_CONSENT_ID}.accepted` as Path<FormValues>,
+      );
       return names;
     }
     case "review":

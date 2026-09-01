@@ -41,8 +41,15 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { getTreatmentDefinition } from "@/lib/client-form/schema";
-import { flattenSectionQuestions } from "@/lib/client-form/conditional";
-import { isQuestionVisible } from "@/lib/client-form/conditional";
+import { getSharedQuestionsForTreatments } from "@/lib/client-form/schema/shared-questions";
+import {
+  photoReleaseConsent,
+  PHOTO_RELEASE_CONSENT_ID,
+} from "@/lib/client-form/schema/photo-release";
+import {
+  flattenSectionQuestions,
+  isQuestionVisible,
+} from "@/lib/client-form/conditional";
 import type { ClientFormSubmission } from "@/lib/client-form/submission";
 import type {
   FormQuestion,
@@ -382,12 +389,25 @@ function SubmissionDetail({
                 <User className="size-3.5" /> Age {submission.client.age}
               </span>
             ) : null}
+            {submission.client.emergencyContact ? (
+              <span className="inline-flex items-center gap-1.5">
+                Emergency contact: {submission.client.emergencyContact}
+              </span>
+            ) : null}
             <span className="inline-flex items-center gap-1.5">
               <Calendar className="size-3.5" />
               {formatDate(submission.submittedAt)}
             </span>
             {submission.client.referralSource ? (
-              <span>Heard from: {submission.client.referralSource.label}</span>
+              <span>
+                Heard from: {submission.client.referralSource.label}
+                {submission.client.referralSource.otherText
+                  ? ` (${submission.client.referralSource.otherText})`
+                  : null}
+                {submission.client.referralSource.referrerName
+                  ? ` — ${submission.client.referralSource.referrerName}`
+                  : null}
+              </span>
             ) : null}
           </div>
         </div>
@@ -408,6 +428,35 @@ function SubmissionDetail({
       </section>
 
       <Separator />
+
+      {getSharedQuestionsForTreatments(submission.selectedTreatments).length >
+        0 && (
+        <section className="space-y-4">
+          <h3 className="font-display text-lg font-medium text-foreground">
+            Health &amp; Safety
+          </h3>
+          <div className="space-y-2">
+            <dl className="divide-y divide-border rounded-md border border-border">
+              {getSharedQuestionsForTreatments(
+                submission.selectedTreatments,
+              ).map((question) => (
+                <div
+                  key={question.id}
+                  className="grid grid-cols-1 gap-1 px-3 py-2 sm:grid-cols-2 sm:gap-4"
+                >
+                  <dt className="text-muted-foreground">{question.label}</dt>
+                  <dd className="font-medium text-foreground">
+                    {formatAnswer(
+                      question,
+                      submission.sharedAnswers[question.id],
+                    )}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        </section>
+      )}
 
       {submission.selectedTreatments.map((treatmentId) => {
         const definition = getTreatmentDefinition(treatmentId);
@@ -453,6 +502,26 @@ function SubmissionDetail({
 
       <Separator />
 
+      {submission.guardian ? (
+        <section className="space-y-2">
+          <h3 className="font-display text-lg font-medium text-foreground">
+            Guardian (minor)
+          </h3>
+          <div className="rounded-md border border-border p-3">
+            <div className="grid grid-cols-1 gap-1 sm:grid-cols-2">
+              <span className="text-muted-foreground">Guardian name</span>
+              <span className="font-medium text-foreground">
+                {submission.guardian.fullName}
+              </span>
+              <span className="text-muted-foreground">Guardian acceptance</span>
+              <span className="font-medium text-foreground">
+                {submission.guardian.accepted ? "Accepted" : "Not accepted"}
+              </span>
+            </div>
+          </div>
+        </section>
+      ) : null}
+
       <section className="space-y-2">
         <h3 className="font-display text-lg font-medium text-foreground">
           Consent &amp; Acknowledgement
@@ -482,6 +551,24 @@ function SubmissionDetail({
               </div>
             );
           })}
+          <Separator />
+          <div className="flex items-center justify-between gap-4 text-sm">
+            <span className="text-muted-foreground">
+              {photoReleaseConsent.title}
+            </span>
+            <span
+              className={
+                submission.consents[PHOTO_RELEASE_CONSENT_ID]?.accepted
+                  ? "inline-flex items-center gap-1.5 font-medium text-olive-700"
+                  : "inline-flex items-center gap-1.5 font-medium text-destructive"
+              }
+            >
+              <BadgeCheck className="size-4" />
+              {submission.consents[PHOTO_RELEASE_CONSENT_ID]?.accepted
+                ? "Accepted"
+                : "Not accepted"}
+            </span>
+          </div>
           <Separator />
           <div className="grid grid-cols-1 gap-1 sm:grid-cols-2">
             <span className="text-muted-foreground">Typed legal name</span>

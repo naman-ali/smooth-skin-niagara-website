@@ -6,6 +6,10 @@ import type {
 } from "./form-values";
 import { getTreatmentDefinition } from "./schema";
 import {
+  PHOTO_RELEASE_CONSENT_ID,
+  photoReleaseConsent,
+} from "./schema/photo-release";
+import {
   REFERRAL_OTHER_VALUE,
   REFERRER_NAME_VALUES,
   getReferralSourceLabel,
@@ -204,6 +208,14 @@ export function buildClientFormSubmission(
       };
     }
   }
+
+  // Applies once per submission regardless of which treatment(s) were
+  // selected, so it is recorded outside the per-treatment loop above.
+  consents[PHOTO_RELEASE_CONSENT_ID] = {
+    consentVersion: photoReleaseConsent.version,
+    consentStatus: photoReleaseConsent.status,
+    accepted: values.consents[PHOTO_RELEASE_CONSENT_ID]?.accepted ?? false,
+  };
 
   const guardian: GuardianSubmission = isMinorAge(values.clientInfo.age)
     ? {

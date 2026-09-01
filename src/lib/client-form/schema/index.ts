@@ -3,6 +3,9 @@ import { laserHairRemoval } from "./laser-hair-removal";
 import { lashLiftTint } from "./lash-lift-tint";
 import { eyelashExtensions } from "./eyelash-extensions";
 import { cellumaLed } from "./celluma-led";
+import { oxygeneo } from "./oxygeneo";
+import { tripollar } from "./tripollar";
+import { edermastampMicroneedling } from "./edermastamp-microneedling";
 
 /**
  * Frontend form version. Bump this whenever the shared client-information
@@ -21,6 +24,9 @@ export const TREATMENT_DEFINITIONS: TreatmentFormDefinition[] = [
   lashLiftTint,
   eyelashExtensions,
   cellumaLed,
+  oxygeneo,
+  tripollar,
+  edermastampMicroneedling,
 ];
 
 export function getTreatmentDefinition(
@@ -37,4 +43,12 @@ export function getSelectedTreatmentDefinitions(
     .filter((t): t is TreatmentFormDefinition => Boolean(t));
 }
 
-export { laserHairRemoval, lashLiftTint, eyelashExtensions, cellumaLed };
+export {
+  laserHairRemoval,
+  lashLiftTint,
+  eyelashExtensions,
+  cellumaLed,
+  oxygeneo,
+  tripollar,
+  edermastampMicroneedling,
+};

@@ -11,6 +11,7 @@ import {
   getTreatmentDefinition,
 } from "./schema";
 import { getSharedQuestionsForTreatments } from "./schema/shared-questions";
+import { PHOTO_RELEASE_CONSENT_ID } from "./schema/photo-release";
 import { flattenSectionsQuestions, isQuestionVisible } from "./conditional";
 import { isMinorAge } from "./guardian";
 
@@ -317,6 +318,18 @@ function buildConsentErrors(
       };
     }
   }
+
+  // Applies once per submission regardless of which treatment(s) were
+  // selected, so it is validated unconditionally rather than per treatment.
+  if (!consents[PHOTO_RELEASE_CONSENT_ID]?.accepted) {
+    result[PHOTO_RELEASE_CONSENT_ID] = {
+      accepted: {
+        type: "validation",
+        message: "Please accept the photo release to continue.",
+      },
+    };
+  }
+
   return result;
 }
 

@@ -19,7 +19,7 @@ export const laserHairRemoval: TreatmentFormDefinition = {
   id: "laser-hair-removal",
   name: "Laser Hair Removal",
   shortDescription: "Laser hair removal consultation and treatment intake.",
-  version: "2026-08-21",
+  version: "2026-09-01",
   sections: [
     {
       id: "laser-medical-history",
@@ -236,13 +236,6 @@ export const laserHairRemoval: TreatmentFormDefinition = {
       id: "laser-skin-treatment-details",
       title: "Skin & Treatment Details",
       questions: [
-        {
-          id: "laser_ancestral_background",
-          type: "text",
-          label:
-            "What is your ethnic/ancestral background on both parents' sides?",
-          required: true,
-        },
         {
           id: "laser_sun_response",
           type: "singleSelectWithOther",

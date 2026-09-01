@@ -131,11 +131,9 @@ export function getStepFieldNames(
             "consents.laser-hair-removal.acknowledgements.naturePurpose",
             "consents.laser-hair-removal.acknowledgements.pregnancyAccutaneDevices",
             "consents.laser-hair-removal.acknowledgements.cancellationPolicy",
-            "consents.laser-hair-removal.acknowledgements.photography",
             "consents.laser-hair-removal.acknowledgements.recommendedTreatments",
             "consents.laser-hair-removal.acknowledgements.promotionalExpiry",
-            "consents.laser-hair-removal.typedName",
-            "consents.laser-hair-removal.accepted",
+            "consents.laser-hair-removal.photoConsent",
           );
         } else {
           names.push(`consents.${treatmentId}.accepted` as Path<FormValues>);
@@ -146,6 +144,11 @@ export function getStepFieldNames(
     case "review":
       return [];
     case "acknowledgement":
-      return ["acknowledgement.typedName", "acknowledgement.accepted"];
+      return [
+        "acknowledgement.typedName",
+        "acknowledgement.accepted",
+        "guardian.fullName",
+        "guardian.accepted",
+      ];
   }
 }

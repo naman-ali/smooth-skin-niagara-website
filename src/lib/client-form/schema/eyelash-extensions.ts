@@ -280,6 +280,14 @@ export const eyelashExtensions: TreatmentFormDefinition = {
         kind: "paragraph",
         text: "Lash fill appointments are based on time since your last appointment and the condition of your remaining extensions. I currently offer 2 week and 3 weeks fills. Please note: Regardless of the timeframe, if less than 50% of lash extensions remain, pricing may increase and/or the appointment may need to be booked as a longer fill or full set. Fill appointments are allotted 45 minutes, so if retention is low, the lashes may not appear as full by the end of the service.",
       },
+      {
+        kind: "notice",
+        text: "Client Declaration",
+      },
+      {
+        kind: "paragraph",
+        text: "The information that I have provided is true to the best of my knowledge. I give permission to Ashley At Smooth Skin Niagara to perform the procedure and understand that she will take every precaution to minimize or eliminate any negative reactions that may occur as a result of the treatment. I agree to follow the aftercare advice given and understand that failure to do so can cause premature loss of the lashes and, as such, my therapist will not be held responsible.",
+      },
     ],
   },
 };

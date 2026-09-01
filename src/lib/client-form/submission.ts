@@ -10,6 +10,7 @@ import {
   REFERRER_NAME_VALUES,
   getReferralSourceLabel,
 } from "./referral-source";
+import { isMinorAge } from "./guardian";
 
 type LaserConsentSubmission = {
   consentVersion: string;
@@ -20,14 +21,23 @@ type LaserConsentSubmission = {
     naturePurpose: boolean;
     pregnancyAccutaneDevices: boolean;
     cancellationPolicy: boolean;
-    photography: boolean;
     recommendedTreatments: boolean;
     promotionalExpiry: boolean;
   };
+  /** Explicit Yes/No answer to the photography permission clause. */
+  photoConsent: boolean | null;
+  /** The single, form-wide typed legal name used as the digital signature. */
   typedName: string;
   accepted: boolean;
   acceptedAt: string;
 };
+
+type GuardianSubmission = {
+  required: boolean;
+  fullName: string;
+  accepted: boolean;
+  acceptedAt: string;
+} | null;
 
 export type ClientFormSubmission = {
   formVersion: string;
@@ -72,6 +82,8 @@ export type ClientFormSubmission = {
   };
 
   laserConsent?: LaserConsentSubmission;
+
+  guardian: GuardianSubmission;
 
   acknowledgement: {
     typedName: string;
@@ -155,13 +167,23 @@ export function buildClientFormSubmission(
     };
 
     const consentState = values.consents[treatmentId];
+
+    // Laser Hair Removal no longer collects its own typed name/accept
+    // checkbox (see LaserConsentSection) — the single Final Acknowledgement
+    // below is the one digital signature that covers every selected
+    // treatment's consent, so it is used as the source of truth here too.
+    const isLaser = treatmentId === "laser-hair-removal";
+    const accepted = isLaser
+      ? values.acknowledgement.accepted
+      : (consentState?.accepted ?? false);
+
     consents[treatmentId] = {
       consentVersion: definition.consent.version,
       consentStatus: definition.consent.status,
-      accepted: consentState?.accepted ?? false,
+      accepted,
     };
 
-    if (treatmentId === "laser-hair-removal") {
+    if (isLaser) {
       const ack = consentState?.acknowledgements ?? {};
       laserConsent = {
         consentVersion: definition.consent.version,
@@ -172,16 +194,25 @@ export function buildClientFormSubmission(
           naturePurpose: ack.naturePurpose ?? false,
           pregnancyAccutaneDevices: ack.pregnancyAccutaneDevices ?? false,
           cancellationPolicy: ack.cancellationPolicy ?? false,
-          photography: ack.photography ?? false,
           recommendedTreatments: ack.recommendedTreatments ?? false,
           promotionalExpiry: ack.promotionalExpiry ?? false,
         },
-        typedName: (consentState?.typedName ?? "").trim(),
-        accepted: consentState?.accepted ?? false,
+        photoConsent: consentState?.photoConsent ?? null,
+        typedName: values.acknowledgement.typedName.trim(),
+        accepted,
         acceptedAt: submittedAt,
       };
     }
   }
+
+  const guardian: GuardianSubmission = isMinorAge(values.clientInfo.age)
+    ? {
+        required: true,
+        fullName: values.guardian.fullName.trim(),
+        accepted: values.guardian.accepted,
+        acceptedAt: submittedAt,
+      }
+    : null;
 
   return {
     formVersion: FORM_VERSION,
@@ -191,6 +222,7 @@ export function buildClientFormSubmission(
     treatmentResponses,
     consents,
     laserConsent,
+    guardian,
     acknowledgement: {
       typedName: values.acknowledgement.typedName.trim(),
       accepted: values.acknowledgement.accepted,

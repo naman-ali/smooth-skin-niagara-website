@@ -24,6 +24,7 @@ import {
   REFERRAL_OTHER_VALUE,
 } from "@/lib/client-form/referral-source";
 import { getSharedQuestionsForTreatments } from "@/lib/client-form/schema/shared-questions";
+import { isMinorAge } from "@/lib/client-form/guardian";
 
 function formatAnswer(question: FormQuestion, value: unknown): string {
   if (question.type === "singleSelectWithOther") {
@@ -100,9 +101,13 @@ export function ReviewStep({
     (s) => s.kind === "shared-health",
   );
   const consentsStepIndex = steps.findIndex((s) => s.kind === "consents");
+  const acknowledgementStepIndex = steps.findIndex(
+    (s) => s.kind === "acknowledgement",
+  );
   const definitions = getSelectedTreatmentDefinitions(selectedTreatments);
   const laserSelected = selectedTreatments.includes("laser-hair-removal");
   const eyelashSelected = selectedTreatments.includes("eyelash-extensions");
+  const isMinor = isMinorAge(values.clientInfo.age);
 
   return (
     <div className="space-y-8">
@@ -235,6 +240,24 @@ export function ReviewStep({
         );
       })}
 
+      {isMinor && (
+        <ReviewGroup
+          title="Parent / Guardian"
+          onEdit={() => onEditStep(acknowledgementStepIndex)}
+        >
+          <dl className="grid gap-x-6 gap-y-3 sm:grid-cols-2">
+            <ReviewItem
+              label="Guardian full legal name"
+              value={values.guardian.fullName}
+            />
+            <ReviewItem
+              label="Guardian confirmation"
+              value={values.guardian.accepted ? "Confirmed" : "Not confirmed"}
+            />
+          </dl>
+        </ReviewGroup>
+      )}
+
       <ReviewGroup
         title="Consents"
         onEdit={() => onEditStep(consentsStepIndex)}
@@ -283,9 +306,16 @@ function LaserConsentReview({
     ack.naturePurpose === true &&
     ack.pregnancyAccutaneDevices === true &&
     ack.cancellationPolicy === true &&
-    ack.photography === true &&
     ack.recommendedTreatments === true &&
     ack.promotionalExpiry === true;
+
+  const photoConsent = consent?.photoConsent;
+  const photoConsentLabel =
+    photoConsent === true
+      ? "Yes"
+      : photoConsent === false
+        ? "No"
+        : "Not answered";
 
   return (
     <div className="space-y-1">
@@ -294,7 +324,7 @@ function LaserConsentReview({
           ? "Required acknowledgements completed"
           : "Acknowledgements incomplete"}
       </p>
-      <p>Consent name: {consent?.typedName?.trim() || "\u2014"}</p>
+      <p>Photography permission: {photoConsentLabel}</p>
     </div>
   );
 }

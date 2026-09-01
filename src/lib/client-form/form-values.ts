@@ -33,7 +33,6 @@ export type LaserConsentAcknowledgements = {
   naturePurpose: boolean;
   pregnancyAccutaneDevices: boolean;
   cancellationPolicy: boolean;
-  photography: boolean;
   recommendedTreatments: boolean;
   promotionalExpiry: boolean;
 };
@@ -42,14 +41,24 @@ export type ConsentValue = {
   accepted: boolean;
   /** Detailed acknowledgements for Laser Hair Removal consent. */
   acknowledgements?: Partial<LaserConsentAcknowledgements>;
-  /** Name typed for Laser Hair Removal consent final acceptance. */
-  typedName?: string;
+  /**
+   * Laser Hair Removal photography consent (clause 7). This is a genuine
+   * Yes/No decision rather than an "I understand" acknowledgement, so it is
+   * stored separately and left unset (neither Yes nor No) until answered.
+   */
+  photoConsent?: boolean;
   /** Timestamp generated on submission. */
   acceptedAt?: string;
 };
 
 export type AcknowledgementValues = {
   typedName: string;
+  accepted: boolean;
+};
+
+/** Parent/legal guardian confirmation, required only when the client is under 18. */
+export type GuardianValues = {
+  fullName: string;
   accepted: boolean;
 };
 
@@ -60,6 +69,7 @@ export type FormValues = {
   treatmentAnswers: Record<string, TreatmentAnswers>;
   consents: Record<string, ConsentValue>;
   acknowledgement: AcknowledgementValues;
+  guardian: GuardianValues;
 };
 
 export const EMPTY_CLIENT_INFO: ClientInfoValues = {
@@ -91,15 +101,17 @@ export const DEFAULT_FORM_VALUES: FormValues = {
         naturePurpose: false,
         pregnancyAccutaneDevices: false,
         cancellationPolicy: false,
-        photography: false,
         recommendedTreatments: false,
         promotionalExpiry: false,
       },
-      typedName: "",
     },
   },
   acknowledgement: {
     typedName: "",
+    accepted: false,
+  },
+  guardian: {
+    fullName: "",
     accepted: false,
   },
 };

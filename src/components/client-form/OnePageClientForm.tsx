@@ -61,10 +61,7 @@ export function OnePageClientForm() {
     const first = clientInfo?.firstName?.trim() ?? "";
     const last = clientInfo?.lastName?.trim() ?? "";
     const fullName = `${first} ${last}`.trim();
-    const nameFields: Path<FormValues>[] = [
-      "acknowledgement.typedName",
-      "consents.laser-hair-removal.typedName",
-    ];
+    const nameFields: Path<FormValues>[] = ["acknowledgement.typedName"];
     for (const field of nameFields) {
       const current = (getValues(field) as string | undefined) ?? "";
       if (!current || current === previousFullName.current) {
@@ -118,18 +115,21 @@ export function OnePageClientForm() {
           "consents.laser-hair-removal.acknowledgements.naturePurpose",
           "consents.laser-hair-removal.acknowledgements.pregnancyAccutaneDevices",
           "consents.laser-hair-removal.acknowledgements.cancellationPolicy",
-          "consents.laser-hair-removal.acknowledgements.photography",
           "consents.laser-hair-removal.acknowledgements.recommendedTreatments",
           "consents.laser-hair-removal.acknowledgements.promotionalExpiry",
-          "consents.laser-hair-removal.typedName",
-          "consents.laser-hair-removal.accepted",
+          "consents.laser-hair-removal.photoConsent",
         );
       } else {
         names.push(`consents.${treatmentId}.accepted` as Path<FormValues>);
       }
     }
 
-    names.push("acknowledgement.typedName", "acknowledgement.accepted");
+    names.push(
+      "acknowledgement.typedName",
+      "acknowledgement.accepted",
+      "guardian.fullName",
+      "guardian.accepted",
+    );
     return names;
   }, [selectedDefinitions, selectedTreatments]);
 

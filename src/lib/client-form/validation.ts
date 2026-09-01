@@ -12,6 +12,7 @@ import {
 } from "./schema";
 import { getSharedQuestionsForTreatments } from "./schema/shared-questions";
 import { flattenSectionsQuestions, isQuestionVisible } from "./conditional";
+import { isMinorAge } from "./guardian";
 
 // Zod primitives used to validate individual leaf answers. The overall
 // submission shape is dynamic (it depends on which treatments were
@@ -250,7 +251,6 @@ const ACKNOWLEDGEMENT_LABELS: Record<
   pregnancyAccutaneDevices:
     "Please acknowledge the pregnancy, Accutane and device information.",
   cancellationPolicy: "Please acknowledge the cancellation policy.",
-  photography: "Please acknowledge the photography permission.",
   recommendedTreatments:
     "Please acknowledge the recommended number of treatments.",
   promotionalExpiry:
@@ -278,18 +278,10 @@ function buildLaserConsentErrors(
     errors.acknowledgements = acknowledgements;
   }
 
-  const name = value?.typedName?.trim() ?? "";
-  if (!name) {
-    errors.typedName = {
+  if (value?.photoConsent !== true && value?.photoConsent !== false) {
+    errors.photoConsent = {
       type: "validation",
-      message: "Please type the patient's name (print).",
-    };
-  }
-
-  if (!value?.accepted) {
-    errors.accepted = {
-      type: "validation",
-      message: "Please confirm your consent to proceed.",
+      message: "Please select Yes or No for the photography consent.",
     };
   }
 
@@ -343,6 +335,36 @@ function buildAcknowledgementErrors(
     errors.accepted = {
       type: "validation",
       message: "Please confirm before submitting.",
+    };
+  }
+  return errors;
+}
+
+/**
+ * Only required when the client's existing Age answer indicates they are
+ * under 18. The Laser Hair Removal paperwork includes a
+ * "Patient/Guardian signature — Under age 18" line; this reuses the Age
+ * field already collected rather than adding a new age question.
+ */
+function buildGuardianErrors(
+  clientInfo: FormValues["clientInfo"],
+  guardian: FormValues["guardian"],
+): FieldErrorMap {
+  const errors: FieldErrorMap = {};
+  if (!isMinorAge(clientInfo.age)) return errors;
+
+  const nameMessage = firstIssueMessage(
+    requiredText("Parent/guardian full legal name is required.").safeParse(
+      guardian.fullName,
+    ),
+  );
+  if (nameMessage)
+    errors.fullName = { type: "validation", message: nameMessage };
+
+  if (!guardian.accepted) {
+    errors.accepted = {
+      type: "validation",
+      message: "Guardian confirmation is required for clients under 18.",
     };
   }
   return errors;
@@ -404,6 +426,14 @@ const resolver = async (values: FormValues) => {
   );
   if (Object.keys(acknowledgementErrors).length) {
     errors.acknowledgement = acknowledgementErrors;
+  }
+
+  const guardianErrors = buildGuardianErrors(
+    values.clientInfo,
+    values.guardian,
+  );
+  if (Object.keys(guardianErrors).length) {
+    errors.guardian = guardianErrors;
   }
 
   return { values, errors } as unknown as Awaited<

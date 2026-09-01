@@ -148,42 +148,37 @@ export function ClientInfoStep({ compact = false }: { compact?: boolean }) {
         </div>
       )}
 
-      <div>
-        <Label
-          htmlFor="clientInfo.age"
-          className={cn("font-medium", compact ? "text-sm" : "text-[15px]")}
-        >
-          Age
-          {ageRequired ? (
+      {ageRequired && (
+        <div>
+          <Label
+            htmlFor="clientInfo.age"
+            className={cn("font-medium", compact ? "text-sm" : "text-[15px]")}
+          >
+            Age
             <span aria-hidden="true" className="text-primary">
               {" "}
               *
             </span>
-          ) : (
-            <span className="text-muted-foreground font-normal">
-              {" "}
-              (optional)
-            </span>
-          )}
-        </Label>
-        <Input
-          id="clientInfo.age"
-          inputMode="numeric"
-          className={cn(
-            "mt-1.5 max-w-[160px]",
-            compact ? "h-9 text-sm" : "h-12 text-base",
-          )}
-          aria-invalid={errors.clientInfo?.age ? true : undefined}
-          aria-describedby={
-            errors.clientInfo?.age ? "clientInfo.age-error" : undefined
-          }
-          {...register("clientInfo.age")}
-        />
-        <FieldError
-          id="clientInfo.age-error"
-          message={errors.clientInfo?.age?.message as string | undefined}
-        />
-      </div>
+          </Label>
+          <Input
+            id="clientInfo.age"
+            inputMode="numeric"
+            className={cn(
+              "mt-1.5 max-w-[160px]",
+              compact ? "h-9 text-sm" : "h-12 text-base",
+            )}
+            aria-invalid={errors.clientInfo?.age ? true : undefined}
+            aria-describedby={
+              errors.clientInfo?.age ? "clientInfo.age-error" : undefined
+            }
+            {...register("clientInfo.age")}
+          />
+          <FieldError
+            id="clientInfo.age-error"
+            message={errors.clientInfo?.age?.message as string | undefined}
+          />
+        </div>
+      )}
 
       <ReferralSourceField compact={compact} />
     </div>

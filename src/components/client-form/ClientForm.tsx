@@ -57,10 +57,7 @@ export function ClientForm({ showHeader = true }: { showHeader?: boolean }) {
     const first = clientInfo?.firstName?.trim() ?? "";
     const last = clientInfo?.lastName?.trim() ?? "";
     const fullName = `${first} ${last}`.trim();
-    const nameFields: Path<FormValues>[] = [
-      "acknowledgement.typedName",
-      "consents.laser-hair-removal.typedName",
-    ];
+    const nameFields: Path<FormValues>[] = ["acknowledgement.typedName"];
     for (const field of nameFields) {
       const current = (getValues(field) as string | undefined) ?? "";
       if (!current || current === previousFullName.current) {

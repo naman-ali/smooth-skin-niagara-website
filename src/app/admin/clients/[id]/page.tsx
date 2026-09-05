@@ -5,6 +5,9 @@ import { prisma } from "@/lib/prisma";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Mail, Phone, Calendar } from "lucide-react";
+import { ClientSubmissionsList } from "./ClientSubmissionsList";
 
 interface ClientDetailPageProps {
   params: Promise<{ id: string }>;
@@ -44,6 +47,13 @@ export default async function ClientDetailPage({
     notFound();
   }
 
+  const submissions = client.clientFormSubmissions.map((s) => ({
+    id: s.id,
+    formVersion: s.formVersion,
+    selectedTreatments: s.selectedTreatments,
+    submittedAt: s.submittedAt.toISOString(),
+  }));
+
   return (
     <div className="space-y-8">
       <div className="flex items-center justify-between">
@@ -60,26 +70,30 @@ export default async function ClientDetailPage({
         <CardHeader>
           <CardTitle>Contact Details</CardTitle>
         </CardHeader>
-        <CardContent className="space-y-2">
-          <p>
-            <strong>Email:</strong> {client.email}
-          </p>
-          <p>
-            <strong>Phone:</strong> {client.phone || "-"}
-          </p>
-          <p>
-            <strong>Contact Type:</strong>{" "}
-            <span className="capitalize">{client.contactType}</span>
-          </p>
-          <p>
-            <strong>Source:</strong> {client.source}
-          </p>
-          <p>
-            <strong>Approved:</strong> {client.approved ? "Yes" : "No"}
-          </p>
-          <p>
-            <strong>Created:</strong> {client.createdAt.toLocaleString()}
-          </p>
+        <CardContent className="space-y-4">
+          <div className="flex flex-wrap gap-2">
+            <Badge variant={client.approved ? "default" : "secondary"}>
+              {client.approved ? "Approved" : "Pending"}
+            </Badge>
+            <Badge variant="outline" className="capitalize">
+              {client.contactType}
+            </Badge>
+            <Badge variant="outline">{client.source}</Badge>
+          </div>
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            <div className="flex items-center gap-2 text-foreground">
+              <Mail className="size-4 text-muted-foreground" />
+              {client.email}
+            </div>
+            <div className="flex items-center gap-2 text-foreground">
+              <Phone className="size-4 text-muted-foreground" />
+              {client.phone || "-"}
+            </div>
+            <div className="flex items-center gap-2 text-foreground">
+              <Calendar className="size-4 text-muted-foreground" />
+              {client.createdAt.toLocaleString()}
+            </div>
+          </div>
         </CardContent>
       </Card>
 
@@ -88,29 +102,7 @@ export default async function ClientDetailPage({
           <CardTitle>Client Form Submissions</CardTitle>
         </CardHeader>
         <CardContent>
-          {client.clientFormSubmissions.length === 0 ? (
-            <p>No submissions found.</p>
-          ) : (
-            <ul className="space-y-4">
-              {client.clientFormSubmissions.map((s) => (
-                <li key={s.id} className="border-b pb-2 last:border-0">
-                  <p>
-                    <strong>Submission ID:</strong> {s.id}
-                  </p>
-                  <p>
-                    <strong>Form Version:</strong> {s.formVersion}
-                  </p>
-                  <p>
-                    <strong>Submitted:</strong> {s.submittedAt.toLocaleString()}
-                  </p>
-                  <p>
-                    <strong>Treatments:</strong>{" "}
-                    {s.selectedTreatments.join(", ") || "-"}
-                  </p>
-                </li>
-              ))}
-            </ul>
-          )}
+          <ClientSubmissionsList submissions={submissions} />
         </CardContent>
       </Card>
     </div>

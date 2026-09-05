@@ -47,7 +47,7 @@ export default async function AdminClientFormPage() {
     computeSubmissionStats(serialized);
 
   return (
-    <div className="mx-auto max-w-6xl">
+    <div className="w-full">
       <div className="mb-8 space-y-1">
         <h1 className="text-3xl font-bold">Client Form Submissions</h1>
         <p className="text-muted-foreground">

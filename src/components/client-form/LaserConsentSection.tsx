@@ -15,7 +15,7 @@ type AcknowledgementItem = {
   text: string;
 };
 
-const ACKNOWLEDGEMENTS: AcknowledgementItem[] = [
+export const ACKNOWLEDGEMENTS: AcknowledgementItem[] = [
   {
     id: "risks",
     kind: "checkbox",

@@ -132,7 +132,6 @@ export async function POST(request: NextRequest) {
                 name: c.name || "",
                 email: c.email || "",
                 phone: parsed ? parsed.format("E.164") : rawPhone || null,
-                message: "",
                 approved: false,
                 source: "image_import",
                 imageUrl,

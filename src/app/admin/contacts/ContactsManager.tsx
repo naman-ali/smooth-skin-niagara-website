@@ -17,7 +17,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { PhoneInput } from "@/components/ui/phone-input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import {
   Table,
   TableBody,
@@ -39,7 +38,6 @@ type Contact = {
   name: string;
   email: string;
   phone: string | null;
-  message: string;
   approved: boolean;
   contactType: string;
   source: string;
@@ -57,16 +55,16 @@ export default function ContactsManager({
     name: "",
     email: "",
     phone: "",
-    message: "",
   });
   const [editing, setEditing] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
   const [typeFilter, setTypeFilter] = useState("all");
   const [importOpen, setImportOpen] = useState(false);
   const [approveOpen, setApproveOpen] = useState(false);
+  const unapprovedCount = contacts.filter((c) => !c.approved).length;
 
   const resetForm = () => {
-    setForm({ name: "", email: "", phone: "", message: "" });
+    setForm({ name: "", email: "", phone: "" });
     setEditing(null);
     setOpen(false);
   };
@@ -108,13 +106,27 @@ export default function ContactsManager({
       name: contact.name,
       email: contact.email,
       phone: contact.phone || "",
-      message: contact.message,
     });
     setOpen(true);
   };
 
   return (
-    <div className="space-y-8 max-w-6xl mx-auto">
+    <div className="w-full space-y-8">
+      {unapprovedCount > 0 && (
+        <div className="flex flex-col gap-3 rounded-lg border border-yellow-200 bg-yellow-50 p-4 text-yellow-900 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-sm">
+            {unapprovedCount} contact{unapprovedCount === 1 ? "" : "s"} waiting
+            for approval.
+          </p>
+          <Button
+            variant="outline"
+            onClick={() => setApproveOpen(true)}
+            className="border-yellow-300 bg-white hover:bg-yellow-100"
+          >
+            Approve
+          </Button>
+        </div>
+      )}
       <Card>
         <CardHeader className="flex flex-row flex-wrap items-center justify-between gap-4">
           <div className="space-y-1.5">
@@ -142,13 +154,6 @@ export default function ContactsManager({
                 <Upload className="size-4 mr-2" />
                 Import
               </Button>
-              <Button
-                variant="outline"
-                onClick={() => setApproveOpen(true)}
-                disabled={!contacts.some((c) => !c.approved)}
-              >
-                Approve Unapproved
-              </Button>
               <Button onClick={startAdd}>
                 <Plus className="size-4 mr-2" />
                 Add Contact
@@ -164,7 +169,6 @@ export default function ContactsManager({
                 <TableHead>Email</TableHead>
                 <TableHead>Phone</TableHead>
                 <TableHead>Type</TableHead>
-                <TableHead>Message</TableHead>
                 <TableHead>Source</TableHead>
                 <TableHead>Approved</TableHead>
                 <TableHead>Created</TableHead>
@@ -183,9 +187,6 @@ export default function ContactsManager({
                     <TableCell>{c.phone || "-"}</TableCell>
                     <TableCell className="capitalize">
                       {c.contactType || "client"}
-                    </TableCell>
-                    <TableCell className="max-w-xs truncate">
-                      {c.message}
                     </TableCell>
                     <TableCell>
                       {c.source
@@ -283,19 +284,6 @@ export default function ContactsManager({
                   value={form.phone}
                   onChange={(value) => setForm({ ...form, phone: value || "" })}
                   placeholder="Phone"
-                />
-              </div>
-              <div className="space-y-2 md:col-span-2">
-                <Label htmlFor="message">Message</Label>
-                <Textarea
-                  id="message"
-                  placeholder="Message"
-                  value={form.message}
-                  onChange={(e) =>
-                    setForm({ ...form, message: e.target.value })
-                  }
-                  rows={3}
-                  required
                 />
               </div>
             </div>

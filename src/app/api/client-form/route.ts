@@ -50,7 +50,6 @@ async function findOrCreateContact(client: ClientFormSubmission["client"]) {
       name: `${client.firstName.trim()} ${client.lastName.trim()}`.trim(),
       email,
       phone: normalizedPhone || null,
-      message: "Client intake form submission",
       source: "client-form",
       contactType: "client",
     },

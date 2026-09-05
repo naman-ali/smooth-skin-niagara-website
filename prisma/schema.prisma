@@ -18,8 +18,7 @@ model Contact {
   name                  String
   email                 String
   phone                 String?
-  message               String
-  approved              Boolean                @default(false)
+  approved              Boolean                @default(true)
   contactType           String                 @default("client")
   source                String                 @default("manual")
   imageUrl              String?

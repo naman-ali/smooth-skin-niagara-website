@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import {
   ClipboardList,
   LayoutDashboard,
@@ -30,8 +29,6 @@ const navItems = [
 ];
 
 export function AdminSidebar({ children }: { children: React.ReactNode }) {
-  const pathname = usePathname();
-
   return (
     <SidebarProvider>
       <Sidebar>
@@ -42,11 +39,9 @@ export function AdminSidebar({ children }: { children: React.ReactNode }) {
           <SidebarMenu>
             {navItems.map((item) => {
               const Icon = item.icon;
-              const isActive = pathname === item.href;
               return (
                 <SidebarMenuItem key={item.href}>
                   <SidebarMenuButton
-                    isActive={isActive}
                     tooltip={item.title}
                     render={
                       <Link
@@ -64,7 +59,7 @@ export function AdminSidebar({ children }: { children: React.ReactNode }) {
           </SidebarMenu>
         </SidebarContent>
       </Sidebar>
-      <SidebarInset>
+      <SidebarInset className="min-w-0 overflow-x-hidden">
         <header className="flex h-16 items-center gap-2 border-b px-4">
           <SidebarTrigger />
           <span className="text-sm font-medium">Admin</span>

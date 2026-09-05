@@ -51,6 +51,7 @@ import {
   isQuestionVisible,
 } from "@/lib/client-form/conditional";
 import type { ClientFormSubmission } from "@/lib/client-form/submission";
+import { ACKNOWLEDGEMENTS } from "@/components/client-form/LaserConsentSection";
 import type {
   FormQuestion,
   MultiSelectWithOtherAnswer,
@@ -148,7 +149,7 @@ export default function ClientFormSubmissionsManager({
   };
 
   return (
-    <div className="mx-auto max-w-6xl space-y-6">
+    <div className="w-full space-y-6">
       <Card>
         <CardHeader className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div className="space-y-1.5">
@@ -254,7 +255,7 @@ export default function ClientFormSubmissionsManager({
       </Card>
 
       <Dialog open={detailOpen} onOpenChange={setDetailOpen}>
-        <DialogContent className="max-h-[85vh] max-w-2xl overflow-y-auto">
+        <DialogContent className="max-h-[90vh] max-w-7xl w-full overflow-y-auto">
           <DialogHeader>
             <DialogTitle>Client Intake Form</DialogTitle>
             <DialogDescription>
@@ -354,7 +355,53 @@ function formatAnswer(question: FormQuestion, value: unknown): string {
   }
 }
 
-function SubmissionDetail({
+function LaserConsentDetail({
+  laserConsent,
+}: {
+  laserConsent: NonNullable<ClientFormSubmission["laserConsent"]>;
+}) {
+  return (
+    <section className="space-y-2">
+      <h3 className="font-display text-lg font-medium text-foreground">
+        Laser Hair Removal Consent Details
+      </h3>
+      <div className="space-y-4 rounded-md border border-border p-3">
+        {ACKNOWLEDGEMENTS.map((item) => {
+          if (item.kind === "photoConsent") {
+            const value = laserConsent.photoConsent;
+            return (
+              <div key={item.id} className="space-y-1">
+                <p className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+                  Photography Permission
+                </p>
+                <p className="text-sm text-foreground">{item.text}</p>
+                <p className="text-sm font-medium text-foreground">
+                  {value === true ? "Yes" : value === false ? "No" : "—"}
+                </p>
+              </div>
+            );
+          }
+          const value = (
+            laserConsent.acknowledgements as Record<string, boolean>
+          )[item.id];
+          return (
+            <div
+              key={item.id}
+              className="flex items-start justify-between gap-4 text-sm"
+            >
+              <span className="text-muted-foreground">{item.text}</span>
+              <span className="shrink-0 font-medium text-foreground">
+                {value ? "Yes" : "No"}
+              </span>
+            </div>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
+export function SubmissionDetail({
   submission,
 }: {
   submission: ClientFormSubmission;
@@ -584,6 +631,10 @@ function SubmissionDetail({
           </div>
         </div>
       </section>
+
+      {submission.laserConsent ? (
+        <LaserConsentDetail laserConsent={submission.laserConsent} />
+      ) : null}
     </div>
   );
 }

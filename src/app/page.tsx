@@ -15,7 +15,10 @@ const TrustStrip: any = (TrustStripModule as any).TrustStrip;
 const TestimonialQuote: any = (TestimonialQuoteModule as any).TestimonialQuote;
 
 import Footer from "@/components/Footer";
-import React, { useEffect, useRef } from "react";
+import { BeforeAfter } from "@/components/BeforeAfter";
+import { CtaSection } from "@/components/CtaSection";
+import { FaqSection } from "@/components/FaqSection";
+import React, { useEffect, useRef, useState } from "react";
 import { UserButton, useAuth } from "@clerk/nextjs";
 
 const Arrow = () => (
@@ -835,6 +838,156 @@ function TechnologySection() {
   );
 }
 
+const results = [
+  {
+    title: "Legs",
+    before: "/assets/hero-treatment.png",
+    after: "/assets/hero-treatment-olive.png",
+  },
+  {
+    title: "Underarms",
+    before: "/assets/hero-treatment.png",
+    after: "/assets/hero-treatment-olive.png",
+  },
+  {
+    title: "Hollywood",
+    before: "/assets/hero-treatment.png",
+    after: "/assets/hero-treatment-olive.png",
+  },
+  {
+    title: "Full Face",
+    before: "/assets/hero-treatment.png",
+    after: "/assets/hero-treatment-olive.png",
+  },
+  {
+    title: "Bikini",
+    before: "/assets/hero-treatment.png",
+    after: "/assets/hero-treatment-olive.png",
+  },
+  {
+    title: "Back",
+    before: "/assets/hero-treatment.png",
+    after: "/assets/hero-treatment-olive.png",
+  },
+];
+
+function ResultsSection() {
+  const [activeCategory, setActiveCategory] = useState("All");
+  const categories = [
+    "All",
+    ...Array.from(new Set(results.map((r) => r.title))),
+  ];
+
+  const filtered =
+    activeCategory === "All"
+      ? results
+      : results.filter((r) => r.title === activeCategory);
+
+  return (
+    <section style={{ padding: "90px 53px", background: "var(--olive-100)" }}>
+      <div
+        style={{
+          position: "relative",
+          maxWidth: "var(--container-max)",
+          margin: "0 auto",
+        }}
+      >
+        <div style={{ textAlign: "center", marginBottom: 56 }}>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 13,
+              marginBottom: 22,
+            }}
+          >
+            <span
+              style={{
+                fontFamily: "var(--font-body)",
+                fontSize: 12,
+                letterSpacing: "0.16em",
+                textTransform: "uppercase",
+                color: "var(--color-brand-primary)",
+                fontWeight: 700,
+              }}
+            >
+              Real Client Results
+            </span>
+            <span
+              style={{
+                width: 48,
+                height: 1,
+                background: "var(--color-border-strong)",
+              }}
+            />
+          </div>
+          <h2
+            style={{
+              fontFamily: "var(--font-display)",
+              fontWeight: 400,
+              fontSize: 48,
+              lineHeight: 1.1,
+              color: "var(--color-text-primary)",
+              margin: "0 0 16px",
+            }}
+          >
+            Before &amp; After
+          </h2>
+          <p
+            style={{
+              fontFamily: "var(--font-body)",
+              fontSize: 17,
+              lineHeight: 1.6,
+              color: "var(--color-text-secondary)",
+              margin: "0 auto",
+              maxWidth: 560,
+            }}
+          >
+            Real before-and-after results from Smooth Skin Niagara clients,
+            achieved with personalized laser treatments and advanced technology.
+          </p>
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              justifyContent: "center",
+              gap: 12,
+              marginTop: 28,
+            }}
+          >
+            {categories.map((category) => (
+              <Button
+                key={category}
+                variant={activeCategory === category ? "primary" : "secondary"}
+                onClick={() => setActiveCategory(category)}
+              >
+                {category}
+              </Button>
+            ))}
+          </div>
+        </div>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
+            gap: 32,
+          }}
+        >
+          {filtered.map((r, i) => (
+            <BeforeAfter
+              key={i}
+              beforeSrc={r.before}
+              afterSrc={r.after}
+              title={r.title}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export default function Home() {
   return (
     <>
@@ -842,6 +995,9 @@ export default function Home() {
       <Hero />
       <AshleySection />
       <TechnologySection />
+      <ResultsSection />
+      <FaqSection />
+      <CtaSection />
       <Footer />
     </>
   );

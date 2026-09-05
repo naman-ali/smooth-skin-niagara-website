@@ -33,11 +33,7 @@ export function YesNoQuestion({
       control={control}
       render={({ field, fieldState }) => {
         const stringValue =
-          field.value === true
-            ? "yes"
-            : field.value === false
-              ? "no"
-              : undefined;
+          field.value === true ? "yes" : field.value === false ? "no" : "";
 
         return (
           <fieldset

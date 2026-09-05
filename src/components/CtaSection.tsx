@@ -11,7 +11,7 @@ const PhoneIcon = () => (
     height="18"
     viewBox="0 0 24 24"
     fill="none"
-    stroke="var(--color-brand-primary)"
+    stroke="currentColor"
     strokeWidth="1.5"
     strokeLinecap="round"
     strokeLinejoin="round"
@@ -26,7 +26,7 @@ const CalendarIcon = () => (
     height="20"
     viewBox="0 0 24 24"
     fill="none"
-    stroke="var(--color-brand-primary)"
+    stroke="currentColor"
     strokeWidth="1.5"
     strokeLinecap="round"
     strokeLinejoin="round"
@@ -44,7 +44,7 @@ const PersonIcon = () => (
     height="20"
     viewBox="0 0 24 24"
     fill="none"
-    stroke="var(--color-brand-primary)"
+    stroke="currentColor"
     strokeWidth="1.5"
     strokeLinecap="round"
     strokeLinejoin="round"
@@ -60,7 +60,7 @@ const ShieldIcon = () => (
     height="20"
     viewBox="0 0 24 24"
     fill="none"
-    stroke="var(--color-brand-primary)"
+    stroke="currentColor"
     strokeWidth="1.5"
     strokeLinecap="round"
     strokeLinejoin="round"
@@ -76,7 +76,7 @@ const HeartIcon = () => (
     height="20"
     viewBox="0 0 24 24"
     fill="none"
-    stroke="var(--color-brand-primary)"
+    stroke="currentColor"
     strokeWidth="1.5"
     strokeLinecap="round"
     strokeLinejoin="round"
@@ -85,62 +85,47 @@ const HeartIcon = () => (
   </svg>
 );
 
-export function CtaSection() {
+interface CtaSectionProps {
+  variant?: "light" | "dark";
+}
+
+export function CtaSection({ variant = "dark" }: CtaSectionProps) {
+  const theme =
+    variant === "dark"
+      ? {
+          background: "var(--ink-900)",
+          eyebrowText: "var(--olive-100)",
+          eyebrowLine: "var(--olive-500)",
+          heading: "var(--white)",
+          text: "var(--olive-200)",
+          border: "var(--olive-700)",
+          phoneBg: "var(--olive-100)",
+          phoneIcon: "var(--color-brand-primary)",
+          iconBg: "var(--olive-700)",
+          iconColor: "var(--olive-100)",
+        }
+      : {
+          background: "var(--olive-50)",
+          eyebrowText: "var(--color-brand-primary)",
+          eyebrowLine: "var(--color-border-strong)",
+          heading: "var(--color-text-primary)",
+          text: "var(--color-text-secondary)",
+          border: "var(--color-border)",
+          phoneBg: "var(--white)",
+          phoneIcon: "var(--color-brand-primary)",
+          iconBg: "var(--olive-100)",
+          iconColor: "var(--color-brand-primary)",
+        };
+
   return (
     <section
       style={{
         position: "relative",
         padding: "90px 53px",
-        background: "var(--olive-50)",
+        background: theme.background,
         overflow: "hidden",
       }}
     >
-      {/* Right decorative circle */}
-      <div
-        style={{
-          position: "absolute",
-          right: -60,
-          top: -60,
-          width: 220,
-          height: 220,
-          borderRadius: "50%",
-          background: "rgba(255,255,255,0.35)",
-          zIndex: 1,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          pointerEvents: "none",
-        }}
-      >
-        <div
-          style={{
-            transform: "rotate(-12deg)",
-            textAlign: "center",
-          }}
-        >
-          <div
-            style={{
-              fontFamily: "cursive, Georgia, serif",
-              fontSize: 18,
-              lineHeight: 1.3,
-              color: "var(--olive-700)",
-              fontStyle: "italic",
-            }}
-          >
-            Smoother
-            <br />
-            Skin
-            <br />
-            Brighter
-            <br />
-            Days
-          </div>
-          <div style={{ marginTop: 8 }}>
-            <HeartIcon />
-          </div>
-        </div>
-      </div>
-
       <div
         style={{
           position: "relative",
@@ -164,7 +149,7 @@ export function CtaSection() {
             style={{
               width: 48,
               height: 1,
-              background: "var(--color-border-strong)",
+              background: theme.eyebrowLine,
             }}
           />
           <span
@@ -173,7 +158,7 @@ export function CtaSection() {
               fontSize: 11,
               letterSpacing: "0.22em",
               textTransform: "uppercase",
-              color: "var(--color-brand-primary)",
+              color: theme.eyebrowText,
               fontWeight: 700,
               whiteSpace: "nowrap",
             }}
@@ -184,7 +169,7 @@ export function CtaSection() {
             style={{
               width: 48,
               height: 1,
-              background: "var(--color-border-strong)",
+              background: theme.eyebrowLine,
             }}
           />
         </div>
@@ -195,7 +180,7 @@ export function CtaSection() {
             fontSize: 52,
             fontWeight: 400,
             lineHeight: 1.08,
-            color: "var(--color-text-primary)",
+            color: theme.heading,
             margin: "0 auto 18px",
             maxWidth: 760,
           }}
@@ -210,7 +195,7 @@ export function CtaSection() {
             fontFamily: "var(--font-body)",
             fontSize: 17,
             lineHeight: 1.6,
-            color: "var(--color-text-secondary)",
+            color: theme.text,
             margin: "0 auto 28px",
             maxWidth: 620,
           }}
@@ -253,8 +238,8 @@ export function CtaSection() {
               width: 320,
               height: 60,
               borderRadius: 14,
-              border: "1px solid var(--color-border)",
-              background: "var(--white)",
+              border: "1px solid " + theme.border,
+              background: theme.phoneBg,
               textDecoration: "none",
               fontFamily: "var(--font-body)",
             }}
@@ -263,6 +248,7 @@ export function CtaSection() {
               style={{
                 position: "absolute",
                 left: 24,
+                color: theme.phoneIcon,
               }}
             >
               <PhoneIcon />
@@ -272,7 +258,7 @@ export function CtaSection() {
                 style={{
                   fontSize: 18,
                   fontWeight: 600,
-                  color: "var(--color-text-primary)",
+                  color: theme.heading,
                   marginBottom: 1,
                 }}
               >
@@ -281,7 +267,7 @@ export function CtaSection() {
               <div
                 style={{
                   fontSize: 12,
-                  color: "var(--color-text-secondary)",
+                  color: theme.text,
                 }}
               >
                 Call or Text
@@ -335,7 +321,8 @@ export function CtaSection() {
                     width: 64,
                     height: 64,
                     borderRadius: "50%",
-                    background: "var(--olive-100)",
+                    background: theme.iconBg,
+                    color: theme.iconColor,
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
@@ -349,7 +336,7 @@ export function CtaSection() {
                       fontFamily: "var(--font-display)",
                       fontSize: 18,
                       fontWeight: 400,
-                      color: "var(--color-text-primary)",
+                      color: theme.heading,
                       margin: "0 0 4px",
                     }}
                   >
@@ -360,7 +347,7 @@ export function CtaSection() {
                       fontFamily: "var(--font-body)",
                       fontSize: 14,
                       lineHeight: 1.5,
-                      color: "var(--color-text-secondary)",
+                      color: theme.text,
                       margin: 0,
                     }}
                   >
@@ -373,7 +360,7 @@ export function CtaSection() {
                   style={{
                     width: 1,
                     height: 64,
-                    background: "var(--color-border)",
+                    background: theme.border,
                   }}
                 />
               )}

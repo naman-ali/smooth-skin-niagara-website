@@ -7,6 +7,9 @@ export type BeforeAfterProps = {
   afterSrc: string;
   title?: string;
   aspectRatio?: string;
+  objectPosition?: string;
+  beforeClassName?: string;
+  afterClassName?: string;
 };
 
 export function BeforeAfter({
@@ -14,6 +17,9 @@ export function BeforeAfter({
   afterSrc,
   title,
   aspectRatio = "4 / 5",
+  objectPosition = "center",
+  beforeClassName,
+  afterClassName,
 }: BeforeAfterProps) {
   const [percent, setPercent] = useState(50);
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -54,13 +60,14 @@ export function BeforeAfter({
           src={beforeSrc}
           alt="Before"
           draggable={false}
+          className={beforeClassName}
           style={{
             position: "absolute",
             inset: 0,
             width: "100%",
             height: "100%",
             objectFit: "cover",
-            objectPosition: "center",
+            objectPosition,
             pointerEvents: "none",
           }}
         />
@@ -70,13 +77,14 @@ export function BeforeAfter({
           src={afterSrc}
           alt="After"
           draggable={false}
+          className={afterClassName}
           style={{
             position: "absolute",
             inset: 0,
             width: "100%",
             height: "100%",
             objectFit: "cover",
-            objectPosition: "center",
+            objectPosition,
             clipPath: `inset(0 0 0 ${percent}%)`,
             zIndex: 10,
             pointerEvents: "none",

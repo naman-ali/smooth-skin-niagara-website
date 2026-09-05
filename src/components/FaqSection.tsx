@@ -1,9 +1,12 @@
 "use client";
 
-import * as ButtonModule from "@/components/design-system/core/Button";
-import React, { useEffect, useState } from "react";
 
-const Button: any = (ButtonModule as any).Button;
+import * as ButtonModule from "@/components/design-system/core/Button";
+import type { ButtonProps } from "@/components/design-system/core/Button";
+import React, { useCallback, useEffect, useState } from "react";
+
+const Button = (ButtonModule as unknown as { Button: React.FC<ButtonProps> })
+  .Button;
 
 function useMediaQuery(query: string) {
   const [matches, setMatches] = useState(false);
@@ -84,7 +87,7 @@ const DollarIcon = ({ color = "currentColor" }: { color?: string }) => (
   </svg>
 );
 
-const categories: {
+const defaultCategories: {
   id: string;
   label: string;
   heading: string;
@@ -593,21 +596,13 @@ const categories: {
   },
 ];
 
-export function FaqSection() {
-  const [activeCategory, setActiveCategory] = useState(0);
-  const [openQuestion, setOpenQuestion] = useState<number | null>(null);
-  const isDesktop = useMediaQuery("(min-width: 1024px)");
-  const current = categories[activeCategory];
+type FaqCategory = (typeof defaultCategories)[number];
 
-  useEffect(() => {
-    setOpenQuestion(null);
-  }, [activeCategory]);
-
-  const toggleQuestion = (index: number) => {
-    setOpenQuestion((prev) => (prev === index ? null : index));
-  };
-
-  const CategoryNav = () => (
+export interface FaqSectionProps {
+  eyebrow?: string;
+  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  oid;
+}) {
+  return (
     <nav style={{ display: "flex", flexDirection: "column", gap: 12 }}>
       {categories.map((cat, i) => {
         const isActive = i === activeCategory;
@@ -615,7 +610,7 @@ export function FaqSection() {
         return (
           <button
             key={cat.id}
-            onClick={() => setActiveCategory(i)}
+            onClick={() => onSelect(i)}
             style={{
               display: "flex",
               alignItems: "center",
@@ -690,8 +685,64 @@ export function FaqSection() {
       })}
     </nav>
   );
+}
 
-  const ConsultationCard = ({ mobile = false }: { mobile?: boolean }) => (
+function MobileTabs({
+  categories,
+  activeCategory,
+  onSelect,
+}: {
+  categories: FaqCategory[];
+  activeCategory: number;
+  onSelect: (index: number) => void;
+}) {
+  return (
+    <div
+      style={{
+        display: "flex",
+        gap: 10,
+        overflowX: "auto",
+        paddingBottom: 8,
+        marginBottom: 24,
+        scrollbarWidth: "none",
+        msOverflowStyle: "none",
+      }}
+    >
+      {categories.map((cat, i) => {
+        const isActive = i === activeCategory;
+        return (
+          <button
+            key={cat.id}
+            onClick={() => onSelect(i)}
+            style={{
+              flex: "0 0 auto",
+              padding: "12px 20px",
+              minHeight: 44,
+              borderRadius: 999,
+              border: isActive
+                ? "1px solid var(--cta-primary-bg)"
+                : "1px solid var(--color-border)",
+              background: isActive ? "var(--cta-primary-bg)" : "#fff",
+              color: isActive
+                ? "var(--cta-primary-text)"
+                : "var(--color-text-primary)",
+              fontFamily: "var(--font-body)",
+              fontSize: 14,
+              fontWeight: 600,
+              whiteSpace: "nowrap",
+              cursor: "pointer",
+            }}
+          >
+            {cat.heading}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+function ConsultationCard({ mobile = false }: { mobile?: boolean }) {
+  return (
     <div
       style={{
         marginTop: mobile ? 40 : 0,
@@ -700,7 +751,7 @@ export function FaqSection() {
         border: "1px solid var(--color-border)",
         borderRadius: 16,
         boxShadow: "0 2px 14px rgba(0,0,0,0.04)",
-        textAlign: mobile ? ("center" as const) : "left",
+        textAlign: mobile ? "center" : "left",
       }}
     >
       <h4
@@ -755,50 +806,106 @@ export function FaqSection() {
       </span>
     </div>
   );
+}
 
-  const MobileTabs = () => (
-    <div
-      style={{
-        display: "flex",
-        gap: 10,
-        overflowX: "auto",
-        paddingBottom: 8,
-        marginBottom: 24,
-        scrollbarWidth: "none",
-        msOverflowStyle: "none",
-      }}
-    >
-      {categories.map((cat, i) => {
-        const isActive = i === activeCategory;
-        return (
-          <button
-            key={cat.id}
-            onClick={() => setActiveCategory(i)}
-            style={{
-              flex: "0 0 auto",
-              padding: "12px 20px",
-              minHeight: 44,
-              borderRadius: 999,
-              border: isActive
-                ? "1px solid var(--cta-primary-bg)"
-                : "1px solid var(--color-border)",
-              background: isActive ? "var(--cta-primary-bg)" : "#fff",
-              color: isActive
-                ? "var(--cta-primary-text)"
-                : "var(--color-text-primary)",
-              fontFamily: "var(--font-body)",
-              fontSize: 14,
-              fontWeight: 600,
-              whiteSpace: "nowrap",
-              cursor: "pointer",
-            }}
-          >
-            {cat.heading}
-          </button>
-        );
-      })}
+function QuestionItem({
+  question,
+  isOpen,
+  onClick,
+  compact,
+}: {
+  question: { q: string; a: React.ReactNode };
+  isOpen: boolean;
+  onClick: () => void;
+  compact?: boolean;
+}) {
+  const baseStyle: React.CSSProperties = {
+    background: "#fff",
+    border: "1px solid var(--color-border)",
+    borderRadius: compact ? 12 : 14,
+    padding: compact ? "18px 16px" : "20px 22px",
+    cursor: "pointer",
+  };
+  if (compact) {
+    baseStyle.minHeight = 56;
+  } else {
+    baseStyle.transition = "box-shadow 0.15s ease";
+  }
+
+  return (
+    <div onClick={onClick} style={baseStyle}>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          gap: compact ? 14 : 16,
+        }}
+      >
+        <h4
+          style={{
+            fontFamily: "var(--font-body)",
+            fontSize: compact ? 15 : 16,
+            fontWeight: 600,
+            color: "var(--color-text-primary)",
+            margin: 0,
+            lineHeight: 1.4,
+          }}
+        >
+          {question.q}
+        </h4>
+        <span
+          style={{
+            flexShrink: 0,
+            fontFamily: "var(--font-body)",
+            fontSize: compact ? 20 : 22,
+            color: "var(--color-brand-primary)",
+            lineHeight: 1,
+          }}
+        >
+          {isOpen ? "−" : "+"}
+        </span>
+      </div>
+      {isOpen && (
+        <div
+          style={{
+            marginTop: compact ? 12 : 14,
+            paddingTop: compact ? 14 : 18,
+            borderTop: "1px solid var(--color-border)",
+            fontFamily: "var(--font-body)",
+            fontSize: compact ? 16 : 15,
+            lineHeight: compact ? 1.6 : 1.65,
+            color: "var(--color-text-secondary)",
+          }}
+        >
+          {question.a}
+        </div>
+      )}
     </div>
   );
+}
+
+export function FaqSection({
+  eyebrow = "FREQUENTLY ASKED QUESTIONS",
+  heading = "Your Questions, Answered",
+  subheading = "Everything you want to know before starting treatment. Find clear answers about results, comfort, preparation, pricing, and what to expect from your treatment.",
+  categories: categoriesProp,
+  cta,
+}: FaqSectionProps = {}) {
+  const [activeCategory, setActiveCategory] = useState(0);
+  const [openQuestion, setOpenQuestion] = useState<number | null>(null);
+  const isDesktop = useMediaQuery("(min-width: 1024px)");
+  const categories = categoriesProp ?? defaultCategories;
+  const current = categories[activeCategory];
+
+  const selectCategory = useCallback((index: number) => {
+    setActiveCategory(index);
+    setOpenQuestion(null);
+  }, []);
+
+  const toggleQuestion = (index: number) => {
+    setOpenQuestion((prev) => (prev === index ? null : index));
+  };
 
   return (
     <section style={{ padding: "90px 53px", background: "var(--olive-50)" }}>
@@ -829,7 +936,7 @@ export function FaqSection() {
                 fontWeight: 700,
               }}
             >
-              FREQUENTLY ASKED QUESTIONS
+              {eyebrow}
             </span>
             <span
               style={{
@@ -849,7 +956,7 @@ export function FaqSection() {
               margin: "0 0 16px",
             }}
           >
-            Your Questions, Answered
+            {heading}
           </h2>
           <p
             style={{
@@ -861,9 +968,7 @@ export function FaqSection() {
               maxWidth: 620,
             }}
           >
-            Everything you want to know before starting laser hair removal. Find
-            clear answers about results, comfort, preparation, pricing, and what
-            to expect from your treatment.
+            {subheading}
           </p>
         </div>
 
@@ -883,10 +988,19 @@ export function FaqSection() {
                 alignSelf: "start",
               }}
             >
-              <CategoryNav />
-              <div style={{ marginTop: 24 }}>
-                <ConsultationCard />
-              </div>
+              <CategoryNav
+                categories={categories}
+                activeCategory={activeCategory}
+                onSelect={selectCategory}
+              />
+              {cta === undefined && (
+                <div style={{ marginTop: 24 }}>
+                  <ConsultationCard />
+                </div>
+              )}
+              {cta !== undefined && cta !== null && (
+                <div style={{ marginTop: 24 }}>{cta}</div>
+              )}
             </div>
             <div>
               <div
@@ -895,66 +1009,12 @@ export function FaqSection() {
                 {current.questions.map((item, i) => {
                   const isOpen = openQuestion === i;
                   return (
-                    <div
+                    <QuestionItem
                       key={i}
+                      question={item}
+                      isOpen={isOpen}
                       onClick={() => toggleQuestion(i)}
-                      style={{
-                        background: "#fff",
-                        border: "1px solid var(--color-border)",
-                        borderRadius: 14,
-                        padding: "20px 22px",
-                        cursor: "pointer",
-                        transition: "box-shadow 0.15s ease",
-                      }}
-                    >
-                      <div
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "space-between",
-                          gap: 16,
-                        }}
-                      >
-                        <h4
-                          style={{
-                            fontFamily: "var(--font-body)",
-                            fontSize: 16,
-                            fontWeight: 600,
-                            color: "var(--color-text-primary)",
-                            margin: 0,
-                            lineHeight: 1.4,
-                          }}
-                        >
-                          {item.q}
-                        </h4>
-                        <span
-                          style={{
-                            flexShrink: 0,
-                            fontFamily: "var(--font-body)",
-                            fontSize: 22,
-                            color: "var(--color-brand-primary)",
-                            lineHeight: 1,
-                          }}
-                        >
-                          {isOpen ? "−" : "+"}
-                        </span>
-                      </div>
-                      {isOpen && (
-                        <div
-                          style={{
-                            marginTop: 14,
-                            paddingTop: 18,
-                            borderTop: "1px solid var(--color-border)",
-                            fontFamily: "var(--font-body)",
-                            fontSize: 15,
-                            lineHeight: 1.65,
-                            color: "var(--color-text-secondary)",
-                          }}
-                        >
-                          {item.a}
-                        </div>
-                      )}
-                    </div>
+                    />
                   );
                 })}
               </div>
@@ -962,74 +1022,26 @@ export function FaqSection() {
           </div>
         ) : (
           <>
-            <MobileTabs />
+            <MobileTabs
+              categories={categories}
+              activeCategory={activeCategory}
+              onSelect={selectCategory}
+            />
             <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
               {current.questions.map((item, i) => {
                 const isOpen = openQuestion === i;
                 return (
-                  <div
+                  <QuestionItem
                     key={i}
+                    question={item}
+                    isOpen={isOpen}
                     onClick={() => toggleQuestion(i)}
-                    style={{
-                      minHeight: 56,
-                      background: "#fff",
-                      border: "1px solid var(--color-border)",
-                      borderRadius: 12,
-                      padding: "18px 16px",
-                      cursor: "pointer",
-                    }}
-                  >
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "space-between",
-                        gap: 14,
-                      }}
-                    >
-                      <h4
-                        style={{
-                          fontFamily: "var(--font-body)",
-                          fontSize: 15,
-                          fontWeight: 600,
-                          color: "var(--color-text-primary)",
-                          margin: 0,
-                          lineHeight: 1.4,
-                        }}
-                      >
-                        {item.q}
-                      </h4>
-                      <span
-                        style={{
-                          flexShrink: 0,
-                          fontFamily: "var(--font-body)",
-                          fontSize: 20,
-                          color: "var(--color-brand-primary)",
-                        }}
-                      >
-                        {isOpen ? "−" : "+"}
-                      </span>
-                    </div>
-                    {isOpen && (
-                      <div
-                        style={{
-                          marginTop: 12,
-                          paddingTop: 14,
-                          borderTop: "1px solid var(--color-border)",
-                          fontFamily: "var(--font-body)",
-                          fontSize: 16,
-                          lineHeight: 1.6,
-                          color: "var(--color-text-secondary)",
-                        }}
-                      >
-                        {item.a}
-                      </div>
-                    )}
-                  </div>
+                    compact
+                  />
                 );
               })}
             </div>
-            <ConsultationCard mobile />
+            {cta === undefined ? <ConsultationCard mobile /> : cta}
           </>
         )}
       </div>

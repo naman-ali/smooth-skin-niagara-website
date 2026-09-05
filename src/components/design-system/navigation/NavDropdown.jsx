@@ -18,9 +18,13 @@ export function NavDropdown({ label, items = [] }) {
           border: '1px solid var(--color-border)', borderRadius: 'var(--radius-md)', boxShadow: 'var(--shadow-md)',
           padding: 8, display: 'flex', flexDirection: 'column', zIndex: 10,
         }}>
-          {items.map(i => (
-            <a key={i} href="#" style={{ padding: '10px 12px', borderRadius: 'var(--radius-sm)', color: 'var(--color-text-primary)', textDecoration: 'none', fontSize: 16 }}>{i}</a>
-          ))}
+          {items.map((i, idx) => {
+            const label = typeof i === 'string' ? i : i.label;
+            const href = typeof i === 'string' ? '#' : (i.href || '#');
+            return (
+              <a key={idx} href={href} style={{ padding: '10px 12px', borderRadius: 'var(--radius-sm)', color: 'var(--color-text-primary)', textDecoration: 'none', fontSize: 16 }}>{label}</a>
+            );
+          })}
         </div>
       )}
     </div>

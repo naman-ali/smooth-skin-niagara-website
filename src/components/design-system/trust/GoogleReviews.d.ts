@@ -1,4 +1,4 @@
 export interface GoogleReviewsProps {
   rating?: string;
-  count?: number;
+  count?: number | string;
 }

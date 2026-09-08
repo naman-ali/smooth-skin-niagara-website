@@ -1,15 +1,16 @@
 export default function Footer() {
-  const linkStyle = "text-[var(--color-text-secondary)] no-underline text-[15px] leading-[1.8] font-[var(--font-body)]";
+  const linkStyle =
+    "text-[var(--color-text-secondary)] no-underline text-[15px] leading-[1.8] font-[var(--font-body)]";
 
-  const headingStyle = "font-[var(--font-display)] text-[18px] font-medium text-[var(--color-text-primary)] mt-0 mr-0 mb-[20px] ml-0 tracking-[0.02em]";
+  const headingStyle =
+    "font-[var(--font-display)] text-[18px] font-medium text-[var(--color-text-primary)] mt-0 mr-0 mb-[20px] ml-0 tracking-[0.02em]";
 
   return (
     <footer
-      className="bg-[var(--olive-100)] pt-[64px] pr-[53px] pb-[32px] pl-[53px] text-[var(--color-text-primary)] font-[var(--font-body)]" style={{ borderTop: "2px solid var(--color-border)" }}
+      className="bg-[var(--olive-100)] pt-[64px] pr-[53px] pb-[32px] pl-[53px] text-[var(--color-text-primary)] font-[var(--font-body)]"
+      style={{ borderTop: "2px solid var(--color-border)" }}
     >
-      <div
-        className="max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto"
-      >
+      <div className="max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto">
         <div className="grid gap-12 md:grid-cols-4">
           <div>
             <img
@@ -17,9 +18,7 @@ export default function Footer() {
               alt="Smooth Skin Niagara"
               className="h-[52px] mb-[18px]"
             />
-            <p
-              className="text-[15px] leading-[1.7] text-[var(--color-text-secondary)] mt-0 mr-0 mb-[22px] ml-0"
-            >
+            <p className="text-[15px] leading-[1.7] text-[var(--color-text-secondary)] mt-0 mr-0 mb-[22px] ml-0">
               Niagara Falls&apos; trusted destination for premium laser hair
               removal and advanced skincare. Serving Ontario with over 10 years
               of experience.
@@ -45,7 +44,9 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="font-[var(--font-display)] text-[18px] font-medium text-[var(--color-text-primary)] mt-0 mr-0 mb-[20px] ml-0 tracking-[0.02em]">Services</h4>
+            <h4 className="font-[var(--font-display)] text-[18px] font-medium text-[var(--color-text-primary)] mt-0 mr-0 mb-[20px] ml-0 tracking-[0.02em]">
+              Services
+            </h4>
             <ul className="p-0 m-0" style={{ listStyle: "none" }}>
               {[
                 "Laser Hair Removal",
@@ -58,7 +59,10 @@ export default function Footer() {
                 "Eyelash Extensions",
               ].map((item) => (
                 <li key={item} className="mb-[8px]">
-                  <a href="#" className="text-[var(--color-text-secondary)] no-underline text-[15px] leading-[1.8] font-[var(--font-body)]">
+                  <a
+                    href="#"
+                    className="text-[var(--color-text-secondary)] no-underline text-[15px] leading-[1.8] font-[var(--font-body)]"
+                  >
                     {item}
                   </a>
                 </li>
@@ -67,18 +71,23 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="font-[var(--font-display)] text-[18px] font-medium text-[var(--color-text-primary)] mt-0 mr-0 mb-[20px] ml-0 tracking-[0.02em]">Company</h4>
+            <h4 className="font-[var(--font-display)] text-[18px] font-medium text-[var(--color-text-primary)] mt-0 mr-0 mb-[20px] ml-0 tracking-[0.02em]">
+              Company
+            </h4>
             <ul className="p-0 m-0" style={{ listStyle: "none" }}>
               {[
-                "About Us",
-                "Testimonials",
-                "Contact",
-                "Privacy",
-                "Terms of Service",
+                { label: "About Us", href: "/about-us" },
+                { label: "Testimonials", href: "#" },
+                { label: "Contact", href: "#" },
+                { label: "Privacy", href: "/privacy-policy" },
+                { label: "Terms of Service", href: "#" },
               ].map((item) => (
-                <li key={item} className="mb-[8px]">
-                  <a href="#" className="text-[var(--color-text-secondary)] no-underline text-[15px] leading-[1.8] font-[var(--font-body)]">
-                    {item}
+                <li key={item.label} className="mb-[8px]">
+                  <a
+                    href={item.href}
+                    className="text-[var(--color-text-secondary)] no-underline text-[15px] leading-[1.8] font-[var(--font-body)]"
+                  >
+                    {item.label}
                   </a>
                 </li>
               ))}
@@ -86,10 +95,10 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="font-[var(--font-display)] text-[18px] font-medium text-[var(--color-text-primary)] mt-0 mr-0 mb-[20px] ml-0 tracking-[0.02em]">Contact</h4>
-            <p
-              className="text-[15px] leading-[1.7] text-[var(--color-text-secondary)] mt-0 mr-0 mb-[18px] ml-0"
-            >
+            <h4 className="font-[var(--font-display)] text-[18px] font-medium text-[var(--color-text-primary)] mt-0 mr-0 mb-[20px] ml-0 tracking-[0.02em]">
+              Contact
+            </h4>
+            <p className="text-[15px] leading-[1.7] text-[var(--color-text-secondary)] mt-0 mr-0 mb-[18px] ml-0">
               5985 Ernest Crescent
               <br />
               Niagara Falls, ON L2H 0H8
@@ -114,7 +123,8 @@ export default function Footer() {
         </div>
 
         <div
-          className="mt-[48px] pt-[24px] flex flex-wrap justify-between gap-[12px] text-[13px] text-[var(--color-text-secondary)]" style={{ borderTop: "1px solid var(--color-border)" }}
+          className="mt-[48px] pt-[24px] flex flex-wrap justify-between gap-[12px] text-[13px] text-[var(--color-text-secondary)]"
+          style={{ borderTop: "1px solid var(--color-border)" }}
         >
           <span>
             &copy; {new Date().getFullYear()} Smooth Skin Niagara. All rights

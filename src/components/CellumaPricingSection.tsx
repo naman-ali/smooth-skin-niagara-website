@@ -2,6 +2,8 @@
 
 import { Clock, Leaf } from "lucide-react";
 import * as React from "react";
+import { cn } from "@/lib/utils";
+
 
 const options = [
   {
@@ -33,78 +35,38 @@ const options = [
 export function CellumaPricingSection() {
   return (
     <section
-      className="px-7 lg:px-[53px]"
-      style={{
-        paddingTop: 80,
-        paddingBottom: 80,
-        background: "var(--olive-100)",
-      }}
+      
+      className={cn("px-7 lg:px-[53px]", "pt-[80px] pb-[80px] bg-[var(--olive-100)]")}
     >
       <div
-        style={{
-          maxWidth: "var(--container-max)",
-          margin: "0 auto",
-        }}
+        className="max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto"
       >
-        <header style={{ textAlign: "center", marginBottom: 48 }}>
+        <header className="text-center mb-[48px]">
           <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: 14,
-              marginBottom: 24,
-            }}
+            className="flex items-center justify-center gap-[14px] mb-[24px]"
           >
             <span
-              style={{
-                width: 40,
-                height: 1,
-                background: "var(--color-border-strong)",
-              }}
+              className="w-[40px] h-[1px] bg-[var(--color-border-strong)]"
             />
             <span
-              style={{
-                fontFamily: "var(--font-body)",
-                fontSize: 11,
-                fontWeight: 700,
-                letterSpacing: "0.22em",
-                textTransform: "uppercase",
-                color: "var(--color-brand-primary)",
-              }}
+              className="font-[var(--font-body)] text-[11px] font-bold tracking-[0.22em] uppercase text-[var(--color-brand-primary)]"
             >
               Celluma Treatment Options
             </span>
             <span
-              style={{
-                width: 40,
-                height: 1,
-                background: "var(--color-border-strong)",
-              }}
+              className="w-[40px] h-[1px] bg-[var(--color-border-strong)]"
             />
           </div>
 
           <h2
-            className="text-center text-[36px] leading-[1.1] lg:text-[44px]"
-            style={{
-              fontFamily: "var(--font-display)",
-              fontWeight: 400,
-              color: "var(--color-text-primary)",
-              margin: "0 0 16px",
-            }}
+            
+            className={cn("text-center text-[36px] leading-[1.1] lg:text-[44px]", "font-[var(--font-display)] font-normal text-[var(--color-text-primary)] mt-0 mr-0 mb-[16px] ml-0")}
           >
             Choose the Session That Fits Your Goals
           </h2>
 
           <p
-            style={{
-              fontFamily: "var(--font-body)",
-              fontSize: 16,
-              lineHeight: 1.6,
-              color: "var(--color-text-secondary)",
-              maxWidth: 680,
-              margin: "0 auto",
-            }}
+            className="font-[var(--font-body)] text-[16px] leading-[1.6] text-[var(--color-text-secondary)] max-w-[680px] mt-0 mr-auto mb-0 ml-auto"
           >
             Simple, non-invasive LED light therapy sessions designed around your
             skin concerns, treatment area and goals. Ashley can help recommend
@@ -113,45 +75,21 @@ export function CellumaPricingSection() {
         </header>
 
         <div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
-          style={{
-            gap: 24,
-            marginBottom: 40,
-          }}
+          
+          className={cn("grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3", "gap-[24px] mb-[40px]")}
         >
           {options.map((option) => (
             <div
               key={option.duration}
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                padding: 36,
-                background: "#fffdf9",
-                border: option.popular
+              className="flex flex-col items-center p-[36px] bg-[#fffdf9] rounded-[22px]" style={{ border: option.popular
                   ? "1px solid var(--olive-600)"
-                  : "1px solid var(--color-border)",
-                borderRadius: 22,
-                boxShadow: option.popular
+                  : "1px solid var(--color-border)", boxShadow: option.popular
                   ? "0 8px 24px rgba(37,38,36,0.08)"
-                  : "0 4px 20px rgba(37,38,36,0.03)",
-              }}
+                  : "0 4px 20px rgba(37,38,36,0.03)" }}
             >
               {option.popular && (
                 <span
-                  style={{
-                    display: "inline-block",
-                    fontFamily: "var(--font-body)",
-                    fontSize: 10,
-                    fontWeight: 800,
-                    letterSpacing: "0.14em",
-                    textTransform: "uppercase",
-                    color: "#fff",
-                    background: "var(--olive-700)",
-                    padding: "5px 12px",
-                    borderRadius: 999,
-                    marginBottom: 18,
-                  }}
+                  className="inline-block font-[var(--font-body)] text-[10px] font-extrabold tracking-[0.14em] uppercase text-[#fff] bg-[var(--olive-700)] pt-[5px] pr-[12px] pb-[5px] pl-[12px] rounded-[999px] mb-[18px]"
                 >
                   Most Popular
                 </span>
@@ -168,54 +106,27 @@ export function CellumaPricingSection() {
               />
 
               <h3
-                style={{
-                  fontFamily: "var(--font-display)",
-                  fontSize: 28,
-                  fontWeight: 500,
-                  color: "var(--color-text-primary)",
-                  margin: "0 0 8px",
-                }}
+                className="font-[var(--font-display)] text-[28px] font-medium text-[var(--color-text-primary)] mt-0 mr-0 mb-[8px] ml-0"
               >
                 {option.duration}
               </h3>
 
               <p
-                style={{
-                  fontFamily: "var(--font-display)",
-                  fontSize: 46,
-                  fontWeight: 400,
-                  lineHeight: 1.1,
-                  color: option.popular
+                className="font-[var(--font-display)] text-[46px] font-normal leading-[1.1] mt-0 mr-0 mb-[16px] ml-0" style={{ color: option.popular
                     ? "var(--olive-700)"
-                    : "var(--color-text-primary)",
-                  margin: "0 0 16px",
-                }}
+                    : "var(--color-text-primary)" }}
               >
                 {option.price}
               </p>
 
               <p
-                style={{
-                  fontFamily: "var(--font-body)",
-                  fontSize: 15,
-                  lineHeight: 1.55,
-                  color: "var(--color-text-secondary)",
-                  margin: "0 0 12px",
-                  maxWidth: 280,
-                }}
+                className="font-[var(--font-body)] text-[15px] leading-[1.55] text-[var(--color-text-secondary)] mt-0 mr-0 mb-[12px] ml-0 max-w-[280px]"
               >
                 {option.description}
               </p>
 
               <p
-                style={{
-                  fontFamily: "var(--font-body)",
-                  fontSize: 13,
-                  fontStyle: "italic",
-                  lineHeight: 1.5,
-                  color: "var(--olive-500)",
-                  margin: "auto 0 0",
-                }}
+                className="font-[var(--font-body)] text-[13px] leading-[1.5] text-[var(--olive-500)] mt-auto mr-0 mb-0 ml-0" style={{ fontStyle: "italic" }}
               >
                 {option.note}
               </p>
@@ -224,17 +135,7 @@ export function CellumaPricingSection() {
         </div>
 
         <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            alignItems: "center",
-            gap: 18,
-            padding: "22px 28px",
-            background: "#fffdf9",
-            border: "1px solid var(--color-border)",
-            borderRadius: 16,
-            marginBottom: 48,
-          }}
+          className="flex flex-wrap items-center gap-[18px] pt-[22px] pr-[28px] pb-[22px] pl-[28px] bg-[#fffdf9] rounded-[16px] mb-[48px]" style={{ border: "1px solid var(--color-border)" }}
         >
           <Leaf
             size={20}
@@ -246,15 +147,7 @@ export function CellumaPricingSection() {
             }}
           />
           <p
-            style={{
-              fontFamily: "var(--font-body)",
-              fontSize: 15,
-              lineHeight: 1.6,
-              color: "var(--color-text-secondary)",
-              margin: 0,
-              flex: "1 1 0",
-              minWidth: 240,
-            }}
+            className="font-[var(--font-body)] text-[15px] leading-[1.6] text-[var(--color-text-secondary)] m-0 flex-[1_1_0] min-w-[240px]"
           >
             Celluma sessions may also be added to selected treatments when
             appropriate. There is no downtime, and treatment is designed to be
@@ -263,36 +156,14 @@ export function CellumaPricingSection() {
         </div>
 
         <p
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: 12,
-            fontFamily: "var(--font-body)",
-            fontSize: 11,
-            fontWeight: 700,
-            letterSpacing: "0.22em",
-            textTransform: "uppercase",
-            textAlign: "center",
-            color: "var(--olive-500)",
-            opacity: 0.8,
-            margin: 0,
-          }}
+          className="flex items-center justify-center gap-[12px] font-[var(--font-body)] text-[11px] font-bold tracking-[0.22em] uppercase text-center text-[var(--olive-500)] opacity-[0.8] m-0"
         >
           <span
-            style={{
-              width: 40,
-              height: 1,
-              background: "var(--color-border-strong)",
-            }}
+            className="w-[40px] h-[1px] bg-[var(--color-border-strong)]"
           />
           Science + Skin + Wellness
           <span
-            style={{
-              width: 40,
-              height: 1,
-              background: "var(--color-border-strong)",
-            }}
+            className="w-[40px] h-[1px] bg-[var(--color-border-strong)]"
           />
         </p>
       </div>

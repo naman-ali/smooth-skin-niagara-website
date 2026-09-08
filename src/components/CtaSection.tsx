@@ -1,11 +1,6 @@
 "use client";
 
-import * as ButtonModule from "@/components/design-system/core/Button";
-import type { ButtonProps } from "@/components/design-system/core/Button";
-import React from "react";
-
-const Button = (ButtonModule as unknown as { Button: React.FC<ButtonProps> })
-  .Button;
+import * as React from "react";
 
 const PhoneIcon = () => (
   <svg
@@ -109,15 +104,15 @@ interface CtaSectionProps {
 
 export function CtaSection({
   variant = "dark",
-  eyebrow = "Ready to Take the Next Step?",
+  eyebrow = "READY TO TAKE THE NEXT STEP?",
   heading = (
     <>
-      Let&apos;s Create Your
+      Your Best Results Start
       <br />
-      Personalized Treatment Plan
+      With the Right Plan
     </>
   ),
-  subheading = "Book a free consultation and we'll take the time to understand your goals, assess your skin and recommend the most suitable treatment plan for you.",
+  subheading = "Book a complimentary consultation and get personalized recommendations based on your skin, goals and lifestyle.",
   buttonText = "Book a Free Consultation",
   phone = "(905) 920-7229",
   phoneLabel = "Call or Text",
@@ -132,8 +127,9 @@ export function CtaSection({
           heading: "var(--white)",
           text: "var(--olive-200)",
           border: "var(--olive-700)",
-          phoneBg: "var(--olive-100)",
-          phoneIcon: "var(--color-brand-primary)",
+          phoneBorder: "var(--olive-700)",
+          phoneBg: "rgba(255, 255, 255, 0.04)",
+          phoneIcon: "var(--olive-500)",
           iconBg: "var(--olive-700)",
           iconColor: "var(--olive-100)",
         }
@@ -144,7 +140,8 @@ export function CtaSection({
           heading: "var(--color-text-primary)",
           text: "var(--color-text-secondary)",
           border: "var(--color-border)",
-          phoneBg: "var(--white)",
+          phoneBorder: "var(--color-border-strong)",
+          phoneBg: "var(--olive-100)",
           phoneIcon: "var(--color-brand-primary)",
           iconBg: "var(--olive-100)",
           iconColor: "var(--color-brand-primary)",
@@ -152,217 +149,102 @@ export function CtaSection({
 
   return (
     <section
-      style={{
-        position: "relative",
-        padding: "90px 53px",
-        background: theme.background,
-        overflow: "hidden",
-      }}
+      className="relative overflow-hidden py-[66px] px-6 md:px-10"
+      style={{ background: theme.background }}
     >
-      <div
-        style={{
-          position: "relative",
-          zIndex: 10,
-          maxWidth: "var(--container-max)",
-          margin: "0 auto",
-          textAlign: "center",
-        }}
-      >
-        {/* Eyebrow */}
+      {variant === "dark" && (
         <div
+          className="pointer-events-none absolute left-1/2 top-1/2 h-[480px] w-[900px] -translate-x-1/2 -translate-y-1/2 rounded-full"
           style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: 16,
-            marginBottom: 22,
+            background:
+              "radial-gradient(circle at center, var(--olive-600) 0%, transparent 70%)",
+            opacity: 0.08,
           }}
-        >
+        />
+      )}
+
+      <div className="relative z-10 mx-auto max-w-[var(--container-max)] text-center">
+        <div className="mb-[22px] flex items-center justify-center gap-[14px]">
           <span
-            style={{
-              width: 48,
-              height: 1,
-              background: theme.eyebrowLine,
-            }}
+            className="h-[1.5px] w-[60px] rounded-full"
+            style={{ background: theme.eyebrowLine, opacity: 0.6 }}
           />
           <span
-            style={{
-              fontFamily: "var(--font-body)",
-              fontSize: 11,
-              letterSpacing: "0.22em",
-              textTransform: "uppercase",
-              color: theme.eyebrowText,
-              fontWeight: 700,
-              whiteSpace: "nowrap",
-            }}
+            className="whitespace-nowrap font-[var(--font-body)] text-[11px] font-semibold uppercase tracking-[0.22em]"
+            style={{ color: theme.eyebrowText }}
           >
             {eyebrow}
           </span>
           <span
-            style={{
-              width: 48,
-              height: 1,
-              background: theme.eyebrowLine,
-            }}
+            className="h-[1.5px] w-[60px] rounded-full"
+            style={{ background: theme.eyebrowLine, opacity: 0.6 }}
           />
         </div>
 
         <h2
-          style={{
-            fontFamily: "var(--font-display)",
-            fontSize: 52,
-            fontWeight: 400,
-            lineHeight: 1.08,
-            color: theme.heading,
-            margin: "0 auto 18px",
-            maxWidth: 760,
-          }}
+          className="mx-auto mb-[26px] mt-0 max-w-[800px] font-[var(--font-display)] text-[40px] font-normal leading-[1.08] md:text-[52px] lg:text-[58px]"
+          style={{ color: theme.heading }}
         >
           {heading}
         </h2>
 
         <p
-          style={{
-            fontFamily: "var(--font-body)",
-            fontSize: 17,
-            lineHeight: 1.6,
-            color: theme.text,
-            margin: "0 auto 28px",
-            maxWidth: 620,
-          }}
+          className="mx-auto mb-[30px] mt-0 max-w-[680px] font-[var(--font-body)] text-[17px] leading-[1.6] md:text-[19px]"
+          style={{ color: theme.text }}
         >
           {subheading}
         </p>
 
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            gap: 14,
-            marginBottom: 60,
-          }}
-        >
-          <Button
-            variant="primary"
-            icon={<span>&rarr;</span>}
-            style={{
-              width: 360,
-              height: 64,
-              fontSize: 17,
-              justifyContent: "space-between",
-              padding: "0 28px",
-            }}
+        <div className="mb-[50px] flex flex-col items-center gap-[10px]">
+          <button
+            type="button"
+            className="group flex h-[58px] w-full items-center justify-between rounded-[14px] bg-[var(--cta-primary-bg)] px-[28px] font-[var(--font-body)] text-[17px] font-semibold text-[var(--cta-primary-text)] transition-all duration-300 hover:bg-[var(--cta-primary-hover)] hover:shadow-[0_6px_20px_rgba(79,91,58,0.28)] md:max-w-[420px]"
           >
             {buttonText}
-          </Button>
+            <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">
+              &rarr;
+            </span>
+          </button>
 
           <a
             href="tel:+19059207229"
+            className="flex h-[54px] w-full items-center justify-center gap-[10px] rounded-[14px] px-[24px] font-[var(--font-body)] text-[16px] font-medium no-underline transition-colors duration-300 md:max-w-[420px]"
             style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              position: "relative",
-              width: 320,
-              height: 60,
-              borderRadius: 14,
-              border: "1px solid " + theme.border,
+              border: `1px solid ${theme.phoneBorder}`,
               background: theme.phoneBg,
-              textDecoration: "none",
-              fontFamily: "var(--font-body)",
             }}
           >
-            <span
-              style={{
-                position: "absolute",
-                left: 24,
-                color: theme.phoneIcon,
-              }}
-            >
+            <span style={{ color: theme.phoneIcon }}>
               <PhoneIcon />
             </span>
-            <div style={{ textAlign: "center" }}>
-              <div
-                style={{
-                  fontSize: 18,
-                  fontWeight: 600,
-                  color: theme.heading,
-                  marginBottom: 1,
-                }}
-              >
-                {phone}
-              </div>
-              <div
-                style={{
-                  fontSize: 12,
-                  color: theme.text,
-                }}
-              >
-                {phoneLabel}
-              </div>
-            </div>
+            <span style={{ color: theme.text }}>{phoneLabel}</span>
+            <span style={{ color: theme.text }}>·</span>
+            <span className="font-semibold" style={{ color: theme.heading }}>
+              {phone}
+            </span>
           </a>
         </div>
 
-        {/* Bottom benefits row */}
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            maxWidth: 1100,
-            margin: "0 auto",
-            gap: 0,
-          }}
-        >
+        <div className="mx-auto flex max-w-[900px] flex-col items-start gap-[28px] md:flex-row md:items-center md:justify-center md:gap-0">
           {benefits.map((item, i) => (
             <React.Fragment key={i}>
-              <div
-                style={{
-                  flex: 1,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: 16,
-                  padding: "0 24px",
-                }}
-              >
+              <div className="flex w-full items-center justify-start gap-[14px] md:flex-1 md:justify-center">
                 <div
-                  style={{
-                    flexShrink: 0,
-                    width: 64,
-                    height: 64,
-                    borderRadius: "50%",
-                    background: theme.iconBg,
-                    color: theme.iconColor,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
+                  className="flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-full"
+                  style={{ background: theme.iconBg, color: theme.iconColor }}
                 >
-                  <div style={{ transform: "scale(1.2)" }}>{item.icon}</div>
+                  {item.icon}
                 </div>
-                <div style={{ textAlign: "left" }}>
+                <div className="text-left">
                   <h4
-                    style={{
-                      fontFamily: "var(--font-display)",
-                      fontSize: 18,
-                      fontWeight: 400,
-                      color: theme.heading,
-                      margin: "0 0 4px",
-                    }}
+                    className="mb-[3px] mt-0 font-[var(--font-display)] text-[18px] font-normal"
+                    style={{ color: theme.heading }}
                   >
                     {item.title}
                   </h4>
                   <p
-                    style={{
-                      fontFamily: "var(--font-body)",
-                      fontSize: 14,
-                      lineHeight: 1.5,
-                      color: theme.text,
-                      margin: 0,
-                    }}
+                    className="m-0 font-[var(--font-body)] text-[14px] leading-[1.5]"
+                    style={{ color: theme.text }}
                   >
                     {item.text}
                   </p>
@@ -370,11 +252,8 @@ export function CtaSection({
               </div>
               {i < 2 && (
                 <div
-                  style={{
-                    width: 1,
-                    height: 64,
-                    background: theme.border,
-                  }}
+                  className="hidden h-[48px] w-[1px] md:block"
+                  style={{ background: theme.border, opacity: 0.4 }}
                 />
               )}
             </React.Fragment>

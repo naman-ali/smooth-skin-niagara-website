@@ -63,94 +63,39 @@ export function AshleySection() {
 
   return (
     <section
-      style={{
-        position: "relative",
-        padding: "90px 53px",
-        overflow: "hidden",
-        backgroundImage: "url(/assets/ashley-section-bg-4.png)",
-        backgroundSize: "auto 118%",
-        backgroundPosition: "center 8%",
-        backgroundRepeat: "no-repeat",
-      }}
+      className="relative pt-[90px] pr-[53px] pb-[90px] pl-[53px] overflow-hidden bg-[url('/assets/ashley-section-bg-4.png')] bg-no-repeat" style={{ backgroundSize: "auto 118%", backgroundPosition: "center 8%" }}
     >
       <div
-        style={{
-          position: "relative",
-          maxWidth: "var(--container-max)",
-          margin: "0 auto",
-          display: "flex",
-          flexWrap: "wrap",
-          gap: 32,
-          alignItems: "flex-start",
-        }}
+        className="relative max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto flex flex-wrap gap-[32px] items-start"
       >
-        <div style={{ flex: "1 1 320px", minWidth: 280, maxWidth: 380 }}>
+        <div className="flex-[1_1_320px] min-w-[280px] max-w-[380px]">
           <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: 13,
-              marginBottom: 22,
-            }}
+            className="flex items-center gap-[13px] mb-[22px]"
           >
             <span
-              style={{
-                fontFamily: "var(--font-body)",
-                fontSize: 12,
-                letterSpacing: "0.16em",
-                textTransform: "uppercase",
-                color: "var(--color-brand-primary)",
-                fontWeight: 700,
-              }}
+              className="font-[var(--font-body)] text-[12px] tracking-[0.16em] uppercase text-[var(--color-brand-primary)] font-bold"
             >
               Meet Ashley
             </span>
             <span
-              style={{
-                width: 48,
-                height: 1,
-                background: "var(--color-border-strong)",
-              }}
+              className="w-[48px] h-[1px] bg-[var(--color-border-strong)]"
             />
           </div>
           <h2
-            style={{
-              fontFamily: "var(--font-display)",
-              fontWeight: 500,
-              fontSize: 48,
-              lineHeight: 1.1,
-              color: "var(--color-text-primary)",
-              margin: "0 0 8px",
-              textShadow:
-                "0 1px 12px var(--olive-50), 0 1px 3px var(--olive-50)",
-            }}
+            className="font-[var(--font-display)] font-medium text-[48px] leading-[1.1] text-[var(--color-text-primary)] mt-0 mr-0 mb-[8px] ml-0" style={{ textShadow:
+                "0 1px 12px var(--olive-50), 0 1px 3px var(--olive-50)" }}
           >
             Ashley
           </h2>
           <h3
-            style={{
-              fontFamily: "var(--font-display)",
-              fontWeight: 400,
-              fontSize: 22,
-              lineHeight: 1.3,
-              color: "var(--color-brand-deep)",
-              margin: "0 0 22px",
-              textShadow:
-                "0 1px 12px var(--olive-50), 0 1px 3px var(--olive-50)",
-            }}
+            className="font-[var(--font-display)] font-normal text-[22px] leading-[1.3] text-[var(--color-brand-deep)] mt-0 mr-0 mb-[22px] ml-0" style={{ textShadow:
+                "0 1px 12px var(--olive-50), 0 1px 3px var(--olive-50)" }}
           >
             The expert behind Smooth Skin Niagara
           </h3>
           <p
-            style={{
-              fontFamily: "var(--font-body)",
-              fontSize: 16,
-              lineHeight: 1.7,
-              color: "var(--color-text-primary)",
-              margin: "0 0 26px",
-              textShadow:
-                "0 1px 14px var(--olive-50), 0 1px 4px var(--olive-50), 0 1px 4px var(--olive-50)",
-            }}
+            className="font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-primary)] mt-0 mr-0 mb-[26px] ml-0" style={{ textShadow:
+                "0 1px 14px var(--olive-50), 0 1px 4px var(--olive-50), 0 1px 4px var(--olive-50)" }}
           >
             Ashley is the founder of Smooth Skin Niagara and personally performs
             every treatment. With more than 10 years of experience, she is known
@@ -169,16 +114,9 @@ export function AshleySection() {
             rating={5}
           />
         </div>
-        <div style={{ flex: "0 1 32%", minWidth: 0 }} />
+        <div className="flex-[0_1_32%] min-w-0" />
         <div
-          style={{
-            flex: "1 1 260px",
-            minWidth: 260,
-            maxWidth: 340,
-            display: "flex",
-            flexDirection: "column",
-            gap: 18,
-          }}
+          className="flex-[1_1_260px] min-w-[260px] max-w-[340px] flex flex-col gap-[18px]"
         >
           {rightTestimonials.map((t, i) => (
             <div
@@ -186,7 +124,7 @@ export function AshleySection() {
               ref={(el) => {
                 cardRefs.current[i] = el;
               }}
-              style={{ willChange: "transform" }}
+              className="will-change-transform"
             >
               <TestimonialQuote quote={t.quote} author={t.author} rating={5} />
             </div>

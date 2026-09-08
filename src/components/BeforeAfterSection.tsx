@@ -2,6 +2,8 @@
 
 import { BeforeAfter } from "@/components/BeforeAfter";
 import * as React from "react";
+import { cn } from "@/lib/utils";
+
 
 export type BeforeAfterItem = {
   beforeSrc: string;
@@ -55,66 +57,34 @@ export function BeforeAfterSection({
       }}
     >
       <div
-        style={{
-          maxWidth,
-          margin: "0 auto",
-        }}
+        className="mt-0 mr-auto mb-0 ml-auto" style={{ maxWidth }}
       >
         {(eyebrow || heading || subheading) && (
           <header
-            style={{
-              textAlign: "center",
-              marginBottom: heading ? 48 : 0,
-            }}
+            className="text-center" style={{ marginBottom: heading ? 48 : 0 }}
           >
             {eyebrow && (
               <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: 14,
-                  marginBottom: 24,
-                }}
+                className="flex items-center justify-center gap-[14px] mb-[24px]"
               >
                 <span
-                  style={{
-                    width: 40,
-                    height: 1,
-                    background: "var(--color-border-strong)",
-                  }}
+                  className="w-[40px] h-[1px] bg-[var(--color-border-strong)]"
                 />
                 <span
-                  style={{
-                    fontFamily: "var(--font-body)",
-                    fontSize: 11,
-                    fontWeight: 700,
-                    letterSpacing: "0.22em",
-                    textTransform: "uppercase",
-                    color: "var(--color-brand-primary)",
-                  }}
+                  className="font-[var(--font-body)] text-[11px] font-bold tracking-[0.22em] uppercase text-[var(--color-brand-primary)]"
                 >
                   {eyebrow}
                 </span>
                 <span
-                  style={{
-                    width: 40,
-                    height: 1,
-                    background: "var(--color-border-strong)",
-                  }}
+                  className="w-[40px] h-[1px] bg-[var(--color-border-strong)]"
                 />
               </div>
             )}
 
             {heading && (
               <h2
-                className="text-center text-[36px] leading-[1.1] lg:text-[44px]"
-                style={{
-                  fontFamily: "var(--font-display)",
-                  fontWeight: 400,
-                  color: "var(--color-text-primary)",
-                  margin: "0 0 16px",
-                }}
+                
+                className={cn("text-center text-[36px] leading-[1.1] lg:text-[44px]", "font-[var(--font-display)] font-normal text-[var(--color-text-primary)] mt-0 mr-0 mb-[16px] ml-0")}
               >
                 {heading}
               </h2>
@@ -122,14 +92,7 @@ export function BeforeAfterSection({
 
             {subheading && (
               <p
-                style={{
-                  fontFamily: "var(--font-body)",
-                  fontSize: 16,
-                  lineHeight: 1.6,
-                  color: "var(--color-text-secondary)",
-                  maxWidth: 680,
-                  margin: "0 auto",
-                }}
+                className="font-[var(--font-body)] text-[16px] leading-[1.6] text-[var(--color-text-secondary)] max-w-[680px] mt-0 mr-auto mb-0 ml-auto"
               >
                 {subheading}
               </p>

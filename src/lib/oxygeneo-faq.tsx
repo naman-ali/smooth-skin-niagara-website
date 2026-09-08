@@ -23,7 +23,7 @@ export const oxygeneoFaqCategories = [
               exfoliation, natural skin oxygenation and ingredient infusion
               within one treatment.
             </p>
-            <p style={{ marginTop: 12 }}>
+            <p className="mt-[12px]">
               The treatment can also be enhanced with technologies such as
               TriPollar radiofrequency, ultrasound infusion and Celluma LED light
               therapy depending on the package selected.
@@ -37,12 +37,7 @@ export const oxygeneoFaqCategories = [
           <>
             <p>The treatment combines three main steps:</p>
             <ul
-              style={{
-                margin: "12px 0 0",
-                paddingLeft: 20,
-                listStyle: "disc",
-                color: "var(--color-text-secondary)",
-              }}
+              className="mt-[12px] mr-0 mb-0 ml-0 pl-[20px] text-[var(--color-text-secondary)]" style={{ listStyle: "disc" }}
             >
               <li>
                 <strong>Exfoliation</strong> helps remove dead surface skin
@@ -69,11 +64,11 @@ export const oxygeneoFaqCategories = [
               During the OxyGeneo treatment, the interaction between the OxyPod
               and treatment gel creates carbon dioxide at the skin&apos;s surface.
             </p>
-            <p style={{ marginTop: 12 }}>
+            <p className="mt-[12px]">
               The body responds by increasing oxygen-rich blood flow to the area.
               This physiological response is known as the <strong>Bohr Effect</strong>.
             </p>
-            <p style={{ marginTop: 12 }}>
+            <p className="mt-[12px]">
               OxyGeneo does not inject or pump oxygen into the skin.
             </p>
           </>
@@ -87,11 +82,11 @@ export const oxygeneoFaqCategories = [
               Many clients choose OxyGeneo because skin can look and feel
               refreshed shortly after treatment.
             </p>
-            <p style={{ marginTop: 12 }}>
+            <p className="mt-[12px]">
               Longer-term changes depend on your skin, concerns, skincare
               routine and treatment frequency.
             </p>
-            <p style={{ marginTop: 12 }}>Individual results vary.</p>
+            <p className="mt-[12px]">Individual results vary.</p>
           </>
         ),
       },
@@ -102,7 +97,7 @@ export const oxygeneoFaqCategories = [
             <p>
               There is no single duration that applies to everyone.
             </p>
-            <p style={{ marginTop: 12 }}>
+            <p className="mt-[12px]">
               Skin type, lifestyle, home skincare and how often treatments are
               performed all influence how long your skin maintains its
               post-treatment appearance.
@@ -117,11 +112,11 @@ export const oxygeneoFaqCategories = [
             <p>
               Treatment frequency depends on your skin and goals.
             </p>
-            <p style={{ marginTop: 12 }}>
+            <p className="mt-[12px]">
               Some clients book OxyGeneo periodically for maintenance or before
               events, while others choose a more consistent facial schedule.
             </p>
-            <p style={{ marginTop: 12 }}>
+            <p className="mt-[12px]">
               We&apos;ll recommend an appropriate frequency for your skin.
             </p>
           </>
@@ -146,7 +141,7 @@ export const oxygeneoFaqCategories = [
             <p>
               OxyGeneo is designed to be a comfortable facial experience.
             </p>
-            <p style={{ marginTop: 12 }}>
+            <p className="mt-[12px]">
               You may feel exfoliation, massage and warmth depending on the
               treatment technologies being used, but the treatment should not
               feel aggressive.
@@ -161,11 +156,11 @@ export const oxygeneoFaqCategories = [
             <p>
               The core OxyGeneo facial generally requires no downtime.
             </p>
-            <p style={{ marginTop: 12 }}>
+            <p className="mt-[12px]">
               Most clients can return to their usual activities following
               treatment.
             </p>
-            <p style={{ marginTop: 12 }}>
+            <p className="mt-[12px]">
               Temporary mild redness may occur depending on skin sensitivity and
               the technologies included in your appointment.
             </p>
@@ -180,7 +175,7 @@ export const oxygeneoFaqCategories = [
               OxyGeneo is commonly chosen before events because it is designed
               to leave skin looking refreshed without significant downtime.
             </p>
-            <p style={{ marginTop: 12 }}>
+            <p className="mt-[12px]">
               However, if it is your first treatment or you have particularly
               reactive skin, scheduling it several days before an important
               event can be sensible.
@@ -197,12 +192,7 @@ export const oxygeneoFaqCategories = [
               about:
             </p>
             <ul
-              style={{
-                margin: "12px 0 0",
-                paddingLeft: 20,
-                listStyle: "disc",
-                color: "var(--color-text-secondary)",
-              }}
+              className="mt-[12px] mr-0 mb-0 ml-0 pl-[20px] text-[var(--color-text-secondary)]" style={{ listStyle: "disc" }}
             >
               <li>prescription skincare</li>
               <li>active irritation</li>
@@ -212,7 +202,7 @@ export const oxygeneoFaqCategories = [
               <li>medications</li>
               <li>relevant medical conditions</li>
             </ul>
-            <p style={{ marginTop: 12 }}>
+            <p className="mt-[12px]">
               We&apos;ll advise you if anything needs to be adjusted before treatment.
             </p>
           </>
@@ -226,7 +216,7 @@ export const oxygeneoFaqCategories = [
               Because OxyGeneo is non-ablative and does not involve aggressive
               resurfacing, makeup can often be resumed relatively quickly.
             </p>
-            <p style={{ marginTop: 12 }}>
+            <p className="mt-[12px]">
               Follow the specific aftercare guidance given after your treatment,
               particularly if additional technologies were used.
             </p>
@@ -254,12 +244,7 @@ export const oxygeneoFaqCategories = [
               provide different levels of treatment:
             </p>
             <ul
-              style={{
-                margin: "12px 0 0",
-                paddingLeft: 20,
-                listStyle: "disc",
-                color: "var(--color-text-secondary)",
-              }}
+              className="mt-[12px] mr-0 mb-0 ml-0 pl-[20px] text-[var(--color-text-secondary)]" style={{ listStyle: "disc" }}
             >
               <li>
                 <strong>Express — $185 + HST</strong>
@@ -278,7 +263,7 @@ export const oxygeneoFaqCategories = [
                 Celluma LED therapy.
               </li>
             </ul>
-            <p style={{ marginTop: 12 }}>
+            <p className="mt-[12px]">
               We&apos;ll help you choose based on your skin, goals, schedule and
               desired treatment experience.
             </p>
@@ -290,14 +275,9 @@ export const oxygeneoFaqCategories = [
         a: (
           <>
             <p>That depends on your skin concerns.</p>
-            <p style={{ marginTop: 12 }}>Current options include:</p>
+            <p className="mt-[12px]">Current options include:</p>
             <ul
-              style={{
-                margin: "12px 0 0",
-                paddingLeft: 20,
-                listStyle: "disc",
-                color: "var(--color-text-secondary)",
-              }}
+              className="mt-[12px] mr-0 mb-0 ml-0 pl-[20px] text-[var(--color-text-secondary)]" style={{ listStyle: "disc" }}
             >
               <li>Detox</li>
               <li>Hydrate</li>
@@ -305,7 +285,7 @@ export const oxygeneoFaqCategories = [
               <li>Balance</li>
               <li>Revive</li>
             </ul>
-            <p style={{ marginTop: 12 }}>
+            <p className="mt-[12px]">
               Your OxyPod can be selected during your treatment consultation
               rather than requiring you to choose before arriving.
             </p>
@@ -320,7 +300,7 @@ export const oxygeneoFaqCategories = [
               OxyGeneo treatments can be customized for different skin needs,
               including more sensitive skin.
             </p>
-            <p style={{ marginTop: 12 }}>
+            <p className="mt-[12px]">
               However, suitability depends on your current skin condition and
               health history. Let us know about active irritation, allergies,
               medications and previous reactions before treatment.
@@ -333,14 +313,14 @@ export const oxygeneoFaqCategories = [
         a: (
           <>
             <p>Yes.</p>
-            <p style={{ marginTop: 12 }}>
+            <p className="mt-[12px]">
               Celluma can be added to selected treatments when appropriate.
               Current add-on pricing:
             </p>
-            <p style={{ marginTop: 12 }}>
+            <p className="mt-[12px]">
               <strong>30 Minutes — $30</strong>
             </p>
-            <p style={{ marginTop: 12 }}>
+            <p className="mt-[12px]">
               The Signature OxyGeneo already includes 30 minutes of Celluma LED
               light therapy.
             </p>
@@ -355,13 +335,13 @@ export const oxygeneoFaqCategories = [
               Selected areas such as the neck, chest and back may also be
               treated.
             </p>
-            <p style={{ marginTop: 12 }}>
+            <p className="mt-[12px]">
               Current pricing to extend an OxyGeneo treatment is:
             </p>
-            <p style={{ marginTop: 12 }}>
+            <p className="mt-[12px]">
               <strong>$50 per additional area</strong>
             </p>
-            <p style={{ marginTop: 12 }}>
+            <p className="mt-[12px]">
               Suitability depends on the treatment area and concern.
             </p>
           </>
@@ -373,12 +353,7 @@ export const oxygeneoFaqCategories = [
           <>
             <p>Please tell us about:</p>
             <ul
-              style={{
-                margin: "12px 0 0",
-                paddingLeft: 20,
-                listStyle: "disc",
-                color: "var(--color-text-secondary)",
-              }}
+              className="mt-[12px] mr-0 mb-0 ml-0 pl-[20px] text-[var(--color-text-secondary)]" style={{ listStyle: "disc" }}
             >
               <li>allergies</li>
               <li>medications</li>

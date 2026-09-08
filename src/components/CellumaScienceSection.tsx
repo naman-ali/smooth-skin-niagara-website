@@ -1,6 +1,8 @@
 "use client";
 
 import * as React from "react";
+import { cn } from "@/lib/utils";
+
 
 const wavelengths = [
   {
@@ -29,65 +31,33 @@ const wavelengths = [
 export function CellumaScienceSection() {
   return (
     <section
-      className="px-7 lg:px-[53px]"
-      style={{
-        paddingTop: 80,
-        paddingBottom: 80,
-        background: "#fdfaf3",
-      }}
+      
+      className={cn("px-7 lg:px-[53px]", "pt-[80px] pb-[80px] bg-[#fdfaf3]")}
     >
       <div
-        style={{
-          maxWidth: "var(--container-max)",
-          margin: "0 auto",
-        }}
+        className="max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto"
       >
-        <header style={{ textAlign: "center", marginBottom: 48 }}>
+        <header className="text-center mb-[48px]">
           <span
-            style={{
-              display: "inline-block",
-              fontFamily: "var(--font-body)",
-              fontSize: 11,
-              fontWeight: 700,
-              letterSpacing: "0.22em",
-              textTransform: "uppercase",
-              color: "var(--color-brand-primary)",
-              marginBottom: 14,
-            }}
+            className="inline-block font-[var(--font-body)] text-[11px] font-bold tracking-[0.22em] uppercase text-[var(--color-brand-primary)] mb-[14px]"
           >
             THE SCIENCE OF LIGHT
           </span>
 
           <h2
-            className="text-center text-[40px] leading-[1.1] lg:text-5xl"
-            style={{
-              fontFamily: "var(--font-display)",
-              fontWeight: 400,
-              color: "var(--color-text-primary)",
-              margin: "0 0 12px",
-            }}
+            
+            className={cn("text-center text-[40px] leading-[1.1] lg:text-5xl", "font-[var(--font-display)] font-normal text-[var(--color-text-primary)] mt-0 mr-0 mb-[12px] ml-0")}
           >
-            <span style={{ display: "block" }}>Three Wavelengths.</span>
+            <span className="block">Three Wavelengths.</span>
             <span
-              style={{
-                display: "block",
-                fontStyle: "italic",
-                color: "var(--olive-600)",
-              }}
+              className="block text-[var(--olive-600)]" style={{ fontStyle: "italic" }}
             >
               Different Depths. One Treatment.
             </span>
           </h2>
 
           <p
-            style={{
-              fontFamily: "var(--font-body)",
-              fontSize: 17,
-              lineHeight: 1.6,
-              color: "var(--color-text-primary)",
-              maxWidth: 760,
-              margin: "0 auto",
-            }}
+            className="font-[var(--font-body)] text-[17px] leading-[1.6] text-[var(--color-text-primary)] max-w-[760px] mt-0 mr-auto mb-0 ml-auto"
           >
             Celluma combines blue, red and near-infrared LED light. Each
             wavelength is absorbed differently by the skin and tissue, allowing
@@ -99,83 +69,39 @@ export function CellumaScienceSection() {
         <img
           src="/assets/celluma-3-lights.jpg"
           alt="Celluma LED wavelengths penetrating skin at different depths"
-          style={{
-            display: "block",
-            width: "100%",
-            maxWidth: 900,
-            height: "auto",
-            margin: "0 auto 48px",
-          }}
+          className="block w-full max-w-[900px] h-auto mt-0 mr-auto mb-[48px] ml-auto"
         />
 
         <div
-          className="flex flex-col lg:flex-row"
-          style={{
-            justifyContent: "center",
-            marginBottom: 64,
-          }}
+          
+          className={cn("flex flex-col lg:flex-row", "justify-center mb-[64px]")}
         >
           {wavelengths.map((item, index) => (
             <React.Fragment key={item.label}>
               <div
-                className="box-border w-full px-6 py-8 text-center lg:flex-1 lg:w-auto"
-                style={{ minWidth: 0 }}
+                
+                className={cn("box-border w-full px-6 py-8 text-center lg:flex-1 lg:w-auto", "min-w-0")}
               >
                 <span
-                  style={{
-                    display: "inline-block",
-                    width: 8,
-                    height: 8,
-                    borderRadius: "50%",
-                    background: item.color,
-                    marginBottom: 16,
-                  }}
+                  className="inline-block w-[8px] h-[8px] rounded-[50%] mb-[16px]" style={{ background: item.color }}
                 />
                 <p
-                  style={{
-                    fontFamily: "var(--font-body)",
-                    fontSize: 11,
-                    fontWeight: 700,
-                    letterSpacing: "0.22em",
-                    textTransform: "uppercase",
-                    color: "var(--color-text-primary)",
-                    margin: "0 0 8px",
-                  }}
+                  className="font-[var(--font-body)] text-[11px] font-bold tracking-[0.22em] uppercase text-[var(--color-text-primary)] mt-0 mr-0 mb-[8px] ml-0"
                 >
                   {item.label}
                 </p>
                 <p
-                  style={{
-                    fontFamily: "var(--font-display)",
-                    fontSize: 36,
-                    fontWeight: 400,
-                    lineHeight: 1.1,
-                    color: item.color,
-                    margin: "0 0 16px",
-                  }}
+                  className="font-[var(--font-display)] text-[36px] font-normal leading-[1.1] mt-0 mr-0 mb-[16px] ml-0" style={{ color: item.color }}
                 >
                   {item.nm}
                 </p>
                 <h3
-                  style={{
-                    fontFamily: "var(--font-display)",
-                    fontSize: 22,
-                    fontWeight: 500,
-                    lineHeight: 1.2,
-                    color: "var(--color-text-primary)",
-                    margin: "0 0 8px",
-                  }}
+                  className="font-[var(--font-display)] text-[22px] font-medium leading-[1.2] text-[var(--color-text-primary)] mt-0 mr-0 mb-[8px] ml-0"
                 >
                   {item.benefit}
                 </h3>
                 <p
-                  style={{
-                    fontFamily: "var(--font-body)",
-                    fontSize: 16,
-                    lineHeight: 1.5,
-                    color: "var(--color-text-secondary)",
-                    margin: 0,
-                  }}
+                  className="font-[var(--font-body)] text-[16px] leading-[1.5] text-[var(--color-text-secondary)] m-0"
                 >
                   {item.copy}
                 </p>
@@ -184,19 +110,12 @@ export function CellumaScienceSection() {
               {index < wavelengths.length - 1 && (
                 <>
                   <div
-                    className="hidden lg:block"
-                    style={{
-                      width: 1,
-                      background: "var(--color-border)",
-                      alignSelf: "stretch",
-                    }}
+                    
+                    className={cn("hidden lg:block", "w-[1px] bg-[var(--color-border)]")} style={{ alignSelf: "stretch" }}
                   />
                   <div
-                    className="block lg:hidden"
-                    style={{
-                      height: 1,
-                      background: "var(--color-border)",
-                    }}
+                    
+                    className={cn("block lg:hidden", "h-[1px] bg-[var(--color-border)]")}
                   />
                 </>
               )}
@@ -205,17 +124,7 @@ export function CellumaScienceSection() {
         </div>
 
         <p
-          style={{
-            fontFamily: "var(--font-body)",
-            fontSize: 11,
-            fontWeight: 700,
-            letterSpacing: "0.22em",
-            textTransform: "uppercase",
-            textAlign: "center",
-            color: "var(--olive-500)",
-            opacity: 0.8,
-            margin: 0,
-          }}
+          className="font-[var(--font-body)] text-[11px] font-bold tracking-[0.22em] uppercase text-center text-[var(--olive-500)] opacity-[0.8] m-0"
         >
           &mdash;&mdash;&mdash;&mdash; NATURAL LIGHT. REAL RESULTS.
           &mdash;&mdash;&mdash;&mdash;

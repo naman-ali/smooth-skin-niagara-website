@@ -25,6 +25,8 @@ import type { ButtonProps } from "@/components/design-system/core/Button";
 import * as GoogleReviewsModule from "@/components/design-system/trust/GoogleReviews";
 import type { GoogleReviewsProps } from "@/components/design-system/trust/GoogleReviews";
 import { microneedlingFaqCategories } from "@/lib/microneedling-faq";
+import { cn } from "@/lib/utils";
+
 
 const Button = (ButtonModule as unknown as { Button: React.FC<ButtonProps> })
   .Button;
@@ -35,31 +37,17 @@ const GoogleReviews = (
 ).GoogleReviews;
 
 const sectionPadding = "px-7 lg:px-[53px]";
-const containerMax = { maxWidth: "var(--container-max)", margin: "0 auto" };
+const containerMax = "max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto";
 
-const eyebrowStyle = {
-  fontFamily: "var(--font-body)",
-  fontSize: 11,
-  fontWeight: 700,
-  letterSpacing: "0.22em",
-  textTransform: "uppercase" as const,
-  color: "var(--color-brand-primary)",
-};
+const eyebrowStyle = "font-[var(--font-body)] text-[11px] font-bold tracking-[0.22em] uppercase text-[var(--color-brand-primary)]";
 
-const displayHeadingStyle = {
-  fontFamily: "var(--font-display)",
-  fontWeight: 400,
-  color: "var(--color-text-primary)",
-};
+const displayHeadingStyle = "font-[var(--font-display)] font-normal text-[var(--color-text-primary)]";
 
-const bodyTextStyle = {
-  fontFamily: "var(--font-body)",
-  color: "var(--color-text-secondary)",
-};
+const bodyTextStyle = "font-[var(--font-body)] text-[var(--color-text-secondary)]";
 
 function SectionEyebrow({ children }: { children: React.ReactNode }) {
   return (
-    <span className="block" style={eyebrowStyle}>
+    <span  className={cn("block", "font-[var(--font-body)] text-[11px] font-bold tracking-[0.22em] uppercase text-[var(--color-brand-primary)]")}>
       {children}
     </span>
   );
@@ -74,8 +62,8 @@ function SectionHeading({
 }) {
   return (
     <h2
-      className="text-[36px] leading-[1.1] lg:text-[44px]"
-      style={{ ...displayHeadingStyle, ...style }}
+      
+      className={cn("text-[36px] leading-[1.1] lg:text-[44px]", "font-[var(--font-display)] font-normal text-[var(--color-text-primary)]")} style={{ ...style }}
     >
       {children}
     </h2>
@@ -85,78 +73,54 @@ function SectionHeading({
 function MicroneedlingHero() {
   return (
     <section
-      className="relative overflow-hidden border-b-2 border-[#bfae97] bg-olive-50"
-      style={{ minHeight: 820, padding: "80px 28px 70px" }}
+      
+      className={cn("relative overflow-hidden border-b-2 border-[#bfae97] bg-olive-50", "min-h-[820px] pt-[80px] pr-[28px] pb-[70px] pl-[28px]")}
     >
       <div
-        className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat lg:bg-right lg:[background-size:auto_100%]"
-        style={{ backgroundImage: "url(/assets/microneedling-hero.jpg)" }}
+        
+        className={cn("absolute inset-0 z-0 bg-cover bg-center bg-no-repeat lg:bg-right lg:[background-size:auto_100%]", "bg-[url('/assets/microneedling-hero.jpg')]")}
       />
       <div
-        className="pointer-events-none absolute inset-0 z-[1] hidden lg:block"
-        style={{
-          background:
-            "linear-gradient(to right, var(--olive-50) 0%, rgba(245,242,235,0.92) 35%, rgba(245,242,235,0) 70%)",
-        }}
+        
+        className={cn("pointer-events-none absolute inset-0 z-[1] hidden lg:block", "bg-[linear-gradient(toright,var(--olive-50)0%,rgba(245,242,235,0.92)35%,rgba(245,242,235,0)70%)]")}
       />
 
-      <div className="relative z-10 mx-auto w-full" style={containerMax}>
+      <div  className={cn("relative z-10 mx-auto w-full", "max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto")}>
         <div className="w-full min-w-0 lg:max-w-[55%] lg:min-w-[320px]">
           <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: 13,
-              marginBottom: 31,
-            }}
+            className="flex items-center gap-[13px] mb-[31px]"
           >
             <span
-              className="text-[12px] font-bold uppercase tracking-[0.16em]"
-              style={{
-                fontFamily: "var(--font-body)",
-                color: "var(--color-brand-primary)",
-              }}
+              
+              className={cn("text-[12px] font-bold uppercase tracking-[0.16em]", "font-[var(--font-body)] text-[var(--color-brand-primary)]")}
             >
               EDERMASTAMP MICRONEEDLING{" "}
-              <span style={{ color: "var(--color-brand-deep)" }}>
+              <span className="text-[var(--color-brand-deep)]">
                 · NIAGARA FALLS
               </span>
             </span>
             <span
-              style={{
-                width: 48,
-                height: 1,
-                background: "var(--color-border-strong)",
-              }}
+              className="w-[48px] h-[1px] bg-[var(--color-border-strong)]"
             />
           </div>
 
           <h1
-            className="text-[44px] leading-[1.05] lg:text-[80px]"
-            style={{
-              ...displayHeadingStyle,
-              margin: "0 0 31px",
-            }}
+            
+            className={cn("text-[44px] leading-[1.05] lg:text-[80px]", "font-[var(--font-display)] font-normal text-[var(--color-text-primary)] mt-0 mr-0 mb-[31px] ml-0")}
           >
             Microneedling for
             <br />
             <span
-              className="italic"
-              style={{
-                color: "var(--olive-600)",
-                fontFamily: "var(--font-display)",
-              }}
+              
+              className={cn("italic", "text-[var(--olive-600)] font-[var(--font-display)]")}
             >
               Smoother, Firmer-Looking Skin
             </span>
           </h1>
 
           <p
-            className="text-base leading-relaxed lg:text-[20px] lg:leading-[1.6]"
-            style={{
-              ...bodyTextStyle,
-              margin: "0 0 40px",
-            }}
+            
+            className={cn("text-base leading-relaxed lg:text-[20px] lg:leading-[1.6]", "font-[var(--font-body)] text-[var(--color-text-secondary)] mt-0 mr-0 mb-[40px] ml-0")}
           >
             Professional eDermaStamp microneedling creates controlled
             microchannels in the skin to activate its natural renewal response —
@@ -165,8 +129,8 @@ function MicroneedlingHero() {
           </p>
 
           <div
-            className="flex flex-col gap-4 lg:flex-row"
-            style={{ marginBottom: 31 }}
+            
+            className={cn("flex flex-col gap-4 lg:flex-row", "mb-[31px]")}
           >
             <Button variant="primary">
               Book Your Microneedling Treatment →
@@ -181,13 +145,8 @@ function MicroneedlingHero() {
           <GoogleReviews rating="5.0" count="61+" />
 
           <div
-            className="mt-12 flex flex-wrap items-center gap-8"
-            style={{
-              display: "flex",
-              flexWrap: "wrap",
-              gap: 24,
-              marginTop: 48,
-            }}
+            
+            className={cn("mt-12 flex flex-wrap items-center gap-8", "flex flex-wrap gap-[24px] mt-[48px]")}
           >
             {[
               { icon: Sparkles, text: "Professional eDermaStamp System" },
@@ -196,14 +155,7 @@ function MicroneedlingHero() {
             ].map((item) => (
               <div
                 key={item.text}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 14,
-                  fontFamily: "var(--font-body)",
-                  fontSize: 15,
-                  color: "var(--color-text-primary)",
-                }}
+                className="flex items-center gap-[14px] font-[var(--font-body)] text-[15px] text-[var(--color-text-primary)]"
               >
                 <item.icon
                   size={22}
@@ -256,10 +208,10 @@ const concerns = [
 function MicroneedlingConcerns() {
   return (
     <section
-      className={`${sectionPadding} bg-olive-50`}
-      style={{ paddingTop: 90, paddingBottom: 90 }}
+      
+      className={cn(`${sectionPadding} bg-olive-50`, "pt-[90px] pb-[90px]")}
     >
-      <div style={containerMax}>
+      <div className="max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto">
         <div className="mb-14 text-center">
           <SectionEyebrow>SKIN RENEWAL · FROM WITHIN</SectionEyebrow>
           <SectionHeading
@@ -271,8 +223,8 @@ function MicroneedlingConcerns() {
             What Can Microneedling Help Improve?
           </SectionHeading>
           <p
-            className="mx-auto max-w-[680px] text-base lg:text-[17px]"
-            style={{ ...bodyTextStyle, lineHeight: 1.6, margin: "0 auto" }}
+            
+            className={cn("mx-auto max-w-[680px] text-base lg:text-[17px]", "font-[var(--font-body)] text-[var(--color-text-secondary)] leading-[1.6] mt-0 mr-auto mb-0 ml-auto")}
           >
             Microneedling is used to support the skin&apos;s natural renewal
             process and can improve the appearance of several common texture,
@@ -284,14 +236,7 @@ function MicroneedlingConcerns() {
           {concerns.map((item) => (
             <div
               key={item.title}
-              style={{
-                display: "flex",
-                gap: 16,
-                padding: "28px 24px",
-                background: "var(--olive-100)",
-                border: "1px solid var(--color-border)",
-                borderRadius: 18,
-              }}
+              className="flex gap-[16px] pt-[28px] pr-[24px] pb-[28px] pl-[24px] bg-[var(--olive-100)] rounded-[18px]" style={{ border: "1px solid var(--color-border)" }}
             >
               <item.icon
                 size={24}
@@ -300,23 +245,12 @@ function MicroneedlingConcerns() {
               />
               <div>
                 <h4
-                  style={{
-                    fontFamily: "var(--font-display)",
-                    fontSize: 18,
-                    fontWeight: 500,
-                    color: "var(--color-text-primary)",
-                    margin: "0 0 8px",
-                  }}
+                  className="font-[var(--font-display)] text-[18px] font-medium text-[var(--color-text-primary)] mt-0 mr-0 mb-[8px] ml-0"
                 >
                   {item.title}
                 </h4>
                 <p
-                  style={{
-                    ...bodyTextStyle,
-                    fontSize: 15,
-                    lineHeight: 1.55,
-                    margin: 0,
-                  }}
+                  className="font-[var(--font-body)] text-[var(--color-text-secondary)] text-[15px] leading-[1.55] m-0"
                 >
                   {item.text}
                 </p>
@@ -326,8 +260,8 @@ function MicroneedlingConcerns() {
         </div>
 
         <p
-          className="mx-auto mt-12 max-w-[680px] text-center text-[15px]"
-          style={{ ...bodyTextStyle, lineHeight: 1.6 }}
+          
+          className={cn("mx-auto mt-12 max-w-[680px] text-center text-[15px]", "font-[var(--font-body)] text-[var(--color-text-secondary)] leading-[1.6]")}
         >
           Not sure whether microneedling is suitable for your concern?
           We&apos;ll assess your skin before recommending treatment.
@@ -358,20 +292,17 @@ function MicroneedlingHowItWorks() {
 
   return (
     <section
-      className={`${sectionPadding} bg-olive-50`}
-      style={{ paddingTop: 90, paddingBottom: 90 }}
+      
+      className={cn(`${sectionPadding} bg-olive-50`, "pt-[90px] pb-[90px]")}
     >
-      <div style={containerMax}>
+      <div className="max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto">
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
           <div>
             <img
               src="/assets/microneedling-works.jpg"
               alt="eDermaStamp microneedling technology"
-              className="w-full"
-              style={{
-                borderRadius: 18,
-                border: "1px solid var(--color-border)",
-              }}
+              
+              className={cn("w-full", "rounded-[18px]")} style={{ border: "1px solid var(--color-border)" }}
             />
           </div>
           <div>
@@ -381,8 +312,8 @@ function MicroneedlingHowItWorks() {
               <br />A Natural Renewal Response.
             </SectionHeading>
             <p
-              className="mb-10 text-base lg:text-[17px]"
-              style={{ ...bodyTextStyle, lineHeight: 1.65 }}
+              
+              className={cn("mb-10 text-base lg:text-[17px]", "font-[var(--font-body)] text-[var(--color-text-secondary)] leading-[1.65]")}
             >
               eDermaStamp uses fine, precisely controlled needles to create
               microscopic channels in the skin. These controlled micro-injuries
@@ -392,36 +323,20 @@ function MicroneedlingHowItWorks() {
 
             <div className="space-y-8">
               {steps.map((step) => (
-                <div key={step.number} style={{ display: "flex", gap: 20 }}>
+                <div key={step.number} className="flex gap-[20px]">
                   <span
-                    style={{
-                      fontFamily: "var(--font-display)",
-                      fontSize: 28,
-                      color: "var(--color-brand-primary)",
-                      lineHeight: 1,
-                    }}
+                    className="font-[var(--font-display)] text-[28px] text-[var(--color-brand-primary)] leading-[1]"
                   >
                     {step.number}
                   </span>
                   <div>
                     <h4
-                      style={{
-                        fontFamily: "var(--font-display)",
-                        fontSize: 22,
-                        fontWeight: 500,
-                        color: "var(--color-text-primary)",
-                        margin: "0 0 8px",
-                      }}
+                      className="font-[var(--font-display)] text-[22px] font-medium text-[var(--color-text-primary)] mt-0 mr-0 mb-[8px] ml-0"
                     >
                       {step.title}
                     </h4>
                     <p
-                      style={{
-                        ...bodyTextStyle,
-                        fontSize: 15,
-                        lineHeight: 1.6,
-                        margin: 0,
-                      }}
+                      className="font-[var(--font-body)] text-[var(--color-text-secondary)] text-[15px] leading-[1.6] m-0"
                     >
                       {step.text}
                     </p>
@@ -431,11 +346,8 @@ function MicroneedlingHowItWorks() {
             </div>
 
             <div
-              className="mt-12 inline-flex items-center gap-3 rounded-full border border-[var(--color-border)] bg-white px-5 py-3 text-[13px]"
-              style={{
-                fontFamily: "var(--font-body)",
-                color: "var(--color-text-secondary)",
-              }}
+              
+              className={cn("mt-12 inline-flex items-center gap-3 rounded-full border border-[var(--color-border)] bg-white px-5 py-3 text-[13px]", "font-[var(--font-body)] text-[var(--color-text-secondary)]")}
             >
               <Sparkles size={16} color="var(--color-brand-primary)" />
               Professional eDermaStamp Microneedling · Dermaroller® Technology
@@ -494,18 +406,18 @@ function MicroneedlingPricing() {
   return (
     <section
       id="treatment-options"
-      className={`${sectionPadding} bg-olive-100`}
-      style={{ paddingTop: 90, paddingBottom: 90 }}
+      
+      className={cn(`${sectionPadding} bg-olive-100`, "pt-[90px] pb-[90px]")}
     >
-      <div style={containerMax}>
+      <div className="max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto">
         <div className="mb-14 text-center">
           <SectionEyebrow>PERSONALIZED MICRONEEDLING</SectionEyebrow>
           <SectionHeading style={{ margin: "22px 0 16px" }}>
             Choose the Treatment That Fits Your Skin
           </SectionHeading>
           <p
-            className="mx-auto max-w-[680px] text-base lg:text-[17px]"
-            style={{ ...bodyTextStyle, lineHeight: 1.6 }}
+            
+            className={cn("mx-auto max-w-[680px] text-base lg:text-[17px]", "font-[var(--font-body)] text-[var(--color-text-secondary)] leading-[1.6]")}
           >
             Every option uses professional eDermaStamp microneedling, then pairs
             the treatment with a different professional serum protocol based on
@@ -517,107 +429,53 @@ function MicroneedlingPricing() {
           {treatments.map((t) => (
             <div
               key={t.name}
-              style={{
-                background: "#fff",
-                border: "1px solid var(--color-border)",
-                borderRadius: 20,
-                padding: "40px 34px",
-                display: "flex",
-                flexDirection: "column",
-              }}
+              className="bg-[#fff] rounded-[20px] pt-[40px] pr-[34px] pb-[40px] pl-[34px] flex flex-col" style={{ border: "1px solid var(--color-border)" }}
             >
               <span
-                style={{
-                  ...eyebrowStyle,
-                  alignSelf: "flex-start",
-                  padding: "6px 10px",
-                  borderRadius: 6,
-                  background: "var(--olive-100)",
-                  border: "1px solid var(--color-border)",
-                  marginBottom: 20,
-                }}
+                className="font-[var(--font-body)] text-[11px] font-bold tracking-[0.22em] uppercase text-[var(--color-brand-primary)] pt-[6px] pr-[10px] pb-[6px] pl-[10px] rounded-[6px] bg-[var(--olive-100)] mb-[20px]" style={{ alignSelf: "flex-start", border: "1px solid var(--color-border)" }}
               >
                 {t.tag}
               </span>
               <h3
-                style={{
-                  ...displayHeadingStyle,
-                  fontSize: 26,
-                  margin: "0 0 6px",
-                }}
+                className="font-[var(--font-display)] font-normal text-[var(--color-text-primary)] text-[26px] mt-0 mr-0 mb-[6px] ml-0"
               >
                 {t.name}
               </h3>
               <p
-                style={{
-                  fontFamily: "var(--font-body)",
-                  fontSize: 15,
-                  fontWeight: 600,
-                  color: "var(--color-text-primary)",
-                  margin: "0 0 12px",
-                }}
+                className="font-[var(--font-body)] text-[15px] font-semibold text-[var(--color-text-primary)] mt-0 mr-0 mb-[12px] ml-0"
               >
                 {t.subtitle}
               </p>
               <p
-                className="text-[15px] leading-relaxed"
-                style={{ ...bodyTextStyle, margin: "0 0 18px" }}
+                
+                className={cn("text-[15px] leading-relaxed", "font-[var(--font-body)] text-[var(--color-text-secondary)] mt-0 mr-0 mb-[18px] ml-0")}
               >
                 {t.text}
               </p>
               <div
-                style={{
-                  display: "flex",
-                  flexWrap: "wrap",
-                  gap: 8,
-                  marginBottom: 24,
-                }}
+                className="flex flex-wrap gap-[8px] mb-[24px]"
               >
                 {t.bestFor.map((chip) => (
                   <span
                     key={chip}
-                    style={{
-                      fontFamily: "var(--font-body)",
-                      fontSize: 12,
-                      fontWeight: 600,
-                      color: "var(--olive-700)",
-                      background: "var(--olive-100)",
-                      border: "1px solid var(--color-border)",
-                      padding: "6px 10px",
-                      borderRadius: 999,
-                    }}
+                    className="font-[var(--font-body)] text-[12px] font-semibold text-[var(--olive-700)] bg-[var(--olive-100)] pt-[6px] pr-[10px] pb-[6px] pl-[10px] rounded-[999px]" style={{ border: "1px solid var(--color-border)" }}
                   >
                     {chip}
                   </span>
                 ))}
               </div>
-              <div style={{ marginTop: "auto" }}>
+              <div className="mt-[auto]">
                 <div
-                  style={{
-                    display: "flex",
-                    alignItems: "baseline",
-                    gap: 12,
-                    marginBottom: 10,
-                  }}
+                  className="flex items-baseline gap-[12px] mb-[10px]"
                 >
                   <span
-                    style={{
-                      fontFamily: "var(--font-display)",
-                      fontSize: 34,
-                      fontWeight: 500,
-                      color: "var(--color-text-primary)",
-                    }}
+                    className="font-[var(--font-display)] text-[34px] font-medium text-[var(--color-text-primary)]"
                   >
                     {t.price}
                   </span>
                   {t.regularPrice && (
                     <span
-                      style={{
-                        fontFamily: "var(--font-body)",
-                        fontSize: 18,
-                        color: "var(--color-text-secondary)",
-                        textDecoration: "line-through",
-                      }}
+                      className="font-[var(--font-body)] text-[18px] text-[var(--color-text-secondary)] line-through"
                     >
                       Regular {t.regularPrice}
                     </span>
@@ -625,11 +483,7 @@ function MicroneedlingPricing() {
                 </div>
                 {t.note && (
                   <p
-                    style={{
-                      ...bodyTextStyle,
-                      fontSize: 13,
-                      lineHeight: 1.5,
-                    }}
+                    className="font-[var(--font-body)] text-[var(--color-text-secondary)] text-[13px] leading-[1.5]"
                   >
                     {t.note}
                   </p>
@@ -641,17 +495,13 @@ function MicroneedlingPricing() {
 
         <div className="mt-14 text-center">
           <h4
-            style={{
-              ...displayHeadingStyle,
-              fontSize: 26,
-              margin: "0 0 10px",
-            }}
+            className="font-[var(--font-display)] font-normal text-[var(--color-text-primary)] text-[26px] mt-0 mr-0 mb-[10px] ml-0"
           >
             Not sure which option is right for you?
           </h4>
           <p
-            className="mb-8 text-[17px]"
-            style={{ ...bodyTextStyle, lineHeight: 1.6 }}
+            
+            className={cn("mb-8 text-[17px]", "font-[var(--font-body)] text-[var(--color-text-secondary)] leading-[1.6]")}
           >
             We&apos;ll help you choose based on your skin, concerns and
             treatment goals.
@@ -701,18 +551,18 @@ function MicroneedlingResults() {
 
   return (
     <section
-      className={`${sectionPadding} bg-olive-50`}
-      style={{ paddingTop: 90, paddingBottom: 90 }}
+      
+      className={cn(`${sectionPadding} bg-olive-50`, "pt-[90px] pb-[90px]")}
     >
-      <div style={containerMax}>
+      <div className="max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto">
         <div className="mb-12 text-center">
           <SectionEyebrow>BEFORE & AFTER</SectionEyebrow>
           <SectionHeading style={{ margin: "22px 0 16px" }}>
             Results That Develop Over Time
           </SectionHeading>
           <p
-            className="mx-auto max-w-[680px] text-base lg:text-[17px]"
-            style={{ ...bodyTextStyle, lineHeight: 1.6 }}
+            
+            className={cn("mx-auto max-w-[680px] text-base lg:text-[17px]", "font-[var(--font-body)] text-[var(--color-text-secondary)] leading-[1.6]")}
           >
             Microneedling works through the skin&apos;s natural renewal process,
             so improvements develop gradually. Explore examples showing changes
@@ -742,8 +592,8 @@ function MicroneedlingResults() {
                   aspectRatio="4 / 5"
                 />
                 <p
-                  className="mt-3 text-center text-[13px]"
-                  style={{ ...bodyTextStyle }}
+                  
+                  className={cn("mt-3 text-center text-[13px]", "font-[var(--font-body)] text-[var(--color-text-secondary)]")}
                 >
                   Dermaroller® example result
                 </p>
@@ -770,8 +620,8 @@ function MicroneedlingResults() {
         </div>
 
         <p
-          className="mt-10 text-center text-[13px]"
-          style={{ ...bodyTextStyle }}
+          
+          className={cn("mt-10 text-center text-[13px]", "font-[var(--font-body)] text-[var(--color-text-secondary)]")}
         >
           *Individual results vary.
         </p>
@@ -804,10 +654,10 @@ function MicroneedlingProcess() {
 
   return (
     <section
-      className={`${sectionPadding} bg-olive-100`}
-      style={{ paddingTop: 90, paddingBottom: 90 }}
+      
+      className={cn(`${sectionPadding} bg-olive-100`, "pt-[90px] pb-[90px]")}
     >
-      <div style={containerMax}>
+      <div className="max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto">
         <div className="mb-14 text-center">
           <SectionEyebrow>YOUR APPOINTMENT</SectionEyebrow>
           <SectionHeading style={{ margin: "22px 0 16px" }}>
@@ -819,45 +669,26 @@ function MicroneedlingProcess() {
           {steps.map((step) => (
             <div
               key={step.number}
-              style={{
-                background: "#fff",
-                border: "1px solid var(--color-border)",
-                borderRadius: 18,
-                padding: "36px 30px",
-              }}
+              className="bg-[#fff] rounded-[18px] pt-[36px] pr-[30px] pb-[36px] pl-[30px]" style={{ border: "1px solid var(--color-border)" }}
             >
               <span
-                style={{
-                  fontFamily: "var(--font-display)",
-                  fontSize: 26,
-                  color: "var(--color-brand-primary)",
-                }}
+                className="font-[var(--font-display)] text-[26px] text-[var(--color-brand-primary)]"
               >
                 {step.number}
               </span>
               <h4
-                style={{
-                  ...displayHeadingStyle,
-                  fontSize: 26,
-                  margin: "16px 0 6px",
-                }}
+                className="font-[var(--font-display)] font-normal text-[var(--color-text-primary)] text-[26px] mt-[16px] mr-0 mb-[6px] ml-0"
               >
                 {step.title}
               </h4>
               <p
-                style={{
-                  fontFamily: "var(--font-body)",
-                  fontSize: 16,
-                  fontWeight: 600,
-                  color: "var(--color-text-primary)",
-                  margin: "0 0 12px",
-                }}
+                className="font-[var(--font-body)] text-[16px] font-semibold text-[var(--color-text-primary)] mt-0 mr-0 mb-[12px] ml-0"
               >
                 {step.sub}
               </p>
               <p
-                className="text-[15px] leading-relaxed"
-                style={{ ...bodyTextStyle }}
+                
+                className={cn("text-[15px] leading-relaxed", "font-[var(--font-body)] text-[var(--color-text-secondary)]")}
               >
                 {step.text}
               </p>
@@ -868,37 +699,18 @@ function MicroneedlingProcess() {
         <div className="mt-10 flex flex-col items-center justify-between gap-6 rounded-2xl border border-[var(--color-border)] bg-olive-50 p-7 lg:flex-row">
           <div className="flex items-center gap-5">
             <div
-              style={{
-                width: 48,
-                height: 48,
-                borderRadius: "50%",
-                background: "var(--olive-100)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                border: "1px solid var(--color-border)",
-              }}
+              className="w-[48px] h-[48px] rounded-[50%] bg-[var(--olive-100)] flex items-center justify-center" style={{ border: "1px solid var(--color-border)" }}
             >
               <Sun size={22} color="var(--color-brand-primary)" />
             </div>
             <div>
               <h4
-                style={{
-                  fontFamily: "var(--font-body)",
-                  fontSize: 16,
-                  fontWeight: 600,
-                  color: "var(--color-text-primary)",
-                  margin: 0,
-                }}
+                className="font-[var(--font-body)] text-[16px] font-semibold text-[var(--color-text-primary)] m-0"
               >
                 Add Celluma LED Light Therapy
               </h4>
               <p
-                style={{
-                  ...bodyTextStyle,
-                  fontSize: 15,
-                  margin: "4px 0 0",
-                }}
+                className="font-[var(--font-body)] text-[var(--color-text-secondary)] text-[15px] mt-[4px] mr-0 mb-0 ml-0"
               >
                 30 Minutes · $30 Add-On
               </p>
@@ -931,10 +743,10 @@ function MicroneedlingVideo() {
 
   return (
     <section
-      className={`${sectionPadding} bg-olive-50`}
-      style={{ paddingTop: 90, paddingBottom: 90 }}
+      
+      className={cn(`${sectionPadding} bg-olive-50`, "pt-[90px] pb-[90px]")}
     >
-      <div style={containerMax}>
+      <div className="max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto">
         <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2">
           <div>
             <SectionEyebrow>SEE EDERMASTAMP IN ACTION</SectionEyebrow>
@@ -942,8 +754,8 @@ function MicroneedlingVideo() {
               See How Professional Microneedling Works
             </SectionHeading>
             <p
-              className="text-base lg:text-[17px]"
-              style={{ ...bodyTextStyle, lineHeight: 1.65 }}
+              
+              className={cn("text-base lg:text-[17px]", "font-[var(--font-body)] text-[var(--color-text-secondary)] leading-[1.65]")}
             >
               Watch a quick introduction to the professional eDermaStamp system
               and how microneedling is performed.
@@ -951,8 +763,8 @@ function MicroneedlingVideo() {
           </div>
 
           <div
-            className="relative w-full overflow-hidden"
-            style={{ borderRadius: 18, aspectRatio: "16 / 9" }}
+            
+            className={cn("relative w-full overflow-hidden", "rounded-[18px] aspect-[16/9]")}
           >
             {load ? (
               <iframe
@@ -966,29 +778,16 @@ function MicroneedlingVideo() {
             ) : (
               <button
                 onClick={() => setLoad(true)}
-                className="relative h-full w-full cursor-pointer border-0 p-0"
+                
                 aria-label="Play eDermaStamp introduction video"
-                style={{
-                  backgroundImage: "url(/assets/smooth-skin-tech.png)",
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                }}
+                className={cn("relative h-full w-full cursor-pointer border-0 p-0", "bg-[url('/assets/smooth-skin-tech.png')] bg-cover bg-center")}
               >
                 <span
-                  className="absolute inset-0 flex items-center justify-center"
-                  style={{ background: "rgba(0,0,0,0.25)" }}
+                  
+                  className={cn("absolute inset-0 flex items-center justify-center", "bg-[rgba(0,0,0,0.25)]")}
                 >
                   <span
-                    style={{
-                      width: 72,
-                      height: 72,
-                      borderRadius: "50%",
-                      background: "#fff",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      boxShadow: "0 4px 20px rgba(0,0,0,0.15)",
-                    }}
+                    className="w-[72px] h-[72px] rounded-[50%] bg-[#fff] flex items-center justify-center" style={{ boxShadow: "0 4px 20px rgba(0,0,0,0.15)" }}
                   >
                     <Play
                       size={28}
@@ -1038,64 +837,29 @@ const reassuranceItems = [
 function MicroneedlingFinalCta() {
   return (
     <section
-      style={{
-        position: "relative",
-        padding: "90px 28px",
-        background: "var(--ink-900)",
-        overflow: "hidden",
-      }}
+      className="relative pt-[90px] pr-[28px] pb-[90px] pl-[28px] bg-[var(--ink-900)] overflow-hidden"
     >
       <div
-        style={{
-          position: "relative",
-          zIndex: 10,
-          maxWidth: "var(--container-max)",
-          margin: "0 auto",
-          textAlign: "center",
-        }}
+        className="relative z-[10] max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto text-center"
       >
         <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: 16,
-            marginBottom: 22,
-          }}
+          className="flex items-center justify-center gap-[16px] mb-[22px]"
         >
           <span
-            style={{
-              width: 48,
-              height: 1,
-              background: "var(--olive-500)",
-            }}
+            className="w-[48px] h-[1px] bg-[var(--olive-500)]"
           />
           <span
-            style={{
-              ...eyebrowStyle,
-              color: "var(--olive-100)",
-            }}
+            className="font-[var(--font-body)] text-[11px] font-bold tracking-[0.22em] uppercase text-[var(--color-brand-primary)] text-[var(--olive-100)]"
           >
             READY TO TAKE THE NEXT STEP?
           </span>
           <span
-            style={{
-              width: 48,
-              height: 1,
-              background: "var(--olive-500)",
-            }}
+            className="w-[48px] h-[1px] bg-[var(--olive-500)]"
           />
         </div>
 
         <h2
-          style={{
-            ...displayHeadingStyle,
-            color: "var(--white)",
-            fontSize: 52,
-            lineHeight: 1.08,
-            margin: "0 auto 18px",
-            maxWidth: 760,
-          }}
+          className="font-[var(--font-display)] font-normal text-[var(--color-text-primary)] text-[var(--white)] text-[52px] leading-[1.08] mt-0 mr-auto mb-[18px] ml-auto max-w-[760px]"
         >
           Let&apos;s Create Your
           <br />
@@ -1103,13 +867,7 @@ function MicroneedlingFinalCta() {
         </h2>
 
         <p
-          style={{
-            ...bodyTextStyle,
-            color: "var(--olive-200)",
-            fontSize: 17,
-            maxWidth: 620,
-            margin: "0 auto 28px",
-          }}
+          className="font-[var(--font-body)] text-[var(--color-text-secondary)] text-[var(--olive-200)] text-[17px] max-w-[620px] mt-0 mr-auto mb-[28px] ml-auto"
         >
           We&apos;ll take the time to understand your skin, concerns and goals,
           then recommend the microneedling option that makes the most sense for
@@ -1117,13 +875,7 @@ function MicroneedlingFinalCta() {
         </p>
 
         <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            gap: 14,
-            marginBottom: 60,
-          }}
+          className="flex flex-col items-center gap-[14px] mb-[60px]"
         >
           <Button
             variant="primary"
@@ -1133,37 +885,17 @@ function MicroneedlingFinalCta() {
           </Button>
           <a
             href="tel:+19059207229"
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: 12,
-              maxWidth: 320,
-              width: "100%",
-              height: 60,
-              borderRadius: 14,
-              border: "1px solid var(--olive-700)",
-              background: "var(--olive-100)",
-              textDecoration: "none",
-              fontFamily: "var(--font-body)",
-            }}
+            className="flex items-center justify-center gap-[12px] max-w-[320px] w-full h-[60px] rounded-[14px] bg-[var(--olive-100)] no-underline font-[var(--font-body)]" style={{ border: "1px solid var(--olive-700)" }}
           >
             <Phone size={18} color="var(--color-brand-primary)" />
             <div>
               <div
-                style={{
-                  fontSize: 18,
-                  fontWeight: 600,
-                  color: "var(--ink-900)",
-                }}
+                className="text-[18px] font-semibold text-[var(--ink-900)]"
               >
                 (905) 920-7229
               </div>
               <div
-                style={{
-                  fontSize: 12,
-                  color: "var(--color-text-secondary)",
-                }}
+                className="text-[12px] text-[var(--color-text-secondary)]"
               >
                 Call or Text
               </div>
@@ -1172,8 +904,8 @@ function MicroneedlingFinalCta() {
         </div>
 
         <div
-          className="mx-auto grid max-w-[1000px] grid-cols-1 gap-8 lg:grid-cols-3"
-          style={{ alignItems: "start" }}
+          
+          className={cn("mx-auto grid max-w-[1000px] grid-cols-1 gap-8 lg:grid-cols-3", "items-start")}
         >
           {reassuranceItems.map((item) => (
             <div
@@ -1181,37 +913,18 @@ function MicroneedlingFinalCta() {
               className="flex items-center justify-center gap-4 px-6"
             >
               <div
-                style={{
-                  flexShrink: 0,
-                  width: 64,
-                  height: 64,
-                  borderRadius: "50%",
-                  background: "var(--olive-700)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
+                className="shrink-0 w-[64px] h-[64px] rounded-[50%] bg-[var(--olive-700)] flex items-center justify-center"
               >
                 <item.icon size={26} color="var(--olive-100)" />
               </div>
               <div className="text-left">
                 <h4
-                  style={{
-                    ...displayHeadingStyle,
-                    color: "var(--white)",
-                    fontSize: 18,
-                    margin: "0 0 4px",
-                  }}
+                  className="font-[var(--font-display)] font-normal text-[var(--color-text-primary)] text-[var(--white)] text-[18px] mt-0 mr-0 mb-[4px] ml-0"
                 >
                   {item.title}
                 </h4>
                 <p
-                  style={{
-                    ...bodyTextStyle,
-                    color: "var(--olive-200)",
-                    fontSize: 14,
-                    margin: 0,
-                  }}
+                  className="font-[var(--font-body)] text-[var(--color-text-secondary)] text-[var(--olive-200)] text-[14px] m-0"
                 >
                   {item.text}
                 </p>

@@ -21,6 +21,8 @@ import * as ButtonModule from "@/components/design-system/core/Button";
 import type { ButtonProps } from "@/components/design-system/core/Button";
 import * as GoogleReviewsModule from "@/components/design-system/trust/GoogleReviews";
 import type { GoogleReviewsProps } from "@/components/design-system/trust/GoogleReviews";
+import { cn } from "@/lib/utils";
+
 
 const Button = (ButtonModule as unknown as { Button: React.FC<ButtonProps> })
   .Button;
@@ -30,28 +32,14 @@ const GoogleReviews = (
   }
 ).GoogleReviews;
 
-const containerMax = { maxWidth: "var(--container-max)", margin: "0 auto" };
-const displayHeadingStyle = {
-  fontFamily: "var(--font-display)",
-  fontWeight: 400,
-  color: "var(--color-text-primary)",
-};
-const bodyTextStyle = {
-  fontFamily: "var(--font-body)",
-  color: "var(--color-text-secondary)",
-};
+const containerMax = "max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto";
+const displayHeadingStyle = "font-[var(--font-display)] font-normal text-[var(--color-text-primary)]";
+const bodyTextStyle = "font-[var(--font-body)] text-[var(--color-text-secondary)]";
 
 function Eyebrow({ children }: { children: React.ReactNode }) {
   return (
     <span
-      style={{
-        fontFamily: "var(--font-body)",
-        fontSize: 12,
-        letterSpacing: "0.16em",
-        textTransform: "uppercase" as const,
-        color: "var(--color-brand-primary)",
-        fontWeight: 700,
-      }}
+      className="font-[var(--font-body)] text-[12px] tracking-[0.16em] uppercase text-[var(--color-brand-primary)] font-bold"
     >
       {children}
     </span>
@@ -84,23 +72,12 @@ function HomeHero() {
 
   return (
     <section
-      className="relative min-h-[760px] overflow-hidden lg:min-h-[840px]"
-      style={{
-        backgroundImage: "url(/assets/home-hero-2.jpg)",
-        backgroundSize: "cover",
-        backgroundPosition: "70% center",
-      }}
+      
+      className={cn("relative min-h-[760px] overflow-hidden lg:min-h-[840px]", "bg-[url('/assets/home-hero-2.jpg')] bg-cover")} style={{ backgroundPosition: "70% center" }}
     >
       <div
-        className="pointer-events-none absolute bottom-44 left-6 z-20 hidden lg:block"
-        style={{
-          fontFamily: "'Brush Script MT', 'Segoe Script', cursive",
-          fontSize: 28,
-          color: "var(--olive-600)",
-          lineHeight: 1.2,
-          opacity: 0.85,
-          transform: "rotate(-4deg)",
-        }}
+        
+        className={cn("pointer-events-none absolute bottom-44 left-6 z-20 hidden lg:block", "font-['Brush_Script_MT',_'Segoe_Script',_cursive] text-[28px] text-[var(--olive-600)] leading-[1.2] opacity-[0.85]")} style={{ transform: "rotate(-4deg)" }}
       >
         More confident.
         <br />
@@ -108,60 +85,43 @@ function HomeHero() {
       </div>
 
       <div
-        className="relative z-10 flex min-h-[760px] flex-col px-6 lg:min-h-[840px] lg:px-12"
-        style={{ paddingTop: 60, paddingBottom: 40 }}
+        
+        className={cn("relative z-10 flex min-h-[760px] flex-col px-6 lg:min-h-[840px] lg:px-12", "pt-[60px] pb-[40px]")}
       >
         <div
-          className="flex flex-1 items-center justify-center"
-          style={{ paddingBottom: 120 }}
+          
+          className={cn("flex flex-1 items-center justify-center", "pb-[120px]")}
         >
           <div
-            className="w-full max-w-[720px] text-center lg:-translate-x-[8%]"
-            style={{ maxWidth: 720 }}
+            
+            className={cn("w-full max-w-[720px] text-center lg:-translate-x-[8%]", "max-w-[720px]")}
           >
             <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                gap: 12,
-                marginBottom: 28,
-              }}
+              className="flex flex-col items-center gap-[12px] mb-[28px]"
             >
               <Eyebrow>SMOOTH SKIN NIAGARA</Eyebrow>
               <span
-                style={{
-                  width: 64,
-                  height: 1,
-                  background: "var(--olive-600)",
-                  opacity: 0.4,
-                }}
+                className="w-[64px] h-[1px] bg-[var(--olive-600)] opacity-[0.4]"
               />
             </div>
 
             <h1
-              className="text-[46px] leading-[1.02] md:text-[62px] lg:text-[68px]"
-              style={{
-                ...displayHeadingStyle,
-                margin: "0 0 28px",
-              }}
+              
+              className={cn("text-[46px] leading-[1.02] md:text-[62px] lg:text-[68px]", "font-[var(--font-display)] font-normal text-[var(--color-text-primary)] mt-0 mr-0 mb-[28px] ml-0")}
             >
               Feel Good in Your Skin.
               <br />
               <span
-                className="italic"
-                style={{
-                  fontFamily: "var(--font-display)",
-                  color: "var(--olive-600)",
-                }}
+                
+                className={cn("italic", "font-[var(--font-display)] text-[var(--olive-600)]")}
               >
                 At Every Stage.
               </span>
             </h1>
 
             <p
-              className="mx-auto text-[17px] leading-relaxed lg:text-[19px]"
-              style={{ ...bodyTextStyle, margin: "0 0 36px", maxWidth: 620 }}
+              
+              className={cn("mx-auto text-[17px] leading-relaxed lg:text-[19px]", "font-[var(--font-body)] text-[var(--color-text-secondary)] mt-0 mr-0 mb-[36px] ml-0 max-w-[620px]")}
             >
               Advanced skincare, laser and beauty treatments thoughtfully
               selected around your skin, your goals and the way you want to
@@ -169,8 +129,8 @@ function HomeHero() {
             </p>
 
             <div
-              className="mx-auto flex flex-col items-center gap-3 lg:flex-row lg:justify-center"
-              style={{ marginBottom: 28 }}
+              
+              className={cn("mx-auto flex flex-col items-center gap-3 lg:flex-row lg:justify-center", "mb-[28px]")}
             >
               <Link href="#services" style={{ textDecoration: "none" }}>
                 <Button
@@ -213,22 +173,18 @@ function HomeHero() {
           </div>
         </div>
 
-        <div className="relative z-10 w-full" style={{ marginBottom: 16 }}>
+        <div  className={cn("relative z-10 w-full", "mb-[16px]")}>
           <p
-            className="text-center text-[11px] font-semibold uppercase tracking-[0.2em]"
-            style={{
-              fontFamily: "var(--font-body)",
-              color: "var(--olive-700)",
-              opacity: 0.85,
-            }}
+            
+            className={cn("text-center text-[11px] font-semibold uppercase tracking-[0.2em]", "font-[var(--font-body)] text-[var(--olive-700)] opacity-[0.85]")}
           >
             SKIN · CONFIDENCE · CARE
           </p>
         </div>
 
         <div
-          className="w-full border border-[rgba(191,174,151,0.35)] bg-[rgba(251,250,247,0.86)]"
-          style={{ borderRadius: 14 }}
+          
+          className={cn("w-full border border-[rgba(191,174,151,0.35)] bg-[rgba(251,250,247,0.86)]", "rounded-[14px]")}
         >
           <div className="grid grid-cols-2 gap-y-6 divide-y divide-olive-300 py-6 lg:grid-cols-4 lg:gap-0 lg:divide-x lg:divide-y-0">
             {trustPoints.map((point, i) => (
@@ -242,28 +198,15 @@ function HomeHero() {
                   size={22}
                   strokeWidth={1.5}
                   color="var(--olive-600)"
-                  style={{ marginBottom: 10 }}
+                  className="mb-[10px]"
                 />
                 <h4
-                  style={{
-                    fontFamily: "var(--font-body)",
-                    fontSize: 13,
-                    fontWeight: 700,
-                    color: "var(--color-text-primary)",
-                    margin: "0 0 4px",
-                    lineHeight: 1.25,
-                  }}
+                  className="font-[var(--font-body)] text-[13px] font-bold text-[var(--color-text-primary)] mt-0 mr-0 mb-[4px] ml-0 leading-[1.25]"
                 >
                   {point.title}
                 </h4>
                 <p
-                  style={{
-                    fontFamily: "var(--font-body)",
-                    fontSize: 12,
-                    color: "var(--color-text-secondary)",
-                    margin: 0,
-                    lineHeight: 1.4,
-                  }}
+                  className="font-[var(--font-body)] text-[12px] text-[var(--color-text-secondary)] m-0 leading-[1.4]"
                 >
                   {point.sub}
                 </p>
@@ -282,20 +225,20 @@ function HomeServices() {
 
 function HomeWhy() {
   return (
-    <section id="why" className="bg-olive-50" style={{ padding: "90px 53px" }}>
-      <div style={containerMax}>
+    <section id="why"  className={cn("bg-olive-50", "pt-[90px] pr-[53px] pb-[90px] pl-[53px]")}>
+      <div className="max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
           <div>
             <Eyebrow>WHY SMOOTH SKIN NIAGARA</Eyebrow>
             <h2
-              className="text-[36px] leading-[1.1] lg:text-[44px]"
-              style={{ ...displayHeadingStyle, margin: "22px 0 20px" }}
+              
+              className={cn("text-[36px] leading-[1.1] lg:text-[44px]", "font-[var(--font-display)] font-normal text-[var(--color-text-primary)] mt-[22px] mr-0 mb-[20px] ml-0")}
             >
               A Personal Approach to Aesthetic Care
             </h2>
             <p
-              className="mb-8 text-[17px] leading-relaxed"
-              style={{ ...bodyTextStyle }}
+              
+              className={cn("mb-8 text-[17px] leading-relaxed", "font-[var(--font-body)] text-[var(--color-text-secondary)]")}
             >
               Every client is assessed individually. Ashley selects the right
               treatment, strength and plan for your skin and goals — without
@@ -324,20 +267,16 @@ function HomeWhy() {
                     size={24}
                     strokeWidth={1.5}
                     color="var(--color-brand-primary)"
-                    style={{ marginBottom: 12 }}
+                    className="mb-[12px]"
                   />
                   <h4
-                    style={{
-                      ...displayHeadingStyle,
-                      fontSize: 20,
-                      margin: "0 0 8px",
-                    }}
+                    className="font-[var(--font-display)] font-normal text-[var(--color-text-primary)] text-[20px] mt-0 mr-0 mb-[8px] ml-0"
                   >
                     {item.title}
                   </h4>
                   <p
-                    className="text-[14px] leading-relaxed"
-                    style={{ ...bodyTextStyle }}
+                    
+                    className={cn("text-[14px] leading-relaxed", "font-[var(--font-body)] text-[var(--color-text-secondary)]")}
                   >
                     {item.text}
                   </p>
@@ -354,30 +293,21 @@ function HomeWhy() {
             />
             <div className="relative z-10">
               <h3
-                className="mb-4 text-[26px]"
-                style={{ ...displayHeadingStyle }}
+                
+                className={cn("mb-4 text-[26px]", "font-[var(--font-display)] font-normal text-[var(--color-text-primary)]")}
               >
                 Ready to Get Started?
               </h3>
               <p
-                className="mb-6 text-[16px] leading-relaxed"
-                style={{ ...bodyTextStyle }}
+                
+                className={cn("mb-6 text-[16px] leading-relaxed", "font-[var(--font-body)] text-[var(--color-text-secondary)]")}
               >
                 Call or text the studio to ask questions or book your first
                 appointment.
               </p>
               <a
                 href="tel:+19059207229"
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: 10,
-                  fontFamily: "var(--font-body)",
-                  fontSize: 18,
-                  fontWeight: 600,
-                  color: "var(--color-text-primary)",
-                  textDecoration: "none",
-                }}
+                className="inline-flex items-center gap-[10px] font-[var(--font-body)] text-[18px] font-semibold text-[var(--color-text-primary)] no-underline"
               >
                 <Phone size={20} color="var(--color-brand-primary)" />
                 (905) 920-7229

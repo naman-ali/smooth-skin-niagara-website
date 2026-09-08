@@ -40,17 +40,12 @@ const faqItems: FaqItem[] = [
           applied directly to your skin or eyelid. With routine touchups every
           two to four weeks, you can have amazing eyelashes indefinitely.
         </p>
-        <p style={{ marginTop: 16, fontWeight: 600 }}>
+        <p className="mt-[16px] font-semibold">
           The expertise and reputation of Xtreme Lashes
         </p>
         <p>Xtreme Lashes is today’s leader in the industry because of:</p>
         <ul
-          style={{
-            margin: 0,
-            paddingLeft: 20,
-            listStyle: "disc",
-            color: "var(--color-text-secondary)",
-          }}
+          className="m-0 pl-[20px] text-[var(--color-text-secondary)]" style={{ listStyle: "disc" }}
         >
           <li>
             Its safe application technique created by esthetic professionals
@@ -144,7 +139,7 @@ const faqItems: FaqItem[] = [
           schedule your next relash appointment is when your extensions are 50%
           gone.
         </p>
-        <p style={{ marginTop: 16, fontWeight: 600 }}>
+        <p className="mt-[16px] font-semibold">
           I’m a bride-to-be or going on vacation, when is the best time to
           book an appointment?
         </p>
@@ -203,12 +198,7 @@ const faqItems: FaqItem[] = [
     q: "How do I take care of my new eyelash extensions?",
     a: (
       <ul
-        style={{
-          margin: 0,
-          paddingLeft: 20,
-          listStyle: "disc",
-          color: "var(--color-text-secondary)",
-        }}
+        className="m-0 pl-[20px] text-[var(--color-text-secondary)]" style={{ listStyle: "disc" }}
       >
         <li>Do not get lashes wet for at least 24 hours</li>
         <li>Use oil-free eye makeup remover</li>
@@ -230,12 +220,7 @@ const faqItems: FaqItem[] = [
       <>
         <p>Eyelash extensions may not be suitable for people who:</p>
         <ul
-          style={{
-            margin: 0,
-            paddingLeft: 20,
-            listStyle: "disc",
-            color: "var(--color-text-secondary)",
-          }}
+          className="m-0 pl-[20px] text-[var(--color-text-secondary)]" style={{ listStyle: "disc" }}
         >
           <li>
             Have pre-existing eyelid or eye conditions such as blepharitis and
@@ -278,12 +263,7 @@ const faqItems: FaqItem[] = [
         </p>
         <p>THE PERFECT FIT IS FINALLY HERE.</p>
         <ul
-          style={{
-            margin: 0,
-            paddingLeft: 20,
-            listStyle: "disc",
-            color: "var(--color-text-secondary)",
-          }}
+          className="m-0 pl-[20px] text-[var(--color-text-secondary)]" style={{ listStyle: "disc" }}
         >
           <li>Interlocking “X” shape secures extension to the natural lash</li>
           <li>Self-aligning attachment</li>
@@ -300,12 +280,7 @@ const faqItems: FaqItem[] = [
         <img
           src="https://smoothskinniagara.com/wp-content/uploads/2021/09/Xwrap-5c2d30a4b1ada.jpg"
           alt="Xwrap Eyelash Extension"
-          style={{
-            marginTop: 16,
-            maxWidth: 175,
-            borderRadius: 8,
-            display: "block",
-          }}
+          className="mt-[16px] max-w-[175px] rounded-[8px] block"
         />
       </>
     ),
@@ -353,127 +328,62 @@ export function EyelashFaq() {
   };
 
   return (
-    <section style={{ padding: "90px 53px", background: "var(--olive-50)" }}>
-      <div style={{ maxWidth: 920, margin: "0 auto" }}>
-        <div style={{ textAlign: "center", marginBottom: 56 }}>
+    <section className="pt-[90px] pr-[53px] pb-[90px] pl-[53px] bg-[var(--olive-50)]">
+      <div className="max-w-[920px] mt-0 mr-auto mb-0 ml-auto">
+        <div className="text-center mb-[56px]">
           <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: 13,
-              marginBottom: 22,
-            }}
+            className="flex items-center justify-center gap-[13px] mb-[22px]"
           >
             <span
-              style={{
-                fontFamily: "var(--font-body)",
-                fontSize: 12,
-                letterSpacing: "0.16em",
-                textTransform: "uppercase",
-                color: "var(--color-brand-primary)",
-                fontWeight: 700,
-              }}
+              className="font-[var(--font-body)] text-[12px] tracking-[0.16em] uppercase text-[var(--color-brand-primary)] font-bold"
             >
               FREQUENTLY ASKED QUESTIONS
             </span>
             <span
-              style={{
-                width: 48,
-                height: 1,
-                background: "var(--color-border-strong)",
-              }}
+              className="w-[48px] h-[1px] bg-[var(--color-border-strong)]"
             />
           </div>
           <h2
-            style={{
-              fontFamily: "var(--font-display)",
-              fontWeight: 400,
-              fontSize: 48,
-              lineHeight: 1.1,
-              color: "var(--color-text-primary)",
-              margin: "0 0 16px",
-            }}
+            className="font-[var(--font-display)] font-normal text-[48px] leading-[1.1] text-[var(--color-text-primary)] mt-0 mr-0 mb-[16px] ml-0"
           >
             Your Questions, Answered
           </h2>
           <p
-            style={{
-              fontFamily: "var(--font-body)",
-              fontSize: 17,
-              lineHeight: 1.6,
-              color: "var(--color-text-secondary)",
-              margin: "0 auto",
-              maxWidth: 620,
-            }}
+            className="font-[var(--font-body)] text-[17px] leading-[1.6] text-[var(--color-text-secondary)] mt-0 mr-auto mb-0 ml-auto max-w-[620px]"
           >
             Everything you want to know about eyelash extensions, lash lifts,
             aftercare and what to expect during your appointment.
           </p>
         </div>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+        <div className="flex flex-col gap-[14px]">
           {faqItems.map((item, i) => {
             const isOpen = openIndex === i;
             return (
               <div
                 key={i}
                 onClick={() => toggle(i)}
-                style={{
-                  background: "#fff",
-                  border: "1px solid var(--color-border)",
-                  borderRadius: 14,
-                  padding: "20px 22px",
-                  cursor: "pointer",
-                  transition: "box-shadow 0.15s ease",
-                  boxShadow: isOpen
+                className="bg-[#fff] rounded-[14px] pt-[20px] pr-[22px] pb-[20px] pl-[22px] cursor-pointer" style={{ border: "1px solid var(--color-border)", transition: "box-shadow 0.15s ease", boxShadow: isOpen
                     ? "0 4px 16px rgba(37,38,36,0.04)"
-                    : "none",
-                }}
+                    : "none" }}
               >
                 <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    gap: 16,
-                  }}
+                  className="flex items-center justify-between gap-[16px]"
                 >
                   <h4
-                    style={{
-                      fontFamily: "var(--font-body)",
-                      fontSize: 16,
-                      fontWeight: 600,
-                      color: "var(--color-text-primary)",
-                      margin: 0,
-                      lineHeight: 1.4,
-                    }}
+                    className="font-[var(--font-body)] text-[16px] font-semibold text-[var(--color-text-primary)] m-0 leading-[1.4]"
                   >
                     {item.q}
                   </h4>
                   <span
-                    style={{
-                      flexShrink: 0,
-                      fontFamily: "var(--font-body)",
-                      fontSize: 22,
-                      color: "var(--color-brand-primary)",
-                      lineHeight: 1,
-                    }}
+                    className="shrink-0 font-[var(--font-body)] text-[22px] text-[var(--color-brand-primary)] leading-[1]"
                   >
                     {isOpen ? "−" : "+"}
                   </span>
                 </div>
                 {isOpen && (
                   <div
-                    style={{
-                      marginTop: 14,
-                      paddingTop: 18,
-                      borderTop: "1px solid var(--color-border)",
-                      fontFamily: "var(--font-body)",
-                      fontSize: 15,
-                      lineHeight: 1.65,
-                      color: "var(--color-text-secondary)",
-                    }}
+                    className="mt-[14px] pt-[18px] font-[var(--font-body)] text-[15px] leading-[1.65] text-[var(--color-text-secondary)]" style={{ borderTop: "1px solid var(--color-border)" }}
                   >
                     {item.a}
                   </div>
@@ -484,66 +394,33 @@ export function EyelashFaq() {
         </div>
 
         <div
-          style={{
-            marginTop: 48,
-            padding: "28px 24px",
-            background: "#fff",
-            border: "1px solid var(--color-border)",
-            borderRadius: 16,
-            boxShadow: "0 2px 14px rgba(0,0,0,0.04)",
-            textAlign: "center",
-          }}
+          className="mt-[48px] pt-[28px] pr-[24px] pb-[28px] pl-[24px] bg-[#fff] rounded-[16px] text-center" style={{ border: "1px solid var(--color-border)", boxShadow: "0 2px 14px rgba(0,0,0,0.04)" }}
         >
           <h4
-            style={{
-              fontFamily: "var(--font-display)",
-              fontSize: 22,
-              fontWeight: 500,
-              color: "var(--color-text-primary)",
-              margin: "0 0 10px",
-            }}
+            className="font-[var(--font-display)] text-[22px] font-medium text-[var(--color-text-primary)] mt-0 mr-0 mb-[10px] ml-0"
           >
             Still have a question?
           </h4>
           <p
-            style={{
-              fontFamily: "var(--font-body)",
-              fontSize: 15,
-              lineHeight: 1.6,
-              color: "var(--color-text-secondary)",
-              margin: "0 0 20px",
-            }}
+            className="font-[var(--font-body)] text-[15px] leading-[1.6] text-[var(--color-text-secondary)] mt-0 mr-0 mb-[20px] ml-0"
           >
             We are happy to help. Call, text, or send us a message and we will
             answer anything you are unsure about.
           </p>
           <a
             href="/contact"
-            style={{ textDecoration: "none", display: "inline-block" }}
+            className="no-underline inline-block"
           >
             <Button variant="primary">Ask A Question →</Button>
           </a>
           <a
             href="tel:+19059207229"
-            style={{
-              display: "block",
-              marginTop: 16,
-              fontFamily: "var(--font-body)",
-              fontSize: 16,
-              fontWeight: 600,
-              color: "var(--color-brand-primary)",
-              textDecoration: "none",
-            }}
+            className="block mt-[16px] font-[var(--font-body)] text-[16px] font-semibold text-[var(--color-brand-primary)] no-underline"
           >
             (905) 920-7229
           </a>
           <span
-            style={{
-              display: "block",
-              fontFamily: "var(--font-body)",
-              fontSize: 13,
-              color: "var(--color-text-secondary)",
-            }}
+            className="block font-[var(--font-body)] text-[13px] text-[var(--color-text-secondary)]"
           >
             Call or Text
           </span>

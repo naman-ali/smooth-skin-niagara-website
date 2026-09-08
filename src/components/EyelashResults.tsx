@@ -55,77 +55,36 @@ export function EyelashResults() {
       : results.filter((r) => r.title === activeCategory);
 
   return (
-    <section style={{ padding: "90px 53px", background: "var(--olive-100)" }}>
+    <section className="pt-[90px] pr-[53px] pb-[90px] pl-[53px] bg-[var(--olive-100)]">
       <div
-        style={{
-          position: "relative",
-          maxWidth: "var(--container-max)",
-          margin: "0 auto",
-        }}
+        className="relative max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto"
       >
-        <div style={{ textAlign: "center", marginBottom: 56 }}>
+        <div className="text-center mb-[56px]">
           <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: 13,
-              marginBottom: 22,
-            }}
+            className="flex items-center justify-center gap-[13px] mb-[22px]"
           >
             <span
-              style={{
-                fontFamily: "var(--font-body)",
-                fontSize: 12,
-                letterSpacing: "0.16em",
-                textTransform: "uppercase",
-                color: "var(--color-brand-primary)",
-                fontWeight: 700,
-              }}
+              className="font-[var(--font-body)] text-[12px] tracking-[0.16em] uppercase text-[var(--color-brand-primary)] font-bold"
             >
               Real Lash Results
             </span>
             <span
-              style={{
-                width: 48,
-                height: 1,
-                background: "var(--color-border-strong)",
-              }}
+              className="w-[48px] h-[1px] bg-[var(--color-border-strong)]"
             />
           </div>
           <h2
-            style={{
-              fontFamily: "var(--font-display)",
-              fontWeight: 400,
-              fontSize: 48,
-              lineHeight: 1.1,
-              color: "var(--color-text-primary)",
-              margin: "0 0 16px",
-            }}
+            className="font-[var(--font-display)] font-normal text-[48px] leading-[1.1] text-[var(--color-text-primary)] mt-0 mr-0 mb-[16px] ml-0"
           >
             Before &amp; After
           </h2>
           <p
-            style={{
-              fontFamily: "var(--font-body)",
-              fontSize: 17,
-              lineHeight: 1.6,
-              color: "var(--color-text-secondary)",
-              margin: "0 auto",
-              maxWidth: 560,
-            }}
+            className="font-[var(--font-body)] text-[17px] leading-[1.6] text-[var(--color-text-secondary)] mt-0 mr-auto mb-0 ml-auto max-w-[560px]"
           >
             See the difference customized lash extensions can make — from
             subtle definition to full, fluffy volume.
           </p>
           <div
-            style={{
-              display: "flex",
-              flexWrap: "wrap",
-              justifyContent: "center",
-              gap: 12,
-              marginTop: 28,
-            }}
+            className="flex flex-wrap justify-center gap-[12px] mt-[28px]"
           >
             {categories.map((category) => (
               <Button

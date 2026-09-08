@@ -6,34 +6,22 @@ import * as React from "react";
 import { ArrowRight, Heart, Shield, Sparkles, User } from "lucide-react";
 import * as ButtonModule from "@/components/design-system/core/Button";
 import type { ButtonProps } from "@/components/design-system/core/Button";
+import { cn } from "@/lib/utils";
+
 
 const Button = (ButtonModule as unknown as { Button: React.FC<ButtonProps> })
   .Button;
 
-const containerMax = { maxWidth: "var(--container-max)", margin: "0 auto" };
+const containerMax = "max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto";
 
-const displayHeadingStyle = {
-  fontFamily: "var(--font-display)",
-  fontWeight: 400,
-  color: "var(--color-text-primary)",
-};
+const displayHeadingStyle = "font-[var(--font-display)] font-normal text-[var(--color-text-primary)]";
 
-const bodyTextStyle = {
-  fontFamily: "var(--font-body)",
-  color: "var(--color-text-secondary)",
-};
+const bodyTextStyle = "font-[var(--font-body)] text-[var(--color-text-secondary)]";
 
 function Eyebrow({ children }: { children: React.ReactNode }) {
   return (
     <span
-      style={{
-        fontFamily: "var(--font-body)",
-        fontSize: 12,
-        letterSpacing: "0.16em",
-        textTransform: "uppercase" as const,
-        color: "var(--olive-600)",
-        fontWeight: 700,
-      }}
+      className="font-[var(--font-body)] text-[12px] tracking-[0.16em] uppercase text-[var(--olive-600)] font-bold"
     >
       {children}
     </span>
@@ -185,37 +173,34 @@ function TreatmentCard({
         style={{ background: gradient }}
       />
       <div
-        className="absolute bottom-0 left-0 z-20 p-6 md:p-7 lg:p-8"
-        style={{
-          maxWidth: treatment.size === "large" ? 420 : 340,
-          paddingRight: 64,
-        }}
+        
+        className={cn("absolute bottom-0 left-0 z-20 p-6 md:p-7 lg:p-8", "pr-[64px]")} style={{ maxWidth: treatment.size === "large" ? 420 : 340 }}
       >
         <span
-          className="mb-2 block text-[11px] font-semibold uppercase tracking-[0.15em]"
-          style={{ fontFamily: "var(--font-body)", color: "var(--olive-600)" }}
+          
+          className={cn("mb-2 block text-[11px] font-semibold uppercase tracking-[0.15em]", "font-[var(--font-body)] text-[var(--olive-600)]")}
         >
           {treatment.eyebrow}
         </span>
         <h3
-          className={`leading-[1.05] ${
+          
+          className={cn(`leading-[1.05] ${
             treatment.size === "large"
               ? "text-[34px] lg:text-[42px]"
               : "text-[26px] lg:text-[30px]"
-          }`}
-          style={{ ...displayHeadingStyle, margin: "0 0 8px" }}
+          }`, "font-[var(--font-display)] font-normal text-[var(--color-text-primary)] mt-0 mr-0 mb-[8px] ml-0")}
         >
           {treatment.title}
         </h3>
         <p
-          className="text-[15px] leading-[1.45] lg:text-[16px]"
-          style={{ ...bodyTextStyle, margin: "0 0 14px" }}
+          
+          className={cn("text-[15px] leading-[1.45] lg:text-[16px]", "font-[var(--font-body)] text-[var(--color-text-secondary)] mt-0 mr-0 mb-[14px] ml-0")}
         >
           {treatment.description}
         </p>
         <span
-          className="inline-flex items-center gap-2 text-[14px] font-semibold lg:text-[15px]"
-          style={{ fontFamily: "var(--font-body)", color: "var(--olive-700)" }}
+          
+          className={cn("inline-flex items-center gap-2 text-[14px] font-semibold lg:text-[15px]", "font-[var(--font-body)] text-[var(--olive-700)]")}
         >
           {treatment.linkText}
           <ArrowRight
@@ -225,8 +210,8 @@ function TreatmentCard({
         </span>
       </div>
       <div
-        className="absolute bottom-5 right-5 z-30 flex h-12 w-12 items-center justify-center rounded-full bg-[var(--olive-600)] text-white transition-transform duration-300 group-hover:translate-x-1 md:bottom-6 md:right-6"
-        style={{ pointerEvents: "none" }}
+        
+        className={cn("absolute bottom-5 right-5 z-30 flex h-12 w-12 items-center justify-center rounded-full bg-[var(--olive-600)] text-white transition-transform duration-300 group-hover:translate-x-1 md:bottom-6 md:right-6", "pointer-events-none")}
       >
         <ArrowRight size={20} />
       </div>
@@ -254,23 +239,19 @@ function GuidancePanel() {
 
   return (
     <div
-      className="relative text-center"
-      style={{
-        background: "rgba(251, 250, 247, 0.96)",
-        borderRadius: 26,
-        padding: "60px 24px",
-      }}
+      
+      className={cn("relative text-center", "bg-[rgba(251,250,247,0.96)] rounded-[26px] pt-[60px] pr-[24px] pb-[60px] pl-[24px]")}
     >
       <Eyebrow>GUIDANCE FOR YOUR SKIN JOURNEY</Eyebrow>
       <h2
-        className="mx-auto max-w-[520px] text-[30px] leading-[1.1] lg:text-[42px]"
-        style={{ ...displayHeadingStyle, margin: "22px auto 14px" }}
+        
+        className={cn("mx-auto max-w-[520px] text-[30px] leading-[1.1] lg:text-[42px]", "font-[var(--font-display)] font-normal text-[var(--color-text-primary)] mt-[22px] mr-auto mb-[14px] ml-auto")}
       >
         Not Sure Which Treatment Is Right for You?
       </h2>
       <p
-        className="mx-auto max-w-[540px] text-[16px] leading-relaxed lg:text-[17px]"
-        style={{ ...bodyTextStyle, margin: "0 auto 28px" }}
+        
+        className={cn("mx-auto max-w-[540px] text-[16px] leading-relaxed lg:text-[17px]", "font-[var(--font-body)] text-[var(--color-text-secondary)] mt-0 mr-auto mb-[28px] ml-auto")}
       >
         Start with what you&apos;d like to improve and we&apos;ll point you in
         the right direction.
@@ -302,14 +283,11 @@ function GuidancePanel() {
               size={20}
               strokeWidth={1.5}
               color="var(--olive-600)"
-              style={{ marginBottom: 8 }}
+              className="mb-[8px]"
             />
             <span
-              className="text-[12px] font-semibold uppercase tracking-[0.12em]"
-              style={{
-                fontFamily: "var(--font-body)",
-                color: "var(--color-text-primary)",
-              }}
+              
+              className={cn("text-[12px] font-semibold uppercase tracking-[0.12em]", "font-[var(--font-body)] text-[var(--color-text-primary)]")}
             >
               {item.label}
             </span>
@@ -324,21 +302,21 @@ export function HomeTreatmentDiscovery() {
   return (
     <section
       id="services"
-      className="bg-olive-100 px-6 lg:px-[53px]"
-      style={{ paddingTop: 90, paddingBottom: 90 }}
+      
+      className={cn("bg-olive-100 px-6 lg:px-[53px]", "pt-[90px] pb-[90px]")}
     >
-      <div style={containerMax}>
+      <div className="max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto">
         <div className="mb-14 text-center">
           <Eyebrow>TREATMENTS</Eyebrow>
           <h2
-            className="text-[36px] leading-[1.1] lg:text-[48px]"
-            style={{ ...displayHeadingStyle, margin: "22px 0 16px" }}
+            
+            className={cn("text-[36px] leading-[1.1] lg:text-[48px]", "font-[var(--font-display)] font-normal text-[var(--color-text-primary)] mt-[22px] mr-0 mb-[16px] ml-0")}
           >
             Treatments Tailored to You
           </h2>
           <p
-            className="mx-auto max-w-[640px] text-[17px]"
-            style={{ ...bodyTextStyle, lineHeight: 1.6 }}
+            
+            className={cn("mx-auto max-w-[640px] text-[17px]", "font-[var(--font-body)] text-[var(--color-text-secondary)] leading-[1.6]")}
           >
             Advanced skincare, laser and beauty treatments selected around your
             skin, your goals and your comfort.

@@ -22,7 +22,7 @@ export const pcaPeelsFaqCategories = [
               ingredients to remove accumulated surface cells and support the
               appearance of fresher, smoother-looking skin.
             </p>
-            <p style={{ marginTop: 12 }}>
+            <p className="mt-[12px]">
               PCA SKIN offers different professional peel formulations so
               treatment can be selected according to skin type, condition and
               goals.
@@ -35,11 +35,11 @@ export const pcaPeelsFaqCategories = [
         a: (
           <>
             <p>You don&apos;t need to know before booking.</p>
-            <p style={{ marginTop: 12 }}>
+            <p className="mt-[12px]">
               We offer several treatment approaches, including Sensi Peel, Ultra
               Peel, OXY PCA Peel and a retinol-enhanced PCA treatment.
             </p>
-            <p style={{ marginTop: 12 }}>
+            <p className="mt-[12px]">
               We&apos;ll assess your skin and recommend the most appropriate
               option.
             </p>
@@ -55,12 +55,7 @@ export const pcaPeelsFaqCategories = [
               may help improve the appearance of:
             </p>
             <ul
-              style={{
-                margin: "12px 0 0",
-                paddingLeft: 20,
-                listStyle: "disc",
-                color: "var(--color-text-secondary)",
-              }}
+              className="mt-[12px] mr-0 mb-0 ml-0 pl-[20px] text-[var(--color-text-secondary)]" style={{ listStyle: "disc" }}
             >
               <li>uneven texture</li>
               <li>dullness</li>
@@ -77,11 +72,11 @@ export const pcaPeelsFaqCategories = [
         a: (
           <>
             <p>No.</p>
-            <p style={{ marginTop: 12 }}>
+            <p className="mt-[12px]">
               Visible peeling is not required for a professional peel to be
               effective.
             </p>
-            <p style={{ marginTop: 12 }}>
+            <p className="mt-[12px]">
               Some clients experience noticeable flaking or shedding, while
               others experience very little.
             </p>
@@ -96,10 +91,10 @@ export const pcaPeelsFaqCategories = [
               Some clients notice that their skin feels smoother or looks
               brighter after recovery from a single treatment.
             </p>
-            <p style={{ marginTop: 12 }}>
+            <p className="mt-[12px]">
               More significant concerns may benefit from a series of treatments.
             </p>
-            <p style={{ marginTop: 12 }}>
+            <p className="mt-[12px]">
               Results vary according to skin condition, treatment selection and
               home care.
             </p>
@@ -114,7 +109,7 @@ export const pcaPeelsFaqCategories = [
               Treatment frequency depends on the peel used, your skin and your
               treatment goals.
             </p>
-            <p style={{ marginTop: 12 }}>
+            <p className="mt-[12px]">
               Rather than applying the same schedule to everyone, we&apos;ll
               recommend appropriate timing for your individual plan.
             </p>
@@ -137,12 +132,12 @@ export const pcaPeelsFaqCategories = [
         a: (
           <>
             <p>Downtime varies by treatment.</p>
-            <p style={{ marginTop: 12 }}>
+            <p className="mt-[12px]">
               Some professional peels involve little visible peeling, while
               stronger or retinol-enhanced treatments may result in more
               noticeable dryness, flaking or shedding.
             </p>
-            <p style={{ marginTop: 12 }}>
+            <p className="mt-[12px]">
               We&apos;ll explain what to expect from the treatment selected for
               you.
             </p>
@@ -157,7 +152,7 @@ export const pcaPeelsFaqCategories = [
               If visible peeling occurs, it commonly develops over the days
               following treatment.
             </p>
-            <p style={{ marginTop: 12 }}>
+            <p className="mt-[12px]">
               Duration and intensity vary significantly depending on the
               formulation, number of layers and individual skin response.
             </p>
@@ -169,7 +164,7 @@ export const pcaPeelsFaqCategories = [
         a: (
           <>
             <p>Follow the aftercare instructions provided for your specific treatment.</p>
-            <p style={{ marginTop: 12 }}>
+            <p className="mt-[12px]">
               It is generally best to keep freshly treated skin simple and avoid
               unnecessary irritation immediately after a peel.
             </p>
@@ -181,7 +176,7 @@ export const pcaPeelsFaqCategories = [
         a: (
           <>
             <p>No.</p>
-            <p style={{ marginTop: 12 }}>
+            <p className="mt-[12px]">
               Do not pull, pick or manually exfoliate shedding skin. Allow it to
               come away naturally.
             </p>
@@ -193,7 +188,7 @@ export const pcaPeelsFaqCategories = [
         a: (
           <>
             <p>Use the gentle post-treatment routine recommended for you.</p>
-            <p style={{ marginTop: 12 }}>
+            <p className="mt-[12px]">
               Sun protection, hydration and avoiding irritating active
               ingredients are particularly important while the skin recovers.
             </p>
@@ -220,11 +215,11 @@ export const pcaPeelsFaqCategories = [
               a broad range of skin types, including options formulated for
               sensitive skin.
             </p>
-            <p style={{ marginTop: 12 }}>
+            <p className="mt-[12px]">
               However, that does not mean every peel is suitable for every
               person.
             </p>
-            <p style={{ marginTop: 12 }}>
+            <p className="mt-[12px]">
               Your skin and medical history should be assessed before treatment.
             </p>
           </>
@@ -235,7 +230,7 @@ export const pcaPeelsFaqCategories = [
         a: (
           <>
             <p>Potentially.</p>
-            <p style={{ marginTop: 12 }}>
+            <p className="mt-[12px]">
               Sensi Peel is specifically positioned as a gentler PCA SKIN peel
               option, but suitability still depends on your current skin
               condition and history.
@@ -252,12 +247,7 @@ export const pcaPeelsFaqCategories = [
               such as:
             </p>
             <ul
-              style={{
-                margin: "12px 0 0",
-                paddingLeft: 20,
-                listStyle: "disc",
-                color: "var(--color-text-secondary)",
-              }}
+              className="mt-[12px] mr-0 mb-0 ml-0 pl-[20px] text-[var(--color-text-secondary)]" style={{ listStyle: "disc" }}
             >
               <li>active infection or open skin</li>
               <li>significant irritation</li>
@@ -268,7 +258,7 @@ export const pcaPeelsFaqCategories = [
               <li>pregnancy depending on the treatment ingredients</li>
               <li>conditions that affect healing</li>
             </ul>
-            <p style={{ marginTop: 12 }}>
+            <p className="mt-[12px]">
               Always disclose your medical history, medications and skincare
               before treatment.
             </p>
@@ -283,7 +273,7 @@ export const pcaPeelsFaqCategories = [
               Certain professional chemical peels may be incorporated into
               treatment plans for acne-prone skin and congestion.
             </p>
-            <p style={{ marginTop: 12 }}>
+            <p className="mt-[12px]">
               The appropriate treatment depends on the type and severity of the
               acne and the current condition of your skin.
             </p>
@@ -295,7 +285,7 @@ export const pcaPeelsFaqCategories = [
         a: (
           <>
             <p>Sometimes.</p>
-            <p style={{ marginTop: 12 }}>
+            <p className="mt-[12px]">
               Selected add-ons or complementary treatments may be incorporated
               when appropriate, but combination treatments should be determined
               based on your skin and treatment plan rather than automatically

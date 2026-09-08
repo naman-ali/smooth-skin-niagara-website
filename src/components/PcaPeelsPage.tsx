@@ -23,6 +23,8 @@ import type { ButtonProps } from "@/components/design-system/core/Button";
 import * as GoogleReviewsModule from "@/components/design-system/trust/GoogleReviews";
 import type { GoogleReviewsProps } from "@/components/design-system/trust/GoogleReviews";
 import { pcaPeelsFaqCategories } from "@/lib/pca-peels-faq";
+import { cn } from "@/lib/utils";
+
 
 const Button = (ButtonModule as unknown as { Button: React.FC<ButtonProps> })
   .Button;
@@ -33,31 +35,17 @@ const GoogleReviews = (
 ).GoogleReviews;
 
 const sectionPadding = "px-7 lg:px-[53px]";
-const containerMax = { maxWidth: "var(--container-max)", margin: "0 auto" };
+const containerMax = "max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto";
 
-const eyebrowStyle = {
-  fontFamily: "var(--font-body)",
-  fontSize: 11,
-  fontWeight: 700,
-  letterSpacing: "0.22em",
-  textTransform: "uppercase" as const,
-  color: "var(--color-brand-primary)",
-};
+const eyebrowStyle = "font-[var(--font-body)] text-[11px] font-bold tracking-[0.22em] uppercase text-[var(--color-brand-primary)]";
 
-const displayHeadingStyle = {
-  fontFamily: "var(--font-display)",
-  fontWeight: 400,
-  color: "var(--color-text-primary)",
-};
+const displayHeadingStyle = "font-[var(--font-display)] font-normal text-[var(--color-text-primary)]";
 
-const bodyTextStyle = {
-  fontFamily: "var(--font-body)",
-  color: "var(--color-text-secondary)",
-};
+const bodyTextStyle = "font-[var(--font-body)] text-[var(--color-text-secondary)]";
 
 function SectionEyebrow({ children }: { children: React.ReactNode }) {
   return (
-    <span className="block" style={eyebrowStyle}>
+    <span  className={cn("block", "font-[var(--font-body)] text-[11px] font-bold tracking-[0.22em] uppercase text-[var(--color-brand-primary)]")}>
       {children}
     </span>
   );
@@ -72,8 +60,8 @@ function SectionHeading({
 }) {
   return (
     <h2
-      className="text-[36px] leading-[1.1] lg:text-[44px]"
-      style={{ ...displayHeadingStyle, ...style }}
+      
+      className={cn("text-[36px] leading-[1.1] lg:text-[44px]", "font-[var(--font-display)] font-normal text-[var(--color-text-primary)]")} style={{ ...style }}
     >
       {children}
     </h2>
@@ -83,75 +71,54 @@ function SectionHeading({
 function PcaHero() {
   return (
     <section
-      className="relative overflow-hidden border-b-2 border-[#bfae97] bg-olive-50"
-      style={{ minHeight: 760, padding: "80px 28px 70px" }}
+      
+      className={cn("relative overflow-hidden border-b-2 border-[#bfae97] bg-olive-50", "min-h-[760px] pt-[80px] pr-[28px] pb-[70px] pl-[28px]")}
     >
       <div
-        className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat lg:bg-right lg:[background-size:auto_100%]"
-        style={{ backgroundImage: "url(/assets/skin-peels-hero.jpg)" }}
+        
+        className={cn("absolute inset-0 z-0 bg-cover bg-center bg-no-repeat lg:bg-right lg:[background-size:auto_100%]", "bg-[url('/assets/skin-peels-hero.jpg')]")}
       />
       <div
-        className="pointer-events-none absolute inset-0 z-[1] hidden lg:block"
-        style={{
-          background:
-            "linear-gradient(to right, var(--olive-50) 0%, rgba(245,242,235,0.92) 38%, rgba(245,242,235,0) 70%)",
-        }}
+        
+        className={cn("pointer-events-none absolute inset-0 z-[1] hidden lg:block", "bg-[linear-gradient(toright,var(--olive-50)0%,rgba(245,242,235,0.92)38%,rgba(245,242,235,0)70%)]")}
       />
 
-      <div className="relative z-10 mx-auto w-full" style={containerMax}>
+      <div  className={cn("relative z-10 mx-auto w-full", "max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto")}>
         <div className="w-full min-w-0 lg:max-w-[55%] lg:min-w-[320px]">
           <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: 13,
-              marginBottom: 31,
-            }}
+            className="flex items-center gap-[13px] mb-[31px]"
           >
             <span
-              className="text-[12px] font-bold uppercase tracking-[0.16em]"
-              style={{
-                fontFamily: "var(--font-body)",
-                color: "var(--color-brand-primary)",
-              }}
+              
+              className={cn("text-[12px] font-bold uppercase tracking-[0.16em]", "font-[var(--font-body)] text-[var(--color-brand-primary)]")}
             >
               PROFESSIONAL PCA SKIN PEELS{" "}
-              <span style={{ color: "var(--color-brand-deep)" }}>
+              <span className="text-[var(--color-brand-deep)]">
                 · NIAGARA FALLS
               </span>
             </span>
             <span
-              style={{
-                width: 48,
-                height: 1,
-                background: "var(--color-border-strong)",
-              }}
+              className="w-[48px] h-[1px] bg-[var(--color-border-strong)]"
             />
           </div>
 
           <h1
-            className="text-[44px] leading-[1.05] lg:text-[80px]"
-            style={{
-              ...displayHeadingStyle,
-              margin: "0 0 31px",
-            }}
+            
+            className={cn("text-[44px] leading-[1.05] lg:text-[80px]", "font-[var(--font-display)] font-normal text-[var(--color-text-primary)] mt-0 mr-0 mb-[31px] ml-0")}
           >
             Reveal Brighter,
             <br />
             <span
-              className="italic"
-              style={{
-                color: "var(--olive-600)",
-                fontFamily: "var(--font-display)",
-              }}
+              
+              className={cn("italic", "text-[var(--olive-600)] font-[var(--font-display)]")}
             >
               Smoother-Looking Skin.
             </span>
           </h1>
 
           <p
-            className="text-base leading-relaxed lg:text-[20px] lg:leading-[1.6]"
-            style={{ ...bodyTextStyle, margin: "0 0 40px" }}
+            
+            className={cn("text-base leading-relaxed lg:text-[20px] lg:leading-[1.6]", "font-[var(--font-body)] text-[var(--color-text-secondary)] mt-0 mr-0 mb-[40px] ml-0")}
           >
             Professional PCA SKIN chemical peels are customized to your skin and
             concerns, helping exfoliate surface buildup and improve the
@@ -160,8 +127,8 @@ function PcaHero() {
           </p>
 
           <div
-            className="flex flex-col gap-4 lg:flex-row"
-            style={{ marginBottom: 31 }}
+            
+            className={cn("flex flex-col gap-4 lg:flex-row", "mb-[31px]")}
           >
             <Button variant="primary">Book Your Skin Peel →</Button>
             <Link href="#peel-options">
@@ -174,8 +141,8 @@ function PcaHero() {
           <GoogleReviews rating="5.0" count="61+" />
 
           <div
-            className="mt-12 flex flex-wrap items-stretch gap-8"
-            style={{ marginTop: 48 }}
+            
+            className={cn("mt-12 flex flex-wrap items-stretch gap-8", "mt-[48px]")}
           >
             {[
               {
@@ -193,12 +160,7 @@ function PcaHero() {
             ].map((item) => (
               <div
                 key={item.title}
-                style={{
-                  display: "flex",
-                  alignItems: "flex-start",
-                  gap: 12,
-                  maxWidth: 260,
-                }}
+                className="flex items-start gap-[12px] max-w-[260px]"
               >
                 <Check
                   size={22}
@@ -208,21 +170,12 @@ function PcaHero() {
                 />
                 <div>
                   <strong
-                    style={{
-                      fontFamily: "var(--font-body)",
-                      fontSize: 15,
-                      fontWeight: 600,
-                      color: "var(--color-text-primary)",
-                    }}
+                    className="font-[var(--font-body)] text-[15px] font-semibold text-[var(--color-text-primary)]"
                   >
                     {item.title}
                   </strong>
                   <p
-                    style={{
-                      ...bodyTextStyle,
-                      fontSize: 13,
-                      margin: "4px 0 0",
-                    }}
+                    className="font-[var(--font-body)] text-[var(--color-text-secondary)] text-[13px] mt-[4px] mr-0 mb-0 ml-0"
                   >
                     {item.sub}
                   </p>
@@ -272,18 +225,18 @@ const concerns = [
 function PcaConcerns() {
   return (
     <section
-      className={`${sectionPadding} bg-olive-50`}
-      style={{ paddingTop: 90, paddingBottom: 90 }}
+      
+      className={cn(`${sectionPadding} bg-olive-50`, "pt-[90px] pb-[90px]")}
     >
-      <div style={containerMax}>
+      <div className="max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto">
         <div className="mb-14 text-center">
           <SectionEyebrow>PERSONALIZED SKIN RENEWAL</SectionEyebrow>
           <SectionHeading style={{ margin: "22px 0 16px" }}>
             Target the Concerns You See in the Mirror
           </SectionHeading>
           <p
-            className="mx-auto max-w-[700px] text-base lg:text-[17px]"
-            style={{ ...bodyTextStyle, lineHeight: 1.6 }}
+            
+            className={cn("mx-auto max-w-[700px] text-base lg:text-[17px]", "font-[var(--font-body)] text-[var(--color-text-secondary)] leading-[1.6]")}
           >
             Professional chemical peels remove accumulated surface cells and
             support a fresher-looking complexion. Your treatment is selected
@@ -295,31 +248,22 @@ function PcaConcerns() {
           {concerns.map((item) => (
             <div
               key={item.title}
-              style={{
-                background: "#fff",
-                border: "1px solid var(--color-border)",
-                borderRadius: 18,
-                padding: "30px",
-              }}
+              className="bg-[#fff] rounded-[18px] pt-[30px] pr-[30px] pb-[30px] pl-[30px]" style={{ border: "1px solid var(--color-border)" }}
             >
               <item.icon
                 size={28}
                 strokeWidth={1.5}
                 color="var(--color-brand-primary)"
-                style={{ marginBottom: 16 }}
+                className="mb-[16px]"
               />
               <h4
-                style={{
-                  ...displayHeadingStyle,
-                  fontSize: 22,
-                  margin: "0 0 8px",
-                }}
+                className="font-[var(--font-display)] font-normal text-[var(--color-text-primary)] text-[22px] mt-0 mr-0 mb-[8px] ml-0"
               >
                 {item.title}
               </h4>
               <p
-                className="text-[15px] leading-relaxed"
-                style={{ ...bodyTextStyle }}
+                
+                className={cn("text-[15px] leading-relaxed", "font-[var(--font-body)] text-[var(--color-text-secondary)]")}
               >
                 {item.text}
               </p>
@@ -328,8 +272,8 @@ function PcaConcerns() {
         </div>
 
         <p
-          className="mt-10 text-center text-[15px]"
-          style={{ ...bodyTextStyle }}
+          
+          className={cn("mt-10 text-center text-[15px]", "font-[var(--font-body)] text-[var(--color-text-secondary)]")}
         >
           The right peel depends on your skin — stronger is not automatically
           better. We&apos;ll select the appropriate treatment after assessing
@@ -383,18 +327,18 @@ function PcaPeels() {
   return (
     <section
       id="peel-options"
-      className={`${sectionPadding} bg-olive-100`}
-      style={{ paddingTop: 90, paddingBottom: 90 }}
+      
+      className={cn(`${sectionPadding} bg-olive-100`, "pt-[90px] pb-[90px]")}
     >
-      <div style={containerMax}>
+      <div className="max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto">
         <div className="mb-14 text-center">
           <SectionEyebrow>TREATMENT OPTIONS</SectionEyebrow>
           <SectionHeading style={{ margin: "22px 0 16px" }}>
             Find the Peel That Fits Your Skin
           </SectionHeading>
           <p
-            className="mx-auto max-w-[720px] text-base lg:text-[17px]"
-            style={{ ...bodyTextStyle, lineHeight: 1.6 }}
+            
+            className={cn("mx-auto max-w-[720px] text-base lg:text-[17px]", "font-[var(--font-body)] text-[var(--color-text-secondary)] leading-[1.6]")}
           >
             Different PCA SKIN peel formulations are designed for different skin
             types and concerns. You don&apos;t need to choose alone — we&apos;ll
@@ -407,51 +351,26 @@ function PcaPeels() {
           {peels.map((peel) => (
             <div
               key={peel.name}
-              style={{
-                background: "#fff",
-                border: "1px solid var(--color-border)",
-                borderRadius: 20,
-                padding: "40px 34px",
-                display: "flex",
-                flexDirection: "column",
-              }}
+              className="bg-[#fff] rounded-[20px] pt-[40px] pr-[34px] pb-[40px] pl-[34px] flex flex-col" style={{ border: "1px solid var(--color-border)" }}
             >
               <span
-                style={{
-                  ...eyebrowStyle,
-                  alignSelf: "flex-start",
-                  padding: "6px 10px",
-                  borderRadius: 6,
-                  background: "var(--olive-100)",
-                  border: "1px solid var(--color-border)",
-                  marginBottom: 20,
-                }}
+                className="font-[var(--font-body)] text-[11px] font-bold tracking-[0.22em] uppercase text-[var(--color-brand-primary)] pt-[6px] pr-[10px] pb-[6px] pl-[10px] rounded-[6px] bg-[var(--olive-100)] mb-[20px]" style={{ alignSelf: "flex-start", border: "1px solid var(--color-border)" }}
               >
                 {peel.tag}
               </span>
               <h3
-                style={{
-                  ...displayHeadingStyle,
-                  fontSize: 28,
-                  margin: "0 0 6px",
-                }}
+                className="font-[var(--font-display)] font-normal text-[var(--color-text-primary)] text-[28px] mt-0 mr-0 mb-[6px] ml-0"
               >
                 {peel.name}
               </h3>
               <p
-                style={{
-                  fontFamily: "var(--font-body)",
-                  fontSize: 16,
-                  fontWeight: 600,
-                  color: "var(--color-text-primary)",
-                  margin: "0 0 10px",
-                }}
+                className="font-[var(--font-body)] text-[16px] font-semibold text-[var(--color-text-primary)] mt-0 mr-0 mb-[10px] ml-0"
               >
                 {peel.for}
               </p>
               <p
-                className="text-[15px] leading-relaxed"
-                style={{ ...bodyTextStyle, marginBottom: 14 }}
+                
+                className={cn("text-[15px] leading-relaxed", "font-[var(--font-body)] text-[var(--color-text-secondary)] mb-[14px]")}
               >
                 {peel.text}
               </p>
@@ -459,16 +378,7 @@ function PcaPeels() {
                 {peel.bestFor.map((chip) => (
                   <span
                     key={chip}
-                    style={{
-                      fontFamily: "var(--font-body)",
-                      fontSize: 11,
-                      fontWeight: 600,
-                      color: "var(--olive-700)",
-                      background: "var(--olive-100)",
-                      border: "1px solid var(--color-border)",
-                      padding: "5px 8px",
-                      borderRadius: 999,
-                    }}
+                    className="font-[var(--font-body)] text-[11px] font-semibold text-[var(--olive-700)] bg-[var(--olive-100)] pt-[5px] pr-[8px] pb-[5px] pl-[8px] rounded-[999px]" style={{ border: "1px solid var(--color-border)" }}
                   >
                     {chip}
                   </span>
@@ -476,21 +386,15 @@ function PcaPeels() {
               </div>
               {peel.note && (
                 <p
-                  className="mt-4 text-[13px] leading-relaxed"
-                  style={{ ...bodyTextStyle }}
+                  
+                  className={cn("mt-4 text-[13px] leading-relaxed", "font-[var(--font-body)] text-[var(--color-text-secondary)]")}
                 >
                   {peel.note}
                 </p>
               )}
               <div
-                className="mt-5"
-                style={{
-                  fontFamily: "var(--font-display)",
-                  fontSize: 34,
-                  fontWeight: 500,
-                  color: "var(--color-text-primary)",
-                  marginTop: "auto",
-                }}
+                
+                className={cn("mt-5", "font-[var(--font-display)] text-[34px] font-medium text-[var(--color-text-primary)] mt-[auto]")}
               >
                 {peel.price}
               </div>
@@ -500,17 +404,13 @@ function PcaPeels() {
 
         <div className="mt-14 text-center">
           <h4
-            style={{
-              ...displayHeadingStyle,
-              fontSize: 26,
-              margin: "0 0 10px",
-            }}
+            className="font-[var(--font-display)] font-normal text-[var(--color-text-primary)] text-[26px] mt-0 mr-0 mb-[10px] ml-0"
           >
             Not sure which peel to book?
           </h4>
           <p
-            className="mb-8 text-[17px]"
-            style={{ ...bodyTextStyle, lineHeight: 1.6 }}
+            
+            className={cn("mb-8 text-[17px]", "font-[var(--font-body)] text-[var(--color-text-secondary)] leading-[1.6]")}
           >
             That&apos;s completely fine. We&apos;ll assess your skin and
             recommend the most suitable PCA SKIN treatment at your appointment.
@@ -525,10 +425,10 @@ function PcaPeels() {
 function PcaHowItWorks() {
   return (
     <section
-      className={`${sectionPadding} bg-olive-50`}
-      style={{ paddingTop: 90, paddingBottom: 90 }}
+      
+      className={cn(`${sectionPadding} bg-olive-50`, "pt-[90px] pb-[90px]")}
     >
-      <div style={containerMax}>
+      <div className="max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto">
         <div className="mb-14 text-center">
           <SectionEyebrow>YOUR TREATMENT</SectionEyebrow>
           <SectionHeading style={{ margin: "22px 0 16px" }}>
@@ -559,45 +459,26 @@ function PcaHowItWorks() {
           ].map((step) => (
             <div
               key={step.number}
-              style={{
-                background: "#fff",
-                border: "1px solid var(--color-border)",
-                borderRadius: 18,
-                padding: "36px 30px",
-              }}
+              className="bg-[#fff] rounded-[18px] pt-[36px] pr-[30px] pb-[36px] pl-[30px]" style={{ border: "1px solid var(--color-border)" }}
             >
               <span
-                style={{
-                  fontFamily: "var(--font-display)",
-                  fontSize: 26,
-                  color: "var(--color-brand-primary)",
-                }}
+                className="font-[var(--font-display)] text-[26px] text-[var(--color-brand-primary)]"
               >
                 {step.number}
               </span>
               <h4
-                style={{
-                  ...displayHeadingStyle,
-                  fontSize: 26,
-                  margin: "16px 0 6px",
-                }}
+                className="font-[var(--font-display)] font-normal text-[var(--color-text-primary)] text-[26px] mt-[16px] mr-0 mb-[6px] ml-0"
               >
                 {step.title}
               </h4>
               <p
-                style={{
-                  fontFamily: "var(--font-body)",
-                  fontSize: 16,
-                  fontWeight: 600,
-                  color: "var(--color-text-primary)",
-                  margin: "0 0 12px",
-                }}
+                className="font-[var(--font-body)] text-[16px] font-semibold text-[var(--color-text-primary)] mt-0 mr-0 mb-[12px] ml-0"
               >
                 {step.sub}
               </p>
               <p
-                className="text-[15px] leading-relaxed"
-                style={{ ...bodyTextStyle }}
+                
+                className={cn("text-[15px] leading-relaxed", "font-[var(--font-body)] text-[var(--color-text-secondary)]")}
               >
                 {step.text}
               </p>
@@ -607,17 +488,13 @@ function PcaHowItWorks() {
 
         <div className="mt-10 rounded-2xl border border-[var(--color-border)] bg-olive-100 p-8 text-center">
           <h4
-            style={{
-              ...displayHeadingStyle,
-              fontSize: 22,
-              margin: "0 0 10px",
-            }}
+            className="font-[var(--font-display)] font-normal text-[var(--color-text-primary)] text-[22px] mt-0 mr-0 mb-[10px] ml-0"
           >
             You Don&apos;t Have to Visibly Peel for a Peel to Work
           </h4>
           <p
-            className="text-base"
-            style={{ ...bodyTextStyle, lineHeight: 1.6, margin: 0 }}
+            
+            className={cn("text-base", "font-[var(--font-body)] text-[var(--color-text-secondary)] leading-[1.6] m-0")}
           >
             Visible flaking varies from person to person and treatment to
             treatment. A professional chemical peel can still improve the
@@ -633,10 +510,10 @@ function PcaHowItWorks() {
 function PcaAddOns() {
   return (
     <section
-      className={`${sectionPadding} bg-olive-100`}
-      style={{ paddingTop: 90, paddingBottom: 90 }}
+      
+      className={cn(`${sectionPadding} bg-olive-100`, "pt-[90px] pb-[90px]")}
     >
-      <div style={containerMax}>
+      <div className="max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto">
         <div className="mb-12 text-center">
           <SectionEyebrow>OPTIONAL ADD-ONS</SectionEyebrow>
           <SectionHeading style={{ margin: "22px 0 16px" }}>
@@ -667,52 +544,27 @@ function PcaAddOns() {
           ].map((item, i, arr) => (
             <div
               key={item.name}
-              style={{
-                padding: "26px 28px",
-                borderBottom:
+              className="pt-[26px] pr-[28px] pb-[26px] pl-[28px] flex flex-col gap-[4px]" style={{ borderBottom:
                   i < arr.length - 1
                     ? "1px solid var(--color-border)"
-                    : undefined,
-                display: "flex",
-                flexDirection: "column",
-                gap: 4,
-              }}
+                    : undefined }}
             >
               <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  gap: 16,
-                }}
+                className="flex justify-between items-center gap-[16px]"
               >
                 <h4
-                  style={{
-                    ...displayHeadingStyle,
-                    fontSize: 20,
-                    margin: 0,
-                  }}
+                  className="font-[var(--font-display)] font-normal text-[var(--color-text-primary)] text-[20px] m-0"
                 >
                   {item.name}
                 </h4>
                 <span
-                  style={{
-                    fontFamily: "var(--font-body)",
-                    fontSize: 18,
-                    fontWeight: 700,
-                    color: "var(--color-brand-primary)",
-                    whiteSpace: "nowrap",
-                  }}
+                  className="font-[var(--font-body)] text-[18px] font-bold text-[var(--color-brand-primary)] whitespace-nowrap"
                 >
                   {item.price}
                 </span>
               </div>
               <p
-                style={{
-                  ...bodyTextStyle,
-                  fontSize: 14,
-                  margin: 0,
-                }}
+                className="font-[var(--font-body)] text-[var(--color-text-secondary)] text-[14px] m-0"
               >
                 {item.detail}
               </p>
@@ -721,8 +573,8 @@ function PcaAddOns() {
         </div>
 
         <p
-          className="mt-6 text-center text-[13px]"
-          style={{ ...bodyTextStyle }}
+          
+          className={cn("mt-6 text-center text-[13px]", "font-[var(--font-body)] text-[var(--color-text-secondary)]")}
         >
           Add-ons are selected according to treatment suitability and your
           individual skin plan.
@@ -750,22 +602,18 @@ function PcaAddOns() {
 function PcaWhyProfessional() {
   return (
     <section
-      className={`${sectionPadding} bg-olive-50`}
-      style={{ paddingTop: 90, paddingBottom: 90 }}
+      
+      className={cn(`${sectionPadding} bg-olive-50`, "pt-[90px] pb-[90px]")}
     >
-      <div style={containerMax}>
+      <div className="max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto">
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
           <div>
             <img
               src="/assets/hero-treatment.png"
               alt="Professional PCA SKIN chemical peel treatment"
               loading="lazy"
-              className="w-full object-cover"
-              style={{
-                borderRadius: 18,
-                border: "1px solid var(--color-border)",
-                aspectRatio: "4 / 3",
-              }}
+              
+              className={cn("w-full object-cover", "rounded-[18px] aspect-[4/3]")} style={{ border: "1px solid var(--color-border)" }}
             />
           </div>
 
@@ -775,8 +623,8 @@ function PcaWhyProfessional() {
               Your Peel Should Fit Your Skin — Not the Other Way Around.
             </SectionHeading>
             <p
-              className="mb-8 text-[17px] leading-relaxed"
-              style={{ ...bodyTextStyle }}
+              
+              className={cn("mb-8 text-[17px] leading-relaxed", "font-[var(--font-body)] text-[var(--color-text-secondary)]")}
             >
               Professional chemical peels aren&apos;t one-size-fits-all. Skin
               sensitivity, current condition, home skincare and treatment goals
@@ -807,20 +655,16 @@ function PcaWhyProfessional() {
                     size={24}
                     strokeWidth={1.5}
                     color="var(--color-brand-primary)"
-                    style={{ marginBottom: 12 }}
+                    className="mb-[12px]"
                   />
                   <h4
-                    style={{
-                      ...displayHeadingStyle,
-                      fontSize: 19,
-                      margin: "0 0 6px",
-                    }}
+                    className="font-[var(--font-display)] font-normal text-[var(--color-text-primary)] text-[19px] mt-0 mr-0 mb-[6px] ml-0"
                   >
                     {item.title}
                   </h4>
                   <p
-                    className="text-[14px] leading-relaxed"
-                    style={{ ...bodyTextStyle }}
+                    
+                    className={cn("text-[14px] leading-relaxed", "font-[var(--font-body)] text-[var(--color-text-secondary)]")}
                   >
                     {item.text}
                   </p>
@@ -837,10 +681,10 @@ function PcaWhyProfessional() {
 function PcaWhatToExpect() {
   return (
     <section
-      className={`${sectionPadding} bg-olive-100`}
-      style={{ paddingTop: 90, paddingBottom: 90 }}
+      
+      className={cn(`${sectionPadding} bg-olive-100`, "pt-[90px] pb-[90px]")}
     >
-      <div style={containerMax}>
+      <div className="max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto">
         <div className="mb-14 text-center">
           <SectionEyebrow>BEFORE + AFTER</SectionEyebrow>
           <SectionHeading style={{ margin: "22px 0 16px" }}>
@@ -850,37 +694,21 @@ function PcaWhatToExpect() {
 
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
           <div
-            style={{
-              background: "#fff",
-              border: "1px solid var(--color-border)",
-              borderRadius: 18,
-              padding: "36px 30px",
-            }}
+            className="bg-[#fff] rounded-[18px] pt-[36px] pr-[30px] pb-[36px] pl-[30px]" style={{ border: "1px solid var(--color-border)" }}
           >
             <h4
-              style={{
-                ...displayHeadingStyle,
-                fontSize: 24,
-                margin: "0 0 14px",
-              }}
+              className="font-[var(--font-display)] font-normal text-[var(--color-text-primary)] text-[24px] mt-0 mr-0 mb-[14px] ml-0"
             >
               Before Your Appointment
             </h4>
             <p
-              className="mb-4 text-[15px] leading-relaxed"
-              style={{ ...bodyTextStyle }}
+              
+              className={cn("mb-4 text-[15px] leading-relaxed", "font-[var(--font-body)] text-[var(--color-text-secondary)]")}
             >
               Let us know about:
             </p>
             <ul
-              style={{
-                margin: 0,
-                paddingLeft: 20,
-                listStyle: "disc",
-                color: "var(--color-text-secondary)",
-                fontSize: 15,
-                lineHeight: 1.5,
-              }}
+              className="m-0 pl-[20px] text-[var(--color-text-secondary)] text-[15px] leading-[1.5]" style={{ listStyle: "disc" }}
             >
               {[
                 "prescription skincare",
@@ -893,51 +721,35 @@ function PcaWhatToExpect() {
                 "allergies",
                 "any relevant health conditions",
               ].map((i) => (
-                <li key={i} style={{ marginBottom: 6 }}>
+                <li key={i} className="mb-[6px]">
                   {i}
                 </li>
               ))}
             </ul>
             <p
-              className="mt-4 text-[15px] leading-relaxed"
-              style={{ ...bodyTextStyle }}
+              
+              className={cn("mt-4 text-[15px] leading-relaxed", "font-[var(--font-body)] text-[var(--color-text-secondary)]")}
             >
               Your skincare routine may need to be adjusted before treatment.
             </p>
           </div>
 
           <div
-            style={{
-              background: "#fff",
-              border: "1px solid var(--color-border)",
-              borderRadius: 18,
-              padding: "36px 30px",
-            }}
+            className="bg-[#fff] rounded-[18px] pt-[36px] pr-[30px] pb-[36px] pl-[30px]" style={{ border: "1px solid var(--color-border)" }}
           >
             <h4
-              style={{
-                ...displayHeadingStyle,
-                fontSize: 24,
-                margin: "0 0 14px",
-              }}
+              className="font-[var(--font-display)] font-normal text-[var(--color-text-primary)] text-[24px] mt-0 mr-0 mb-[14px] ml-0"
             >
               Immediately After
             </h4>
             <p
-              className="mb-4 text-[15px] leading-relaxed"
-              style={{ ...bodyTextStyle }}
+              
+              className={cn("mb-4 text-[15px] leading-relaxed", "font-[var(--font-body)] text-[var(--color-text-secondary)]")}
             >
               Depending on the peel and your skin, you may experience:
             </p>
             <ul
-              style={{
-                margin: 0,
-                paddingLeft: 20,
-                listStyle: "disc",
-                color: "var(--color-text-secondary)",
-                fontSize: 15,
-                lineHeight: 1.5,
-              }}
+              className="m-0 pl-[20px] text-[var(--color-text-secondary)] text-[15px] leading-[1.5]" style={{ listStyle: "disc" }}
             >
               {[
                 "temporary redness",
@@ -946,52 +758,36 @@ function PcaWhatToExpect() {
                 "sensitivity",
                 "visible flaking or peeling",
               ].map((i) => (
-                <li key={i} style={{ marginBottom: 6 }}>
+                <li key={i} className="mb-[6px]">
                   {i}
                 </li>
               ))}
             </ul>
             <p
-              className="mt-4 text-[15px] leading-relaxed"
-              style={{ ...bodyTextStyle }}
+              
+              className={cn("mt-4 text-[15px] leading-relaxed", "font-[var(--font-body)] text-[var(--color-text-secondary)]")}
             >
               Not everyone visibly peels.
             </p>
           </div>
 
           <div
-            style={{
-              background: "#fff",
-              border: "1px solid var(--color-border)",
-              borderRadius: 18,
-              padding: "36px 30px",
-            }}
+            className="bg-[#fff] rounded-[18px] pt-[36px] pr-[30px] pb-[36px] pl-[30px]" style={{ border: "1px solid var(--color-border)" }}
           >
             <h4
-              style={{
-                ...displayHeadingStyle,
-                fontSize: 24,
-                margin: "0 0 14px",
-              }}
+              className="font-[var(--font-display)] font-normal text-[var(--color-text-primary)] text-[24px] mt-0 mr-0 mb-[14px] ml-0"
             >
               During Recovery
             </h4>
             <p
-              className="mb-4 text-[15px] leading-relaxed"
-              style={{ ...bodyTextStyle }}
+              
+              className={cn("mb-4 text-[15px] leading-relaxed", "font-[var(--font-body)] text-[var(--color-text-secondary)]")}
             >
               Follow your personalized aftercare instructions carefully.
               Generally:
             </p>
             <ul
-              style={{
-                margin: 0,
-                paddingLeft: 20,
-                listStyle: "disc",
-                color: "var(--color-text-secondary)",
-                fontSize: 15,
-                lineHeight: 1.5,
-              }}
+              className="m-0 pl-[20px] text-[var(--color-text-secondary)] text-[15px] leading-[1.5]" style={{ listStyle: "disc" }}
             >
               {[
                 "treat the skin gently",
@@ -1001,7 +797,7 @@ function PcaWhatToExpect() {
                 "avoid harsh exfoliating products until instructed",
                 "keep the skin appropriately moisturized",
               ].map((i) => (
-                <li key={i} style={{ marginBottom: 6 }}>
+                <li key={i} className="mb-[6px]">
                   {i}
                 </li>
               ))}

@@ -10,6 +10,8 @@ import * as NavDropdownModule from "@/components/design-system/navigation/NavDro
 import type { NavDropdownProps } from "@/components/design-system/navigation/NavDropdown";
 import * as PhoneCalloutModule from "@/components/design-system/navigation/PhoneCallout";
 import type { PhoneCalloutProps } from "@/components/design-system/navigation/PhoneCallout";
+import { cn } from "@/lib/utils";
+
 
 const Button = (ButtonModule as unknown as { Button: React.FC<ButtonProps> })
   .Button;
@@ -32,14 +34,7 @@ const serviceItems = [
 
 const moreItems = ["FAQ", "Careers", "Contact"];
 
-const desktopLinkStyle = {
-  color: "var(--color-text-primary)",
-  textDecoration: "none",
-  fontSize: 16,
-  fontWeight: 500,
-  fontFamily: "var(--font-body)",
-  whiteSpace: "nowrap" as const,
-};
+const desktopLinkStyle = "text-[var(--color-text-primary)] no-underline text-[16px] font-medium font-[var(--font-body)] whitespace-nowrap";
 
 const mobileLinkStyle = {
   display: "block" as const,
@@ -66,52 +61,30 @@ export default function Header() {
 
   return (
     <header
-      style={{
-        position: "relative",
-        zIndex: 50,
-        display: "flex",
-        flexWrap: "wrap",
-        alignItems: "center",
-        justifyContent: "space-between",
-        gap: 16,
-        padding: "20px 28px",
-        background: "var(--olive-100)",
-        borderBottom: "1px solid var(--color-border)",
-      }}
+      className="relative z-[50] flex flex-wrap items-center justify-between gap-[16px] pt-[20px] pr-[28px] pb-[20px] pl-[28px] bg-[var(--olive-100)]" style={{ borderBottom: "1px solid var(--color-border)" }}
     >
       <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: 56,
-          flex: "1 1 auto",
-          minWidth: 0,
-        }}
+        className="flex items-center gap-[56px] flex-[1_1_auto] min-w-0"
       >
         <Link href="/" style={{ flexShrink: 0 }}>
           <img
             src="/assets/logo.png"
             alt="Smooth Skin Niagara"
-            style={{ height: 64, display: "block" }}
+            className="h-[64px] block"
           />
         </Link>
         <nav
-          className="hidden lg:flex"
-          style={{
-            alignItems: "center",
-            gap: 32,
-            fontSize: 16,
-            minWidth: 0,
-          }}
+          
+          className={cn("hidden lg:flex", "items-center gap-[32px] text-[16px] min-w-0")}
         >
           <NavDropdown label="Services" items={serviceItems} />
-          <a href="#" style={desktopLinkStyle}>
+          <a href="#" className="text-[var(--color-text-primary)] no-underline text-[16px] font-medium font-[var(--font-body)] whitespace-nowrap">
             About
           </a>
-          <a href="#" style={desktopLinkStyle}>
+          <a href="#" className="text-[var(--color-text-primary)] no-underline text-[16px] font-medium font-[var(--font-body)] whitespace-nowrap">
             Results
           </a>
-          <a href="#" style={desktopLinkStyle}>
+          <a href="#" className="text-[var(--color-text-primary)] no-underline text-[16px] font-medium font-[var(--font-body)] whitespace-nowrap">
             Pricing
           </a>
           <NavDropdown label="More" items={moreItems} />
@@ -119,8 +92,8 @@ export default function Header() {
       </div>
 
       <div
-        className="hidden lg:flex"
-        style={{ alignItems: "center", gap: 28, flexShrink: 0 }}
+        
+        className={cn("hidden lg:flex", "items-center gap-[28px] shrink-0")}
       >
         <PhoneCallout />
         <Button variant="primary" size="sm">
@@ -131,44 +104,26 @@ export default function Header() {
 
       <button
         type="button"
-        className="flex lg:hidden"
+        
         aria-label={open ? "Close menu" : "Open menu"}
         aria-expanded={open}
         onClick={() => setOpen((prev) => !prev)}
-        style={{
-          alignItems: "center",
-          justifyContent: "center",
-          width: 44,
-          height: 44,
-          borderRadius: 12,
-          border: "1px solid var(--color-border)",
-          background: "var(--olive-100)",
-          color: "var(--color-text-primary)",
-          cursor: "pointer",
-        }}
+        className={cn("flex lg:hidden", "items-center justify-center w-[44px] h-[44px] rounded-[12px] bg-[var(--olive-100)] text-[var(--color-text-primary)] cursor-pointer")} style={{ border: "1px solid var(--color-border)" }}
       >
         {open ? <X size={24} /> : <Menu size={24} />}
       </button>
 
       {open && (
         <div
-          className="flex lg:hidden"
+          
           onClick={(e) => {
             if (e.currentTarget === e.target) {
               setOpen(false);
             }
           }}
-          style={{
-            position: "fixed",
-            inset: 0,
-            zIndex: 40,
-            background: "var(--olive-100)",
-            padding: "92px 28px 28px",
-            overflowY: "auto",
-            flexDirection: "column",
-          }}
+          className={cn("flex lg:hidden", "fixed z-[40] bg-[var(--olive-100)] pt-[92px] pr-[28px] pb-[28px] pl-[28px] flex-col")} style={{ inset: 0, overflowY: "auto" }}
         >
-          <nav style={{ display: "flex", flexDirection: "column" }}>
+          <nav className="flex flex-col">
             {serviceItems.map((item) => (
               <a
                 key={item.label}
@@ -203,13 +158,7 @@ export default function Header() {
           </nav>
 
           <div
-            style={{
-              marginTop: "auto",
-              paddingTop: 32,
-              display: "flex",
-              flexDirection: "column",
-              gap: 16,
-            }}
+            className="mt-[auto] pt-[32px] flex flex-col gap-[16px]"
           >
             <PhoneCallout />
             <Button

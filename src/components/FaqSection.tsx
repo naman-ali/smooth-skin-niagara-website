@@ -281,12 +281,7 @@ const defaultCategories: {
               grows, including:
             </p>
             <ul
-              style={{
-                margin: 0,
-                paddingLeft: 20,
-                listStyle: "disc",
-                color: "var(--color-text-secondary)",
-              }}
+              className="m-0 pl-[20px] text-[var(--color-text-secondary)]" style={{ listStyle: "disc" }}
             >
               <li>Face</li>
               <li>Chin</li>
@@ -435,12 +430,7 @@ const defaultCategories: {
           <>
             <p>Please let us know about any:</p>
             <ul
-              style={{
-                margin: 0,
-                paddingLeft: 20,
-                listStyle: "disc",
-                color: "var(--color-text-secondary)",
-              }}
+              className="m-0 pl-[20px] text-[var(--color-text-secondary)]" style={{ listStyle: "disc" }}
             >
               <li>Medications</li>
               <li>Prescription skincare</li>
@@ -524,12 +514,7 @@ const defaultCategories: {
           <>
             <p>Your consultation gives us an opportunity to understand your:</p>
             <ul
-              style={{
-                margin: 0,
-                paddingLeft: 20,
-                listStyle: "disc",
-                color: "var(--color-text-secondary)",
-              }}
+              className="m-0 pl-[20px] text-[var(--color-text-secondary)]" style={{ listStyle: "disc" }}
             >
               <li>Skin</li>
               <li>Hair</li>
@@ -538,12 +523,7 @@ const defaultCategories: {
             </ul>
             <p>We will discuss:</p>
             <ul
-              style={{
-                margin: 0,
-                paddingLeft: 20,
-                listStyle: "disc",
-                color: "var(--color-text-secondary)",
-              }}
+              className="m-0 pl-[20px] text-[var(--color-text-secondary)]" style={{ listStyle: "disc" }}
             >
               <li>Expected results</li>
               <li>How many treatments you may need</li>
@@ -566,12 +546,7 @@ const defaultCategories: {
               advanced diode laser system combining three wavelengths:
             </p>
             <ul
-              style={{
-                margin: 0,
-                paddingLeft: 20,
-                listStyle: "disc",
-                color: "var(--color-text-secondary)",
-              }}
+              className="m-0 pl-[20px] text-[var(--color-text-secondary)]" style={{ listStyle: "disc" }}
             >
               <li>
                 <strong>755 nm</strong>
@@ -615,7 +590,7 @@ function CategoryNav({
   onSelect: (index: number) => void;
 }) {
   return (
-    <nav style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+    <nav className="flex flex-col gap-[12px]">
       {categories.map((cat, i) => {
         const isActive = i === activeCategory;
         const Icon = cat.icon;
@@ -623,21 +598,9 @@ function CategoryNav({
           <button
             key={cat.id}
             onClick={() => onSelect(i)}
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: 14,
-              width: "100%",
-              padding: "18px 20px",
-              textAlign: "left",
-              background: isActive ? "var(--olive-100)" : "transparent",
-              border: isActive
+            className="flex items-center gap-[14px] w-full pt-[18px] pr-[20px] pb-[18px] pl-[20px] text-left rounded-[14px] cursor-pointer" style={{ background: isActive ? "var(--olive-100)" : "transparent", border: isActive
                 ? "1px solid var(--olive-200)"
-                : "1px solid var(--color-border)",
-              borderRadius: 14,
-              cursor: "pointer",
-              transition: "all 0.15s ease",
-            }}
+                : "1px solid var(--color-border)", transition: "all 0.15s ease" }}
           >
             <span
               style={{
@@ -654,28 +617,16 @@ function CategoryNav({
                 }
               />
             </span>
-            <span style={{ flex: 1, minWidth: 0 }}>
+            <span className="flex-1 min-w-0">
               <span
-                style={{
-                  display: "block",
-                  fontFamily: "var(--font-body)",
-                  fontSize: 15,
-                  fontWeight: 600,
-                  color: isActive
+                className="block font-[var(--font-body)] text-[15px] font-semibold" style={{ color: isActive
                     ? "var(--color-text-primary)"
-                    : "var(--color-text-secondary)",
-                }}
+                    : "var(--color-text-secondary)" }}
               >
                 {cat.heading}
               </span>
               <span
-                style={{
-                  display: "block",
-                  fontFamily: "var(--font-body)",
-                  fontSize: 13,
-                  color: "var(--color-text-secondary)",
-                  marginTop: 2,
-                }}
+                className="block font-[var(--font-body)] text-[13px] text-[var(--color-text-secondary)] mt-[2px]"
               >
                 {cat.description}
               </span>
@@ -710,15 +661,7 @@ function MobileTabs({
 }) {
   return (
     <div
-      style={{
-        display: "flex",
-        gap: 10,
-        overflowX: "auto",
-        paddingBottom: 8,
-        marginBottom: 24,
-        scrollbarWidth: "none",
-        msOverflowStyle: "none",
-      }}
+      className="flex gap-[10px] pb-[8px] mb-[24px]" style={{ overflowX: "auto", scrollbarWidth: "none", msOverflowStyle: "none" }}
     >
       {categories.map((cat, i) => {
         const isActive = i === activeCategory;
@@ -726,24 +669,11 @@ function MobileTabs({
           <button
             key={cat.id}
             onClick={() => onSelect(i)}
-            style={{
-              flex: "0 0 auto",
-              padding: "12px 20px",
-              minHeight: 44,
-              borderRadius: 999,
-              border: isActive
+            className="flex-[0_0_auto] pt-[12px] pr-[20px] pb-[12px] pl-[20px] min-h-[44px] rounded-[999px] font-[var(--font-body)] text-[14px] font-semibold whitespace-nowrap cursor-pointer" style={{ border: isActive
                 ? "1px solid var(--cta-primary-bg)"
-                : "1px solid var(--color-border)",
-              background: isActive ? "var(--cta-primary-bg)" : "#fff",
-              color: isActive
+                : "1px solid var(--color-border)", background: isActive ? "var(--cta-primary-bg)" : "#fff", color: isActive
                 ? "var(--cta-primary-text)"
-                : "var(--color-text-primary)",
-              fontFamily: "var(--font-body)",
-              fontSize: 14,
-              fontWeight: 600,
-              whiteSpace: "nowrap",
-              cursor: "pointer",
-            }}
+                : "var(--color-text-primary)" }}
           >
             {cat.heading}
           </button>
@@ -756,35 +686,15 @@ function MobileTabs({
 function ConsultationCard({ mobile = false }: { mobile?: boolean }) {
   return (
     <div
-      style={{
-        marginTop: mobile ? 40 : 0,
-        padding: mobile ? "28px 20px" : "28px 24px",
-        background: "#fff",
-        border: "1px solid var(--color-border)",
-        borderRadius: 16,
-        boxShadow: "0 2px 14px rgba(0,0,0,0.04)",
-        textAlign: mobile ? "center" : "left",
-      }}
+      className="bg-[#fff] rounded-[16px]" style={{ marginTop: mobile ? 40 : 0, padding: mobile ? "28px 20px" : "28px 24px", border: "1px solid var(--color-border)", boxShadow: "0 2px 14px rgba(0,0,0,0.04)", textAlign: mobile ? "center" : "left" }}
     >
       <h4
-        style={{
-          fontFamily: "var(--font-display)",
-          fontSize: mobile ? 22 : 20,
-          fontWeight: 500,
-          color: "var(--color-text-primary)",
-          margin: "0 0 10px",
-        }}
+        className="font-[var(--font-display)] font-medium text-[var(--color-text-primary)] mt-0 mr-0 mb-[10px] ml-0" style={{ fontSize: mobile ? 22 : 20 }}
       >
         Still have a question?
       </h4>
       <p
-        style={{
-          fontFamily: "var(--font-body)",
-          fontSize: 15,
-          lineHeight: 1.6,
-          color: "var(--color-text-secondary)",
-          margin: "0 0 20px",
-        }}
+        className="font-[var(--font-body)] text-[15px] leading-[1.6] text-[var(--color-text-secondary)] mt-0 mr-0 mb-[20px] ml-0"
       >
         We are happy to help. Call, text, or book a free consultation and we
         will answer anything you are unsure about.
@@ -794,25 +704,12 @@ function ConsultationCard({ mobile = false }: { mobile?: boolean }) {
       </Button>
       <a
         href="tel:+19059207229"
-        style={{
-          display: "block",
-          marginTop: 16,
-          fontFamily: "var(--font-body)",
-          fontSize: 16,
-          fontWeight: 600,
-          color: "var(--color-brand-primary)",
-          textDecoration: "none",
-        }}
+        className="block mt-[16px] font-[var(--font-body)] text-[16px] font-semibold text-[var(--color-brand-primary)] no-underline"
       >
         (905) 920-7229
       </a>
       <span
-        style={{
-          display: "block",
-          fontFamily: "var(--font-body)",
-          fontSize: 13,
-          color: "var(--color-text-secondary)",
-        }}
+        className="block font-[var(--font-body)] text-[13px] text-[var(--color-text-secondary)]"
       >
         Call or Text
       </span>
@@ -847,48 +744,22 @@ function QuestionItem({
   return (
     <div onClick={onClick} style={baseStyle}>
       <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          gap: compact ? 14 : 16,
-        }}
+        className="flex items-center justify-between" style={{ gap: compact ? 14 : 16 }}
       >
         <h4
-          style={{
-            fontFamily: "var(--font-body)",
-            fontSize: compact ? 15 : 16,
-            fontWeight: 600,
-            color: "var(--color-text-primary)",
-            margin: 0,
-            lineHeight: 1.4,
-          }}
+          className="font-[var(--font-body)] font-semibold text-[var(--color-text-primary)] m-0 leading-[1.4]" style={{ fontSize: compact ? 15 : 16 }}
         >
           {question.q}
         </h4>
         <span
-          style={{
-            flexShrink: 0,
-            fontFamily: "var(--font-body)",
-            fontSize: compact ? 20 : 22,
-            color: "var(--color-brand-primary)",
-            lineHeight: 1,
-          }}
+          className="shrink-0 font-[var(--font-body)] text-[var(--color-brand-primary)] leading-[1]" style={{ fontSize: compact ? 20 : 22 }}
         >
           {isOpen ? "−" : "+"}
         </span>
       </div>
       {isOpen && (
         <div
-          style={{
-            marginTop: compact ? 12 : 14,
-            paddingTop: compact ? 14 : 18,
-            borderTop: "1px solid var(--color-border)",
-            fontFamily: "var(--font-body)",
-            fontSize: compact ? 16 : 15,
-            lineHeight: compact ? 1.6 : 1.65,
-            color: "var(--color-text-secondary)",
-          }}
+          className="font-[var(--font-body)] text-[var(--color-text-secondary)]" style={{ marginTop: compact ? 12 : 14, paddingTop: compact ? 14 : 18, borderTop: "1px solid var(--color-border)", fontSize: compact ? 16 : 15, lineHeight: compact ? 1.6 : 1.65 }}
         >
           {question.a}
         </div>
@@ -920,65 +791,30 @@ export function FaqSection({
   };
 
   return (
-    <section style={{ padding: "90px 53px", background: "var(--olive-50)" }}>
+    <section className="pt-[90px] pr-[53px] pb-[90px] pl-[53px] bg-[var(--olive-50)]">
       <div
-        style={{
-          position: "relative",
-          maxWidth: "var(--container-max)",
-          margin: "0 auto",
-        }}
+        className="relative max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto"
       >
-        <div style={{ textAlign: "center", marginBottom: 56 }}>
+        <div className="text-center mb-[56px]">
           <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: 13,
-              marginBottom: 22,
-            }}
+            className="flex items-center justify-center gap-[13px] mb-[22px]"
           >
             <span
-              style={{
-                fontFamily: "var(--font-body)",
-                fontSize: 12,
-                letterSpacing: "0.16em",
-                textTransform: "uppercase",
-                color: "var(--color-brand-primary)",
-                fontWeight: 700,
-              }}
+              className="font-[var(--font-body)] text-[12px] tracking-[0.16em] uppercase text-[var(--color-brand-primary)] font-bold"
             >
               {eyebrow}
             </span>
             <span
-              style={{
-                width: 48,
-                height: 1,
-                background: "var(--color-border-strong)",
-              }}
+              className="w-[48px] h-[1px] bg-[var(--color-border-strong)]"
             />
           </div>
           <h2
-            style={{
-              fontFamily: "var(--font-display)",
-              fontWeight: 400,
-              fontSize: 48,
-              lineHeight: 1.1,
-              color: "var(--color-text-primary)",
-              margin: "0 0 16px",
-            }}
+            className="font-[var(--font-display)] font-normal text-[48px] leading-[1.1] text-[var(--color-text-primary)] mt-0 mr-0 mb-[16px] ml-0"
           >
             {heading}
           </h2>
           <p
-            style={{
-              fontFamily: "var(--font-body)",
-              fontSize: 17,
-              lineHeight: 1.6,
-              color: "var(--color-text-secondary)",
-              margin: "0 auto",
-              maxWidth: 620,
-            }}
+            className="font-[var(--font-body)] text-[17px] leading-[1.6] text-[var(--color-text-secondary)] mt-0 mr-auto mb-0 ml-auto max-w-[620px]"
           >
             {subheading}
           </p>
@@ -986,19 +822,10 @@ export function FaqSection({
 
         {isDesktop ? (
           <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "minmax(280px, 30%) 1fr",
-              gap: 56,
-              alignItems: "start",
-            }}
+            className="grid gap-[56px] items-start" style={{ gridTemplateColumns: "minmax(280px, 30%) 1fr" }}
           >
             <div
-              style={{
-                position: "sticky" as const,
-                top: 40,
-                alignSelf: "start",
-              }}
+              className="sticky top-[40px]" style={{ alignSelf: "start" }}
             >
               <CategoryNav
                 categories={categories}
@@ -1006,17 +833,17 @@ export function FaqSection({
                 onSelect={selectCategory}
               />
               {cta === undefined && (
-                <div style={{ marginTop: 24 }}>
+                <div className="mt-[24px]">
                   <ConsultationCard />
                 </div>
               )}
               {cta !== undefined && cta !== null && (
-                <div style={{ marginTop: 24 }}>{cta}</div>
+                <div className="mt-[24px]">{cta}</div>
               )}
             </div>
             <div>
               <div
-                style={{ display: "flex", flexDirection: "column", gap: 14 }}
+                className="flex flex-col gap-[14px]"
               >
                 {current.questions.map((item, i) => {
                   const isOpen = openQuestion === i;
@@ -1039,7 +866,7 @@ export function FaqSection({
               activeCategory={activeCategory}
               onSelect={selectCategory}
             />
-            <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+            <div className="flex flex-col gap-[12px]">
               {current.questions.map((item, i) => {
                 const isOpen = openQuestion === i;
                 return (

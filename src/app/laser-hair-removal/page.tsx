@@ -154,96 +154,47 @@ const Check = () => (
 function Hero() {
   return (
     <section
-      style={{
-        position: "relative",
-        padding: "80px 53px 70px",
-        overflow: "hidden",
-        borderBottom: "2px solid #bfae97",
-      }}
+      className="relative pt-[80px] pr-[53px] pb-[70px] pl-[53px] overflow-hidden" style={{ borderBottom: "2px solid #bfae97" }}
     >
       <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          backgroundImage: "url(/assets/hero-treatment-olive.png)",
-          backgroundSize: "cover",
-          backgroundPosition: "right center",
-        }}
+        className="absolute bg-[url('/assets/hero-treatment-olive.png')] bg-cover" style={{ inset: 0, backgroundPosition: "right center" }}
       />
       <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          backgroundImage:
-            "linear-gradient(to right, var(--olive-50) 0%, var(--olive-50) 44%, transparent 66%)",
-        }}
+        className="absolute bg-[linear-gradient(toright,var(--olive-50)0%,var(--olive-50)44%,transparent66%)]" style={{ inset: 0 }}
       />
       <div
-        style={{
-          position: "relative",
-          maxWidth: "var(--container-max)",
-          margin: "0 auto",
-        }}
+        className="relative max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto"
       >
-        <div style={{ maxWidth: "42%", minWidth: 320 }}>
+        <div className="max-w-[42%] min-w-[320px]">
           <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: 13,
-              marginBottom: 31,
-            }}
+            className="flex items-center gap-[13px] mb-[31px]"
           >
             <span
-              style={{
-                fontFamily: "var(--font-body)",
-                fontSize: 12,
-                letterSpacing: "0.16em",
-                textTransform: "uppercase",
-                color: "var(--color-brand-primary)",
-                fontWeight: 700,
-              }}
+              className="font-[var(--font-body)] text-[12px] tracking-[0.16em] uppercase text-[var(--color-brand-primary)] font-bold"
             >
               Niagara{" "}
-              <span style={{ color: "var(--color-brand-deep)" }}>
+              <span className="text-[var(--color-brand-deep)]">
                 Laser Hair Removal
               </span>
             </span>
             <span
-              style={{
-                width: 48,
-                height: 1,
-                background: "var(--color-border-strong)",
-              }}
+              className="w-[48px] h-[1px] bg-[var(--color-border-strong)]"
             />
           </div>
           <h1
-            style={{
-              fontFamily: "var(--font-display)",
-              fontWeight: 400,
-              fontSize: 80,
-              lineHeight: 1.05,
-              color: "var(--color-text-primary)",
-              margin: "0 0 31px",
-            }}
+            className="font-[var(--font-display)] font-normal text-[80px] leading-[1.05] text-[var(--color-text-primary)] mt-0 mr-0 mb-[31px] ml-0"
           >
             Confident Skin.
             <br />
             Every Day.
           </h1>
           <p
-            style={{
-              fontFamily: "var(--font-body)",
-              fontSize: 20,
-              lineHeight: 1.6,
-              color: "var(--color-text-secondary)",
-              margin: "0 0 40px",
-            }}
+            className="font-[var(--font-body)] text-[20px] leading-[1.6] text-[var(--color-text-secondary)] mt-0 mr-0 mb-[40px] ml-0"
           >
             Advanced laser technology meets personalized care for long-lasting
             results and beautifully smooth skin.
           </p>
-          <div style={{ display: "flex", gap: 16, marginBottom: 31 }}>
+          <div className="flex gap-[16px] mb-[31px]">
             <Button variant="primary" icon={<Arrow />}>
               Book Your Free Consultation
             </Button>
@@ -253,11 +204,7 @@ function Hero() {
         </div>
       </div>
       <div
-        style={{
-          position: "relative",
-          maxWidth: "var(--container-max)",
-          margin: "62px auto 0",
-        }}
+        className="relative max-w-[var(--container-max)] mt-[62px] mr-auto mb-0 ml-auto"
       >
         <TrustStrip
           items={[
@@ -299,41 +246,15 @@ function FeatureCard({
 }) {
   return (
     <div
-      style={{
-        display: "flex",
-        flexDirection: align === "left" ? "row" : "row-reverse",
-        alignItems: "center",
-        gap: 16,
-        padding: "20px 22px",
-        border: "1px solid var(--color-border)",
-        borderRadius: 14,
-        background: "var(--olive-50)",
-        textAlign: align,
-      }}
+      className="flex items-center gap-[16px] pt-[20px] pr-[22px] pb-[20px] pl-[22px] rounded-[14px] bg-[var(--olive-50)]" style={{ flexDirection: align === "left" ? "row" : "row-reverse", border: "1px solid var(--color-border)", textAlign: align }}
     >
       <span
-        style={{
-          width: 44,
-          height: 44,
-          borderRadius: "50%",
-          border: "1px solid var(--color-brand-primary)",
-          color: "var(--color-brand-primary)",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          flexShrink: 0,
-        }}
+        className="w-[44px] h-[44px] rounded-[50%] text-[var(--color-brand-primary)] flex items-center justify-center shrink-0" style={{ border: "1px solid var(--color-brand-primary)" }}
       >
         {icon}
       </span>
       <p
-        style={{
-          fontFamily: "var(--font-body)",
-          fontSize: 15,
-          lineHeight: 1.5,
-          color: "var(--color-text-primary)",
-          margin: 0,
-        }}
+        className="font-[var(--font-body)] text-[15px] leading-[1.5] text-[var(--color-text-primary)] m-0"
       >
         {children}
       </p>
@@ -399,90 +320,41 @@ function TechnologySection() {
 
   return (
     <section
-      style={{
-        padding: "90px 53px",
-        background: "var(--olive-50)",
-      }}
+      className="pt-[90px] pr-[53px] pb-[90px] pl-[53px] bg-[var(--olive-50)]"
     >
       <div
-        style={{
-          maxWidth: "var(--container-max)",
-          margin: "0 auto",
-        }}
+        className="max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto"
       >
-        <div style={{ textAlign: "center", marginBottom: 56 }}>
+        <div className="text-center mb-[56px]">
           <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: 13,
-              marginBottom: 22,
-            }}
+            className="flex items-center justify-center gap-[13px] mb-[22px]"
           >
             <span
-              style={{
-                fontFamily: "var(--font-body)",
-                fontSize: 12,
-                letterSpacing: "0.16em",
-                textTransform: "uppercase",
-                color: "var(--color-brand-primary)",
-                fontWeight: 700,
-              }}
+              className="font-[var(--font-body)] text-[12px] tracking-[0.16em] uppercase text-[var(--color-brand-primary)] font-bold"
             >
               Advanced Laser Technology
             </span>
             <span
-              style={{
-                width: 48,
-                height: 1,
-                background: "var(--color-border-strong)",
-              }}
+              className="w-[48px] h-[1px] bg-[var(--color-border-strong)]"
             />
           </div>
           <h2
-            style={{
-              fontFamily: "var(--font-display)",
-              fontWeight: 400,
-              fontSize: 48,
-              lineHeight: 1.1,
-              color: "var(--color-text-primary)",
-              margin: "0 0 16px",
-            }}
+            className="font-[var(--font-display)] font-normal text-[48px] leading-[1.1] text-[var(--color-text-primary)] mt-0 mr-0 mb-[16px] ml-0"
           >
             Meet the Soprano ICE Platinum
           </h2>
           <p
-            style={{
-              fontFamily: "var(--font-body)",
-              fontSize: 17,
-              lineHeight: 1.6,
-              color: "var(--color-text-secondary)",
-              margin: "0 auto",
-              maxWidth: 560,
-            }}
+            className="font-[var(--font-body)] text-[17px] leading-[1.6] text-[var(--color-text-secondary)] mt-0 mr-auto mb-0 ml-auto max-w-[560px]"
           >
             Three laser wavelengths in one advanced system with built-in cooling
             for comfortable, effective results.
           </p>
         </div>
         <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: 32,
-            flexWrap: "wrap",
-          }}
+          className="flex items-center justify-center gap-[32px] flex-wrap"
         >
           <div
-            style={{
-              flex: "1 1 280px",
-              maxWidth: 340,
-              display: "flex",
-              flexDirection: "column",
-              gap: 18,
-            }}
+            className="flex-[1_1_280px] max-w-[340px] flex flex-col gap-[18px]"
           >
             {leftFeatures.map((f, i) => (
               <FeatureCard key={i} icon={f.icon} align="left">
@@ -491,27 +363,16 @@ function TechnologySection() {
             ))}
           </div>
           <div
-            style={{
-              flex: "0 1 320px",
-              minWidth: 220,
-              display: "flex",
-              justifyContent: "center",
-            }}
+            className="flex-[0_1_320px] min-w-[220px] flex justify-center"
           >
             <img
               src="/assets/smooth-skin-tech.png"
               alt="Soprano ICE Platinum laser device"
-              style={{ width: "100%", maxWidth: 300, height: "auto" }}
+              className="w-full max-w-[300px] h-auto"
             />
           </div>
           <div
-            style={{
-              flex: "1 1 280px",
-              maxWidth: 340,
-              display: "flex",
-              flexDirection: "column",
-              gap: 18,
-            }}
+            className="flex-[1_1_280px] max-w-[340px] flex flex-col gap-[18px]"
           >
             {rightFeatures.map((f, i) => (
               <FeatureCard key={i} icon={f.icon} align="right">
@@ -520,7 +381,7 @@ function TechnologySection() {
             ))}
           </div>
         </div>
-        <div style={{ textAlign: "center", marginTop: 48 }}>
+        <div className="text-center mt-[48px]">
           <Button variant="primary" icon={<Arrow />}>
             Explore Laser Hair Removal
           </Button>
@@ -541,123 +402,56 @@ function TreatmentAreas() {
   ];
 
   return (
-    <section style={{ padding: "90px 53px", background: "var(--olive-100)" }}>
+    <section className="pt-[90px] pr-[53px] pb-[90px] pl-[53px] bg-[var(--olive-100)]">
       <div
-        style={{
-          maxWidth: "var(--container-max)",
-          margin: "0 auto",
-        }}
+        className="max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto"
       >
-        <div style={{ textAlign: "center", marginBottom: 56 }}>
+        <div className="text-center mb-[56px]">
           <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: 13,
-              marginBottom: 22,
-            }}
+            className="flex items-center justify-center gap-[13px] mb-[22px]"
           >
             <span
-              style={{
-                fontFamily: "var(--font-body)",
-                fontSize: 12,
-                letterSpacing: "0.16em",
-                textTransform: "uppercase",
-                color: "var(--color-brand-primary)",
-                fontWeight: 700,
-              }}
+              className="font-[var(--font-body)] text-[12px] tracking-[0.16em] uppercase text-[var(--color-brand-primary)] font-bold"
             >
               Treatment Areas
             </span>
             <span
-              style={{
-                width: 48,
-                height: 1,
-                background: "var(--color-border-strong)",
-              }}
+              className="w-[48px] h-[1px] bg-[var(--color-border-strong)]"
             />
           </div>
           <h2
-            style={{
-              fontFamily: "var(--font-display)",
-              fontWeight: 400,
-              fontSize: 48,
-              lineHeight: 1.1,
-              color: "var(--color-text-primary)",
-              margin: "0 0 16px",
-            }}
+            className="font-[var(--font-display)] font-normal text-[48px] leading-[1.1] text-[var(--color-text-primary)] mt-0 mr-0 mb-[16px] ml-0"
           >
             Smooth Skin, Anywhere You Want It
           </h2>
           <p
-            style={{
-              fontFamily: "var(--font-body)",
-              fontSize: 17,
-              lineHeight: 1.6,
-              color: "var(--color-text-secondary)",
-              margin: "0 auto",
-              maxWidth: 560,
-            }}
+            className="font-[var(--font-body)] text-[17px] leading-[1.6] text-[var(--color-text-secondary)] mt-0 mr-auto mb-0 ml-auto max-w-[560px]"
           >
             Personalized laser hair removal treatments for the face, body and
             everything in between.
           </p>
         </div>
         <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
-            gap: 24,
-          }}
+          className="grid gap-[24px]" style={{ gridTemplateColumns: "repeat(3, minmax(0, 1fr))" }}
         >
           {areas.map((area) => (
             <div
               key={area.title}
-              style={{
-                display: "flex",
-                alignItems: "flex-start",
-                gap: 16,
-                padding: "26px 28px",
-                border: "1px solid var(--color-border)",
-                borderRadius: 16,
-                background: "#fff",
-              }}
+              className="flex items-start gap-[16px] pt-[26px] pr-[28px] pb-[26px] pl-[28px] rounded-[16px] bg-[#fff]" style={{ border: "1px solid var(--color-border)" }}
             >
               <span
-                style={{
-                  width: 40,
-                  height: 40,
-                  borderRadius: "50%",
-                  border: "1px solid var(--color-brand-primary)",
-                  color: "var(--color-brand-primary)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  flexShrink: 0,
-                }}
+                className="w-[40px] h-[40px] rounded-[50%] text-[var(--color-brand-primary)] flex items-center justify-center shrink-0" style={{ border: "1px solid var(--color-brand-primary)" }}
               >
                 <Check />
               </span>
               <div>
                 <h4
-                  style={{
-                    fontFamily: "var(--font-display)",
-                    fontSize: 20,
-                    fontWeight: 400,
-                    color: "var(--color-text-primary)",
-                    margin: "0 0 4px",
-                  }}
+                  className="font-[var(--font-display)] text-[20px] font-normal text-[var(--color-text-primary)] mt-0 mr-0 mb-[4px] ml-0"
                 >
                   {area.title}
                 </h4>
                 <p
-                  style={{
-                    fontFamily: "var(--font-body)",
-                    fontSize: 14,
-                    color: "var(--color-text-secondary)",
-                    margin: 0,
-                  }}
+                  className="font-[var(--font-body)] text-[14px] text-[var(--color-text-secondary)] m-0"
                 >
                   {area.sub}
                 </p>

@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useCallback, useRef, useState } from "react";
+import { cn } from "@/lib/utils";
+
 
 export type BeforeAfterProps = {
   beforeSrc: string;
@@ -38,38 +40,20 @@ export function BeforeAfter({
     e.touches[0] && updateFromEvent(e.touches[0].clientX);
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+    <div className="flex flex-col gap-[14px]">
       <div
         ref={containerRef}
         onMouseMove={onMouseMove}
         onTouchMove={onTouchMove}
-        style={{
-          position: "relative",
-          width: "100%",
-          aspectRatio,
-          borderRadius: 14,
-          overflow: "hidden",
-          cursor: "ew-resize",
-          background: "var(--olive-100)",
-          userSelect: "none",
-          WebkitUserSelect: "none",
-        }}
+        className="relative w-full rounded-[14px] overflow-hidden bg-[var(--olive-100)] select-none" style={{ aspectRatio, cursor: "ew-resize", WebkitUserSelect: "none" }}
       >
         {/* Before image as the base layer */}
         <img
           src={beforeSrc}
           alt="Before"
           draggable={false}
-          className={beforeClassName}
-          style={{
-            position: "absolute",
-            inset: 0,
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            objectPosition,
-            pointerEvents: "none",
-          }}
+          
+          className={cn(beforeClassName, "absolute w-full h-[100%] object-cover pointer-events-none")} style={{ inset: 0, objectPosition }}
         />
 
         {/* After image clipped from the right */}
@@ -77,114 +61,37 @@ export function BeforeAfter({
           src={afterSrc}
           alt="After"
           draggable={false}
-          className={afterClassName}
-          style={{
-            position: "absolute",
-            inset: 0,
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            objectPosition,
-            clipPath: `inset(0 0 0 ${percent}%)`,
-            zIndex: 10,
-            pointerEvents: "none",
-          }}
+          
+          className={cn(afterClassName, "absolute w-full h-[100%] object-cover z-[10] pointer-events-none")} style={{ inset: 0, objectPosition, clipPath: `inset(0 0 0 ${percent}%)` }}
         />
 
         {/* Labels */}
         <span
-          style={{
-            position: "absolute",
-            top: 12,
-            left: 12,
-            zIndex: 20,
-            fontFamily: "var(--font-body)",
-            fontSize: 10,
-            fontWeight: 800,
-            letterSpacing: "0.08em",
-            textTransform: "uppercase",
-            color: "#fff",
-            background: "rgba(0,0,0,0.55)",
-            padding: "5px 9px",
-            borderRadius: 6,
-          }}
+          className="absolute top-[12px] left-[12px] z-[20] font-[var(--font-body)] text-[10px] font-extrabold tracking-[0.08em] uppercase text-[#fff] bg-[rgba(0,0,0,0.55)] pt-[5px] pr-[9px] pb-[5px] pl-[9px] rounded-[6px]"
         >
           Before
         </span>
         <span
-          style={{
-            position: "absolute",
-            top: 12,
-            right: 12,
-            zIndex: 20,
-            fontFamily: "var(--font-body)",
-            fontSize: 10,
-            fontWeight: 800,
-            letterSpacing: "0.08em",
-            textTransform: "uppercase",
-            color: "#fff",
-            background: "rgba(0,0,0,0.55)",
-            padding: "5px 9px",
-            borderRadius: 6,
-          }}
+          className="absolute top-[12px] right-[12px] z-[20] font-[var(--font-body)] text-[10px] font-extrabold tracking-[0.08em] uppercase text-[#fff] bg-[rgba(0,0,0,0.55)] pt-[5px] pr-[9px] pb-[5px] pl-[9px] rounded-[6px]"
         >
           After
         </span>
 
         {/* Drag hint */}
         <span
-          style={{
-            position: "absolute",
-            bottom: 12,
-            left: "50%",
-            transform: "translateX(-50%)",
-            zIndex: 20,
-            fontFamily: "var(--font-body)",
-            fontSize: 11,
-            color: "rgba(255,255,255,0.95)",
-            background: "rgba(0,0,0,0.35)",
-            padding: "4px 10px",
-            borderRadius: 12,
-            whiteSpace: "nowrap",
-          }}
+          className="absolute bottom-[12px] left-[50%] z-[20] font-[var(--font-body)] text-[11px] text-[rgba(255,255,255,0.95)] bg-[rgba(0,0,0,0.35)] pt-[4px] pr-[10px] pb-[4px] pl-[10px] rounded-[12px] whitespace-nowrap" style={{ transform: "translateX(-50%)" }}
         >
           Hover to reveal
         </span>
 
         {/* Slider line */}
         <div
-          style={{
-            position: "absolute",
-            top: 0,
-            bottom: 0,
-            left: `${percent}%`,
-            width: 2,
-            transform: "translateX(-50%)",
-            background: "rgba(255,255,255,0.95)",
-            zIndex: 30,
-            boxShadow: "0 0 6px rgba(0,0,0,0.2)",
-            pointerEvents: "none",
-          }}
+          className="absolute top-0 bottom-0 w-[2px] bg-[rgba(255,255,255,0.95)] z-[30] pointer-events-none" style={{ left: `${percent}%`, transform: "translateX(-50%)", boxShadow: "0 0 6px rgba(0,0,0,0.2)" }}
         />
 
         {/* Drag handle */}
         <div
-          style={{
-            position: "absolute",
-            top: "50%",
-            left: `${percent}%`,
-            transform: "translate(-50%, -50%)",
-            zIndex: 40,
-            width: 38,
-            height: 38,
-            borderRadius: "50%",
-            background: "#fff",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            boxShadow: "0 2px 10px rgba(0,0,0,0.25)",
-            pointerEvents: "none",
-          }}
+          className="absolute top-[50%] z-[40] w-[38px] h-[38px] rounded-[50%] bg-[#fff] flex items-center justify-center pointer-events-none" style={{ left: `${percent}%`, transform: "translate(-50%, -50%)", boxShadow: "0 2px 10px rgba(0,0,0,0.25)" }}
         >
           <svg
             width="18"
@@ -202,14 +109,7 @@ export function BeforeAfter({
 
       {title ? (
         <h4
-          style={{
-            fontFamily: "var(--font-display)",
-            fontSize: 20,
-            fontWeight: 500,
-            color: "var(--color-text-primary)",
-            margin: 0,
-            textAlign: "center",
-          }}
+          className="font-[var(--font-display)] text-[20px] font-medium text-[var(--color-text-primary)] m-0 text-center"
         >
           {title}
         </h4>

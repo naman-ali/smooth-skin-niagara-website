@@ -219,12 +219,7 @@ export const microneedlingFaqCategories = [
               treatment:
             </p>
             <ul
-              style={{
-                margin: "12px 0 0",
-                paddingLeft: 20,
-                listStyle: "disc",
-                color: "var(--color-text-secondary)",
-              }}
+              className="mt-[12px] mr-0 mb-0 ml-0 pl-[20px] text-[var(--color-text-secondary)]" style={{ listStyle: "disc" }}
             >
               <li>
                 <strong>Hyaluronic Acid</strong> — focused on hydration and
@@ -243,7 +238,7 @@ export const microneedlingFaqCategories = [
                 clinic&apos;s premium advanced renewal option.
               </li>
             </ul>
-            <p style={{ marginTop: 12 }}>
+            <p className="mt-[12px]">
               We&apos;ll help you choose based on your skin rather than
               expecting you to decide from ingredient names alone.
             </p>

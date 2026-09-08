@@ -34,7 +34,7 @@ export default function AboutUsPage() {
                   <span className="h-[1px] w-[48px] bg-[var(--color-border-strong)]" />
                 </div>
 
-                <h1 className="mb-[8px] font-[var(--font-display)] text-[48px] font-medium leading-[1.1] text-[var(--color-text-primary)]">
+                <h1 className="mb-[8px] font-[var(--font-display)] text-[44px] lg:text-[48px] font-medium leading-[1.1] text-[var(--color-text-primary)]">
                   Ashley
                 </h1>
                 <p className="mb-[26px] font-[var(--font-body)] text-[17px] leading-[1.7] text-[var(--color-text-secondary)]">

@@ -9,7 +9,6 @@ import {
 } from "@/lib/reviews";
 import { cn } from "@/lib/utils";
 
-
 const LONG_REVIEW_THRESHOLD = 600;
 const PREVIEW_LENGTH = 130;
 
@@ -59,10 +58,7 @@ function HighlightedText({
     <>
       {parts.map((part, i) =>
         lowered.includes(part.toLowerCase()) ? (
-          <strong
-            key={i}
-            className="font-semibold text-[var(--olive-600)]"
-          >
+          <strong key={i} className="font-semibold text-[var(--olive-600)]">
             {part}
           </strong>
         ) : (
@@ -96,9 +92,14 @@ function NavButton({
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
       aria-label={direction === "prev" ? "Previous review" : "Next review"}
-      className="w-[52px] h-[52px] rounded-[50%] bg-[var(--olive-100)] text-[var(--ink-900)] inline-flex items-center justify-center cursor-pointer shrink-0" style={{ border: `1px solid ${hover ? "var(--olive-600)" : "var(--olive-300)"}`, transition: "border-color 200ms ease, transform 200ms ease", transform: hover
+      className="w-[52px] h-[52px] rounded-[50%] bg-[var(--olive-100)] text-[var(--ink-900)] inline-flex items-center justify-center cursor-pointer shrink-0"
+      style={{
+        border: `1px solid ${hover ? "var(--olive-600)" : "var(--olive-300)"}`,
+        transition: "border-color 200ms ease, transform 200ms ease",
+        transform: hover
           ? `translateX(${direction === "prev" ? -2 : 2}px)`
-          : "none" }}
+          : "none",
+      }}
     >
       <Icon size={20} strokeWidth={1.75} />
     </button>
@@ -159,19 +160,23 @@ export function ReviewsSection({
   return (
     <section
       aria-label="Google Reviews"
-      
-      className={cn("relative overflow-hidden", "bg-[var(--olive-50)] pt-[90px] pr-[24px] pb-[90px] pl-[24px]")}
+      className={cn(
+        "relative overflow-hidden",
+        "bg-[var(--olive-50)] py-16 px-6 lg:py-[90px]",
+      )}
       onKeyDown={onKeyDown}
     >
       {/* Decorative botanical, desktop only */}
       <svg
-        
         width="220"
         height="220"
         viewBox="0 0 220 220"
         fill="none"
         aria-hidden="true"
-        className={cn("pointer-events-none absolute left-0 top-0 hidden lg:block", "opacity-[0.16]")}
+        className={cn(
+          "pointer-events-none absolute left-0 top-0 hidden lg:block",
+          "opacity-[0.16]",
+        )}
       >
         <path
           d="M-10 30 C 60 60, 110 110, 150 200"
@@ -194,26 +199,29 @@ export function ReviewsSection({
       <div className="max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto">
         {/* Header */}
         <div className="text-center hidden">
-          <span
-            className="font-[var(--font-body)] text-[12px] tracking-[0.18em] uppercase text-[var(--olive-600)] font-bold"
-          >
+          <span className="font-[var(--font-body)] text-[12px] tracking-[0.18em] uppercase text-[var(--olive-600)] font-bold">
             Real People &middot; Real Experiences
           </span>
-          <div
-            className="w-[56px] h-[1px] bg-[var(--olive-600)] opacity-[0.4] mt-[14px] mr-auto mb-0 ml-auto"
-          />
+          <div className="w-[56px] h-[1px] bg-[var(--olive-600)] opacity-[0.4] mt-[14px] mr-auto mb-0 ml-auto" />
           <h2
-            
-            className={cn("text-[40px] leading-[1.05] md:text-[56px] lg:text-[62px]", "font-[var(--font-display)] font-normal text-[var(--ink-900)] mt-[22px] mr-0 mb-[18px] ml-0")}
+            className={cn(
+              "text-[40px] leading-[1.05] md:text-[56px] lg:text-[62px]",
+              "font-[var(--font-display)] font-normal text-[var(--ink-900)] mt-[22px] mr-0 mb-[18px] ml-0",
+            )}
           >
             Trusted Care,{" "}
-            <em className="text-[var(--olive-600)]" style={{ fontStyle: "italic" }}>
+            <em
+              className="text-[var(--olive-600)]"
+              style={{ fontStyle: "italic" }}
+            >
               In Their Words.
             </em>
           </h2>
           <p
-            
-            className={cn("mx-auto text-[16px] leading-relaxed lg:text-[17px]", "font-[var(--font-body)] text-[var(--ink-600)] max-w-[680px] mt-0 mr-auto mb-0 ml-auto")}
+            className={cn(
+              "mx-auto text-[16px] leading-relaxed lg:text-[17px]",
+              "font-[var(--font-body)] text-[var(--ink-600)] max-w-[680px] mt-0 mr-auto mb-0 ml-auto",
+            )}
           >
             Real feedback from clients who trust Smooth Skin Niagara with their
             treatments, results and confidence.
@@ -222,8 +230,10 @@ export function ReviewsSection({
 
         {/* Featured review carousel */}
         <div
-          
-          className={cn("relative mx-auto mt-14 flex items-center justify-center gap-6 lg:gap-10", "max-w-[1100px]")}
+          className={cn(
+            "relative mx-auto mt-14 flex items-center justify-center gap-6 lg:gap-10",
+            "max-w-[1100px]",
+          )}
           role="region"
           aria-roledescription="carousel"
           aria-label="Client reviews"
@@ -236,21 +246,24 @@ export function ReviewsSection({
           </div>
 
           <div
-            
             className={cn("relative flex-1 text-center", "max-w-[900px]")}
             aria-live="polite"
           >
             <span
               aria-hidden="true"
-              className="absolute top-[-56px] left-[50%] font-[var(--font-display)] text-[140px] leading-[1] text-[var(--olive-300)] opacity-[0.55] pointer-events-none select-none" style={{ transform: "translateX(-50%)" }}
+              className="hidden lg:block absolute top-[-56px] left-[50%] font-[var(--font-display)] text-[140px] leading-[1] text-[var(--olive-300)] opacity-[0.55] pointer-events-none select-none"
+              style={{ transform: "translateX(-50%)" }}
             >
               &ldquo;
             </span>
 
             {review.text ? (
               <blockquote
-                
-                className={cn("text-[22px] leading-[1.45] md:text-[28px] lg:text-[31px]", "font-[var(--font-display)] text-[var(--ink-900)] m-0")} style={{ transition: "opacity 200ms ease" }}
+                className={cn(
+                  "text-[22px] leading-[1.45] md:text-[28px] lg:text-[31px]",
+                  "font-[var(--font-display)] text-[var(--ink-900)] m-0",
+                )}
+                style={{ transition: "opacity 200ms ease" }}
               >
                 <HighlightedText
                   text={visibleText ?? ""}
@@ -261,8 +274,10 @@ export function ReviewsSection({
               <div>
                 <Stars size={20} />
                 <p
-                  
-                  className={cn("mt-3 text-[22px] md:text-[26px]", "font-[var(--font-display)] text-[var(--ink-900)] m-0")}
+                  className={cn(
+                    "mt-3 text-[22px] md:text-[26px]",
+                    "font-[var(--font-display)] text-[var(--ink-900)] m-0",
+                  )}
                 >
                   5-star Google rating
                 </p>
@@ -274,22 +289,26 @@ export function ReviewsSection({
                 type="button"
                 onClick={() => setExpanded((v) => !v)}
                 aria-expanded={expanded}
-                className="mt-[18px] font-[var(--font-body)] text-[13px] font-bold tracking-[0.08em] uppercase text-[var(--olive-600)] border-0 pb-[2px] cursor-pointer" style={{ background: "none", borderBottom: "1px solid var(--olive-300)" }}
+                className="mt-[18px] font-[var(--font-body)] text-[13px] font-bold tracking-[0.08em] uppercase text-[var(--olive-600)] border-0 pb-[2px] cursor-pointer"
+                style={{
+                  background: "none",
+                  borderBottom: "1px solid var(--olive-300)",
+                }}
               >
                 {expanded ? "Show Less" : "Read Full Review"}
               </button>
             )}
 
             <p
-              
-              className={cn("mt-6", "font-[var(--font-body)] text-[13px] font-bold tracking-[0.14em] uppercase text-[var(--ink-900)] mt-[24px] mr-0 mb-0 ml-0")}
+              className={cn(
+                "mt-6",
+                "font-[var(--font-body)] text-[13px] font-bold tracking-[0.14em] uppercase text-[var(--ink-900)] mt-[24px] mr-0 mb-0 ml-0",
+              )}
             >
               &mdash; {review.name}
             </p>
             {review.services && review.services.length > 0 && (
-              <p
-                className="font-[var(--font-body)] text-[11px] tracking-[0.18em] uppercase text-[var(--olive-600)] mt-[6px] mr-0 mb-0 ml-0"
-              >
+              <p className="font-[var(--font-body)] text-[11px] tracking-[0.18em] uppercase text-[var(--olive-600)] mt-[6px] mr-0 mb-0 ml-0">
                 {review.services.join(" \u00b7 ")}
               </p>
             )}
@@ -301,8 +320,10 @@ export function ReviewsSection({
             </div>
 
             <p
-              
-              className={cn("mt-6", "font-[var(--font-body)] text-[12px] tracking-[0.22em] text-[var(--ink-600)]")}
+              className={cn(
+                "mt-6",
+                "font-[var(--font-body)] text-[12px] tracking-[0.22em] text-[var(--ink-600)]",
+              )}
               aria-label={`Review ${index + 1} of ${total}`}
             >
               {String(index + 1).padStart(2, "0")} / {total}
@@ -322,21 +343,24 @@ export function ReviewsSection({
               type="button"
               onClick={() => goTo(pi)}
               aria-label={`Show review by ${p.name}`}
-              
-              className={cn("px-8 text-left", "border-0 cursor-pointer")} style={{ background: "none", borderLeft: i === 0 ? "none" : "1px solid var(--olive-300)" }}
+              className={cn("px-8 text-left", "border-0 cursor-pointer")}
+              style={{
+                background: "none",
+                borderLeft: i === 0 ? "none" : "1px solid var(--olive-300)",
+              }}
             >
               <Stars size={12} />
               <p
-                
-                className={cn("mt-3 text-[14px] leading-relaxed", "font-[var(--font-body)] text-[var(--ink-600)] mt-[12px] mr-0 mb-[10px] ml-0 min-h-[66px]")}
+                className={cn(
+                  "mt-3 text-[14px] leading-relaxed",
+                  "font-[var(--font-body)] text-[var(--ink-600)] mt-[12px] mr-0 mb-[10px] ml-0 min-h-[66px]",
+                )}
               >
                 {p.text
                   ? truncate(p.text, PREVIEW_LENGTH)
                   : "5-star Google rating"}
               </p>
-              <span
-                className="font-[var(--font-body)] text-[12px] font-bold tracking-[0.1em] uppercase text-[var(--ink-900)]"
-              >
+              <span className="font-[var(--font-body)] text-[12px] font-bold tracking-[0.1em] uppercase text-[var(--ink-900)]">
                 {p.name}
               </span>
             </button>
@@ -349,8 +373,10 @@ export function ReviewsSection({
             href={GOOGLE_REVIEWS_URL}
             target="_blank"
             rel="noopener noreferrer"
-            
-            className={cn("inline-flex w-full items-center justify-center gap-2 sm:w-auto", "h-[56px] pt-0 pr-[34px] pb-0 pl-[34px] rounded-[999px] bg-[var(--olive-600)] text-[#fff] font-[var(--font-body)] text-[15px] font-bold no-underline")}
+            className={cn(
+              "inline-flex w-full items-center justify-center gap-2 sm:w-auto",
+              "h-[56px] pt-0 pr-[34px] pb-0 pl-[34px] rounded-[999px] bg-[var(--olive-600)] text-[#fff] font-[var(--font-body)] text-[15px] font-bold no-underline",
+            )}
           >
             Read All Google Reviews
             <ArrowRight size={17} />

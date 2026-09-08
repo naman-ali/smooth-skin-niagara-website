@@ -336,7 +336,7 @@ export function EyelashFaq() {
   };
 
   return (
-    <section className="pt-[90px] pr-[53px] pb-[90px] pl-[53px] bg-[var(--olive-50)]">
+    <section className="pt-[90px] px-7 pb-[90px] lg:px-[53px] bg-[var(--olive-50)]">
       <div className="max-w-[920px] mt-0 mr-auto mb-0 ml-auto">
         <div className="text-center mb-[56px]">
           <div className="flex items-center justify-center gap-[13px] mb-[22px]">
@@ -345,7 +345,7 @@ export function EyelashFaq() {
             </span>
             <span className="w-[48px] h-[1px] bg-[var(--color-border-strong)]" />
           </div>
-          <h2 className="font-[var(--font-display)] font-normal text-[48px] leading-[1.1] text-[var(--color-text-primary)] mt-0 mr-0 mb-[16px] ml-0">
+          <h2 className="font-[var(--font-display)] font-normal text-[36px] leading-[1.1] lg:text-[48px] text-[var(--color-text-primary)] mt-0 mr-0 mb-[16px] ml-0">
             Your Questions, Answered
           </h2>
           <p className="font-[var(--font-body)] text-[17px] leading-[1.6] text-[var(--color-text-secondary)] mt-0 mr-auto mb-0 ml-auto max-w-[620px]">
@@ -403,7 +403,11 @@ export function EyelashFaq() {
             We are happy to help. Call, text, or send us a message and we will
             answer anything you are unsure about.
           </p>
-          <Button variant="primary" onClick={openConsultation}>
+          <Button
+            variant="primary"
+            onClick={openConsultation}
+            style={{ whiteSpace: "normal", flexShrink: 1 }}
+          >
             I want a Free Consultation →
           </Button>
           <a

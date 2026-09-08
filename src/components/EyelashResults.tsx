@@ -55,37 +55,23 @@ export function EyelashResults() {
       : results.filter((r) => r.title === activeCategory);
 
   return (
-    <section className="pt-[90px] pr-[53px] pb-[90px] pl-[53px] bg-[var(--olive-100)]">
-      <div
-        className="relative max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto"
-      >
+    <section className="pt-[90px] px-7 pb-[90px] lg:px-[53px] bg-[var(--olive-100)]">
+      <div className="relative max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto">
         <div className="text-center mb-[56px]">
-          <div
-            className="flex items-center justify-center gap-[13px] mb-[22px]"
-          >
-            <span
-              className="font-[var(--font-body)] text-[12px] tracking-[0.16em] uppercase text-[var(--color-brand-primary)] font-bold"
-            >
+          <div className="flex items-center justify-center gap-[13px] mb-[22px]">
+            <span className="font-[var(--font-body)] text-[12px] tracking-[0.16em] uppercase text-[var(--color-brand-primary)] font-bold">
               Real Lash Results
             </span>
-            <span
-              className="w-[48px] h-[1px] bg-[var(--color-border-strong)]"
-            />
+            <span className="w-[48px] h-[1px] bg-[var(--color-border-strong)]" />
           </div>
-          <h2
-            className="font-[var(--font-display)] font-normal text-[48px] leading-[1.1] text-[var(--color-text-primary)] mt-0 mr-0 mb-[16px] ml-0"
-          >
+          <h2 className="font-[var(--font-display)] font-normal text-[36px] leading-[1.1] lg:text-[48px] text-[var(--color-text-primary)] mt-0 mr-0 mb-[16px] ml-0">
             Before &amp; After
           </h2>
-          <p
-            className="font-[var(--font-body)] text-[17px] leading-[1.6] text-[var(--color-text-secondary)] mt-0 mr-auto mb-0 ml-auto max-w-[560px]"
-          >
-            See the difference customized lash extensions can make — from
-            subtle definition to full, fluffy volume.
+          <p className="font-[var(--font-body)] text-[17px] leading-[1.6] text-[var(--color-text-secondary)] mt-0 mr-auto mb-0 ml-auto max-w-[560px]">
+            See the difference customized lash extensions can make — from subtle
+            definition to full, fluffy volume.
           </p>
-          <div
-            className="flex flex-wrap justify-center gap-[12px] mt-[28px]"
-          >
+          <div className="flex flex-wrap justify-center gap-[12px] mt-[28px]">
             {categories.map((category) => (
               <Button
                 key={category}
@@ -98,13 +84,7 @@ export function EyelashResults() {
           </div>
         </div>
 
-        <div
-          className="grid gap-8"
-          style={{
-            gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
-            justifyItems: "center",
-          }}
-        >
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 lg:justify-items-center">
           {filtered.map((r, i) => (
             <div key={i} className="w-full max-w-[420px]">
               <BeforeAfter

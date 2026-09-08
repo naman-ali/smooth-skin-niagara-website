@@ -109,7 +109,7 @@ export function CtaSection({
   heading = (
     <>
       Your Best Results Start
-      <br />
+      <br className="hidden md:inline" />
       With the Right Plan
     </>
   ),
@@ -156,7 +156,7 @@ export function CtaSection({
     >
       {variant === "dark" && (
         <div
-          className="pointer-events-none absolute left-1/2 top-1/2 h-[480px] w-[900px] -translate-x-1/2 -translate-y-1/2 rounded-full"
+          className="pointer-events-none hidden lg:block absolute left-1/2 top-1/2 h-[480px] w-[900px] -translate-x-1/2 -translate-y-1/2 rounded-full"
           style={{
             background:
               "radial-gradient(circle at center, var(--olive-600) 0%, transparent 70%)",
@@ -184,7 +184,7 @@ export function CtaSection({
         </div>
 
         <h2
-          className="mx-auto mb-[26px] mt-0 max-w-[800px] font-[var(--font-display)] text-[40px] font-normal leading-[1.08] md:text-[52px] lg:text-[58px]"
+          className="text-balance mx-auto mb-[26px] mt-0 max-w-[800px] font-[var(--font-display)] text-[40px] font-normal leading-[1.08] md:text-[52px] lg:text-[58px]"
           style={{ color: theme.heading }}
         >
           {heading}
@@ -201,7 +201,7 @@ export function CtaSection({
           <button
             type="button"
             onClick={openConsultation}
-            className="group flex h-[58px] w-full items-center justify-between rounded-[14px] bg-[var(--cta-primary-bg)] px-[28px] font-[var(--font-body)] text-[17px] font-semibold text-[var(--cta-primary-text)] transition-all duration-300 hover:bg-[var(--cta-primary-hover)] hover:shadow-[0_6px_20px_rgba(79,91,58,0.28)] md:max-w-[420px]"
+            className="group flex h-auto min-h-[58px] w-full items-center justify-between whitespace-normal rounded-[14px] bg-[var(--cta-primary-bg)] px-[28px] font-[var(--font-body)] text-[17px] font-semibold text-[var(--cta-primary-text)] transition-all duration-300 hover:bg-[var(--cta-primary-hover)] hover:shadow-[0_6px_20px_rgba(79,91,58,0.28)] md:max-w-[420px]"
           >
             {buttonText}
             <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">
@@ -211,7 +211,7 @@ export function CtaSection({
 
           <a
             href="tel:+19059207229"
-            className="flex h-[54px] w-full items-center justify-center gap-[10px] rounded-[14px] px-[24px] font-[var(--font-body)] text-[16px] font-medium no-underline transition-colors duration-300 md:max-w-[420px]"
+            className="flex h-auto min-h-[54px] w-full items-center justify-center gap-[10px] whitespace-normal rounded-[14px] px-[24px] font-[var(--font-body)] text-[16px] font-medium no-underline transition-colors duration-300 md:max-w-[420px]"
             style={{
               border: `1px solid ${theme.phoneBorder}`,
               background: theme.phoneBg,

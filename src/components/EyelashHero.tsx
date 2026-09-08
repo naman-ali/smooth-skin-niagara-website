@@ -27,7 +27,7 @@ export function EyelashHero() {
     <section
       className={cn(
         "relative flex flex-col justify-between overflow-hidden border-b-2 border-[#bfae97] bg-olive-50",
-        "min-h-[720px]",
+        "min-h-0 lg:min-h-[720px]",
       )}
     >
       {/* Full-bleed background image */}
@@ -38,19 +38,27 @@ export function EyelashHero() {
         )}
       />
 
-      {/* Soft ivory gradient to keep copy legible while the right side stays visible */}
+      {/* Soft ivory wash behind the centered copy for readability on all screens */}
       <div
-        className={cn(
-          "absolute inset-0",
-          "bg-[linear-gradient(toright,rgba(251,250,247,0.92)0%,rgba(251,250,247,0.78)30%,rgba(251,250,247,0.42)55%,transparent82%)]",
-        )}
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(ellipse 80% 75% at 50% 45%, rgba(251,250,247,0.94) 0%, rgba(251,250,247,0.8) 50%, rgba(251,250,247,0.35) 80%, transparent 100%)",
+        }}
+      />
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(to bottom, rgba(251,250,247,0.55) 0%, transparent 25%, transparent 70%, rgba(251,250,247,0.7) 100%)",
+        }}
       />
 
       {/* Main content */}
       <div
         className={cn(
           "relative z-10 mx-auto flex w-full flex-1 flex-col items-center justify-center",
-          "max-w-[var(--container-max)] pt-0 pr-[53px] pb-0 pl-[53px]",
+          "max-w-[var(--container-max)] py-0 px-7 lg:px-[53px]",
         )}
       >
         <div
@@ -84,11 +92,11 @@ export function EyelashHero() {
           <h1
             className={cn(
               "font-normal",
-              "font-[var(--font-display)] text-[80px] leading-[1.05] text-[var(--ink-900)] mt-0 mr-0 mb-[28px] ml-0 text-center",
+              "font-[var(--font-display)] text-[44px] leading-[1.05] text-[var(--ink-900)] lg:text-[80px] mt-0 mr-0 mb-[28px] ml-0 text-center",
             )}
           >
             Wake Up With
-            <br />
+            <br className="hidden md:inline" />
             Lashes You <em style={{ fontStyle: "italic" }}>Love</em>.
           </h1>
 
@@ -115,6 +123,7 @@ export function EyelashHero() {
               variant="primary"
               icon={<Arrow />}
               onClick={openConsultation}
+              style={{ whiteSpace: "normal", flexShrink: 1 }}
             >
               I want a Free Consultation
             </Button>

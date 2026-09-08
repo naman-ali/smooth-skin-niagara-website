@@ -90,7 +90,7 @@ function MicroneedlingHero() {
     <section
       className={cn(
         "relative overflow-hidden border-b-2 border-[#bfae97] bg-olive-50",
-        "min-h-[820px] pt-[80px] pr-[28px] pb-[70px] pl-[28px]",
+        "min-h-0 lg:min-h-[820px] pt-[80px] pr-[28px] pb-[70px] pl-[28px]",
       )}
     >
       <div
@@ -100,10 +100,18 @@ function MicroneedlingHero() {
         )}
       />
       <div
-        className={cn(
-          "pointer-events-none absolute inset-0 z-[1] hidden lg:block",
-          "bg-[linear-gradient(toright,var(--olive-50)0%,rgba(245,242,235,0.92)35%,rgba(245,242,235,0)70%)]",
-        )}
+        className="pointer-events-none absolute inset-0 z-[1] hidden lg:block"
+        style={{
+          background:
+            "linear-gradient(to right, var(--olive-50) 0%, rgba(245,242,235,0.95) 40%, rgba(245,242,235,0.55) 62%, transparent 78%)",
+        }}
+      />
+      <div
+        className="pointer-events-none absolute inset-0 z-[1] lg:hidden"
+        style={{
+          background:
+            "linear-gradient(to bottom, rgba(245,242,235,0.94) 0%, rgba(245,242,235,0.8) 55%, rgba(245,242,235,0.35) 100%)",
+        }}
       />
 
       <div
@@ -135,7 +143,7 @@ function MicroneedlingHero() {
             )}
           >
             Microneedling for
-            <br />
+            <br className="hidden md:inline" />
             <span
               className={cn(
                 "italic",
@@ -159,11 +167,18 @@ function MicroneedlingHero() {
           </p>
 
           <div className={cn("flex flex-col gap-4 lg:flex-row", "mb-[31px]")}>
-            <Button variant="primary" onClick={openConsultation}>
+            <Button
+              variant="primary"
+              onClick={openConsultation}
+              style={{ whiteSpace: "normal", maxWidth: "100%" }}
+            >
               I want a Free Consultation →
             </Button>
             <Link href="#treatment-options">
-              <Button variant="secondary" style={{ width: "100%" }}>
+              <Button
+                variant="secondary"
+                style={{ width: "100%", whiteSpace: "normal" }}
+              >
                 View Treatment Options
               </Button>
             </Link>
@@ -337,7 +352,7 @@ function MicroneedlingHowItWorks() {
             <SectionEyebrow>COLLAGEN INDUCTION THERAPY</SectionEyebrow>
             <SectionHeading style={{ margin: "22px 0 20px" }}>
               Small Microchannels.
-              <br />A Natural Renewal Response.
+              <br className="hidden md:inline" />A Natural Renewal Response.
             </SectionHeading>
             <p
               className={cn(
@@ -683,7 +698,11 @@ function MicroneedlingPricing() {
             There is no one-size-fits-all microneedling treatment. We&apos;ll
             help you choose based on your skin, concerns and treatment goals.
           </p>
-          <Button variant="primary" onClick={openConsultation}>
+          <Button
+            variant="primary"
+            onClick={openConsultation}
+            style={{ whiteSpace: "normal", maxWidth: "100%" }}
+          >
             I want a Free Consultation →
           </Button>
         </div>
@@ -1022,7 +1041,7 @@ const reassuranceItems = [
 function MicroneedlingFinalCta() {
   const { open: openConsultation } = useConsultation();
   return (
-    <section className="relative pt-[90px] pr-[28px] pb-[90px] pl-[28px] bg-[var(--ink-900)] overflow-hidden">
+    <section className="relative py-16 px-7 lg:py-[90px] bg-[var(--ink-900)] overflow-hidden">
       <div className="relative z-[10] max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto text-center">
         <div className="flex items-center justify-center gap-[16px] mb-[22px]">
           <span className="w-[48px] h-[1px] bg-[var(--olive-500)]" />
@@ -1032,9 +1051,9 @@ function MicroneedlingFinalCta() {
           <span className="w-[48px] h-[1px] bg-[var(--olive-500)]" />
         </div>
 
-        <h2 className="font-[var(--font-display)] font-normal text-[var(--color-text-primary)] text-[var(--white)] text-[52px] leading-[1.08] mt-0 mr-auto mb-[18px] ml-auto max-w-[760px]">
+        <h2 className="text-balance font-[var(--font-display)] font-normal text-[var(--color-text-primary)] text-[var(--white)] text-[40px] leading-[1.08] lg:text-[52px] mt-0 mr-auto mb-[18px] ml-auto max-w-[760px]">
           Let&apos;s Create Your
-          <br />
+          <br className="hidden md:inline" />
           Personalized Microneedling Plan
         </h2>
 
@@ -1048,13 +1067,20 @@ function MicroneedlingFinalCta() {
           <Button
             variant="primary"
             onClick={openConsultation}
-            style={{ maxWidth: 360, width: "100%", height: 64, fontSize: 17 }}
+            style={{
+              maxWidth: 360,
+              width: "100%",
+              height: "auto",
+              minHeight: 64,
+              fontSize: 17,
+              whiteSpace: "normal",
+            }}
           >
             I want a Free Consultation →
           </Button>
           <a
             href="tel:+19059207229"
-            className="flex items-center justify-center gap-[12px] max-w-[320px] w-full h-[60px] rounded-[14px] bg-[var(--olive-100)] no-underline font-[var(--font-body)]"
+            className="flex items-center justify-center gap-[12px] max-w-[320px] w-full h-auto min-h-[60px] whitespace-normal rounded-[14px] bg-[var(--olive-100)] no-underline font-[var(--font-body)]"
             style={{ border: "1px solid var(--olive-700)" }}
           >
             <Phone size={18} color="var(--color-brand-primary)" />

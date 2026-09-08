@@ -662,49 +662,6 @@ function CategoryNav({
   );
 }
 
-function MobileTabs({
-  categories,
-  activeCategory,
-  onSelect,
-}: {
-  categories: FaqCategory[];
-  activeCategory: number;
-  onSelect: (index: number) => void;
-}) {
-  return (
-    <div
-      className="flex gap-[10px] pb-[8px] mb-[24px]"
-      style={{
-        overflowX: "auto",
-        scrollbarWidth: "none",
-        msOverflowStyle: "none",
-      }}
-    >
-      {categories.map((cat, i) => {
-        const isActive = i === activeCategory;
-        return (
-          <button
-            key={cat.id}
-            onClick={() => onSelect(i)}
-            className="flex-[0_0_auto] pt-[12px] pr-[20px] pb-[12px] pl-[20px] min-h-[44px] rounded-[999px] font-[var(--font-body)] text-[14px] font-semibold whitespace-nowrap cursor-pointer"
-            style={{
-              border: isActive
-                ? "1px solid var(--cta-primary-bg)"
-                : "1px solid var(--color-border)",
-              background: isActive ? "var(--cta-primary-bg)" : "#fff",
-              color: isActive
-                ? "var(--cta-primary-text)"
-                : "var(--color-text-primary)",
-            }}
-          >
-            {cat.heading}
-          </button>
-        );
-      })}
-    </div>
-  );
-}
-
 function ConsultationCard({ mobile = false }: { mobile?: boolean }) {
   const { open } = useConsultation();
   return (
@@ -832,7 +789,7 @@ export function FaqSection({
   };
 
   return (
-    <section className="pt-[90px] pr-[53px] pb-[90px] pl-[53px] bg-[var(--olive-50)]">
+    <section className="py-16 px-7 lg:py-[90px] lg:px-[53px] bg-[var(--olive-50)]">
       <div className="relative max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto">
         <div className="text-center mb-[56px]">
           <div className="flex items-center justify-center gap-[13px] mb-[22px]">
@@ -841,7 +798,7 @@ export function FaqSection({
             </span>
             <span className="w-[48px] h-[1px] bg-[var(--color-border-strong)]" />
           </div>
-          <h2 className="font-[var(--font-display)] font-normal text-[48px] leading-[1.1] text-[var(--color-text-primary)] mt-0 mr-0 mb-[16px] ml-0">
+          <h2 className="text-balance font-[var(--font-display)] font-normal text-[36px] leading-[1.1] lg:text-[48px] text-[var(--color-text-primary)] mt-0 mr-0 mb-[16px] ml-0">
             {heading}
           </h2>
           <p className="font-[var(--font-body)] text-[17px] leading-[1.6] text-[var(--color-text-secondary)] mt-0 mr-auto mb-0 ml-auto max-w-[620px]">
@@ -887,24 +844,21 @@ export function FaqSection({
           </div>
         ) : (
           <>
-            <MobileTabs
-              categories={categories}
-              activeCategory={activeCategory}
-              onSelect={selectCategory}
-            />
             <div className="flex flex-col gap-[12px]">
-              {current.questions.map((item, i) => {
-                const isOpen = openQuestion === i;
-                return (
-                  <QuestionItem
-                    key={i}
-                    question={item}
-                    isOpen={isOpen}
-                    onClick={() => toggleQuestion(i)}
-                    compact
-                  />
-                );
-              })}
+              {categories
+                .flatMap((cat) => cat.questions)
+                .map((item, i) => {
+                  const isOpen = openQuestion === i;
+                  return (
+                    <QuestionItem
+                      key={i}
+                      question={item}
+                      isOpen={isOpen}
+                      onClick={() => toggleQuestion(i)}
+                      compact
+                    />
+                  );
+                })}
             </div>
             {cta === undefined ? <ConsultationCard mobile /> : cta}
           </>

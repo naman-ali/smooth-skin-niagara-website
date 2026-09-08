@@ -59,14 +59,29 @@ function HomeHero() {
   return (
     <section
       className={cn(
-        "relative min-h-[760px] overflow-hidden lg:min-h-[840px]",
+        "relative min-h-0 overflow-hidden lg:min-h-[840px]",
         "bg-[url('/assets/home-hero-2.jpg')] bg-cover",
       )}
       style={{ backgroundPosition: "70% center" }}
     >
+      {/* Soft wash behind the centered content for readability */}
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(ellipse 85% 70% at 42% 48%, rgba(251,250,247,0.92) 0%, rgba(251,250,247,0.72) 45%, rgba(251,250,247,0.25) 75%, transparent 100%)",
+        }}
+      />
+      <div
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-[240px]"
+        style={{
+          background:
+            "linear-gradient(to top, rgba(251,250,247,0.85) 0%, transparent 100%)",
+        }}
+      />
       <div
         className={cn(
-          "relative z-10 flex min-h-[760px] flex-col px-6 lg:min-h-[840px] lg:px-12",
+          "relative z-10 flex min-h-0 flex-col px-6 lg:min-h-[840px] lg:px-12",
           "pt-[60px] pb-[40px]",
         )}
       >
@@ -94,7 +109,7 @@ function HomeHero() {
               )}
             >
               Feel Good in Your Skin.
-              <br />
+              <br className="hidden md:inline" />
               <span
                 className={cn(
                   "italic",
@@ -142,7 +157,9 @@ function HomeHero() {
                 onClick={openConsultation}
                 style={{
                   width: "min(100%, 360px)",
-                  height: 54,
+                  height: "auto",
+                  minHeight: 54,
+                  whiteSpace: "normal",
                   background: "rgba(251, 250, 247, 0.65)",
                   color: "var(--olive-700)",
                   borderColor: "var(--olive-600)",

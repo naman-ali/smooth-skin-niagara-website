@@ -3,22 +3,22 @@ export default function Footer() {
     "text-[var(--color-text-secondary)] no-underline text-[15px] leading-[1.8] font-[var(--font-body)]";
 
   const headingStyle =
-    "font-[var(--font-display)] text-[18px] font-medium text-[var(--color-text-primary)] mt-0 mr-0 mb-[20px] ml-0 tracking-[0.02em]";
+    "font-[var(--font-display)] text-[18px] font-medium text-[var(--color-text-primary)] mt-0 mr-0 mb-3 md:mb-5 ml-0 tracking-[0.02em]";
 
   return (
     <footer
-      className="bg-[var(--olive-100)] pt-[64px] pr-[53px] pb-[32px] pl-[53px] text-[var(--color-text-primary)] font-[var(--font-body)]"
+      className="bg-[var(--olive-100)] pt-12 px-7 pb-6 md:pt-16 md:pb-8 lg:px-[53px] text-[var(--color-text-primary)] font-[var(--font-body)]"
       style={{ borderTop: "2px solid var(--color-border)" }}
     >
       <div className="max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto">
-        <div className="grid gap-12 md:grid-cols-4">
+        <div className="grid grid-cols-2 gap-6 gap-y-8 md:grid-cols-4 md:gap-12">
           <div>
             <img
               src="/assets/logo.png"
               alt="Smooth Skin Niagara"
-              className="h-[52px] mb-[18px]"
+              className="h-[52px] mb-4"
             />
-            <p className="text-[15px] leading-[1.7] text-[var(--color-text-secondary)] mt-0 mr-0 mb-[22px] ml-0">
+            <p className="text-[15px] leading-[1.7] text-[var(--color-text-secondary)] mt-0 mr-0 mb-4 md:mb-[22px] ml-0">
               Niagara Falls&apos; trusted destination for premium laser hair
               removal and advanced skincare. Serving Ontario with over 10 years
               of experience.
@@ -123,7 +123,7 @@ export default function Footer() {
         </div>
 
         <div
-          className="mt-[48px] pt-[24px] flex flex-wrap justify-between gap-[12px] text-[13px] text-[var(--color-text-secondary)]"
+          className="mt-8 pt-4 md:mt-12 md:pt-6 flex flex-wrap justify-between gap-[12px] text-[13px] text-[var(--color-text-secondary)]"
           style={{ borderTop: "1px solid var(--color-border)" }}
         >
           <span>

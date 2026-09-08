@@ -70,7 +70,7 @@ function SectionHeading({
   return (
     <h2
       className={cn(
-        "text-[36px] leading-[1.1] lg:text-[44px]",
+        "text-[36px] leading-[1.1] break-words text-balance lg:text-[44px]",
         "font-[var(--font-display)] font-normal text-[var(--color-text-primary)]",
       )}
       style={{ ...style }}
@@ -86,7 +86,7 @@ function PcaHero() {
     <section
       className={cn(
         "relative overflow-hidden border-b-2 border-[#bfae97] bg-olive-50",
-        "min-h-[760px] pt-[80px] pr-[28px] pb-[70px] pl-[28px]",
+        "min-h-0 lg:min-h-[760px] py-16 px-7 lg:pt-[80px] lg:pb-[70px]",
       )}
     >
       <div
@@ -96,10 +96,18 @@ function PcaHero() {
         )}
       />
       <div
-        className={cn(
-          "pointer-events-none absolute inset-0 z-[1] hidden lg:block",
-          "bg-[linear-gradient(toright,var(--olive-50)0%,rgba(245,242,235,0.92)38%,rgba(245,242,235,0)70%)]",
-        )}
+        className="pointer-events-none absolute inset-0 z-[1] hidden lg:block"
+        style={{
+          background:
+            "linear-gradient(to right, var(--olive-50) 0%, rgba(245,242,235,0.95) 40%, rgba(245,242,235,0.55) 62%, transparent 78%)",
+        }}
+      />
+      <div
+        className="pointer-events-none absolute inset-0 z-[1] lg:hidden"
+        style={{
+          background:
+            "linear-gradient(to bottom, rgba(245,242,235,0.94) 0%, rgba(245,242,235,0.8) 55%, rgba(245,242,235,0.35) 100%)",
+        }}
       />
 
       <div
@@ -126,12 +134,12 @@ function PcaHero() {
 
           <h1
             className={cn(
-              "text-[44px] leading-[1.05] lg:text-[80px]",
+              "text-[36px] leading-[1.08] break-words text-balance md:text-[44px] lg:text-[80px]",
               "font-[var(--font-display)] font-normal text-[var(--color-text-primary)] mt-0 mr-0 mb-[31px] ml-0",
             )}
           >
             Reveal Brighter,
-            <br />
+            <br className="hidden md:inline" />
             <span
               className={cn(
                 "italic",
@@ -155,11 +163,18 @@ function PcaHero() {
           </p>
 
           <div className={cn("flex flex-col gap-4 lg:flex-row", "mb-[31px]")}>
-            <Button variant="primary" onClick={openConsultation}>
+            <Button
+              variant="primary"
+              onClick={openConsultation}
+              style={{ whiteSpace: "normal", maxWidth: "100%" }}
+            >
               I want a Free Consultation →
             </Button>
             <Link href="#peel-options">
-              <Button variant="secondary" style={{ width: "100%" }}>
+              <Button
+                variant="secondary"
+                style={{ width: "100%", whiteSpace: "normal" }}
+              >
                 View Peel Options
               </Button>
             </Link>
@@ -250,7 +265,7 @@ const concerns = [
 function PcaConcerns() {
   return (
     <section
-      className={cn(`${sectionPadding} bg-olive-50`, "pt-[90px] pb-[90px]")}
+      className={cn(`${sectionPadding} bg-olive-50`, "py-16 lg:py-[90px]")}
     >
       <div className="max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto">
         <div className="mb-14 text-center">
@@ -357,7 +372,7 @@ function PcaPeels() {
   return (
     <section
       id="peel-options"
-      className={cn(`${sectionPadding} bg-olive-100`, "pt-[90px] pb-[90px]")}
+      className={cn(`${sectionPadding} bg-olive-100`, "py-16 lg:py-[90px]")}
     >
       <div className="max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto">
         <div className="mb-14 text-center">
@@ -454,7 +469,11 @@ function PcaPeels() {
             That&apos;s completely fine. We&apos;ll assess your skin and
             recommend the most suitable PCA SKIN treatment at your appointment.
           </p>
-          <Button variant="primary" onClick={openConsultation}>
+          <Button
+            variant="primary"
+            onClick={openConsultation}
+            style={{ whiteSpace: "normal", maxWidth: "100%" }}
+          >
             I want a Free Consultation →
           </Button>
         </div>
@@ -466,7 +485,7 @@ function PcaPeels() {
 function PcaHowItWorks() {
   return (
     <section
-      className={cn(`${sectionPadding} bg-olive-50`, "pt-[90px] pb-[90px]")}
+      className={cn(`${sectionPadding} bg-olive-50`, "py-16 lg:py-[90px]")}
     >
       <div className="max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto">
         <div className="mb-14 text-center">
@@ -547,7 +566,7 @@ function PcaHowItWorks() {
 function PcaAddOns() {
   return (
     <section
-      className={cn(`${sectionPadding} bg-olive-100`, "pt-[90px] pb-[90px]")}
+      className={cn(`${sectionPadding} bg-olive-100`, "py-16 lg:py-[90px]")}
     >
       <div className="max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto">
         <div className="mb-12 text-center">
@@ -635,7 +654,7 @@ function PcaAddOns() {
 function PcaWhyProfessional() {
   return (
     <section
-      className={cn(`${sectionPadding} bg-olive-50`, "pt-[90px] pb-[90px]")}
+      className={cn(`${sectionPadding} bg-olive-50`, "py-16 lg:py-[90px]")}
     >
       <div className="max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto">
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
@@ -718,7 +737,7 @@ function PcaWhyProfessional() {
 function PcaWhatToExpect() {
   return (
     <section
-      className={cn(`${sectionPadding} bg-olive-100`, "pt-[90px] pb-[90px]")}
+      className={cn(`${sectionPadding} bg-olive-100`, "py-16 lg:py-[90px]")}
     >
       <div className="max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto">
         <div className="mb-14 text-center">

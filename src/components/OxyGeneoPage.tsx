@@ -90,7 +90,7 @@ function OxyHero() {
     <section
       className={cn(
         "relative overflow-hidden border-b-2 border-[#bfae97] bg-olive-50",
-        "min-h-[800px] pt-[80px] pr-[28px] pb-[70px] pl-[28px]",
+        "min-h-0 lg:min-h-[800px] pt-[80px] pr-[28px] pb-[70px] pl-[28px]",
       )}
     >
       <div
@@ -100,10 +100,18 @@ function OxyHero() {
         )}
       />
       <div
-        className={cn(
-          "pointer-events-none absolute inset-0 z-[1] hidden lg:block",
-          "bg-[linear-gradient(toright,var(--olive-50)0%,rgba(245,242,235,0.92)35%,rgba(245,242,235,0)70%)]",
-        )}
+        className="pointer-events-none absolute inset-0 z-[1] hidden lg:block"
+        style={{
+          background:
+            "linear-gradient(to right, var(--olive-50) 0%, rgba(245,242,235,0.95) 40%, rgba(245,242,235,0.55) 62%, transparent 78%)",
+        }}
+      />
+      <div
+        className="pointer-events-none absolute inset-0 z-[1] lg:hidden"
+        style={{
+          background:
+            "linear-gradient(to bottom, rgba(245,242,235,0.94) 0%, rgba(245,242,235,0.8) 55%, rgba(245,242,235,0.35) 100%)",
+        }}
       />
 
       <div
@@ -135,7 +143,7 @@ function OxyHero() {
             )}
           >
             Your Best Skin,
-            <br />
+            <br className="hidden md:inline" />
             <span
               className={cn(
                 "italic",
@@ -159,11 +167,18 @@ function OxyHero() {
           </p>
 
           <div className={cn("flex flex-col gap-4 lg:flex-row", "mb-[31px]")}>
-            <Button variant="primary" onClick={openConsultation}>
+            <Button
+              variant="primary"
+              onClick={openConsultation}
+              style={{ whiteSpace: "normal", maxWidth: "100%" }}
+            >
               I want a Free Consultation →
             </Button>
             <Link href="#treatment-options">
-              <Button variant="secondary" style={{ width: "100%" }}>
+              <Button
+                variant="secondary"
+                style={{ width: "100%", whiteSpace: "normal" }}
+              >
                 Explore Treatment Options
               </Button>
             </Link>
@@ -455,7 +470,11 @@ function OxyPricing() {
             We&apos;ll recommend the most suitable option based on your skin,
             goals and how comprehensive you want your treatment to be.
           </p>
-          <Button variant="primary" onClick={openConsultation}>
+          <Button
+            variant="primary"
+            onClick={openConsultation}
+            style={{ whiteSpace: "normal", maxWidth: "100%" }}
+          >
             I want a Free Consultation →
           </Button>
         </div>
@@ -971,7 +990,7 @@ function OxyFinalCta() {
       heading={
         <>
           Let&apos;s Create Your
-          <br />
+          <br className="hidden md:inline" />
           Personalized Facial
         </>
       }

@@ -157,7 +157,7 @@ function Hero() {
   const { open: openConsultation } = useConsultation();
   return (
     <section
-      className="relative pt-[80px] pr-[53px] pb-[70px] pl-[53px] overflow-hidden"
+      className="relative overflow-hidden pt-[80px] px-7 pb-[70px] lg:px-[53px]"
       style={{ borderBottom: "2px solid #bfae97" }}
     >
       <div
@@ -165,11 +165,23 @@ function Hero() {
         style={{ inset: 0, backgroundPosition: "right center" }}
       />
       <div
-        className="absolute bg-[linear-gradient(toright,var(--olive-50)0%,var(--olive-50)44%,transparent66%)]"
-        style={{ inset: 0 }}
+        className="absolute"
+        style={{
+          inset: 0,
+          background:
+            "linear-gradient(to right, rgba(245,242,235,0.97) 0%, rgba(245,242,235,0.92) 42%, rgba(245,242,235,0.6) 65%, rgba(245,242,235,0.15) 88%, transparent 100%)",
+        }}
+      />
+      <div
+        className="absolute lg:hidden"
+        style={{
+          inset: 0,
+          background:
+            "linear-gradient(to bottom, rgba(245,242,235,0.9) 0%, rgba(245,242,235,0.55) 55%, rgba(245,242,235,0.25) 100%)",
+        }}
       />
       <div className="relative max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto">
-        <div className="max-w-[42%] min-w-[320px]">
+        <div className="w-full lg:max-w-[42%] lg:min-w-[320px]">
           <div className="flex items-center gap-[13px] mb-[31px]">
             <span className="font-[var(--font-body)] text-[12px] tracking-[0.16em] uppercase text-[var(--color-brand-primary)] font-bold">
               Niagara{" "}
@@ -179,24 +191,34 @@ function Hero() {
             </span>
             <span className="w-[48px] h-[1px] bg-[var(--color-border-strong)]" />
           </div>
-          <h1 className="font-[var(--font-display)] font-normal text-[80px] leading-[1.05] text-[var(--color-text-primary)] mt-0 mr-0 mb-[31px] ml-0">
+          <h1 className="font-[var(--font-display)] font-normal text-[44px] leading-[1.05] text-[var(--color-text-primary)] lg:text-[80px] mt-0 mr-0 mb-[31px] ml-0">
             Confident Skin.
-            <br />
+            <br className="hidden md:inline" />
             Every Day.
           </h1>
           <p className="font-[var(--font-body)] text-[20px] leading-[1.6] text-[var(--color-text-secondary)] mt-0 mr-0 mb-[40px] ml-0">
             Advanced laser technology meets personalized care for long-lasting
             results and beautifully smooth skin.
           </p>
-          <div className="flex gap-[16px] mb-[31px]">
+          <div className="flex flex-wrap gap-[16px] mb-[31px]">
             <Button
               variant="primary"
               icon={<Arrow />}
               onClick={openConsultation}
+              style={{ whiteSpace: "normal", flexShrink: 1 }}
             >
               I want a Free Consultation
             </Button>
-            <Button variant="secondary">View Results</Button>
+            <Button
+              variant="secondary"
+              onClick={() =>
+                document
+                  .getElementById("laser-results")
+                  ?.scrollIntoView({ behavior: "smooth" })
+              }
+            >
+              View Results
+            </Button>
           </div>
           <GoogleReviews />
         </div>
@@ -319,7 +341,7 @@ function TechnologySection() {
   ];
 
   return (
-    <section className="pt-[90px] pr-[53px] pb-[90px] pl-[53px] bg-[var(--olive-50)]">
+    <section className="pt-[90px] px-7 pb-[90px] lg:px-[53px] bg-[var(--olive-50)]">
       <div className="max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto">
         <div className="text-center mb-[56px]">
           <div className="flex items-center justify-center gap-[13px] mb-[22px]">
@@ -328,7 +350,7 @@ function TechnologySection() {
             </span>
             <span className="w-[48px] h-[1px] bg-[var(--color-border-strong)]" />
           </div>
-          <h2 className="font-[var(--font-display)] font-normal text-[48px] leading-[1.1] text-[var(--color-text-primary)] mt-0 mr-0 mb-[16px] ml-0">
+          <h2 className="text-balance font-[var(--font-display)] font-normal text-[36px] leading-[1.1] lg:text-[48px] text-[var(--color-text-primary)] mt-0 mr-0 mb-[16px] ml-0">
             Meet the Soprano ICE Platinum
           </h2>
           <p className="font-[var(--font-body)] text-[17px] leading-[1.6] text-[var(--color-text-secondary)] mt-0 mr-auto mb-0 ml-auto max-w-[560px]">
@@ -344,11 +366,11 @@ function TechnologySection() {
               </FeatureCard>
             ))}
           </div>
-          <div className="flex-[0_1_320px] min-w-[220px] flex justify-center">
+          <div className="w-full md:flex-[0_1_320px] md:min-w-[220px] flex justify-center">
             <img
               src="/assets/smooth-skin-tech.png"
               alt="Soprano ICE Platinum laser device"
-              className="w-full max-w-[300px] h-auto"
+              className="w-[75%] max-w-[280px] h-auto object-contain mx-auto md:w-full md:max-w-[300px]"
             />
           </div>
           <div className="flex-[1_1_280px] max-w-[340px] flex flex-col gap-[18px]">
@@ -380,7 +402,7 @@ function TreatmentAreas() {
   ];
 
   return (
-    <section className="pt-[90px] pr-[53px] pb-[90px] pl-[53px] bg-[var(--olive-100)]">
+    <section className="pt-[90px] px-7 pb-[90px] lg:px-[53px] bg-[var(--olive-100)]">
       <div className="max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto">
         <div className="text-center mb-[56px]">
           <div className="flex items-center justify-center gap-[13px] mb-[22px]">
@@ -389,7 +411,7 @@ function TreatmentAreas() {
             </span>
             <span className="w-[48px] h-[1px] bg-[var(--color-border-strong)]" />
           </div>
-          <h2 className="font-[var(--font-display)] font-normal text-[48px] leading-[1.1] text-[var(--color-text-primary)] mt-0 mr-0 mb-[16px] ml-0">
+          <h2 className="text-balance font-[var(--font-display)] font-normal text-[36px] leading-[1.1] lg:text-[48px] text-[var(--color-text-primary)] mt-0 mr-0 mb-[16px] ml-0">
             Smooth Skin, Anywhere You Want It
           </h2>
           <p className="font-[var(--font-body)] text-[17px] leading-[1.6] text-[var(--color-text-secondary)] mt-0 mr-auto mb-0 ml-auto max-w-[560px]">
@@ -397,10 +419,7 @@ function TreatmentAreas() {
             everything in between.
           </p>
         </div>
-        <div
-          className="grid gap-[24px]"
-          style={{ gridTemplateColumns: "repeat(3, minmax(0, 1fr))" }}
-        >
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {areas.map((area) => (
             <div
               key={area.title}
@@ -429,6 +448,74 @@ function TreatmentAreas() {
   );
 }
 
+function LaserResultsSection() {
+  const images = [
+    {
+      src: "/assets/Laser-before-after-1.png",
+      alt: "Before and after laser hair removal result 1",
+    },
+    {
+      src: "/assets/Laser-before-after-2.png",
+      alt: "Before and after laser hair removal result 2",
+    },
+    {
+      src: "/assets/Laser-before-after-3.png",
+      alt: "Before and after laser hair removal result 3",
+    },
+    {
+      src: "/assets/Laser-before-after-4.png",
+      alt: "Before and after laser hair removal result 4",
+    },
+    {
+      src: "/assets/Laser-before-after-5.png",
+      alt: "Before and after laser hair removal result 5",
+    },
+    {
+      src: "/assets/Laser-before-after-6.png",
+      alt: "Before and after laser hair removal result 6",
+    },
+  ];
+
+  return (
+    <section
+      id="laser-results"
+      className="pt-[90px] px-7 pb-[90px] lg:px-[53px] bg-[#fff]"
+    >
+      <div className="max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto">
+        <div className="text-center mb-[56px]">
+          <div className="flex items-center justify-center gap-[13px] mb-[22px]">
+            <span className="font-[var(--font-body)] text-[12px] tracking-[0.16em] uppercase text-[var(--color-brand-primary)] font-bold">
+              Laser Hair Removal Results
+            </span>
+            <span className="w-[48px] h-[1px] bg-[var(--color-border-strong)]" />
+          </div>
+          <h2 className="text-balance font-[var(--font-display)] font-normal text-[36px] leading-[1.1] lg:text-[48px] text-[var(--color-text-primary)] mt-0 mr-0 mb-[16px] ml-0">
+            See Real Transformations
+          </h2>
+          <p className="font-[var(--font-body)] text-[17px] leading-[1.6] text-[var(--color-text-secondary)] mt-0 mr-auto mb-0 ml-auto max-w-[560px]">
+            Real before-and-after results from clients who trusted Smooth Skin
+            Niagara for their laser hair removal journey.
+          </p>
+        </div>
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {images.map((image, i) => (
+            <div
+              key={i}
+              className="overflow-hidden rounded-[16px] bg-[#fff] border border-[var(--color-border)]"
+            >
+              <img
+                src={image.src}
+                alt={image.alt}
+                className="w-full h-auto block"
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export default function Home() {
   return (
     <>
@@ -437,6 +524,7 @@ export default function Home() {
       <AshleySection />
       <TechnologySection />
       <TreatmentAreas />
+      <LaserResultsSection />
       <FaqSection />
       <ReviewsSection prioritizeService="laser" />
       <CtaSection />

@@ -54,7 +54,7 @@ export function CellumaHero() {
     <section
       className={cn(
         "relative overflow-hidden border-b-2 border-[#bfae97] bg-olive-50",
-        "min-h-[780px] pt-[80px] pr-[53px] pb-[70px] pl-[53px]",
+        "min-h-0 lg:min-h-[780px] pt-[80px] px-7 pb-[70px] lg:px-[53px]",
       )}
     >
       {/* Full-bleed background image - preserves aspect ratio, anchored right */}
@@ -65,12 +65,21 @@ export function CellumaHero() {
         )}
       />
 
-      {/* Left-side gradient wash behind the content */}
+      {/* Left-side gradient wash behind the content (desktop) */}
       <div
-        className={cn(
-          "pointer-events-none absolute inset-0 z-[1] hidden lg:block",
-          "bg-[linear-gradient(toright,var(--olive-50)0%,rgba(245,242,235,0.92)35%,rgba(245,242,235,0)70%)]",
-        )}
+        className="pointer-events-none absolute inset-0 z-[1] hidden lg:block"
+        style={{
+          background:
+            "linear-gradient(to right, var(--olive-50) 0%, rgba(245,242,235,0.95) 40%, rgba(245,242,235,0.55) 62%, transparent 78%)",
+        }}
+      />
+      {/* Vertical wash for mobile/tablet */}
+      <div
+        className="pointer-events-none absolute inset-0 z-[1] lg:hidden"
+        style={{
+          background:
+            "linear-gradient(to bottom, rgba(245,242,235,0.94) 0%, rgba(245,242,235,0.8) 55%, rgba(245,242,235,0.35) 100%)",
+        }}
       />
 
       <div
@@ -99,7 +108,7 @@ export function CellumaHero() {
             )}
           >
             Light Therapy for
-            <br />
+            <br className="hidden md:inline" />
             <span
               className="text-[var(--olive-600)]"
               style={{ fontStyle: "italic" }}
@@ -121,15 +130,18 @@ export function CellumaHero() {
           </p>
 
           {/* CTAs */}
-          <div className="flex gap-[16px] mb-[31px]">
+          <div className="flex flex-wrap gap-[16px] mb-[31px]">
             <Button
               variant="primary"
               icon={<Arrow />}
               onClick={openConsultation}
+              style={{ whiteSpace: "normal", flexShrink: 1 }}
             >
               I want a Free Consultation
             </Button>
-            <Button variant="secondary">See Treatment Options</Button>
+            <Button variant="secondary" style={{ whiteSpace: "normal" }}>
+              See Treatment Options
+            </Button>
           </div>
 
           <GoogleReviews rating="5.0" count="61+" />
@@ -177,9 +189,9 @@ export function CellumaHero() {
         style={{ fontStyle: "italic" }}
       >
         Relax.
-        <br />
+        <br className="hidden md:inline" />
         Rejuvenate.
-        <br />
+        <br className="hidden md:inline" />
         Restore.
       </div>
 

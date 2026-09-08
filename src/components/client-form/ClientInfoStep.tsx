@@ -1,6 +1,6 @@
 "use client";
 
-import { Controller, useFormContext, useWatch } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -66,15 +66,8 @@ const EMERGENCY_CONTACT_FIELD: FieldConfig = {
 export function ClientInfoStep({ compact = false }: { compact?: boolean }) {
   const {
     register,
-    control,
     formState: { errors },
   } = useFormContext<FormValues>();
-
-  const selectedTreatments =
-    useWatch({ control, name: "selectedTreatments" }) ?? [];
-  const laserSelected = selectedTreatments.includes("laser-hair-removal");
-  const eyelashSelected = selectedTreatments.includes("eyelash-extensions");
-  const ageRequired = laserSelected;
 
   const renderField = (field: FieldConfig) => {
     const error = errors.clientInfo?.[field.name];
@@ -124,61 +117,57 @@ export function ClientInfoStep({ compact = false }: { compact?: boolean }) {
 
       <div className={cn("grid gap-5 sm:grid-cols-2", compact && "gap-3")}>
         {CONTACT_FIELDS.map(renderField)}
-        {eyelashSelected && renderField(EMERGENCY_CONTACT_FIELD)}
+        {renderField(EMERGENCY_CONTACT_FIELD)}
       </div>
 
-      {laserSelected && (
-        <div className="space-y-1.5">
-          <p
-            className={cn(
-              "font-medium text-foreground",
-              compact ? "text-sm" : "text-[15px]",
-            )}
-          >
-            Address
-          </p>
-          <div
-            className={cn(
-              "grid gap-5 sm:grid-cols-2 lg:grid-cols-3",
-              compact && "gap-3",
-            )}
-          >
-            {ADDRESS_FIELDS.map(renderField)}
-          </div>
+      <div className="space-y-1.5">
+        <p
+          className={cn(
+            "font-medium text-foreground",
+            compact ? "text-sm" : "text-[15px]",
+          )}
+        >
+          Address
+        </p>
+        <div
+          className={cn(
+            "grid gap-5 sm:grid-cols-2 lg:grid-cols-3",
+            compact && "gap-3",
+          )}
+        >
+          {ADDRESS_FIELDS.map(renderField)}
         </div>
-      )}
+      </div>
 
-      {ageRequired && (
-        <div>
-          <Label
-            htmlFor="clientInfo.age"
-            className={cn("font-medium", compact ? "text-sm" : "text-[15px]")}
-          >
-            Age
-            <span aria-hidden="true" className="text-primary">
-              {" "}
-              *
-            </span>
-          </Label>
-          <Input
-            id="clientInfo.age"
-            inputMode="numeric"
-            className={cn(
-              "mt-1.5 max-w-[160px]",
-              compact ? "h-9 text-sm" : "h-12 text-base",
-            )}
-            aria-invalid={errors.clientInfo?.age ? true : undefined}
-            aria-describedby={
-              errors.clientInfo?.age ? "clientInfo.age-error" : undefined
-            }
-            {...register("clientInfo.age")}
-          />
-          <FieldError
-            id="clientInfo.age-error"
-            message={errors.clientInfo?.age?.message as string | undefined}
-          />
-        </div>
-      )}
+      <div>
+        <Label
+          htmlFor="clientInfo.age"
+          className={cn("font-medium", compact ? "text-sm" : "text-[15px]")}
+        >
+          Age
+          <span aria-hidden="true" className="text-primary">
+            {" "}
+            *
+          </span>
+        </Label>
+        <Input
+          id="clientInfo.age"
+          inputMode="numeric"
+          className={cn(
+            "mt-1.5 max-w-[160px]",
+            compact ? "h-9 text-sm" : "h-12 text-base",
+          )}
+          aria-invalid={errors.clientInfo?.age ? true : undefined}
+          aria-describedby={
+            errors.clientInfo?.age ? "clientInfo.age-error" : undefined
+          }
+          {...register("clientInfo.age")}
+        />
+        <FieldError
+          id="clientInfo.age-error"
+          message={errors.clientInfo?.age?.message as string | undefined}
+        />
+      </div>
 
       <ReferralSourceField compact={compact} />
     </div>

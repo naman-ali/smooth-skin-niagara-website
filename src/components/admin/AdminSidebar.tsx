@@ -29,7 +29,7 @@ export function AdminSidebar({ children }: { children: React.ReactNode }) {
           <img
             src="/assets/logo.png"
             alt="Smooth Skin Niagara"
-            className="h-10 w-auto px-2"
+            className="h-auto w-40 px-2"
           />
         </SidebarHeader>
         <SidebarContent>

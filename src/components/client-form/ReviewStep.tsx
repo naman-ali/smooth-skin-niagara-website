@@ -109,8 +109,6 @@ export function ReviewStep({
     (s) => s.kind === "acknowledgement",
   );
   const definitions = getSelectedTreatmentDefinitions(selectedTreatments);
-  const laserSelected = selectedTreatments.includes("laser-hair-removal");
-  const eyelashSelected = selectedTreatments.includes("eyelash-extensions");
   const isMinor = isMinorAge(values.clientInfo.age);
 
   return (
@@ -126,28 +124,22 @@ export function ReviewStep({
           />
           <ReviewItem label="Phone" value={values.clientInfo.phone} />
           <ReviewItem label="Email" value={values.clientInfo.email} />
-          {laserSelected && (
-            <ReviewItem
-              label="Address"
-              value={[
-                values.clientInfo.street,
-                values.clientInfo.city,
-                values.clientInfo.province,
-                values.clientInfo.postalCode,
-              ]
-                .filter(Boolean)
-                .join(", ")}
-            />
-          )}
-          {values.clientInfo.age ? (
-            <ReviewItem label="Age" value={values.clientInfo.age} />
-          ) : null}
-          {eyelashSelected && values.clientInfo.emergencyContact ? (
-            <ReviewItem
-              label="Emergency contact"
-              value={values.clientInfo.emergencyContact}
-            />
-          ) : null}
+          <ReviewItem
+            label="Address"
+            value={[
+              values.clientInfo.street,
+              values.clientInfo.city,
+              values.clientInfo.province,
+              values.clientInfo.postalCode,
+            ]
+              .filter(Boolean)
+              .join(", ")}
+          />
+          <ReviewItem label="Age" value={values.clientInfo.age} />
+          <ReviewItem
+            label="Emergency contact"
+            value={values.clientInfo.emergencyContact}
+          />
           {values.clientInfo.referralSource.value ? (
             <ReviewItem
               label="How they heard about us"

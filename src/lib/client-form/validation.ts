@@ -129,7 +129,6 @@ type FieldErrorMap = Record<string, { type: string; message: string }>;
 
 function buildClientInfoErrors(
   clientInfo: FormValues["clientInfo"],
-  selectedTreatments: string[],
 ): FieldErrorMap {
   const errors: FieldErrorMap = {};
   const setIfError = (
@@ -150,46 +149,34 @@ function buildClientInfoErrors(
   );
   setIfError("email", emailSchema.safeParse(clientInfo.email));
   setIfError("phone", phoneSchema.safeParse(clientInfo.phone));
-  const laserSelected = selectedTreatments.includes("laser-hair-removal");
-  if (laserSelected) {
-    setIfError(
-      "street",
-      requiredText("Street address is required.").safeParse(clientInfo.street),
-    );
-    setIfError(
-      "city",
-      requiredText("City is required.").safeParse(clientInfo.city),
-    );
-    setIfError(
-      "province",
-      requiredText("Province is required.").safeParse(clientInfo.province),
-    );
-    setIfError(
-      "postalCode",
-      requiredText("Postal code is required.").safeParse(clientInfo.postalCode),
-    );
-  }
+  setIfError(
+    "street",
+    requiredText("Street address is required.").safeParse(clientInfo.street),
+  );
+  setIfError(
+    "city",
+    requiredText("City is required.").safeParse(clientInfo.city),
+  );
+  setIfError(
+    "province",
+    requiredText("Province is required.").safeParse(clientInfo.province),
+  );
+  setIfError(
+    "postalCode",
+    requiredText("Postal code is required.").safeParse(clientInfo.postalCode),
+  );
 
-  const ageRequired = laserSelected;
-  if (ageRequired) {
-    setIfError(
-      "age",
-      requiredText("Age is required for Laser Hair Removal.")
-        .pipe(ageSchema)
-        .safeParse(clientInfo.age),
-    );
-  } else if (clientInfo.age.trim()) {
-    setIfError("age", ageSchema.safeParse(clientInfo.age));
-  }
+  setIfError(
+    "age",
+    requiredText("Age is required.").pipe(ageSchema).safeParse(clientInfo.age),
+  );
 
-  if (selectedTreatments.includes("eyelash-extensions")) {
-    setIfError(
-      "emergencyContact",
-      requiredText("Emergency contact is required.").safeParse(
-        clientInfo.emergencyContact,
-      ),
-    );
-  }
+  setIfError(
+    "emergencyContact",
+    requiredText("Emergency contact is required.").safeParse(
+      clientInfo.emergencyContact,
+    ),
+  );
 
   if (
     clientInfo.referralSource.value === "other" &&
@@ -399,10 +386,7 @@ const resolver = async (values: FormValues) => {
     };
   }
 
-  const clientInfoErrors = buildClientInfoErrors(
-    values.clientInfo,
-    values.selectedTreatments,
-  );
+  const clientInfoErrors = buildClientInfoErrors(values.clientInfo);
   if (Object.keys(clientInfoErrors).length)
     errors.clientInfo = clientInfoErrors;
 

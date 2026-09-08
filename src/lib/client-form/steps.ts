@@ -105,6 +105,7 @@ export function getStepFieldNames(
         "clientInfo.province",
         "clientInfo.postalCode",
         "clientInfo.age",
+        "clientInfo.emergencyContact",
         "clientInfo.referralSource",
       ];
     case "shared-health":

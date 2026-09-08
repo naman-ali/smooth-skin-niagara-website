@@ -3,6 +3,7 @@
 import * as ButtonModule from "@/components/design-system/core/Button";
 import type { ButtonProps } from "@/components/design-system/core/Button";
 import React, { useCallback, useEffect, useState } from "react";
+import { useConsultation } from "@/components/ConsultationModal";
 
 const Button = (ButtonModule as unknown as { Button: React.FC<ButtonProps> })
   .Button;
@@ -281,7 +282,8 @@ const defaultCategories: {
               grows, including:
             </p>
             <ul
-              className="m-0 pl-[20px] text-[var(--color-text-secondary)]" style={{ listStyle: "disc" }}
+              className="m-0 pl-[20px] text-[var(--color-text-secondary)]"
+              style={{ listStyle: "disc" }}
             >
               <li>Face</li>
               <li>Chin</li>
@@ -430,7 +432,8 @@ const defaultCategories: {
           <>
             <p>Please let us know about any:</p>
             <ul
-              className="m-0 pl-[20px] text-[var(--color-text-secondary)]" style={{ listStyle: "disc" }}
+              className="m-0 pl-[20px] text-[var(--color-text-secondary)]"
+              style={{ listStyle: "disc" }}
             >
               <li>Medications</li>
               <li>Prescription skincare</li>
@@ -514,7 +517,8 @@ const defaultCategories: {
           <>
             <p>Your consultation gives us an opportunity to understand your:</p>
             <ul
-              className="m-0 pl-[20px] text-[var(--color-text-secondary)]" style={{ listStyle: "disc" }}
+              className="m-0 pl-[20px] text-[var(--color-text-secondary)]"
+              style={{ listStyle: "disc" }}
             >
               <li>Skin</li>
               <li>Hair</li>
@@ -523,7 +527,8 @@ const defaultCategories: {
             </ul>
             <p>We will discuss:</p>
             <ul
-              className="m-0 pl-[20px] text-[var(--color-text-secondary)]" style={{ listStyle: "disc" }}
+              className="m-0 pl-[20px] text-[var(--color-text-secondary)]"
+              style={{ listStyle: "disc" }}
             >
               <li>Expected results</li>
               <li>How many treatments you may need</li>
@@ -546,7 +551,8 @@ const defaultCategories: {
               advanced diode laser system combining three wavelengths:
             </p>
             <ul
-              className="m-0 pl-[20px] text-[var(--color-text-secondary)]" style={{ listStyle: "disc" }}
+              className="m-0 pl-[20px] text-[var(--color-text-secondary)]"
+              style={{ listStyle: "disc" }}
             >
               <li>
                 <strong>755 nm</strong>
@@ -598,9 +604,14 @@ function CategoryNav({
           <button
             key={cat.id}
             onClick={() => onSelect(i)}
-            className="flex items-center gap-[14px] w-full pt-[18px] pr-[20px] pb-[18px] pl-[20px] text-left rounded-[14px] cursor-pointer" style={{ background: isActive ? "var(--olive-100)" : "transparent", border: isActive
+            className="flex items-center gap-[14px] w-full pt-[18px] pr-[20px] pb-[18px] pl-[20px] text-left rounded-[14px] cursor-pointer"
+            style={{
+              background: isActive ? "var(--olive-100)" : "transparent",
+              border: isActive
                 ? "1px solid var(--olive-200)"
-                : "1px solid var(--color-border)", transition: "all 0.15s ease" }}
+                : "1px solid var(--color-border)",
+              transition: "all 0.15s ease",
+            }}
           >
             <span
               style={{
@@ -619,15 +630,16 @@ function CategoryNav({
             </span>
             <span className="flex-1 min-w-0">
               <span
-                className="block font-[var(--font-body)] text-[15px] font-semibold" style={{ color: isActive
+                className="block font-[var(--font-body)] text-[15px] font-semibold"
+                style={{
+                  color: isActive
                     ? "var(--color-text-primary)"
-                    : "var(--color-text-secondary)" }}
+                    : "var(--color-text-secondary)",
+                }}
               >
                 {cat.heading}
               </span>
-              <span
-                className="block font-[var(--font-body)] text-[13px] text-[var(--color-text-secondary)] mt-[2px]"
-              >
+              <span className="block font-[var(--font-body)] text-[13px] text-[var(--color-text-secondary)] mt-[2px]">
                 {cat.description}
               </span>
             </span>
@@ -661,7 +673,12 @@ function MobileTabs({
 }) {
   return (
     <div
-      className="flex gap-[10px] pb-[8px] mb-[24px]" style={{ overflowX: "auto", scrollbarWidth: "none", msOverflowStyle: "none" }}
+      className="flex gap-[10px] pb-[8px] mb-[24px]"
+      style={{
+        overflowX: "auto",
+        scrollbarWidth: "none",
+        msOverflowStyle: "none",
+      }}
     >
       {categories.map((cat, i) => {
         const isActive = i === activeCategory;
@@ -669,11 +686,16 @@ function MobileTabs({
           <button
             key={cat.id}
             onClick={() => onSelect(i)}
-            className="flex-[0_0_auto] pt-[12px] pr-[20px] pb-[12px] pl-[20px] min-h-[44px] rounded-[999px] font-[var(--font-body)] text-[14px] font-semibold whitespace-nowrap cursor-pointer" style={{ border: isActive
+            className="flex-[0_0_auto] pt-[12px] pr-[20px] pb-[12px] pl-[20px] min-h-[44px] rounded-[999px] font-[var(--font-body)] text-[14px] font-semibold whitespace-nowrap cursor-pointer"
+            style={{
+              border: isActive
                 ? "1px solid var(--cta-primary-bg)"
-                : "1px solid var(--color-border)", background: isActive ? "var(--cta-primary-bg)" : "#fff", color: isActive
+                : "1px solid var(--color-border)",
+              background: isActive ? "var(--cta-primary-bg)" : "#fff",
+              color: isActive
                 ? "var(--cta-primary-text)"
-                : "var(--color-text-primary)" }}
+                : "var(--color-text-primary)",
+            }}
           >
             {cat.heading}
           </button>
@@ -684,23 +706,34 @@ function MobileTabs({
 }
 
 function ConsultationCard({ mobile = false }: { mobile?: boolean }) {
+  const { open } = useConsultation();
   return (
     <div
-      className="bg-[#fff] rounded-[16px]" style={{ marginTop: mobile ? 40 : 0, padding: mobile ? "28px 20px" : "28px 24px", border: "1px solid var(--color-border)", boxShadow: "0 2px 14px rgba(0,0,0,0.04)", textAlign: mobile ? "center" : "left" }}
+      className="bg-[#fff] rounded-[16px]"
+      style={{
+        marginTop: mobile ? 40 : 0,
+        padding: mobile ? "28px 20px" : "28px 24px",
+        border: "1px solid var(--color-border)",
+        boxShadow: "0 2px 14px rgba(0,0,0,0.04)",
+        textAlign: mobile ? "center" : "left",
+      }}
     >
       <h4
-        className="font-[var(--font-display)] font-medium text-[var(--color-text-primary)] mt-0 mr-0 mb-[10px] ml-0" style={{ fontSize: mobile ? 22 : 20 }}
+        className="font-[var(--font-display)] font-medium text-[var(--color-text-primary)] mt-0 mr-0 mb-[10px] ml-0"
+        style={{ fontSize: mobile ? 22 : 20 }}
       >
         Still have a question?
       </h4>
-      <p
-        className="font-[var(--font-body)] text-[15px] leading-[1.6] text-[var(--color-text-secondary)] mt-0 mr-0 mb-[20px] ml-0"
-      >
+      <p className="font-[var(--font-body)] text-[15px] leading-[1.6] text-[var(--color-text-secondary)] mt-0 mr-0 mb-[20px] ml-0">
         We are happy to help. Call, text, or book a free consultation and we
         will answer anything you are unsure about.
       </p>
-      <Button variant="primary" style={mobile ? { width: "100%" } : undefined}>
-        Book a Free Consultation →
+      <Button
+        variant="primary"
+        onClick={open}
+        style={mobile ? { width: "100%" } : undefined}
+      >
+        I want a Free Consultation →
       </Button>
       <a
         href="tel:+19059207229"
@@ -708,9 +741,7 @@ function ConsultationCard({ mobile = false }: { mobile?: boolean }) {
       >
         (905) 920-7229
       </a>
-      <span
-        className="block font-[var(--font-body)] text-[13px] text-[var(--color-text-secondary)]"
-      >
+      <span className="block font-[var(--font-body)] text-[13px] text-[var(--color-text-secondary)]">
         Call or Text
       </span>
     </div>
@@ -744,22 +775,32 @@ function QuestionItem({
   return (
     <div onClick={onClick} style={baseStyle}>
       <div
-        className="flex items-center justify-between" style={{ gap: compact ? 14 : 16 }}
+        className="flex items-center justify-between"
+        style={{ gap: compact ? 14 : 16 }}
       >
         <h4
-          className="font-[var(--font-body)] font-semibold text-[var(--color-text-primary)] m-0 leading-[1.4]" style={{ fontSize: compact ? 15 : 16 }}
+          className="font-[var(--font-body)] font-semibold text-[var(--color-text-primary)] m-0 leading-[1.4]"
+          style={{ fontSize: compact ? 15 : 16 }}
         >
           {question.q}
         </h4>
         <span
-          className="shrink-0 font-[var(--font-body)] text-[var(--color-brand-primary)] leading-[1]" style={{ fontSize: compact ? 20 : 22 }}
+          className="shrink-0 font-[var(--font-body)] text-[var(--color-brand-primary)] leading-[1]"
+          style={{ fontSize: compact ? 20 : 22 }}
         >
           {isOpen ? "−" : "+"}
         </span>
       </div>
       {isOpen && (
         <div
-          className="font-[var(--font-body)] text-[var(--color-text-secondary)]" style={{ marginTop: compact ? 12 : 14, paddingTop: compact ? 14 : 18, borderTop: "1px solid var(--color-border)", fontSize: compact ? 16 : 15, lineHeight: compact ? 1.6 : 1.65 }}
+          className="font-[var(--font-body)] text-[var(--color-text-secondary)]"
+          style={{
+            marginTop: compact ? 12 : 14,
+            paddingTop: compact ? 14 : 18,
+            borderTop: "1px solid var(--color-border)",
+            fontSize: compact ? 16 : 15,
+            lineHeight: compact ? 1.6 : 1.65,
+          }}
         >
           {question.a}
         </div>
@@ -792,41 +833,28 @@ export function FaqSection({
 
   return (
     <section className="pt-[90px] pr-[53px] pb-[90px] pl-[53px] bg-[var(--olive-50)]">
-      <div
-        className="relative max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto"
-      >
+      <div className="relative max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto">
         <div className="text-center mb-[56px]">
-          <div
-            className="flex items-center justify-center gap-[13px] mb-[22px]"
-          >
-            <span
-              className="font-[var(--font-body)] text-[12px] tracking-[0.16em] uppercase text-[var(--color-brand-primary)] font-bold"
-            >
+          <div className="flex items-center justify-center gap-[13px] mb-[22px]">
+            <span className="font-[var(--font-body)] text-[12px] tracking-[0.16em] uppercase text-[var(--color-brand-primary)] font-bold">
               {eyebrow}
             </span>
-            <span
-              className="w-[48px] h-[1px] bg-[var(--color-border-strong)]"
-            />
+            <span className="w-[48px] h-[1px] bg-[var(--color-border-strong)]" />
           </div>
-          <h2
-            className="font-[var(--font-display)] font-normal text-[48px] leading-[1.1] text-[var(--color-text-primary)] mt-0 mr-0 mb-[16px] ml-0"
-          >
+          <h2 className="font-[var(--font-display)] font-normal text-[48px] leading-[1.1] text-[var(--color-text-primary)] mt-0 mr-0 mb-[16px] ml-0">
             {heading}
           </h2>
-          <p
-            className="font-[var(--font-body)] text-[17px] leading-[1.6] text-[var(--color-text-secondary)] mt-0 mr-auto mb-0 ml-auto max-w-[620px]"
-          >
+          <p className="font-[var(--font-body)] text-[17px] leading-[1.6] text-[var(--color-text-secondary)] mt-0 mr-auto mb-0 ml-auto max-w-[620px]">
             {subheading}
           </p>
         </div>
 
         {isDesktop ? (
           <div
-            className="grid gap-[56px] items-start" style={{ gridTemplateColumns: "minmax(280px, 30%) 1fr" }}
+            className="grid gap-[56px] items-start"
+            style={{ gridTemplateColumns: "minmax(280px, 30%) 1fr" }}
           >
-            <div
-              className="sticky top-[40px]" style={{ alignSelf: "start" }}
-            >
+            <div className="sticky top-[40px]" style={{ alignSelf: "start" }}>
               <CategoryNav
                 categories={categories}
                 activeCategory={activeCategory}
@@ -842,9 +870,7 @@ export function FaqSection({
               )}
             </div>
             <div>
-              <div
-                className="flex flex-col gap-[14px]"
-              >
+              <div className="flex flex-col gap-[14px]">
                 {current.questions.map((item, i) => {
                   const isOpen = openQuestion === i;
                   return (

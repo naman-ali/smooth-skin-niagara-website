@@ -7,6 +7,7 @@ import { FindYourLook } from "@/components/FindYourLook";
 import { EyelashResults } from "@/components/EyelashResults";
 import { EyelashFaq } from "@/components/EyelashFaq";
 import { CtaSection } from "@/components/CtaSection";
+import { ReviewsSection } from "@/components/ReviewsSection";
 
 export default function EyelashExtensionsPage() {
   return (
@@ -17,6 +18,7 @@ export default function EyelashExtensionsPage() {
       <FindYourLook id="pricing" />
       <EyelashResults />
       <EyelashFaq />
+      <ReviewsSection prioritizeService="lashes" />
       <CtaSection />
     </>
   );

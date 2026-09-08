@@ -3,6 +3,7 @@
 import { Award } from "lucide-react";
 import Header from "@/components/Header";
 import { CtaSection } from "@/components/CtaSection";
+import { ReviewsSection } from "@/components/ReviewsSection";
 
 const certificates = [
   "DermaRoller Certification",
@@ -144,7 +145,9 @@ export default function AboutUsPage() {
 
                 <div className="flex gap-4">
                   <a
-                    href="#"
+                    href="https://www.instagram.com/smooth_skin_niagara/"
+                    target="_blank"
+                    rel="noreferrer"
                     aria-label="Instagram"
                     className="inline-flex h-[48px] w-[48px] items-center justify-center rounded-full border border-[var(--olive-700)] font-[var(--font-body)] text-[13px] font-semibold text-[var(--olive-100)] transition-colors duration-300 hover:bg-olive-700 hover:text-white"
                   >
@@ -197,6 +200,7 @@ export default function AboutUsPage() {
           </div>
         </section>
 
+        <ReviewsSection />
         <CtaSection />
       </main>
     </>

@@ -11,6 +11,7 @@ import type { NavDropdownProps } from "@/components/design-system/navigation/Nav
 import * as PhoneCalloutModule from "@/components/design-system/navigation/PhoneCallout";
 import type { PhoneCalloutProps } from "@/components/design-system/navigation/PhoneCallout";
 import { cn } from "@/lib/utils";
+import { useConsultation } from "@/components/ConsultationModal";
 
 const Button = (ButtonModule as unknown as { Button: React.FC<ButtonProps> })
   .Button;
@@ -54,6 +55,7 @@ const dividerStyle = {
 export default function Header() {
   const [open, setOpen] = React.useState(false);
   const { isLoaded, userId } = useAuth();
+  const { open: openConsultation } = useConsultation();
 
   const closeMenu = () => setOpen(false);
 
@@ -85,8 +87,8 @@ export default function Header() {
 
       <div className={cn("hidden lg:flex", "items-center gap-[28px] shrink-0")}>
         <PhoneCallout />
-        <Button variant="primary" size="sm">
-          Book a Free Consultation
+        <Button variant="primary" size="sm" onClick={openConsultation}>
+          I want a Free Consultation
         </Button>
         {isLoaded && userId && <UserButton />}
       </div>
@@ -140,9 +142,13 @@ export default function Header() {
             <Button
               variant="primary"
               size="sm"
+              onClick={() => {
+                closeMenu();
+                openConsultation();
+              }}
               style={{ width: "100%", justifyContent: "center" }}
             >
-              Book a Free Consultation
+              I want a Free Consultation
             </Button>
             {isLoaded && userId && <UserButton />}
           </div>

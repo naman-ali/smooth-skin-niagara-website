@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import * as ButtonModule from "@/components/design-system/core/Button";
+import { useConsultation } from "@/components/ConsultationModal";
 
 const Button: any = (ButtonModule as any).Button;
 
@@ -45,7 +46,8 @@ const faqItems: FaqItem[] = [
         </p>
         <p>Xtreme Lashes is today’s leader in the industry because of:</p>
         <ul
-          className="m-0 pl-[20px] text-[var(--color-text-secondary)]" style={{ listStyle: "disc" }}
+          className="m-0 pl-[20px] text-[var(--color-text-secondary)]"
+          style={{ listStyle: "disc" }}
         >
           <li>
             Its safe application technique created by esthetic professionals
@@ -102,10 +104,10 @@ const faqItems: FaqItem[] = [
         cozy, warm spa bed. This beauty rest can take about 1.5 – 2.5 hours for
         a full set and a relash can take 1-2 hours depending on how long you
         wait from your initial full set or last relash. After cleaning and
-        priming your lashes, your bottom lashes are protected with an
-        anti-aging eye patch and/or medical tape. Then finally the lash
-        extensions are applied 1-to-1 with medical-adhesive. It is a very
-        relaxing, non-invasive procedure and most clients fall asleep.
+        priming your lashes, your bottom lashes are protected with an anti-aging
+        eye patch and/or medical tape. Then finally the lash extensions are
+        applied 1-to-1 with medical-adhesive. It is a very relaxing,
+        non-invasive procedure and most clients fall asleep.
       </p>
     ),
   },
@@ -140,8 +142,8 @@ const faqItems: FaqItem[] = [
           gone.
         </p>
         <p className="mt-[16px] font-semibold">
-          I’m a bride-to-be or going on vacation, when is the best time to
-          book an appointment?
+          I’m a bride-to-be or going on vacation, when is the best time to book
+          an appointment?
         </p>
         <p>
           If you’ve never had eyelash extensions applied before then we
@@ -159,13 +161,13 @@ const faqItems: FaqItem[] = [
     q: "Can I apply mascara to eyelash extensions?",
     a: (
       <p>
-        Yes, it must however only be water based mascara. DO NOT USE
-        OIL-BASED OR WATER-PROOF MASCARA. Waterproof mascara or any type of
-        oil based mascara can dissolve the bonding agent and shorten the life
-        of your eyelash extensions causing them to fall sooner. Care also
-        needs to be taken in washing off the mascara. Only use a water based
-        eye makeup remover. Custom Lash & Laser sells a volumizing water based
-        mascara and oil free makeup remover.
+        Yes, it must however only be water based mascara. DO NOT USE OIL-BASED
+        OR WATER-PROOF MASCARA. Waterproof mascara or any type of oil based
+        mascara can dissolve the bonding agent and shorten the life of your
+        eyelash extensions causing them to fall sooner. Care also needs to be
+        taken in washing off the mascara. Only use a water based eye makeup
+        remover. Custom Lash & Laser sells a volumizing water based mascara and
+        oil free makeup remover.
       </p>
     ),
   },
@@ -198,12 +200,15 @@ const faqItems: FaqItem[] = [
     q: "How do I take care of my new eyelash extensions?",
     a: (
       <ul
-        className="m-0 pl-[20px] text-[var(--color-text-secondary)]" style={{ listStyle: "disc" }}
+        className="m-0 pl-[20px] text-[var(--color-text-secondary)]"
+        style={{ listStyle: "disc" }}
       >
         <li>Do not get lashes wet for at least 24 hours</li>
         <li>Use oil-free eye makeup remover</li>
         <li>Avoid hot steam or sauna (minimize hot yoga)</li>
-        <li>Avoid sleeping on your stomach to avoid pressure on the extensions</li>
+        <li>
+          Avoid sleeping on your stomach to avoid pressure on the extensions
+        </li>
         <li>Avoid running water directly on your lashes</li>
         <li>Do not rub, pick or pull your eyes</li>
         <li>
@@ -220,7 +225,8 @@ const faqItems: FaqItem[] = [
       <>
         <p>Eyelash extensions may not be suitable for people who:</p>
         <ul
-          className="m-0 pl-[20px] text-[var(--color-text-secondary)]" style={{ listStyle: "disc" }}
+          className="m-0 pl-[20px] text-[var(--color-text-secondary)]"
+          style={{ listStyle: "disc" }}
         >
           <li>
             Have pre-existing eyelid or eye conditions such as blepharitis and
@@ -248,8 +254,8 @@ const faqItems: FaqItem[] = [
     q: "What is a Classic Set?",
     a: (
       <p>
-        Using our high quality lash extensions blending different lengths,
-        curls and thicknesses to achieve a natural look.
+        Using our high quality lash extensions blending different lengths, curls
+        and thicknesses to achieve a natural look.
       </p>
     ),
   },
@@ -258,12 +264,13 @@ const faqItems: FaqItem[] = [
     a: (
       <>
         <p>
-          BRING ON THE DRAMA! BOLD, LOOK-AT-ME LASHES WITH THE ALL NEW
-          X-WRAP FEATURES &amp; BENEFITS
+          BRING ON THE DRAMA! BOLD, LOOK-AT-ME LASHES WITH THE ALL NEW X-WRAP
+          FEATURES &amp; BENEFITS
         </p>
         <p>THE PERFECT FIT IS FINALLY HERE.</p>
         <ul
-          className="m-0 pl-[20px] text-[var(--color-text-secondary)]" style={{ listStyle: "disc" }}
+          className="m-0 pl-[20px] text-[var(--color-text-secondary)]"
+          style={{ listStyle: "disc" }}
         >
           <li>Interlocking “X” shape secures extension to the natural lash</li>
           <li>Self-aligning attachment</li>
@@ -289,10 +296,10 @@ const faqItems: FaqItem[] = [
     q: "What is the Hybrid Full Set?",
     a: (
       <p>
-        Using ultra light extensions, 2-3 individual extensions adhere to
-        each natural lash to create a fluffy and full lash line. Lastly we add
-        our new ellipse lashes in this mix for a fuller dramatic different look
-        than the classic set of lashes.
+        Using ultra light extensions, 2-3 individual extensions adhere to each
+        natural lash to create a fluffy and full lash line. Lastly we add our
+        new ellipse lashes in this mix for a fuller dramatic different look than
+        the classic set of lashes.
       </p>
     ),
   },
@@ -301,26 +308,27 @@ const faqItems: FaqItem[] = [
     a: (
       <p>
         The Lash Lift and Tint is a new service to Custom Lash and clients are
-        raving about it! The Lash Lift is essentially perming the natural
-        lashes to gain a beautiful natural curl and to top the look off we add
-        a tint to darken the lash line (optional). This option is a great
-        alternative if you are perhaps taking a break from eyelash extensions
-        or not yet ready to try the extensions out. The process takes about
-        45-60mins, we apply eyepatches to the lower lashes and place silicone
-        pads to the upper eyelid to help with the perming process. You will
-        leave with a nourishing oil on the lashes and are asked not to get them
-        wet for 24hrs. After the 24 hours you can continue with your regular
-        daily routine and apply makeup and mascara as you wish. After the
-        treatment it’s recommended to keep the natural lashes soft during the
-        evening so a lash growth serum, Vitamin E or coconut oil will help
-        keep the lashes strong and will promote growth. Refer to the gallery
-        section for before and after photo’s.
+        raving about it! The Lash Lift is essentially perming the natural lashes
+        to gain a beautiful natural curl and to top the look off we add a tint
+        to darken the lash line (optional). This option is a great alternative
+        if you are perhaps taking a break from eyelash extensions or not yet
+        ready to try the extensions out. The process takes about 45-60mins, we
+        apply eyepatches to the lower lashes and place silicone pads to the
+        upper eyelid to help with the perming process. You will leave with a
+        nourishing oil on the lashes and are asked not to get them wet for
+        24hrs. After the 24 hours you can continue with your regular daily
+        routine and apply makeup and mascara as you wish. After the treatment
+        it’s recommended to keep the natural lashes soft during the evening so a
+        lash growth serum, Vitamin E or coconut oil will help keep the lashes
+        strong and will promote growth. Refer to the gallery section for before
+        and after photo’s.
       </p>
     ),
   },
 ];
 
 export function EyelashFaq() {
+  const { open: openConsultation } = useConsultation();
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const toggle = (index: number) => {
@@ -331,26 +339,16 @@ export function EyelashFaq() {
     <section className="pt-[90px] pr-[53px] pb-[90px] pl-[53px] bg-[var(--olive-50)]">
       <div className="max-w-[920px] mt-0 mr-auto mb-0 ml-auto">
         <div className="text-center mb-[56px]">
-          <div
-            className="flex items-center justify-center gap-[13px] mb-[22px]"
-          >
-            <span
-              className="font-[var(--font-body)] text-[12px] tracking-[0.16em] uppercase text-[var(--color-brand-primary)] font-bold"
-            >
+          <div className="flex items-center justify-center gap-[13px] mb-[22px]">
+            <span className="font-[var(--font-body)] text-[12px] tracking-[0.16em] uppercase text-[var(--color-brand-primary)] font-bold">
               FREQUENTLY ASKED QUESTIONS
             </span>
-            <span
-              className="w-[48px] h-[1px] bg-[var(--color-border-strong)]"
-            />
+            <span className="w-[48px] h-[1px] bg-[var(--color-border-strong)]" />
           </div>
-          <h2
-            className="font-[var(--font-display)] font-normal text-[48px] leading-[1.1] text-[var(--color-text-primary)] mt-0 mr-0 mb-[16px] ml-0"
-          >
+          <h2 className="font-[var(--font-display)] font-normal text-[48px] leading-[1.1] text-[var(--color-text-primary)] mt-0 mr-0 mb-[16px] ml-0">
             Your Questions, Answered
           </h2>
-          <p
-            className="font-[var(--font-body)] text-[17px] leading-[1.6] text-[var(--color-text-secondary)] mt-0 mr-auto mb-0 ml-auto max-w-[620px]"
-          >
+          <p className="font-[var(--font-body)] text-[17px] leading-[1.6] text-[var(--color-text-secondary)] mt-0 mr-auto mb-0 ml-auto max-w-[620px]">
             Everything you want to know about eyelash extensions, lash lifts,
             aftercare and what to expect during your appointment.
           </p>
@@ -363,27 +361,25 @@ export function EyelashFaq() {
               <div
                 key={i}
                 onClick={() => toggle(i)}
-                className="bg-[#fff] rounded-[14px] pt-[20px] pr-[22px] pb-[20px] pl-[22px] cursor-pointer" style={{ border: "1px solid var(--color-border)", transition: "box-shadow 0.15s ease", boxShadow: isOpen
-                    ? "0 4px 16px rgba(37,38,36,0.04)"
-                    : "none" }}
+                className="bg-[#fff] rounded-[14px] pt-[20px] pr-[22px] pb-[20px] pl-[22px] cursor-pointer"
+                style={{
+                  border: "1px solid var(--color-border)",
+                  transition: "box-shadow 0.15s ease",
+                  boxShadow: isOpen ? "0 4px 16px rgba(37,38,36,0.04)" : "none",
+                }}
               >
-                <div
-                  className="flex items-center justify-between gap-[16px]"
-                >
-                  <h4
-                    className="font-[var(--font-body)] text-[16px] font-semibold text-[var(--color-text-primary)] m-0 leading-[1.4]"
-                  >
+                <div className="flex items-center justify-between gap-[16px]">
+                  <h4 className="font-[var(--font-body)] text-[16px] font-semibold text-[var(--color-text-primary)] m-0 leading-[1.4]">
                     {item.q}
                   </h4>
-                  <span
-                    className="shrink-0 font-[var(--font-body)] text-[22px] text-[var(--color-brand-primary)] leading-[1]"
-                  >
+                  <span className="shrink-0 font-[var(--font-body)] text-[22px] text-[var(--color-brand-primary)] leading-[1]">
                     {isOpen ? "−" : "+"}
                   </span>
                 </div>
                 {isOpen && (
                   <div
-                    className="mt-[14px] pt-[18px] font-[var(--font-body)] text-[15px] leading-[1.65] text-[var(--color-text-secondary)]" style={{ borderTop: "1px solid var(--color-border)" }}
+                    className="mt-[14px] pt-[18px] font-[var(--font-body)] text-[15px] leading-[1.65] text-[var(--color-text-secondary)]"
+                    style={{ borderTop: "1px solid var(--color-border)" }}
                   >
                     {item.a}
                   </div>
@@ -394,34 +390,29 @@ export function EyelashFaq() {
         </div>
 
         <div
-          className="mt-[48px] pt-[28px] pr-[24px] pb-[28px] pl-[24px] bg-[#fff] rounded-[16px] text-center" style={{ border: "1px solid var(--color-border)", boxShadow: "0 2px 14px rgba(0,0,0,0.04)" }}
+          className="mt-[48px] pt-[28px] pr-[24px] pb-[28px] pl-[24px] bg-[#fff] rounded-[16px] text-center"
+          style={{
+            border: "1px solid var(--color-border)",
+            boxShadow: "0 2px 14px rgba(0,0,0,0.04)",
+          }}
         >
-          <h4
-            className="font-[var(--font-display)] text-[22px] font-medium text-[var(--color-text-primary)] mt-0 mr-0 mb-[10px] ml-0"
-          >
+          <h4 className="font-[var(--font-display)] text-[22px] font-medium text-[var(--color-text-primary)] mt-0 mr-0 mb-[10px] ml-0">
             Still have a question?
           </h4>
-          <p
-            className="font-[var(--font-body)] text-[15px] leading-[1.6] text-[var(--color-text-secondary)] mt-0 mr-0 mb-[20px] ml-0"
-          >
+          <p className="font-[var(--font-body)] text-[15px] leading-[1.6] text-[var(--color-text-secondary)] mt-0 mr-0 mb-[20px] ml-0">
             We are happy to help. Call, text, or send us a message and we will
             answer anything you are unsure about.
           </p>
-          <a
-            href="/contact"
-            className="no-underline inline-block"
-          >
-            <Button variant="primary">Ask A Question →</Button>
-          </a>
+          <Button variant="primary" onClick={openConsultation}>
+            I want a Free Consultation →
+          </Button>
           <a
             href="tel:+19059207229"
             className="block mt-[16px] font-[var(--font-body)] text-[16px] font-semibold text-[var(--color-brand-primary)] no-underline"
           >
             (905) 920-7229
           </a>
-          <span
-            className="block font-[var(--font-body)] text-[13px] text-[var(--color-text-secondary)]"
-          >
+          <span className="block font-[var(--font-body)] text-[13px] text-[var(--color-text-secondary)]">
             Call or Text
           </span>
         </div>

@@ -13,6 +13,7 @@ import type { ButtonProps } from "@/components/design-system/core/Button";
 import * as GoogleReviewsModule from "@/components/design-system/trust/GoogleReviews";
 import type { GoogleReviewsProps } from "@/components/design-system/trust/GoogleReviews";
 import { cn } from "@/lib/utils";
+import { useConsultation } from "@/components/ConsultationModal";
 
 const Button = (ButtonModule as unknown as { Button: React.FC<ButtonProps> })
   .Button;
@@ -31,6 +32,7 @@ function Eyebrow({ children }: { children: React.ReactNode }) {
 }
 
 function HomeHero() {
+  const { open: openConsultation } = useConsultation();
   const trustPoints = [
     {
       icon: Award,
@@ -62,18 +64,6 @@ function HomeHero() {
       )}
       style={{ backgroundPosition: "70% center" }}
     >
-      <div
-        className={cn(
-          "pointer-events-none absolute bottom-44 left-6 z-20 hidden lg:block",
-          "font-['Brush_Script_MT',_'Segoe_Script',_cursive] text-[28px] text-[var(--olive-600)] leading-[1.2] opacity-[0.85]",
-        )}
-        style={{ transform: "rotate(-4deg)" }}
-      >
-        More confident.
-        <br />
-        More you.
-      </div>
-
       <div
         className={cn(
           "relative z-10 flex min-h-[760px] flex-col px-6 lg:min-h-[840px] lg:px-12",
@@ -147,24 +137,20 @@ function HomeHero() {
                   Find Your Treatment
                 </Button>
               </Link>
-              <Link
-                href="/laser-hair-removal"
-                style={{ textDecoration: "none" }}
+              <Button
+                variant="secondary"
+                onClick={openConsultation}
+                style={{
+                  width: "min(100%, 360px)",
+                  height: 54,
+                  background: "rgba(251, 250, 247, 0.65)",
+                  color: "var(--olive-700)",
+                  borderColor: "var(--olive-600)",
+                  borderWidth: 1,
+                }}
               >
-                <Button
-                  variant="secondary"
-                  style={{
-                    width: "min(100%, 360px)",
-                    height: 54,
-                    background: "rgba(251, 250, 247, 0.65)",
-                    color: "var(--olive-700)",
-                    borderColor: "var(--olive-600)",
-                    borderWidth: 1,
-                  }}
-                >
-                  Book a Free Consultation
-                </Button>
-              </Link>
+                I want a Free Consultation
+              </Button>
             </div>
 
             <div className="flex justify-center">

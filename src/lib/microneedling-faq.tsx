@@ -210,32 +210,43 @@ export const microneedlingFaqCategories = [
         ),
       },
       {
-        q: "What's the difference between the four microneedling options?",
+        q: "What's the difference between the microneedling options?",
         a: (
           <>
             <p>
-              All four treatments use professional eDermaStamp microneedling.
-              The difference is the professional serum protocol paired with the
-              treatment:
+              All treatments use professional eDermaStamp® microneedling. The
+              difference is the treatment area and the professional regenerative
+              protocol paired with it:
             </p>
             <ul
-              className="mt-[12px] mr-0 mb-0 ml-0 pl-[20px] text-[var(--color-text-secondary)]" style={{ listStyle: "disc" }}
+              className="mt-[12px] mr-0 mb-0 ml-0 pl-[20px] text-[var(--color-text-secondary)]"
+              style={{ listStyle: "disc" }}
             >
               <li>
-                <strong>Hyaluronic Acid</strong> — focused on hydration and
-                straightforward skin renewal.
+                <strong>
+                  Signature / Face + Neck / Face + Neck + Décolleté
+                </strong>{" "}
+                — our classic collagen-induction treatment, extended across the
+                areas you want to treat.
               </li>
               <li>
-                <strong>Ready Medical Growth Factors</strong> — an advanced
-                rejuvenation option.
+                <strong>Growth Factor Rejuvenation</strong> — an advanced option
+                using professional growth-factor technology to support skin
+                renewal and collagen production.
               </li>
               <li>
-                <strong>Hyaluronic Acid + PDRN + DMAE</strong> — focused on
-                visible aging, texture and firmness.
+                <strong>PDRN Rejuvenation</strong> — an advanced skin-repair
+                treatment combining microneedling with PDRN-based professional
+                skincare.
               </li>
               <li>
-                <strong>Milk-Derived Exosomes + PDRN</strong> — the
-                clinic&apos;s premium advanced renewal option.
+                <strong>Advanced Regenerative eDermaStamp®</strong> — our most
+                advanced facial microneedling experience, customized with
+                premium regenerative skincare.
+              </li>
+              <li>
+                <strong>Targeted Correction</strong> — customized protocols for
+                acne scarring/texture and pigment or sun-damage concerns.
               </li>
             </ul>
             <p className="mt-[12px]">
@@ -252,7 +263,8 @@ export const microneedlingFaqCategories = [
             <p>
               Yes, Celluma LED light therapy may be incorporated after selected
               microneedling treatments when appropriate. Smooth Skin Niagara
-              currently offers a 30-minute Celluma add-on for $30.
+              offers a Celluma add-on for $40 — a calming, restorative finishing
+              step.
             </p>
           </>
         ),

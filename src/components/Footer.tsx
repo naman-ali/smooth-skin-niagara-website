@@ -33,7 +33,7 @@ export default function Footer() {
                 Facebook
               </a>
               <a
-                href="https://www.instagram.com/customlashloung/?hl=en"
+                href="https://www.instagram.com/smooth_skin_niagara/"
                 target="_blank"
                 rel="noreferrer"
                 className="text-[var(--color-text-primary)] no-underline text-[14px] font-semibold"

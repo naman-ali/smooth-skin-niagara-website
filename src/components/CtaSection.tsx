@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useConsultation } from "@/components/ConsultationModal";
 
 const PhoneIcon = () => (
   <svg
@@ -113,11 +114,12 @@ export function CtaSection({
     </>
   ),
   subheading = "Book a complimentary consultation and get personalized recommendations based on your skin, goals and lifestyle.",
-  buttonText = "Book a Free Consultation",
+  buttonText = "I want a Free Consultation",
   phone = "(905) 920-7229",
   phoneLabel = "Call or Text",
   benefits = defaultBenefits,
 }: CtaSectionProps) {
+  const { open: openConsultation } = useConsultation();
   const theme =
     variant === "dark"
       ? {
@@ -198,6 +200,7 @@ export function CtaSection({
         <div className="mb-[50px] flex flex-col items-center gap-[10px]">
           <button
             type="button"
+            onClick={openConsultation}
             className="group flex h-[58px] w-full items-center justify-between rounded-[14px] bg-[var(--cta-primary-bg)] px-[28px] font-[var(--font-body)] text-[17px] font-semibold text-[var(--cta-primary-text)] transition-all duration-300 hover:bg-[var(--cta-primary-hover)] hover:shadow-[0_6px_20px_rgba(79,91,58,0.28)] md:max-w-[420px]"
           >
             {buttonText}

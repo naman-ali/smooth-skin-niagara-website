@@ -23,12 +23,13 @@ import { CtaSection } from "@/components/CtaSection";
 import { FaqSection } from "@/components/FaqSection";
 import Header from "@/components/Header";
 import * as ButtonModule from "@/components/design-system/core/Button";
+import { useConsultation } from "@/components/ConsultationModal";
+import { ReviewsSection } from "@/components/ReviewsSection";
 import type { ButtonProps } from "@/components/design-system/core/Button";
 import * as GoogleReviewsModule from "@/components/design-system/trust/GoogleReviews";
 import type { GoogleReviewsProps } from "@/components/design-system/trust/GoogleReviews";
 import { oxygeneoFaqCategories } from "@/lib/oxygeneo-faq";
 import { cn } from "@/lib/utils";
-
 
 const Button = (ButtonModule as unknown as { Button: React.FC<ButtonProps> })
   .Button;
@@ -41,15 +42,23 @@ const GoogleReviews = (
 const sectionPadding = "px-7 lg:px-[53px]";
 const containerMax = "max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto";
 
-const eyebrowStyle = "font-[var(--font-body)] text-[11px] font-bold tracking-[0.22em] uppercase text-[var(--color-brand-primary)]";
+const eyebrowStyle =
+  "font-[var(--font-body)] text-[11px] font-bold tracking-[0.22em] uppercase text-[var(--color-brand-primary)]";
 
-const displayHeadingStyle = "font-[var(--font-display)] font-normal text-[var(--color-text-primary)]";
+const displayHeadingStyle =
+  "font-[var(--font-display)] font-normal text-[var(--color-text-primary)]";
 
-const bodyTextStyle = "font-[var(--font-body)] text-[var(--color-text-secondary)]";
+const bodyTextStyle =
+  "font-[var(--font-body)] text-[var(--color-text-secondary)]";
 
 function SectionEyebrow({ children }: { children: React.ReactNode }) {
   return (
-    <span  className={cn("block", "font-[var(--font-body)] text-[11px] font-bold tracking-[0.22em] uppercase text-[var(--color-brand-primary)]")}>
+    <span
+      className={cn(
+        "block",
+        "font-[var(--font-body)] text-[11px] font-bold tracking-[0.22em] uppercase text-[var(--color-brand-primary)]",
+      )}
+    >
       {children}
     </span>
   );
@@ -64,8 +73,11 @@ function SectionHeading({
 }) {
   return (
     <h2
-      
-      className={cn("text-[36px] leading-[1.1] lg:text-[44px]", "font-[var(--font-display)] font-normal text-[var(--color-text-primary)]")} style={{ ...style }}
+      className={cn(
+        "text-[36px] leading-[1.1] lg:text-[44px]",
+        "font-[var(--font-display)] font-normal text-[var(--color-text-primary)]",
+      )}
+      style={{ ...style }}
     >
       {children}
     </h2>
@@ -73,56 +85,72 @@ function SectionHeading({
 }
 
 function OxyHero() {
+  const { open: openConsultation } = useConsultation();
   return (
     <section
-      
-      className={cn("relative overflow-hidden border-b-2 border-[#bfae97] bg-olive-50", "min-h-[800px] pt-[80px] pr-[28px] pb-[70px] pl-[28px]")}
+      className={cn(
+        "relative overflow-hidden border-b-2 border-[#bfae97] bg-olive-50",
+        "min-h-[800px] pt-[80px] pr-[28px] pb-[70px] pl-[28px]",
+      )}
     >
       <div
-        
-        className={cn("absolute inset-0 z-0 bg-cover bg-center bg-no-repeat lg:bg-right lg:[background-size:auto_100%]", "bg-[url('/assets/oxygeneo-hero.jpg')]")}
+        className={cn(
+          "absolute inset-0 z-0 bg-cover bg-center bg-no-repeat lg:bg-right lg:[background-size:auto_100%]",
+          "bg-[url('/assets/oxygeneo-hero.jpg')]",
+        )}
       />
       <div
-        
-        className={cn("pointer-events-none absolute inset-0 z-[1] hidden lg:block", "bg-[linear-gradient(toright,var(--olive-50)0%,rgba(245,242,235,0.92)35%,rgba(245,242,235,0)70%)]")}
+        className={cn(
+          "pointer-events-none absolute inset-0 z-[1] hidden lg:block",
+          "bg-[linear-gradient(toright,var(--olive-50)0%,rgba(245,242,235,0.92)35%,rgba(245,242,235,0)70%)]",
+        )}
       />
 
-      <div  className={cn("relative z-10 mx-auto w-full", "max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto")}>
+      <div
+        className={cn(
+          "relative z-10 mx-auto w-full",
+          "max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto",
+        )}
+      >
         <div className="w-full min-w-0 lg:max-w-[55%] lg:min-w-[320px]">
-          <div
-            className="flex items-center gap-[13px] mb-[31px]"
-          >
+          <div className="flex items-center gap-[13px] mb-[31px]">
             <span
-              
-              className={cn("text-[12px] font-bold uppercase tracking-[0.16em]", "font-[var(--font-body)] text-[var(--color-brand-primary)]")}
+              className={cn(
+                "text-[12px] font-bold uppercase tracking-[0.16em]",
+                "font-[var(--font-body)] text-[var(--color-brand-primary)]",
+              )}
             >
               OXYGENEO 3-IN-1 SUPER FACIAL{" "}
               <span className="text-[var(--color-brand-deep)]">
                 · NIAGARA FALLS
               </span>
             </span>
-            <span
-              className="w-[48px] h-[1px] bg-[var(--color-border-strong)]"
-            />
+            <span className="w-[48px] h-[1px] bg-[var(--color-border-strong)]" />
           </div>
 
           <h1
-            
-            className={cn("text-[44px] leading-[1.05] lg:text-[80px]", "font-[var(--font-display)] font-normal text-[var(--color-text-primary)] mt-0 mr-0 mb-[31px] ml-0")}
+            className={cn(
+              "text-[44px] leading-[1.05] lg:text-[80px]",
+              "font-[var(--font-display)] font-normal text-[var(--color-text-primary)] mt-0 mr-0 mb-[31px] ml-0",
+            )}
           >
             Your Best Skin,
             <br />
             <span
-              
-              className={cn("italic", "text-[var(--olive-600)] font-[var(--font-display)]")}
+              className={cn(
+                "italic",
+                "text-[var(--olive-600)] font-[var(--font-display)]",
+              )}
             >
               All in One Facial.
             </span>
           </h1>
 
           <p
-            
-            className={cn("text-base leading-relaxed lg:text-[20px] lg:leading-[1.6]", "font-[var(--font-body)] text-[var(--color-text-secondary)] mt-0 mr-0 mb-[40px] ml-0")}
+            className={cn(
+              "text-base leading-relaxed lg:text-[20px] lg:leading-[1.6]",
+              "font-[var(--font-body)] text-[var(--color-text-secondary)] mt-0 mr-0 mb-[40px] ml-0",
+            )}
           >
             Experience a personalized OxyGeneo facial that combines exfoliation,
             natural skin oxygenation and ingredient infusion in one relaxing
@@ -130,11 +158,10 @@ function OxyHero() {
             radiant with no downtime.
           </p>
 
-          <div
-            
-            className={cn("flex flex-col gap-4 lg:flex-row", "mb-[31px]")}
-          >
-            <Button variant="primary">Book Your OxyGeneo Facial →</Button>
+          <div className={cn("flex flex-col gap-4 lg:flex-row", "mb-[31px]")}>
+            <Button variant="primary" onClick={openConsultation}>
+              I want a Free Consultation →
+            </Button>
             <Link href="#treatment-options">
               <Button variant="secondary" style={{ width: "100%" }}>
                 Explore Treatment Options
@@ -145,8 +172,10 @@ function OxyHero() {
           <GoogleReviews rating="5.0" count="61+" />
 
           <div
-            
-            className={cn("mt-12 flex flex-wrap items-center gap-8", "flex flex-wrap gap-[24px] mt-[48px]")}
+            className={cn(
+              "mt-12 flex flex-wrap items-center gap-8",
+              "flex flex-wrap gap-[24px] mt-[48px]",
+            )}
           >
             {[
               { icon: Sparkles, text: "3-in-1 Technology" },
@@ -164,9 +193,7 @@ function OxyHero() {
                 />
                 <div>
                   <strong className="font-semibold">{item.text}</strong>
-                  <div
-                    className="text-[13px] text-[var(--color-text-secondary)]"
-                  >
+                  <div className="text-[13px] text-[var(--color-text-secondary)]">
                     {item.text === "3-in-1 Technology" &&
                       "Exfoliate · Oxygenate · Infuse"}
                     {item.text === "Personalized to Your Skin" &&
@@ -214,7 +241,6 @@ function OxyHowItWorks() {
 
   return (
     <section
-      
       className={cn(`${sectionPadding} bg-olive-50`, "pt-[90px] pb-[90px]")}
     >
       <div className="max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto">
@@ -224,8 +250,10 @@ function OxyHowItWorks() {
             Three Steps. One Complete Facial.
           </SectionHeading>
           <p
-            
-            className={cn("mx-auto max-w-[680px] text-base lg:text-[17px]", "font-[var(--font-body)] text-[var(--color-text-secondary)] leading-[1.6]")}
+            className={cn(
+              "mx-auto max-w-[680px] text-base lg:text-[17px]",
+              "font-[var(--font-body)] text-[var(--color-text-secondary)] leading-[1.6]",
+            )}
           >
             OxyGeneo combines three complementary treatment steps in a single
             facial experience — resurfacing the skin, supporting natural
@@ -237,34 +265,31 @@ function OxyHowItWorks() {
           {steps.map((step) => (
             <div
               key={step.number}
-              className="bg-[#fff] rounded-[18px] overflow-hidden" style={{ border: "1px solid var(--color-border)" }}
+              className="bg-[#fff] rounded-[18px] overflow-hidden"
+              style={{ border: "1px solid var(--color-border)" }}
             >
               <img
                 src={step.img}
                 alt={step.alt}
                 loading="lazy"
-                
-                className={cn("w-full object-cover", "aspect-[4/3]")} style={{ borderBottom: "1px solid var(--color-border)" }}
+                className={cn("w-full object-cover", "aspect-[4/3]")}
+                style={{ borderBottom: "1px solid var(--color-border)" }}
               />
               <div className="pt-[36px] pr-[30px] pb-[36px] pl-[30px]">
-                <span
-                  className="font-[var(--font-display)] text-[26px] text-[var(--color-brand-primary)]"
-                >
+                <span className="font-[var(--font-display)] text-[26px] text-[var(--color-brand-primary)]">
                   {step.number}
                 </span>
-                <h4
-                  className="font-[var(--font-display)] font-normal text-[var(--color-text-primary)] text-[26px] mt-[16px] mr-0 mb-[6px] ml-0"
-                >
+                <h4 className="font-[var(--font-display)] font-normal text-[var(--color-text-primary)] text-[26px] mt-[16px] mr-0 mb-[6px] ml-0">
                   {step.title}
                 </h4>
-                <p
-                  className="font-[var(--font-body)] text-[16px] font-semibold text-[var(--color-text-primary)] mt-0 mr-0 mb-[12px] ml-0"
-                >
+                <p className="font-[var(--font-body)] text-[16px] font-semibold text-[var(--color-text-primary)] mt-0 mr-0 mb-[12px] ml-0">
                   {step.sub}
                 </p>
                 <p
-                  
-                  className={cn("text-[15px] leading-relaxed", "font-[var(--font-body)] text-[var(--color-text-secondary)]")}
+                  className={cn(
+                    "text-[15px] leading-relaxed",
+                    "font-[var(--font-body)] text-[var(--color-text-secondary)]",
+                  )}
                 >
                   {step.text}
                 </p>
@@ -274,8 +299,10 @@ function OxyHowItWorks() {
         </div>
 
         <div
-          
-          className={cn("mt-10 text-center text-[13px] font-bold uppercase tracking-[0.22em]", "font-[var(--font-body)] text-[11px] font-bold tracking-[0.22em] uppercase text-[var(--color-brand-primary)]")}
+          className={cn(
+            "mt-10 text-center text-[13px] font-bold uppercase tracking-[0.22em]",
+            "font-[var(--font-body)] text-[11px] font-bold tracking-[0.22em] uppercase text-[var(--color-brand-primary)]",
+          )}
         >
           Exfoliate · Oxygenate · Infuse
         </div>
@@ -339,10 +366,10 @@ const treatments = [
 ];
 
 function OxyPricing() {
+  const { open: openConsultation } = useConsultation();
   return (
     <section
       id="treatment-options"
-      
       className={cn(`${sectionPadding} bg-olive-100`, "pt-[90px] pb-[90px]")}
     >
       <div className="max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto">
@@ -352,8 +379,10 @@ function OxyPricing() {
             Find the OxyGeneo Facial That Fits Your Goals
           </SectionHeading>
           <p
-            
-            className={cn("mx-auto max-w-[720px] text-base lg:text-[17px]", "font-[var(--font-body)] text-[var(--color-text-secondary)] leading-[1.6]")}
+            className={cn(
+              "mx-auto max-w-[720px] text-base lg:text-[17px]",
+              "font-[var(--font-body)] text-[var(--color-text-secondary)] leading-[1.6]",
+            )}
           >
             From a focused glow-boosting treatment to our most comprehensive
             facial experience, choose the level of treatment that fits your
@@ -365,25 +394,27 @@ function OxyPricing() {
           {treatments.map((t) => (
             <div
               key={t.name}
-              className="bg-[#fff] rounded-[20px] pt-[40px] pr-[34px] pb-[40px] pl-[34px] flex flex-col" style={{ border: "1px solid var(--color-border)" }}
+              className="bg-[#fff] rounded-[20px] pt-[40px] pr-[34px] pb-[40px] pl-[34px] flex flex-col"
+              style={{ border: "1px solid var(--color-border)" }}
             >
               <span
-                className="font-[var(--font-body)] text-[11px] font-bold tracking-[0.22em] uppercase text-[var(--color-brand-primary)] pt-[6px] pr-[10px] pb-[6px] pl-[10px] rounded-[6px] bg-[var(--olive-100)] mb-[20px]" style={{ alignSelf: "flex-start", border: "1px solid var(--color-border)" }}
+                className="font-[var(--font-body)] text-[11px] font-bold tracking-[0.22em] uppercase text-[var(--color-brand-primary)] pt-[6px] pr-[10px] pb-[6px] pl-[10px] rounded-[6px] bg-[var(--olive-100)] mb-[20px]"
+                style={{
+                  alignSelf: "flex-start",
+                  border: "1px solid var(--color-border)",
+                }}
               >
                 {t.tag}
               </span>
-              <h3
-                className="font-[var(--font-display)] font-normal text-[var(--color-text-primary)] text-[28px] mt-0 mr-0 mb-[6px] ml-0"
-              >
+              <h3 className="font-[var(--font-display)] font-normal text-[var(--color-text-primary)] text-[28px] mt-0 mr-0 mb-[6px] ml-0">
                 {t.name}
               </h3>
-              <p
-                className="font-[var(--font-body)] text-[15px] font-semibold text-[var(--color-text-primary)] mt-0 mr-0 mb-[12px] ml-0"
-              >
+              <p className="font-[var(--font-body)] text-[15px] font-semibold text-[var(--color-text-primary)] mt-0 mr-0 mb-[12px] ml-0">
                 {t.subtitle}
               </p>
               <ul
-                className="mt-0 mr-0 mb-[18px] ml-0 pl-[20px] text-[var(--color-text-secondary)] text-[15px] leading-[1.55]" style={{ listStyle: "disc" }}
+                className="mt-0 mr-0 mb-[18px] ml-0 pl-[20px] text-[var(--color-text-secondary)] text-[15px] leading-[1.55]"
+                style={{ listStyle: "disc" }}
               >
                 {t.includes.map((item) => (
                   <li key={item} className="mb-[6px]">
@@ -392,14 +423,18 @@ function OxyPricing() {
                 ))}
               </ul>
               <p
-                
-                className={cn("mt-auto text-[15px]", "font-[var(--font-body)] text-[var(--color-text-secondary)] mt-[auto]")}
+                className={cn(
+                  "mt-auto text-[15px]",
+                  "font-[var(--font-body)] text-[var(--color-text-secondary)] mt-[auto]",
+                )}
               >
                 {t.footer}
               </p>
               <div
-                
-                className={cn("mt-5", "font-[var(--font-display)] text-[34px] font-medium text-[var(--color-text-primary)]")}
+                className={cn(
+                  "mt-5",
+                  "font-[var(--font-display)] text-[34px] font-medium text-[var(--color-text-primary)]",
+                )}
               >
                 {t.price}
               </div>
@@ -408,19 +443,21 @@ function OxyPricing() {
         </div>
 
         <div className="mt-14 text-center">
-          <h4
-            className="font-[var(--font-display)] font-normal text-[var(--color-text-primary)] text-[26px] mt-0 mr-0 mb-[10px] ml-0"
-          >
+          <h4 className="font-[var(--font-display)] font-normal text-[var(--color-text-primary)] text-[26px] mt-0 mr-0 mb-[10px] ml-0">
             Not sure which one to choose?
           </h4>
           <p
-            
-            className={cn("mb-8 text-[17px]", "font-[var(--font-body)] text-[var(--color-text-secondary)] leading-[1.6]")}
+            className={cn(
+              "mb-8 text-[17px]",
+              "font-[var(--font-body)] text-[var(--color-text-secondary)] leading-[1.6]",
+            )}
           >
             We&apos;ll recommend the most suitable option based on your skin,
             goals and how comprehensive you want your treatment to be.
           </p>
-          <Button variant="primary">Book Your OxyGeneo Facial →</Button>
+          <Button variant="primary" onClick={openConsultation}>
+            I want a Free Consultation →
+          </Button>
         </div>
       </div>
     </section>
@@ -483,7 +520,6 @@ const oxypods = [
 function OxyOxyPods() {
   return (
     <section
-      
       className={cn(`${sectionPadding} bg-olive-50`, "pt-[90px] pb-[90px]")}
     >
       <div className="max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto">
@@ -493,8 +529,10 @@ function OxyOxyPods() {
             One Facial. Five Ways to Customize It.
           </SectionHeading>
           <p
-            
-            className={cn("mx-auto max-w-[680px] text-base lg:text-[17px]", "font-[var(--font-body)] text-[var(--color-text-secondary)] leading-[1.6]")}
+            className={cn(
+              "mx-auto max-w-[680px] text-base lg:text-[17px]",
+              "font-[var(--font-body)] text-[var(--color-text-secondary)] leading-[1.6]",
+            )}
           >
             Your OxyPod is selected according to your skin concerns and desired
             results, so the treatment can be adapted whether your priority is
@@ -506,31 +544,32 @@ function OxyOxyPods() {
           {oxypods.map((pod) => (
             <div
               key={pod.key}
-              className="bg-[#fff] rounded-[18px] pt-[28px] pr-[24px] pb-[28px] pl-[24px]" style={{ border: "1px solid var(--color-border)" }}
+              className="bg-[#fff] rounded-[18px] pt-[28px] pr-[24px] pb-[28px] pl-[24px]"
+              style={{ border: "1px solid var(--color-border)" }}
             >
               <div
-                className="w-[46px] h-[46px] rounded-[50%] text-[#fff] flex items-center justify-center mb-[18px]" style={{ background: pod.accent }}
+                className="w-[46px] h-[46px] rounded-[50%] text-[#fff] flex items-center justify-center mb-[18px]"
+                style={{ background: pod.accent }}
               >
                 <pod.icon size={22} strokeWidth={1.6} />
               </div>
               <span
-                className="font-[var(--font-body)] text-[11px] font-bold tracking-[0.22em] uppercase text-[var(--color-brand-primary)] text-[10px]" style={{ color: pod.accent }}
+                className="font-[var(--font-body)] text-[11px] font-bold tracking-[0.22em] uppercase text-[var(--color-brand-primary)] text-[10px]"
+                style={{ color: pod.accent }}
               >
                 {pod.name}
               </span>
-              <p
-                className="font-[var(--font-body)] text-[13px] font-semibold text-[var(--color-text-secondary)] mt-[6px] mr-0 mb-[10px] ml-0"
-              >
+              <p className="font-[var(--font-body)] text-[13px] font-semibold text-[var(--color-text-secondary)] mt-[6px] mr-0 mb-[10px] ml-0">
                 {pod.sub}
               </p>
-              <h4
-                className="font-[var(--font-display)] font-normal text-[var(--color-text-primary)] text-[20px] mt-0 mr-0 mb-[10px] ml-0"
-              >
+              <h4 className="font-[var(--font-display)] font-normal text-[var(--color-text-primary)] text-[20px] mt-0 mr-0 mb-[10px] ml-0">
                 {pod.for}
               </h4>
               <p
-                
-                className={cn("mb-4 text-[14px] leading-relaxed", "font-[var(--font-body)] text-[var(--color-text-secondary)]")}
+                className={cn(
+                  "mb-4 text-[14px] leading-relaxed",
+                  "font-[var(--font-body)] text-[var(--color-text-secondary)]",
+                )}
               >
                 {pod.text}
               </p>
@@ -538,7 +577,8 @@ function OxyOxyPods() {
                 {pod.bestFor.map((chip) => (
                   <span
                     key={chip}
-                    className="font-[var(--font-body)] text-[11px] font-semibold text-[var(--olive-700)] bg-[var(--olive-100)] pt-[5px] pr-[8px] pb-[5px] pl-[8px] rounded-[999px]" style={{ border: "1px solid var(--color-border)" }}
+                    className="font-[var(--font-body)] text-[11px] font-semibold text-[var(--olive-700)] bg-[var(--olive-100)] pt-[5px] pr-[8px] pb-[5px] pl-[8px] rounded-[999px]"
+                    style={{ border: "1px solid var(--color-border)" }}
                   >
                     {chip}
                   </span>
@@ -549,14 +589,14 @@ function OxyOxyPods() {
         </div>
 
         <div className="mt-12 rounded-2xl border border-[var(--color-border)] bg-olive-100 p-8 text-center">
-          <h4
-            className="font-[var(--font-display)] font-normal text-[var(--color-text-primary)] text-[24px] mt-0 mr-0 mb-[8px] ml-0"
-          >
+          <h4 className="font-[var(--font-display)] font-normal text-[var(--color-text-primary)] text-[24px] mt-0 mr-0 mb-[8px] ml-0">
             You Don&apos;t Need to Choose Before You Arrive
           </h4>
           <p
-            
-            className={cn("text-base", "font-[var(--font-body)] text-[var(--color-text-secondary)] leading-[1.6] m-0")}
+            className={cn(
+              "text-base",
+              "font-[var(--font-body)] text-[var(--color-text-secondary)] leading-[1.6] m-0",
+            )}
           >
             We&apos;ll look at your skin and select the OxyPod that best fits
             your concerns and treatment goals before beginning your facial.
@@ -570,7 +610,6 @@ function OxyOxyPods() {
 function OxyAdvancedTech() {
   return (
     <section
-      
       className={cn(`${sectionPadding} bg-olive-100`, "pt-[90px] pb-[90px]")}
     >
       <div className="max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto">
@@ -604,10 +643,12 @@ function OxyAdvancedTech() {
           ].map((tech) => (
             <div
               key={tech.title}
-              className="bg-[#fff] rounded-[18px] pt-[36px] pr-[30px] pb-[36px] pl-[30px]" style={{ border: "1px solid var(--color-border)" }}
+              className="bg-[#fff] rounded-[18px] pt-[36px] pr-[30px] pb-[36px] pl-[30px]"
+              style={{ border: "1px solid var(--color-border)" }}
             >
               <div
-                className="w-[56px] h-[56px] rounded-[50%] bg-[var(--olive-100)] flex items-center justify-center mb-[20px]" style={{ border: "1px solid var(--color-border)" }}
+                className="w-[56px] h-[56px] rounded-[50%] bg-[var(--olive-100)] flex items-center justify-center mb-[20px]"
+                style={{ border: "1px solid var(--color-border)" }}
               >
                 <tech.icon
                   size={26}
@@ -615,19 +656,17 @@ function OxyAdvancedTech() {
                   color="var(--color-brand-primary)"
                 />
               </div>
-              <h4
-                className="font-[var(--font-display)] font-normal text-[var(--color-text-primary)] text-[24px] mt-0 mr-0 mb-[6px] ml-0"
-              >
+              <h4 className="font-[var(--font-display)] font-normal text-[var(--color-text-primary)] text-[24px] mt-0 mr-0 mb-[6px] ml-0">
                 {tech.title}
               </h4>
-              <p
-                className="font-[var(--font-body)] text-[15px] font-semibold text-[var(--color-text-primary)] mt-0 mr-0 mb-[10px] ml-0"
-              >
+              <p className="font-[var(--font-body)] text-[15px] font-semibold text-[var(--color-text-primary)] mt-0 mr-0 mb-[10px] ml-0">
                 {tech.sub}
               </p>
               <p
-                
-                className={cn("text-[15px] leading-relaxed", "font-[var(--font-body)] text-[var(--color-text-secondary)]")}
+                className={cn(
+                  "text-[15px] leading-relaxed",
+                  "font-[var(--font-body)] text-[var(--color-text-secondary)]",
+                )}
               >
                 {tech.text}
               </p>
@@ -659,7 +698,6 @@ function OxyAddOns() {
 
   return (
     <section
-      
       className={cn(`${sectionPadding} bg-olive-50`, "pt-[90px] pb-[90px]")}
     >
       <div className="max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto">
@@ -696,28 +734,23 @@ function OxyAddOns() {
           ].map((item, i, arr) => (
             <div
               key={item.name}
-              className="pt-[26px] pr-[28px] pb-[26px] pl-[28px] flex flex-col gap-[4px]" style={{ borderBottom:
+              className="pt-[26px] pr-[28px] pb-[26px] pl-[28px] flex flex-col gap-[4px]"
+              style={{
+                borderBottom:
                   i < arr.length - 1
                     ? "1px solid var(--color-border)"
-                    : undefined }}
+                    : undefined,
+              }}
             >
-              <div
-                className="flex justify-between items-center gap-[16px]"
-              >
-                <h4
-                  className="font-[var(--font-display)] font-normal text-[var(--color-text-primary)] text-[20px] m-0"
-                >
+              <div className="flex justify-between items-center gap-[16px]">
+                <h4 className="font-[var(--font-display)] font-normal text-[var(--color-text-primary)] text-[20px] m-0">
                   {item.name}
                 </h4>
-                <span
-                  className="font-[var(--font-body)] text-[18px] font-bold text-[var(--color-brand-primary)] whitespace-nowrap"
-                >
+                <span className="font-[var(--font-body)] text-[18px] font-bold text-[var(--color-brand-primary)] whitespace-nowrap">
                   {item.price}
                 </span>
               </div>
-              <p
-                className="font-[var(--font-body)] text-[var(--color-text-secondary)] text-[14px] m-0"
-              >
+              <p className="font-[var(--font-body)] text-[var(--color-text-secondary)] text-[14px] m-0">
                 {item.detail}
               </p>
             </div>
@@ -725,8 +758,10 @@ function OxyAddOns() {
         </div>
 
         <p
-          
-          className={cn("mt-6 text-center text-[13px]", "font-[var(--font-body)] text-[var(--color-text-secondary)]")}
+          className={cn(
+            "mt-6 text-center text-[13px]",
+            "font-[var(--font-body)] text-[var(--color-text-secondary)]",
+          )}
         >
           All prices are subject to HST. Add-ons are recommended based on
           treatment suitability and your goals.
@@ -736,12 +771,12 @@ function OxyAddOns() {
           <button
             onClick={() => setOpen((prev) => !prev)}
             aria-expanded={open}
-            
-            className={cn("flex w-full items-center justify-between rounded-xl border border-[var(--color-border)] bg-olive-100 px-6 py-5 text-left", "cursor-pointer")}
+            className={cn(
+              "flex w-full items-center justify-between rounded-xl border border-[var(--color-border)] bg-olive-100 px-6 py-5 text-left",
+              "cursor-pointer",
+            )}
           >
-            <span
-              className="font-[var(--font-display)] font-normal text-[var(--color-text-primary)] text-[20px]"
-            >
+            <span className="font-[var(--font-display)] font-normal text-[var(--color-text-primary)] text-[20px]">
               Standalone TriPollar RF Pricing
             </span>
             <ChevronDown
@@ -767,20 +802,24 @@ function OxyAddOns() {
                 ].map((rf) => (
                   <div
                     key={rf.label}
-                    className="flex justify-between pt-[12px] pr-0 pb-[12px] pl-0 font-[var(--font-body)]" style={{ borderBottom: "1px solid var(--color-border)" }}
+                    className="flex justify-between pt-[12px] pr-0 pb-[12px] pl-0 font-[var(--font-body)]"
+                    style={{ borderBottom: "1px solid var(--color-border)" }}
                   >
                     <span className="text-[var(--color-text-primary)]">
                       {rf.label}
                     </span>
-                    <span
-                      className="font-semibold text-[var(--color-brand-primary)]"
-                    >
+                    <span className="font-semibold text-[var(--color-brand-primary)]">
                       {rf.price}
                     </span>
                   </div>
                 ))}
               </div>
-              <p  className={cn("mt-4 text-[13px]", "font-[var(--font-body)] text-[var(--color-text-secondary)]")}>
+              <p
+                className={cn(
+                  "mt-4 text-[13px]",
+                  "font-[var(--font-body)] text-[var(--color-text-secondary)]",
+                )}
+              >
                 Prices subject to HST.
               </p>
             </div>
@@ -829,7 +868,6 @@ function OxyResults() {
 
   return (
     <section
-      
       className={cn(`${sectionPadding} bg-olive-100`, "pt-[90px] pb-[90px]")}
     >
       <div className="max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto">
@@ -839,8 +877,10 @@ function OxyResults() {
             Fresh, Radiant Results
           </SectionHeading>
           <p
-            
-            className={cn("mx-auto max-w-[680px] text-base lg:text-[17px]", "font-[var(--font-body)] text-[var(--color-text-secondary)] leading-[1.6]")}
+            className={cn(
+              "mx-auto max-w-[680px] text-base lg:text-[17px]",
+              "font-[var(--font-body)] text-[var(--color-text-secondary)] leading-[1.6]",
+            )}
           >
             OxyGeneo is designed to leave skin looking refreshed after
             treatment, while consistent skincare and repeated treatments may
@@ -871,8 +911,10 @@ function OxyResults() {
                   aspectRatio="4 / 5"
                 />
                 <p
-                  
-                  className={cn("mt-3 text-center text-[13px]", "font-[var(--font-body)] text-[var(--color-text-secondary)]")}
+                  className={cn(
+                    "mt-3 text-center text-[13px]",
+                    "font-[var(--font-body)] text-[var(--color-text-secondary)]",
+                  )}
                 >
                   OxyGeneo manufacturer example
                 </p>
@@ -899,8 +941,10 @@ function OxyResults() {
         </div>
 
         <p
-          
-          className={cn("mt-10 text-center text-[13px]", "font-[var(--font-body)] text-[var(--color-text-secondary)]")}
+          className={cn(
+            "mt-10 text-center text-[13px]",
+            "font-[var(--font-body)] text-[var(--color-text-secondary)]",
+          )}
         >
           *Individual results vary.
         </p>
@@ -932,7 +976,6 @@ function OxyFinalCta() {
         </>
       }
       subheading="We'll look at your skin, discuss your concerns and help you choose the OxyGeneo treatment and OxyPod that best fit your goals."
-      buttonText="Book Your OxyGeneo Facial"
       phone="(905) 920-7229"
       phoneLabel="Call or Text"
       benefits={[
@@ -969,6 +1012,7 @@ export default function OxyGeneoPage() {
         <OxyAddOns />
         <OxyResults />
         <OxyFaq />
+        <ReviewsSection prioritizeService="facial" />
         <OxyFinalCta />
       </main>
     </>

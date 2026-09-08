@@ -5,12 +5,14 @@ import Header from "@/components/Header";
 import { AshleySection } from "@/components/AshleySection";
 import { CtaSection } from "@/components/CtaSection";
 import { FaqSection } from "@/components/FaqSection";
+import { ReviewsSection } from "@/components/ReviewsSection";
 import * as ButtonModule from "@/components/design-system/core/Button";
 import type { ButtonProps } from "@/components/design-system/core/Button";
 import * as GoogleReviewsModule from "@/components/design-system/trust/GoogleReviews";
 import type { GoogleReviewsProps } from "@/components/design-system/trust/GoogleReviews";
 import * as TrustStripModule from "@/components/design-system/trust/TrustStrip";
 import type { TrustStripProps } from "@/components/design-system/trust/TrustStrip";
+import { useConsultation } from "@/components/ConsultationModal";
 
 const Button = (ButtonModule as unknown as { Button: React.FC<ButtonProps> })
   .Button;
@@ -152,60 +154,54 @@ const Check = () => (
 );
 
 function Hero() {
+  const { open: openConsultation } = useConsultation();
   return (
     <section
-      className="relative pt-[80px] pr-[53px] pb-[70px] pl-[53px] overflow-hidden" style={{ borderBottom: "2px solid #bfae97" }}
+      className="relative pt-[80px] pr-[53px] pb-[70px] pl-[53px] overflow-hidden"
+      style={{ borderBottom: "2px solid #bfae97" }}
     >
       <div
-        className="absolute bg-[url('/assets/hero-treatment-olive.png')] bg-cover" style={{ inset: 0, backgroundPosition: "right center" }}
+        className="absolute bg-[url('/assets/hero-treatment-olive.png')] bg-cover"
+        style={{ inset: 0, backgroundPosition: "right center" }}
       />
       <div
-        className="absolute bg-[linear-gradient(toright,var(--olive-50)0%,var(--olive-50)44%,transparent66%)]" style={{ inset: 0 }}
+        className="absolute bg-[linear-gradient(toright,var(--olive-50)0%,var(--olive-50)44%,transparent66%)]"
+        style={{ inset: 0 }}
       />
-      <div
-        className="relative max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto"
-      >
+      <div className="relative max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto">
         <div className="max-w-[42%] min-w-[320px]">
-          <div
-            className="flex items-center gap-[13px] mb-[31px]"
-          >
-            <span
-              className="font-[var(--font-body)] text-[12px] tracking-[0.16em] uppercase text-[var(--color-brand-primary)] font-bold"
-            >
+          <div className="flex items-center gap-[13px] mb-[31px]">
+            <span className="font-[var(--font-body)] text-[12px] tracking-[0.16em] uppercase text-[var(--color-brand-primary)] font-bold">
               Niagara{" "}
               <span className="text-[var(--color-brand-deep)]">
                 Laser Hair Removal
               </span>
             </span>
-            <span
-              className="w-[48px] h-[1px] bg-[var(--color-border-strong)]"
-            />
+            <span className="w-[48px] h-[1px] bg-[var(--color-border-strong)]" />
           </div>
-          <h1
-            className="font-[var(--font-display)] font-normal text-[80px] leading-[1.05] text-[var(--color-text-primary)] mt-0 mr-0 mb-[31px] ml-0"
-          >
+          <h1 className="font-[var(--font-display)] font-normal text-[80px] leading-[1.05] text-[var(--color-text-primary)] mt-0 mr-0 mb-[31px] ml-0">
             Confident Skin.
             <br />
             Every Day.
           </h1>
-          <p
-            className="font-[var(--font-body)] text-[20px] leading-[1.6] text-[var(--color-text-secondary)] mt-0 mr-0 mb-[40px] ml-0"
-          >
+          <p className="font-[var(--font-body)] text-[20px] leading-[1.6] text-[var(--color-text-secondary)] mt-0 mr-0 mb-[40px] ml-0">
             Advanced laser technology meets personalized care for long-lasting
             results and beautifully smooth skin.
           </p>
           <div className="flex gap-[16px] mb-[31px]">
-            <Button variant="primary" icon={<Arrow />}>
-              Book Your Free Consultation
+            <Button
+              variant="primary"
+              icon={<Arrow />}
+              onClick={openConsultation}
+            >
+              I want a Free Consultation
             </Button>
             <Button variant="secondary">View Results</Button>
           </div>
           <GoogleReviews />
         </div>
       </div>
-      <div
-        className="relative max-w-[var(--container-max)] mt-[62px] mr-auto mb-0 ml-auto"
-      >
+      <div className="relative max-w-[var(--container-max)] mt-[62px] mr-auto mb-0 ml-auto">
         <TrustStrip
           items={[
             {
@@ -246,16 +242,20 @@ function FeatureCard({
 }) {
   return (
     <div
-      className="flex items-center gap-[16px] pt-[20px] pr-[22px] pb-[20px] pl-[22px] rounded-[14px] bg-[var(--olive-50)]" style={{ flexDirection: align === "left" ? "row" : "row-reverse", border: "1px solid var(--color-border)", textAlign: align }}
+      className="flex items-center gap-[16px] pt-[20px] pr-[22px] pb-[20px] pl-[22px] rounded-[14px] bg-[var(--olive-50)]"
+      style={{
+        flexDirection: align === "left" ? "row" : "row-reverse",
+        border: "1px solid var(--color-border)",
+        textAlign: align,
+      }}
     >
       <span
-        className="w-[44px] h-[44px] rounded-[50%] text-[var(--color-brand-primary)] flex items-center justify-center shrink-0" style={{ border: "1px solid var(--color-brand-primary)" }}
+        className="w-[44px] h-[44px] rounded-[50%] text-[var(--color-brand-primary)] flex items-center justify-center shrink-0"
+        style={{ border: "1px solid var(--color-brand-primary)" }}
       >
         {icon}
       </span>
-      <p
-        className="font-[var(--font-body)] text-[15px] leading-[1.5] text-[var(--color-text-primary)] m-0"
-      >
+      <p className="font-[var(--font-body)] text-[15px] leading-[1.5] text-[var(--color-text-primary)] m-0">
         {children}
       </p>
     </div>
@@ -319,61 +319,39 @@ function TechnologySection() {
   ];
 
   return (
-    <section
-      className="pt-[90px] pr-[53px] pb-[90px] pl-[53px] bg-[var(--olive-50)]"
-    >
-      <div
-        className="max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto"
-      >
+    <section className="pt-[90px] pr-[53px] pb-[90px] pl-[53px] bg-[var(--olive-50)]">
+      <div className="max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto">
         <div className="text-center mb-[56px]">
-          <div
-            className="flex items-center justify-center gap-[13px] mb-[22px]"
-          >
-            <span
-              className="font-[var(--font-body)] text-[12px] tracking-[0.16em] uppercase text-[var(--color-brand-primary)] font-bold"
-            >
+          <div className="flex items-center justify-center gap-[13px] mb-[22px]">
+            <span className="font-[var(--font-body)] text-[12px] tracking-[0.16em] uppercase text-[var(--color-brand-primary)] font-bold">
               Advanced Laser Technology
             </span>
-            <span
-              className="w-[48px] h-[1px] bg-[var(--color-border-strong)]"
-            />
+            <span className="w-[48px] h-[1px] bg-[var(--color-border-strong)]" />
           </div>
-          <h2
-            className="font-[var(--font-display)] font-normal text-[48px] leading-[1.1] text-[var(--color-text-primary)] mt-0 mr-0 mb-[16px] ml-0"
-          >
+          <h2 className="font-[var(--font-display)] font-normal text-[48px] leading-[1.1] text-[var(--color-text-primary)] mt-0 mr-0 mb-[16px] ml-0">
             Meet the Soprano ICE Platinum
           </h2>
-          <p
-            className="font-[var(--font-body)] text-[17px] leading-[1.6] text-[var(--color-text-secondary)] mt-0 mr-auto mb-0 ml-auto max-w-[560px]"
-          >
+          <p className="font-[var(--font-body)] text-[17px] leading-[1.6] text-[var(--color-text-secondary)] mt-0 mr-auto mb-0 ml-auto max-w-[560px]">
             Three laser wavelengths in one advanced system with built-in cooling
             for comfortable, effective results.
           </p>
         </div>
-        <div
-          className="flex items-center justify-center gap-[32px] flex-wrap"
-        >
-          <div
-            className="flex-[1_1_280px] max-w-[340px] flex flex-col gap-[18px]"
-          >
+        <div className="flex items-center justify-center gap-[32px] flex-wrap">
+          <div className="flex-[1_1_280px] max-w-[340px] flex flex-col gap-[18px]">
             {leftFeatures.map((f, i) => (
               <FeatureCard key={i} icon={f.icon} align="left">
                 {f.text}
               </FeatureCard>
             ))}
           </div>
-          <div
-            className="flex-[0_1_320px] min-w-[220px] flex justify-center"
-          >
+          <div className="flex-[0_1_320px] min-w-[220px] flex justify-center">
             <img
               src="/assets/smooth-skin-tech.png"
               alt="Soprano ICE Platinum laser device"
               className="w-full max-w-[300px] h-auto"
             />
           </div>
-          <div
-            className="flex-[1_1_280px] max-w-[340px] flex flex-col gap-[18px]"
-          >
+          <div className="flex-[1_1_280px] max-w-[340px] flex flex-col gap-[18px]">
             {rightFeatures.map((f, i) => (
               <FeatureCard key={i} icon={f.icon} align="right">
                 {f.text}
@@ -403,56 +381,43 @@ function TreatmentAreas() {
 
   return (
     <section className="pt-[90px] pr-[53px] pb-[90px] pl-[53px] bg-[var(--olive-100)]">
-      <div
-        className="max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto"
-      >
+      <div className="max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto">
         <div className="text-center mb-[56px]">
-          <div
-            className="flex items-center justify-center gap-[13px] mb-[22px]"
-          >
-            <span
-              className="font-[var(--font-body)] text-[12px] tracking-[0.16em] uppercase text-[var(--color-brand-primary)] font-bold"
-            >
+          <div className="flex items-center justify-center gap-[13px] mb-[22px]">
+            <span className="font-[var(--font-body)] text-[12px] tracking-[0.16em] uppercase text-[var(--color-brand-primary)] font-bold">
               Treatment Areas
             </span>
-            <span
-              className="w-[48px] h-[1px] bg-[var(--color-border-strong)]"
-            />
+            <span className="w-[48px] h-[1px] bg-[var(--color-border-strong)]" />
           </div>
-          <h2
-            className="font-[var(--font-display)] font-normal text-[48px] leading-[1.1] text-[var(--color-text-primary)] mt-0 mr-0 mb-[16px] ml-0"
-          >
+          <h2 className="font-[var(--font-display)] font-normal text-[48px] leading-[1.1] text-[var(--color-text-primary)] mt-0 mr-0 mb-[16px] ml-0">
             Smooth Skin, Anywhere You Want It
           </h2>
-          <p
-            className="font-[var(--font-body)] text-[17px] leading-[1.6] text-[var(--color-text-secondary)] mt-0 mr-auto mb-0 ml-auto max-w-[560px]"
-          >
+          <p className="font-[var(--font-body)] text-[17px] leading-[1.6] text-[var(--color-text-secondary)] mt-0 mr-auto mb-0 ml-auto max-w-[560px]">
             Personalized laser hair removal treatments for the face, body and
             everything in between.
           </p>
         </div>
         <div
-          className="grid gap-[24px]" style={{ gridTemplateColumns: "repeat(3, minmax(0, 1fr))" }}
+          className="grid gap-[24px]"
+          style={{ gridTemplateColumns: "repeat(3, minmax(0, 1fr))" }}
         >
           {areas.map((area) => (
             <div
               key={area.title}
-              className="flex items-start gap-[16px] pt-[26px] pr-[28px] pb-[26px] pl-[28px] rounded-[16px] bg-[#fff]" style={{ border: "1px solid var(--color-border)" }}
+              className="flex items-start gap-[16px] pt-[26px] pr-[28px] pb-[26px] pl-[28px] rounded-[16px] bg-[#fff]"
+              style={{ border: "1px solid var(--color-border)" }}
             >
               <span
-                className="w-[40px] h-[40px] rounded-[50%] text-[var(--color-brand-primary)] flex items-center justify-center shrink-0" style={{ border: "1px solid var(--color-brand-primary)" }}
+                className="w-[40px] h-[40px] rounded-[50%] text-[var(--color-brand-primary)] flex items-center justify-center shrink-0"
+                style={{ border: "1px solid var(--color-brand-primary)" }}
               >
                 <Check />
               </span>
               <div>
-                <h4
-                  className="font-[var(--font-display)] text-[20px] font-normal text-[var(--color-text-primary)] mt-0 mr-0 mb-[4px] ml-0"
-                >
+                <h4 className="font-[var(--font-display)] text-[20px] font-normal text-[var(--color-text-primary)] mt-0 mr-0 mb-[4px] ml-0">
                   {area.title}
                 </h4>
-                <p
-                  className="font-[var(--font-body)] text-[14px] text-[var(--color-text-secondary)] m-0"
-                >
+                <p className="font-[var(--font-body)] text-[14px] text-[var(--color-text-secondary)] m-0">
                   {area.sub}
                 </p>
               </div>
@@ -473,6 +438,7 @@ export default function Home() {
       <TechnologySection />
       <TreatmentAreas />
       <FaqSection />
+      <ReviewsSection prioritizeService="laser" />
       <CtaSection />
     </>
   );

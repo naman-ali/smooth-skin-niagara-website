@@ -1,8 +1,6 @@
 "use client";
 
 import {
-  ArrowLeft,
-  ArrowRight,
   Check,
   CheckCircle,
   Clock,
@@ -18,8 +16,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import * as React from "react";
-import { useCallback, useRef, useState } from "react";
-import { BeforeAfter } from "@/components/BeforeAfter";
+import { useState } from "react";
 import { FaqSection } from "@/components/FaqSection";
 import Header from "@/components/Header";
 import * as ButtonModule from "@/components/design-system/core/Button";
@@ -711,45 +708,53 @@ function MicroneedlingPricing() {
   );
 }
 
-const results = [
+const microneedlingResults = [
   {
+    src: "/assets/dermaroller-scar-1.jpg",
     title: "Acne Scarring",
-    beforeSrc: "/assets/hero-treatment.png",
-    afterSrc: "/assets/hero-treatment-olive.png",
   },
   {
-    title: "Skin Texture",
-    beforeSrc: "/assets/hero-treatment.png",
-    afterSrc: "/assets/hero-treatment-olive.png",
+    src: "/assets/dermaroller-scar-2.jpg",
+    title: "Acne Scarring",
   },
   {
+    src: "/assets/dermaroller-scar-3.jpg",
+    title: "Acne Scarring",
+  },
+  {
+    src: "/assets/dermaroller-scar-5.jpg",
+    title: "Acne Scarring",
+  },
+  {
+    src: "/assets/dermaroller-scar-6.jpg",
+    title: "Acne Scarring",
+  },
+  {
+    src: "/assets/dermaroller-skin-tightening-1.jpg",
+    title: "Skin Tightening",
+  },
+  {
+    src: "/assets/dermaroller-stretch-marks-1.jpg",
     title: "Stretch Marks",
-    beforeSrc: "/assets/hero-treatment.png",
-    afterSrc: "/assets/hero-treatment-olive.png",
+  },
+  {
+    src: "/assets/dermaroller-stretch-marks-2.jpg",
+    title: "Stretch Marks",
+  },
+  {
+    src: "/assets/dermaroller-wrinkles-1.jpg",
+    title: "Wrinkles",
+  },
+  {
+    src: "/assets/dermaroller-wrinkles-3.jpg",
+    title: "Wrinkles",
   },
 ];
 
 function MicroneedlingResults() {
-  const scrollRef = useRef<HTMLDivElement | null>(null);
-  const [scrollPos, setScrollPos] = useState(0);
-
-  const scroll = useCallback((direction: 1 | -1) => {
-    const el = scrollRef.current;
-    if (!el) return;
-    const card = el.firstElementChild as HTMLElement | null;
-    const cardWidth = card ? card.offsetWidth + 24 : 360;
-    el.scrollBy({ left: cardWidth * direction, behavior: "smooth" });
-  }, []);
-
-  const onScroll = useCallback(() => {
-    const el = scrollRef.current;
-    if (!el) return;
-    setScrollPos(el.scrollLeft);
-  }, []);
-
   return (
     <section
-      className={cn(`${sectionPadding} bg-olive-50`, "pt-[90px] pb-[90px]")}
+      className={cn(`${sectionPadding} bg-olive-50`, "py-16 lg:py-[90px]")}
     >
       <div className="max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto">
         <div className="mb-12 text-center">
@@ -769,55 +774,29 @@ function MicroneedlingResults() {
           </p>
         </div>
 
-        <div className="relative">
-          <div
-            ref={scrollRef}
-            onScroll={onScroll}
-            className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 scrollbar-hide"
-            style={{
-              scrollbarWidth: "none",
-              msOverflowStyle: "none",
-            }}
-          >
-            {results.map((item) => (
-              <div
-                key={item.title}
-                className="w-full shrink-0 snap-center lg:w-[calc(33.333%-16px)]"
-              >
-                <BeforeAfter
-                  beforeSrc={item.beforeSrc}
-                  afterSrc={item.afterSrc}
-                  title={item.title}
-                  aspectRatio="4 / 5"
-                />
-                <p
-                  className={cn(
-                    "mt-3 text-center text-[13px]",
-                    "font-[var(--font-body)] text-[var(--color-text-secondary)]",
-                  )}
-                >
-                  Dermaroller® example result
-                </p>
-              </div>
-            ))}
-          </div>
-
-          {scrollPos > 0 && (
-            <button
-              onClick={() => scroll(-1)}
-              aria-label="Previous result"
-              className="absolute left-0 top-1/2 -translate-y-1/2 hidden h-11 w-11 items-center justify-center rounded-full border border-[var(--color-border)] bg-white shadow-sm lg:flex"
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+          {microneedlingResults.map((item) => (
+            <div
+              key={item.src}
+              className="overflow-hidden rounded-[18px] bg-[#fff]"
+              style={{ border: "1px solid var(--color-border)" }}
             >
-              <ArrowLeft size={18} color="var(--color-text-primary)" />
-            </button>
-          )}
-          <button
-            onClick={() => scroll(1)}
-            aria-label="Next result"
-            className="absolute right-0 top-1/2 -translate-y-1/2 hidden h-11 w-11 items-center justify-center rounded-full border border-[var(--color-border)] bg-white shadow-sm lg:flex"
-          >
-            <ArrowRight size={18} color="var(--color-text-primary)" />
-          </button>
+              <img
+                src={item.src}
+                alt={`Microneedling ${item.title} before and after`}
+                loading="lazy"
+                className="h-auto w-full object-contain"
+              />
+              <p
+                className={cn(
+                  "mt-0 py-3 text-center text-[13px]",
+                  "font-[var(--font-body)] text-[var(--color-text-secondary)]",
+                )}
+              >
+                {item.title}
+              </p>
+            </div>
+          ))}
         </div>
 
         <p

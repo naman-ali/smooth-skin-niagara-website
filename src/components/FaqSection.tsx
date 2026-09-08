@@ -1,6 +1,5 @@
 "use client";
 
-
 import * as ButtonModule from "@/components/design-system/core/Button";
 import type { ButtonProps } from "@/components/design-system/core/Button";
 import React, { useCallback, useEffect, useState } from "react";
@@ -600,7 +599,20 @@ type FaqCategory = (typeof defaultCategories)[number];
 
 export interface FaqSectionProps {
   eyebrow?: string;
-  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  h  oid;
+  heading?: string;
+  subheading?: string;
+  categories?: FaqCategory[];
+  cta?: React.ReactNode;
+}
+
+function CategoryNav({
+  categories,
+  activeCategory,
+  onSelect,
+}: {
+  categories: FaqCategory[];
+  activeCategory: number;
+  onSelect: (index: number) => void;
 }) {
   return (
     <nav style={{ display: "flex", flexDirection: "column", gap: 12 }}>

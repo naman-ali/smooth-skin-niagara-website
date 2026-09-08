@@ -1,9 +1,11 @@
 "use client";
 
 import * as ButtonModule from "@/components/design-system/core/Button";
+import type { ButtonProps } from "@/components/design-system/core/Button";
 import React from "react";
 
-const Button: any = (ButtonModule as any).Button;
+const Button = (ButtonModule as unknown as { Button: React.FC<ButtonProps> })
+  .Button;
 
 const PhoneIcon = () => (
   <svg
@@ -70,26 +72,57 @@ const ShieldIcon = () => (
   </svg>
 );
 
-const HeartIcon = () => (
-  <svg
-    width="20"
-    height="20"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="1.5"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M20.8 4.6a5.5 5.5 0 0 0-7.7 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.7 7.7l1.1 1.1L12 21l7.7-7.7 1.1-1.1a5.5 5.5 0 0 0 0-7.7z" />
-  </svg>
-);
+const defaultBenefits = [
+  {
+    icon: <CalendarIcon />,
+    title: "Free Consultation",
+    text: "No pressure, just expert advice",
+  },
+  {
+    icon: <PersonIcon />,
+    title: "Personalized Plan",
+    text: "Tailored to your skin, goals and lifestyle",
+  },
+  {
+    icon: <ShieldIcon />,
+    title: "Trusted & Professional",
+    text: "You're in safe, experienced hands",
+  },
+];
+
+interface BenefitItem {
+  icon?: React.ReactNode;
+  title: string;
+  text: string;
+}
 
 interface CtaSectionProps {
   variant?: "light" | "dark";
+  eyebrow?: string;
+  heading?: React.ReactNode;
+  subheading?: string;
+  buttonText?: string;
+  phone?: string;
+  phoneLabel?: string;
+  benefits?: BenefitItem[];
 }
 
-export function CtaSection({ variant = "dark" }: CtaSectionProps) {
+export function CtaSection({
+  variant = "dark",
+  eyebrow = "Ready to Take the Next Step?",
+  heading = (
+    <>
+      Let&apos;s Create Your
+      <br />
+      Personalized Treatment Plan
+    </>
+  ),
+  subheading = "Book a free consultation and we'll take the time to understand your goals, assess your skin and recommend the most suitable treatment plan for you.",
+  buttonText = "Book a Free Consultation",
+  phone = "(905) 920-7229",
+  phoneLabel = "Call or Text",
+  benefits = defaultBenefits,
+}: CtaSectionProps) {
   const theme =
     variant === "dark"
       ? {
@@ -163,7 +196,7 @@ export function CtaSection({ variant = "dark" }: CtaSectionProps) {
               whiteSpace: "nowrap",
             }}
           >
-            Ready to Take the Next Step?
+            {eyebrow}
           </span>
           <span
             style={{
@@ -185,9 +218,7 @@ export function CtaSection({ variant = "dark" }: CtaSectionProps) {
             maxWidth: 760,
           }}
         >
-          Let&apos;s Create Your
-          <br />
-          Personalized Treatment Plan
+          {heading}
         </h2>
 
         <p
@@ -200,9 +231,7 @@ export function CtaSection({ variant = "dark" }: CtaSectionProps) {
             maxWidth: 620,
           }}
         >
-          Book a free consultation and we&apos;ll take the time to understand
-          your goals, assess your skin and recommend the most suitable treatment
-          plan for you.
+          {subheading}
         </p>
 
         <div
@@ -225,7 +254,7 @@ export function CtaSection({ variant = "dark" }: CtaSectionProps) {
               padding: "0 28px",
             }}
           >
-            Book a Free Consultation
+            {buttonText}
           </Button>
 
           <a
@@ -262,7 +291,7 @@ export function CtaSection({ variant = "dark" }: CtaSectionProps) {
                   marginBottom: 1,
                 }}
               >
-                (905) 920-7229
+                {phone}
               </div>
               <div
                 style={{
@@ -270,7 +299,7 @@ export function CtaSection({ variant = "dark" }: CtaSectionProps) {
                   color: theme.text,
                 }}
               >
-                Call or Text
+                {phoneLabel}
               </div>
             </div>
           </a>
@@ -287,23 +316,7 @@ export function CtaSection({ variant = "dark" }: CtaSectionProps) {
             gap: 0,
           }}
         >
-          {[
-            {
-              icon: <CalendarIcon />,
-              title: "Free Consultation",
-              text: "No pressure, just expert advice",
-            },
-            {
-              icon: <PersonIcon />,
-              title: "Personalized Plan",
-              text: "Tailored to your skin, goals and lifestyle",
-            },
-            {
-              icon: <ShieldIcon />,
-              title: "Trusted & Professional",
-              text: "You're in safe, experienced hands",
-            },
-          ].map((item, i) => (
+          {benefits.map((item, i) => (
             <React.Fragment key={i}>
               <div
                 style={{

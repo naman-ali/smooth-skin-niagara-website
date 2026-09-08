@@ -22,9 +22,9 @@ const PhoneCallout = (
 
 const serviceItems = [
   { label: "Laser Hair Removal", href: "#" },
-  { label: "Microneedling", href: "#" },
-  { label: "Chemical Peels", href: "#" },
-  { label: "OxyGeneo Facials", href: "#" },
+  { label: "Microneedling", href: "/edermastamp-microneedling" },
+  { label: "Chemical Peels", href: "/cosmetic-grade-pca-skin-peels" },
+  { label: "OxyGeneo Facials", href: "/oxygeneo-3-1-super-facial" },
   { label: "RF Skin Tightening", href: "#" },
   { label: "Celluma LED Light Therapy", href: "/celluma-led-light-therapy" },
   { label: "Eyelash Extensions", href: "/eyelash-extensions" },

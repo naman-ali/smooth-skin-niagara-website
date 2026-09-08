@@ -54,9 +54,18 @@ export function CellumaHero() {
     >
       {/* Full-bleed background image - preserves aspect ratio, anchored right */}
       <div
-        className="absolute inset-0 bg-no-repeat bg-cover bg-center lg:bg-right lg:[background-size:auto_100%]"
+        className="absolute inset-0 z-0 bg-no-repeat bg-cover bg-center lg:bg-right lg:[background-size:auto_100%]"
         style={{
           backgroundImage: "url(/assets/celluma-hero-bg.jpg)",
+        }}
+      />
+
+      {/* Left-side gradient wash behind the content */}
+      <div
+        className="pointer-events-none absolute inset-0 z-[1] hidden lg:block"
+        style={{
+          background:
+            "linear-gradient(to right, var(--olive-50) 0%, rgba(245,242,235,0.92) 35%, rgba(245,242,235,0) 70%)",
         }}
       />
 

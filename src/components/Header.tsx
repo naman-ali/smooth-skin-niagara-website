@@ -21,7 +21,7 @@ const PhoneCallout = (
 ).PhoneCallout;
 
 const serviceItems = [
-  { label: "Laser Hair Removal", href: "#" },
+  { label: "Laser Hair Removal", href: "/laser-hair-removal" },
   { label: "Microneedling", href: "/edermastamp-microneedling" },
   { label: "Chemical Peels", href: "/cosmetic-grade-pca-skin-peels" },
   { label: "OxyGeneo Facials", href: "/oxygeneo-3-1-super-facial" },

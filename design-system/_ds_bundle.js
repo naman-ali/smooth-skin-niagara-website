@@ -1572,7 +1572,7 @@
                       "0 1px 12px var(--olive-50), 0 1px 3px var(--olive-50)",
                   },
                 },
-                "Ashley Romano",
+                "Ashley",
               ),
               /*#__PURE__*/ React.createElement(
                 "h3",

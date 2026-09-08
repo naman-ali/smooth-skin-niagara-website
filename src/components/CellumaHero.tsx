@@ -54,7 +54,7 @@ export function CellumaHero() {
     <section
       className={cn(
         "relative overflow-hidden border-b-2 border-[#bfae97] bg-olive-50",
-        "min-h-0 lg:min-h-[780px] pt-[80px] px-7 pb-[70px] lg:px-[53px]",
+        "min-h-0 lg:min-h-[780px] pt-[80px] px-3 pb-[70px] lg:px-[53px]",
       )}
     >
       {/* Full-bleed background image - preserves aspect ratio, anchored right */}

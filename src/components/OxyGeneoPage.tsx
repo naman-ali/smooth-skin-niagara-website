@@ -39,7 +39,7 @@ const GoogleReviews = (
   }
 ).GoogleReviews;
 
-const sectionPadding = "px-7 lg:px-[53px]";
+const sectionPadding = "px-3 lg:px-[53px]";
 const containerMax = "max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto";
 
 const eyebrowStyle =
@@ -90,7 +90,7 @@ function OxyHero() {
     <section
       className={cn(
         "relative overflow-hidden border-b-2 border-[#bfae97] bg-olive-50",
-        "min-h-0 lg:min-h-[800px] pt-[80px] pr-[28px] pb-[70px] pl-[28px]",
+        "min-h-0 lg:min-h-[800px] pt-[80px] px-3 pb-[70px] lg:px-7",
       )}
     >
       <div

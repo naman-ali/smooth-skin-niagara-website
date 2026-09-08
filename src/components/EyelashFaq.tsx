@@ -336,7 +336,7 @@ export function EyelashFaq() {
   };
 
   return (
-    <section className="pt-[90px] px-7 pb-[90px] lg:px-[53px] bg-[var(--olive-50)]">
+    <section className="pt-[90px] px-3 pb-[90px] lg:px-[53px] bg-[var(--olive-50)]">
       <div className="max-w-[920px] mt-0 mr-auto mb-0 ml-auto">
         <div className="text-center mb-[56px]">
           <div className="flex items-center justify-center gap-[13px] mb-[22px]">

@@ -789,7 +789,7 @@ export function FaqSection({
   };
 
   return (
-    <section className="py-16 px-7 lg:py-[90px] lg:px-[53px] bg-[var(--olive-50)]">
+    <section className="py-16 px-3 lg:py-[90px] lg:px-[53px] bg-[var(--olive-50)]">
       <div className="relative max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto">
         <div className="text-center mb-[56px]">
           <div className="flex items-center justify-center gap-[13px] mb-[22px]">

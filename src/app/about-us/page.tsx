@@ -23,7 +23,7 @@ export default function AboutUsPage() {
       <Header />
       <main className="bg-olive-50">
         {/* Bio / Intro */}
-        <section className="relative overflow-hidden px-6 py-[90px] md:px-10">
+        <section className="relative overflow-hidden px-3 py-[90px] md:px-10">
           <div className="mx-auto max-w-[var(--container-max)]">
             <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:items-start">
               <div>
@@ -101,7 +101,7 @@ export default function AboutUsPage() {
         </section>
 
         {/* Certifications */}
-        <section className="bg-olive-100 px-6 py-[90px] md:px-10">
+        <section className="bg-olive-100 px-3 py-[90px] md:px-10">
           <div className="mx-auto max-w-[var(--container-max)]">
             <div className="mb-[22px] flex items-center gap-[13px]">
               <span className="font-[var(--font-body)] text-[12px] font-bold uppercase tracking-[0.16em] text-[var(--color-brand-primary)]">
@@ -135,7 +135,7 @@ export default function AboutUsPage() {
         </section>
 
         {/* Social / Mission */}
-        <section className="bg-ink-900 px-6 py-[90px] md:px-10">
+        <section className="bg-ink-900 px-3 py-[90px] md:px-10">
           <div className="mx-auto max-w-[var(--container-max)]">
             <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
               <div>
@@ -177,7 +177,7 @@ export default function AboutUsPage() {
         </section>
 
         {/* WALAD */}
-        <section className="px-6 py-[90px] md:px-10">
+        <section className="px-3 py-[90px] md:px-10">
           <div className="mx-auto max-w-[var(--container-max)]">
             <div className="rounded-[14px] border border-[var(--color-border)] bg-olive-100 p-8 md:p-12">
               <div className="mb-[14px] flex items-center gap-[13px]">

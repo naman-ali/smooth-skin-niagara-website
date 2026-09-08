@@ -4,7 +4,6 @@ import { BeforeAfter } from "@/components/BeforeAfter";
 import * as React from "react";
 import { cn } from "@/lib/utils";
 
-
 export type BeforeAfterItem = {
   beforeSrc: string;
   afterSrc: string;
@@ -49,51 +48,42 @@ export function BeforeAfterSection({
 
   return (
     <section
-      className="px-7 lg:px-[53px]"
+      className="px-3 lg:px-[53px]"
       style={{
         paddingTop: padding.top,
         paddingBottom: padding.bottom,
         background,
       }}
     >
-      <div
-        className="mt-0 mr-auto mb-0 ml-auto" style={{ maxWidth }}
-      >
+      <div className="mt-0 mr-auto mb-0 ml-auto" style={{ maxWidth }}>
         {(eyebrow || heading || subheading) && (
           <header
-            className="text-center" style={{ marginBottom: heading ? 48 : 0 }}
+            className="text-center"
+            style={{ marginBottom: heading ? 48 : 0 }}
           >
             {eyebrow && (
-              <div
-                className="flex items-center justify-center gap-[14px] mb-[24px]"
-              >
-                <span
-                  className="w-[40px] h-[1px] bg-[var(--color-border-strong)]"
-                />
-                <span
-                  className="font-[var(--font-body)] text-[11px] font-bold tracking-[0.22em] uppercase text-[var(--color-brand-primary)]"
-                >
+              <div className="flex items-center justify-center gap-[14px] mb-[24px]">
+                <span className="w-[40px] h-[1px] bg-[var(--color-border-strong)]" />
+                <span className="font-[var(--font-body)] text-[11px] font-bold tracking-[0.22em] uppercase text-[var(--color-brand-primary)]">
                   {eyebrow}
                 </span>
-                <span
-                  className="w-[40px] h-[1px] bg-[var(--color-border-strong)]"
-                />
+                <span className="w-[40px] h-[1px] bg-[var(--color-border-strong)]" />
               </div>
             )}
 
             {heading && (
               <h2
-                
-                className={cn("text-center text-[36px] leading-[1.1] lg:text-[44px]", "font-[var(--font-display)] font-normal text-[var(--color-text-primary)] mt-0 mr-0 mb-[16px] ml-0")}
+                className={cn(
+                  "text-center text-[36px] leading-[1.1] lg:text-[44px]",
+                  "font-[var(--font-display)] font-normal text-[var(--color-text-primary)] mt-0 mr-0 mb-[16px] ml-0",
+                )}
               >
                 {heading}
               </h2>
             )}
 
             {subheading && (
-              <p
-                className="font-[var(--font-body)] text-[16px] leading-[1.6] text-[var(--color-text-secondary)] max-w-[680px] mt-0 mr-auto mb-0 ml-auto"
-              >
+              <p className="font-[var(--font-body)] text-[16px] leading-[1.6] text-[var(--color-text-secondary)] max-w-[680px] mt-0 mr-auto mb-0 ml-auto">
                 {subheading}
               </p>
             )}

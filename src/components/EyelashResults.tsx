@@ -55,7 +55,7 @@ export function EyelashResults() {
       : results.filter((r) => r.title === activeCategory);
 
   return (
-    <section className="pt-[90px] px-7 pb-[90px] lg:px-[53px] bg-[var(--olive-100)]">
+    <section className="pt-[90px] px-3 pb-[90px] lg:px-[53px] bg-[var(--olive-100)]">
       <div className="relative max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto">
         <div className="text-center mb-[56px]">
           <div className="flex items-center justify-center gap-[13px] mb-[22px]">

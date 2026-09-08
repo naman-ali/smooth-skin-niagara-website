@@ -35,7 +35,7 @@ const GoogleReviews = (
   }
 ).GoogleReviews;
 
-const sectionPadding = "px-7 lg:px-[53px]";
+const sectionPadding = "px-3 lg:px-[53px]";
 const containerMax = "max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto";
 
 const eyebrowStyle =
@@ -86,7 +86,7 @@ function PcaHero() {
     <section
       className={cn(
         "relative overflow-hidden border-b-2 border-[#bfae97] bg-olive-50",
-        "min-h-0 lg:min-h-[760px] py-16 px-7 lg:pt-[80px] lg:pb-[70px]",
+        "min-h-0 lg:min-h-[760px] py-16 px-3 lg:px-7 lg:pt-[80px] lg:pb-[70px]",
       )}
     >
       <div

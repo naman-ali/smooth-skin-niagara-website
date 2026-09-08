@@ -81,7 +81,7 @@ function HomeHero() {
       />
       <div
         className={cn(
-          "relative z-10 flex min-h-0 flex-col px-6 lg:min-h-[840px] lg:px-12",
+          "relative z-10 flex min-h-0 flex-col px-3 lg:min-h-[840px] lg:px-12",
           "pt-[60px] pb-[40px]",
         )}
       >

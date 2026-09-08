@@ -8,21 +8,20 @@ import * as ButtonModule from "@/components/design-system/core/Button";
 import type { ButtonProps } from "@/components/design-system/core/Button";
 import { cn } from "@/lib/utils";
 
-
 const Button = (ButtonModule as unknown as { Button: React.FC<ButtonProps> })
   .Button;
 
 const containerMax = "max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto";
 
-const displayHeadingStyle = "font-[var(--font-display)] font-normal text-[var(--color-text-primary)]";
+const displayHeadingStyle =
+  "font-[var(--font-display)] font-normal text-[var(--color-text-primary)]";
 
-const bodyTextStyle = "font-[var(--font-body)] text-[var(--color-text-secondary)]";
+const bodyTextStyle =
+  "font-[var(--font-body)] text-[var(--color-text-secondary)]";
 
 function Eyebrow({ children }: { children: React.ReactNode }) {
   return (
-    <span
-      className="font-[var(--font-body)] text-[12px] tracking-[0.16em] uppercase text-[var(--olive-600)] font-bold"
-    >
+    <span className="font-[var(--font-body)] text-[12px] tracking-[0.16em] uppercase text-[var(--olive-600)] font-bold">
       {children}
     </span>
   );
@@ -173,34 +172,45 @@ function TreatmentCard({
         style={{ background: gradient }}
       />
       <div
-        
-        className={cn("absolute bottom-0 left-0 z-20 p-6 md:p-7 lg:p-8", "pr-[64px]")} style={{ maxWidth: treatment.size === "large" ? 420 : 340 }}
+        className={cn(
+          "absolute bottom-0 left-0 z-20 p-6 md:p-7 lg:p-8",
+          "pr-[64px]",
+        )}
+        style={{ maxWidth: treatment.size === "large" ? 420 : 340 }}
       >
         <span
-          
-          className={cn("mb-2 block text-[11px] font-semibold uppercase tracking-[0.15em]", "font-[var(--font-body)] text-[var(--olive-600)]")}
+          className={cn(
+            "mb-2 block text-[11px] font-semibold uppercase tracking-[0.15em]",
+            "font-[var(--font-body)] text-[var(--olive-600)]",
+          )}
         >
           {treatment.eyebrow}
         </span>
         <h3
-          
-          className={cn(`leading-[1.05] ${
-            treatment.size === "large"
-              ? "text-[34px] lg:text-[42px]"
-              : "text-[26px] lg:text-[30px]"
-          }`, "font-[var(--font-display)] font-normal text-[var(--color-text-primary)] mt-0 mr-0 mb-[8px] ml-0")}
+          className={cn(
+            `leading-[1.05] ${
+              treatment.size === "large"
+                ? "text-[34px] lg:text-[42px]"
+                : "text-[26px] lg:text-[30px]"
+            }`,
+            "font-[var(--font-display)] font-normal text-[var(--color-text-primary)] mt-0 mr-0 mb-[8px] ml-0",
+          )}
         >
           {treatment.title}
         </h3>
         <p
-          
-          className={cn("text-[15px] leading-[1.45] lg:text-[16px]", "font-[var(--font-body)] text-[var(--color-text-secondary)] mt-0 mr-0 mb-[14px] ml-0")}
+          className={cn(
+            "text-[15px] leading-[1.45] lg:text-[16px]",
+            "font-[var(--font-body)] text-[var(--color-text-secondary)] mt-0 mr-0 mb-[14px] ml-0",
+          )}
         >
           {treatment.description}
         </p>
         <span
-          
-          className={cn("inline-flex items-center gap-2 text-[14px] font-semibold lg:text-[15px]", "font-[var(--font-body)] text-[var(--olive-700)]")}
+          className={cn(
+            "inline-flex items-center gap-2 text-[14px] font-semibold lg:text-[15px]",
+            "font-[var(--font-body)] text-[var(--olive-700)]",
+          )}
         >
           {treatment.linkText}
           <ArrowRight
@@ -210,8 +220,10 @@ function TreatmentCard({
         </span>
       </div>
       <div
-        
-        className={cn("absolute bottom-5 right-5 z-30 flex h-12 w-12 items-center justify-center rounded-full bg-[var(--olive-600)] text-white transition-transform duration-300 group-hover:translate-x-1 md:bottom-6 md:right-6", "pointer-events-none")}
+        className={cn(
+          "absolute bottom-5 right-5 z-30 flex h-12 w-12 items-center justify-center rounded-full bg-[var(--olive-600)] text-white transition-transform duration-300 group-hover:translate-x-1 md:bottom-6 md:right-6",
+          "pointer-events-none",
+        )}
       >
         <ArrowRight size={20} />
       </div>
@@ -239,19 +251,25 @@ function GuidancePanel() {
 
   return (
     <div
-      
-      className={cn("relative text-center", "bg-[rgba(251,250,247,0.96)] rounded-[26px] pt-[60px] pr-[24px] pb-[60px] pl-[24px]")}
+      className={cn(
+        "relative text-center",
+        "bg-[rgba(251,250,247,0.96)] rounded-[26px] pt-[60px] pr-[24px] pb-[60px] pl-[24px]",
+      )}
     >
       <Eyebrow>GUIDANCE FOR YOUR SKIN JOURNEY</Eyebrow>
       <h2
-        
-        className={cn("mx-auto max-w-[520px] text-[30px] leading-[1.1] lg:text-[42px]", "font-[var(--font-display)] font-normal text-[var(--color-text-primary)] mt-[22px] mr-auto mb-[14px] ml-auto")}
+        className={cn(
+          "mx-auto max-w-[520px] text-[30px] leading-[1.1] lg:text-[42px]",
+          "font-[var(--font-display)] font-normal text-[var(--color-text-primary)] mt-[22px] mr-auto mb-[14px] ml-auto",
+        )}
       >
         Not Sure Which Treatment Is Right for You?
       </h2>
       <p
-        
-        className={cn("mx-auto max-w-[540px] text-[16px] leading-relaxed lg:text-[17px]", "font-[var(--font-body)] text-[var(--color-text-secondary)] mt-0 mr-auto mb-[28px] ml-auto")}
+        className={cn(
+          "mx-auto max-w-[540px] text-[16px] leading-relaxed lg:text-[17px]",
+          "font-[var(--font-body)] text-[var(--color-text-secondary)] mt-0 mr-auto mb-[28px] ml-auto",
+        )}
       >
         Start with what you&apos;d like to improve and we&apos;ll point you in
         the right direction.
@@ -286,8 +304,10 @@ function GuidancePanel() {
               className="mb-[8px]"
             />
             <span
-              
-              className={cn("text-[12px] font-semibold uppercase tracking-[0.12em]", "font-[var(--font-body)] text-[var(--color-text-primary)]")}
+              className={cn(
+                "text-[12px] font-semibold uppercase tracking-[0.12em]",
+                "font-[var(--font-body)] text-[var(--color-text-primary)]",
+              )}
             >
               {item.label}
             </span>
@@ -302,21 +322,24 @@ export function HomeTreatmentDiscovery() {
   return (
     <section
       id="services"
-      
-      className={cn("bg-olive-100 px-6 lg:px-[53px]", "pt-[90px] pb-[90px]")}
+      className={cn("bg-olive-100 px-3 lg:px-[53px]", "pt-[90px] pb-[90px]")}
     >
       <div className="max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto">
         <div className="mb-14 text-center">
           <Eyebrow>TREATMENTS</Eyebrow>
           <h2
-            
-            className={cn("text-[36px] leading-[1.1] lg:text-[48px]", "font-[var(--font-display)] font-normal text-[var(--color-text-primary)] mt-[22px] mr-0 mb-[16px] ml-0")}
+            className={cn(
+              "text-[36px] leading-[1.1] lg:text-[48px]",
+              "font-[var(--font-display)] font-normal text-[var(--color-text-primary)] mt-[22px] mr-0 mb-[16px] ml-0",
+            )}
           >
             Treatments Tailored to You
           </h2>
           <p
-            
-            className={cn("mx-auto max-w-[640px] text-[17px]", "font-[var(--font-body)] text-[var(--color-text-secondary)] leading-[1.6]")}
+            className={cn(
+              "mx-auto max-w-[640px] text-[17px]",
+              "font-[var(--font-body)] text-[var(--color-text-secondary)] leading-[1.6]",
+            )}
           >
             Advanced skincare, laser and beauty treatments selected around your
             skin, your goals and your comfort.

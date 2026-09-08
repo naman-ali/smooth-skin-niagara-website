@@ -7,7 +7,7 @@ export default function Footer() {
 
   return (
     <footer
-      className="bg-[var(--olive-100)] pt-12 px-7 pb-6 md:pt-16 md:pb-8 lg:px-[53px] text-[var(--color-text-primary)] font-[var(--font-body)]"
+      className="bg-[var(--olive-100)] pt-12 px-3 pb-6 md:pt-16 md:pb-8 lg:px-[53px] text-[var(--color-text-primary)] font-[var(--font-body)]"
       style={{ borderTop: "2px solid var(--color-border)" }}
     >
       <div className="max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto">

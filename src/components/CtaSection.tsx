@@ -151,7 +151,7 @@ export function CtaSection({
 
   return (
     <section
-      className="relative overflow-hidden py-[66px] px-6 md:px-10"
+      className="relative overflow-hidden py-[66px] px-3 md:px-10"
       style={{ background: theme.background }}
     >
       {variant === "dark" && (

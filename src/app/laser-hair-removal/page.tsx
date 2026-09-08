@@ -157,7 +157,7 @@ function Hero() {
   const { open: openConsultation } = useConsultation();
   return (
     <section
-      className="relative overflow-hidden pt-[80px] px-7 pb-[70px] lg:px-[53px]"
+      className="relative overflow-hidden pt-[80px] px-3 pb-[70px] lg:px-[53px]"
       style={{ borderBottom: "2px solid #bfae97" }}
     >
       <div
@@ -341,7 +341,7 @@ function TechnologySection() {
   ];
 
   return (
-    <section className="pt-[90px] px-7 pb-[90px] lg:px-[53px] bg-[var(--olive-50)]">
+    <section className="pt-[90px] px-3 pb-[90px] lg:px-[53px] bg-[var(--olive-50)]">
       <div className="max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto">
         <div className="text-center mb-[56px]">
           <div className="flex items-center justify-center gap-[13px] mb-[22px]">
@@ -402,7 +402,7 @@ function TreatmentAreas() {
   ];
 
   return (
-    <section className="pt-[90px] px-7 pb-[90px] lg:px-[53px] bg-[var(--olive-100)]">
+    <section className="pt-[90px] px-3 pb-[90px] lg:px-[53px] bg-[var(--olive-100)]">
       <div className="max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto">
         <div className="text-center mb-[56px]">
           <div className="flex items-center justify-center gap-[13px] mb-[22px]">
@@ -479,7 +479,7 @@ function LaserResultsSection() {
   return (
     <section
       id="laser-results"
-      className="pt-[90px] px-7 pb-[90px] lg:px-[53px] bg-[#fff]"
+      className="pt-[90px] px-3 pb-[90px] lg:px-[53px] bg-[#fff]"
     >
       <div className="max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto">
         <div className="text-center mb-[56px]">

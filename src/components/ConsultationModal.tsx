@@ -177,7 +177,7 @@ function ReviewSlider() {
           <div className="mb-[8px] flex justify-center">
             <Stars />
           </div>
-          <blockquote className="m-0 min-h-[84px] font-[var(--font-display)] text-[15px] italic leading-[1.5] text-[var(--color-text-primary)] sm:min-h-[72px] sm:text-[16px] lg:min-h-[110px] lg:text-[17px]">
+          <blockquote className="m-0 min-h-[60px] text-balance break-words font-[var(--font-display)] text-[15px] italic leading-[1.5] text-[var(--color-text-primary)] sm:min-h-[72px] sm:text-[16px] lg:min-h-[110px] lg:text-[17px]">
             &ldquo;
             <HighlightedText
               text={review.text}
@@ -291,7 +291,7 @@ function ConsultationModal({ onClose }: { onClose: () => void }) {
           to { opacity: 1; transform: translateY(0); }
         }`}
       </style>
-      <div className="relative max-h-[92dvh] w-full max-w-[520px] overflow-y-auto overflow-x-hidden rounded-t-[24px] bg-[var(--olive-50)] shadow-[0_24px_80px_rgba(0,0,0,0.35)] sm:rounded-[24px] lg:max-h-[88dvh] lg:max-w-[940px]">
+      <div className="relative flex max-h-[92dvh] w-full max-w-[520px] flex-col overflow-hidden rounded-t-[24px] bg-[var(--olive-50)] shadow-[0_24px_80px_rgba(0,0,0,0.35)] sm:rounded-[24px] lg:max-h-[88dvh] lg:max-w-[940px]">
         {/* Decorative glow */}
         <div
           className="pointer-events-none absolute -top-[120px] left-1/2 h-[260px] w-[420px] -translate-x-1/2 rounded-full lg:left-[27%]"
@@ -311,9 +311,9 @@ function ConsultationModal({ onClose }: { onClose: () => void }) {
           <X size={18} strokeWidth={1.75} />
         </button>
 
-        <div className="relative lg:grid lg:grid-cols-[1.15fr_1fr]">
+        <div className="relative flex-1 overflow-y-auto overflow-x-hidden lg:grid lg:grid-cols-[1.15fr_1fr]">
           {/* Left column — CTA */}
-          <div className="px-6 pb-[30px] pt-[38px] text-center sm:px-[42px] sm:pb-[36px] sm:pt-[44px] lg:flex lg:flex-col lg:justify-center">
+          <div className="px-6 pb-[30px] pt-16 text-center sm:px-[42px] sm:pb-[36px] sm:pt-[44px] lg:flex lg:flex-col lg:justify-center">
             {/* Avatar */}
             <div className="mx-auto mb-[18px] flex h-[104px] w-[104px] items-center justify-center rounded-full bg-[var(--olive-100)] p-[5px] shadow-[0_10px_30px_rgba(79,91,58,0.22)] ring-1 ring-[var(--olive-500)]">
               <img
@@ -327,11 +327,11 @@ function ConsultationModal({ onClose }: { onClose: () => void }) {
               Ashley · Founder, Smooth Skin Niagara
             </p>
 
-            <h2 className="mx-auto mb-[14px] mt-0 max-w-[400px] font-[var(--font-display)] text-[30px] font-medium leading-[1.12] text-[var(--color-text-primary)] sm:text-[36px]">
+            <h2 className="mx-auto mb-[14px] mt-0 max-w-[400px] text-balance break-words font-[var(--font-display)] text-[28px] font-medium leading-[1.12] text-[var(--color-text-primary)] sm:text-[36px]">
               Let&apos;s find the right treatment for you
             </h2>
 
-            <p className="mx-auto mb-[26px] mt-0 max-w-[400px] font-[var(--font-body)] text-[15px] leading-[1.65] text-[var(--color-text-secondary)] sm:text-[16px]">
+            <p className="mx-auto mb-[26px] mt-0 max-w-[400px] text-balance font-[var(--font-body)] text-[15px] leading-[1.65] text-[var(--color-text-secondary)] sm:text-[16px]">
               Call or text Ashley directly and she&apos;ll answer your questions
               and help you book your free consultation.
             </p>
@@ -340,14 +340,14 @@ function ConsultationModal({ onClose }: { onClose: () => void }) {
             <div className="flex flex-col gap-[12px]">
               <a
                 href={PHONE_TEL}
-                className="group flex h-[56px] items-center justify-center gap-[10px] rounded-[14px] bg-[var(--cta-primary-bg)] font-[var(--font-body)] text-[16px] font-semibold text-[var(--cta-primary-text)] no-underline transition-all duration-300 hover:bg-[var(--cta-primary-hover)] hover:shadow-[0_6px_20px_rgba(79,91,58,0.28)] sm:h-[58px] sm:text-[17px]"
+                className="group flex h-auto min-h-[56px] items-center justify-center gap-[10px] whitespace-normal rounded-[14px] bg-[var(--cta-primary-bg)] px-4 py-3 font-[var(--font-body)] text-[16px] font-semibold text-[var(--cta-primary-text)] no-underline transition-all duration-300 hover:bg-[var(--cta-primary-hover)] hover:shadow-[0_6px_20px_rgba(79,91,58,0.28)] sm:h-[58px] sm:text-[17px]"
               >
                 <Phone size={19} strokeWidth={1.75} />
                 Call {PHONE_DISPLAY}
               </a>
               <a
                 href={PHONE_SMS}
-                className="flex h-[54px] items-center justify-center gap-[10px] rounded-[14px] border border-[var(--color-border-strong)] bg-[var(--olive-100)] font-[var(--font-body)] text-[16px] font-semibold text-[var(--color-text-primary)] no-underline transition-colors duration-300 hover:bg-[var(--olive-200)]"
+                className="flex h-auto min-h-[54px] items-center justify-center gap-[10px] whitespace-normal rounded-[14px] border border-[var(--color-border-strong)] bg-[var(--olive-100)] px-4 py-3 font-[var(--font-body)] text-[16px] font-semibold text-[var(--color-text-primary)] no-underline transition-colors duration-300 hover:bg-[var(--olive-200)]"
               >
                 <MessageSquareText
                   size={19}

@@ -8,7 +8,7 @@ export default function PrivacyPolicyPage() {
     <>
       <Header />
       <main className="min-h-screen bg-olive-50">
-        <section className="px-6 py-[80px] md:px-10">
+        <section className="px-3 py-[80px] md:px-10">
           <div className="mx-auto max-w-[780px]">
             <div className="mb-[40px] flex items-center gap-[12px]">
               <span className="h-[1px] w-[40px] bg-[var(--color-border-strong)]" />
@@ -59,7 +59,10 @@ export default function PrivacyPolicyPage() {
                 <ul className="list-disc space-y-[8px] pl-[20px] text-[var(--color-text-secondary)]">
                   <li>To schedule, confirm, and manage appointments.</li>
                   <li>To provide personalized treatment recommendations.</li>
-                  <li>To communicate with you about services, promotions, and updates.</li>
+                  <li>
+                    To communicate with you about services, promotions, and
+                    updates.
+                  </li>
                   <li>To process payments and maintain records.</li>
                   <li>To improve our website and customer experience.</li>
                 </ul>
@@ -128,9 +131,21 @@ export default function PrivacyPolicyPage() {
                     <br />
                     Niagara Falls, Ontario, Canada
                     <br />
-                    Phone: <a href="tel:+19059207229" className="text-[var(--color-brand-primary)] no-underline">(905) 920-7229</a>
+                    Phone:{" "}
+                    <a
+                      href="tel:+19059207229"
+                      className="text-[var(--color-brand-primary)] no-underline"
+                    >
+                      (905) 920-7229
+                    </a>
                     <br />
-                    Email: <a href="mailto:info@smoothskinniagara.com" className="text-[var(--color-brand-primary)] no-underline">info@smoothskinniagara.com</a>
+                    Email:{" "}
+                    <a
+                      href="mailto:info@smoothskinniagara.com"
+                      className="text-[var(--color-brand-primary)] no-underline"
+                    >
+                      info@smoothskinniagara.com
+                    </a>
                   </p>
                 </address>
               </section>

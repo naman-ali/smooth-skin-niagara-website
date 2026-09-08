@@ -70,7 +70,7 @@ export function AshleySection() {
 
   return (
     <section
-      className="relative pt-[90px] px-7 pb-[90px] lg:px-[53px] overflow-hidden bg-none lg:bg-[url('/assets/ashley-section-bg-4.png')] bg-no-repeat"
+      className="relative pt-[90px] px-3 pb-[90px] lg:px-[53px] overflow-hidden bg-none lg:bg-[url('/assets/ashley-section-bg-4.png')] bg-no-repeat"
       style={{ backgroundSize: "auto 118%", backgroundPosition: "center 8%" }}
     >
       <div className="relative max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto flex flex-wrap gap-[32px] items-start">

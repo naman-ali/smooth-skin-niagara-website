@@ -58,7 +58,7 @@ export function EyelashHero() {
       <div
         className={cn(
           "relative z-10 mx-auto flex w-full flex-1 flex-col items-center justify-center",
-          "max-w-[var(--container-max)] py-0 px-7 lg:px-[53px]",
+          "max-w-[var(--container-max)] py-0 px-3 lg:px-[53px]",
         )}
       >
         <div

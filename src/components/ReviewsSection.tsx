@@ -162,7 +162,7 @@ export function ReviewsSection({
       aria-label="Google Reviews"
       className={cn(
         "relative overflow-hidden",
-        "bg-[var(--olive-50)] py-16 px-6 lg:py-[90px]",
+        "bg-[var(--olive-50)] py-16 px-3 lg:px-6 lg:py-[90px]",
       )}
       onKeyDown={onKeyDown}
     >

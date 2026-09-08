@@ -17,6 +17,61 @@ const certificates = [
   "eXtreme Lashes Certified Lash Stylist",
 ];
 
+const certificateImages = [
+  {
+    src: "/assets/Cert_AshleyWojnowski_06052024_page-0001.jpg",
+    alt: "Soprano Ice Platinum Certificate of Attendance",
+  },
+  {
+    src: "/assets/DermaRoller-Cert.jpg",
+    alt: "Certified Dermaroller Professional",
+  },
+  {
+    src: "/assets/ElectrolysisDiploma-5c37cb4cb3ee8-232x300-2.jpeg",
+    alt: "Electrolysis Diploma",
+  },
+  {
+    src: "/assets/LashLiftCerft-300x196-5a0346dd271d2-1.jpg",
+    alt: "LashPRO Lash Lift Technician Certificate",
+  },
+  {
+    src: "/assets/LashMasterCerft-1-300x231-5a034677d8044-1.jpg",
+    alt: "Xtreme Lashes Certified Lash Master Stylist",
+  },
+  {
+    src: "/assets/LaserCert-300x230-5a0343b5ceb1a-1.png",
+    alt: "Soprano Lite Training Certificate",
+  },
+  {
+    src: "/assets/OxygeneoCert.jpg",
+    alt: "OxyGeneo 3-IN-1 Super Facial Certification",
+  },
+  {
+    src: "/assets/RussVolCerft-213x300-5a034684a90c5-1.jpg",
+    alt: "Russian Volume Eyelash Extensions Certificate of Excellence",
+  },
+  {
+    src: "/assets/WaxingCerft-300x213-5a0346ee13ab1.jpg",
+    alt: "Waxing Certificate",
+  },
+  {
+    src: "/assets/XTREME-CERTIFICATE-Fix-300x220-5a03444294098-1.png",
+    alt: "Xtreme Lashes Certified Lash Stylist",
+  },
+  {
+    src: "/assets/XtremeIEcert.jpg",
+    alt: "XLC Independent Educator Certificate",
+  },
+  {
+    src: "/assets/cert-2025-1-scaled.jpg",
+    alt: "PCA Professional Peel Certification",
+  },
+  {
+    src: "/assets/cert-2025-2-scaled.jpg",
+    alt: "PCA Skin Daily Care Product Certification",
+  },
+];
+
 export default function AboutUsPage() {
   return (
     <>
@@ -128,6 +183,22 @@ export default function AboutUsPage() {
                   <span className="font-[var(--font-body)] text-[16px] font-medium text-[var(--color-text-primary)]">
                     {cert}
                   </span>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-[56px] grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {certificateImages.map((cert) => (
+                <div
+                  key={cert.src}
+                  className="aspect-[4/3] overflow-hidden rounded-[14px] border border-[var(--color-border)] bg-white p-4 shadow-sm"
+                >
+                  <img
+                    src={cert.src}
+                    alt={cert.alt}
+                    className="h-full w-full object-contain"
+                    loading="lazy"
+                  />
                 </div>
               ))}
             </div>

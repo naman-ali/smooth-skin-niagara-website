@@ -1,13 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import {
-  ClipboardList,
-  LayoutDashboard,
-  Mail,
-  Phone,
-  Users,
-} from "lucide-react";
+import { UserButton } from "@clerk/nextjs";
+import { ClipboardList, LayoutDashboard, Phone } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -23,9 +18,7 @@ import {
 const navItems = [
   { title: "Dashboard", href: "/admin", icon: LayoutDashboard },
   { title: "Client Forms", href: "/admin/client-form", icon: ClipboardList },
-  { title: "Clients", href: "/admin/clients", icon: Users },
   { title: "Contacts", href: "/admin/contacts", icon: Phone },
-  { title: "Leads", href: "/admin/leads", icon: Mail },
 ];
 
 export function AdminSidebar({ children }: { children: React.ReactNode }) {
@@ -33,7 +26,11 @@ export function AdminSidebar({ children }: { children: React.ReactNode }) {
     <SidebarProvider>
       <Sidebar>
         <SidebarHeader>
-          <p className="px-2 font-display text-lg font-semibold">Admin</p>
+          <img
+            src="/assets/logo.png"
+            alt="Smooth Skin Niagara"
+            className="h-10 w-auto px-2"
+          />
         </SidebarHeader>
         <SidebarContent>
           <SidebarMenu>
@@ -60,9 +57,12 @@ export function AdminSidebar({ children }: { children: React.ReactNode }) {
         </SidebarContent>
       </Sidebar>
       <SidebarInset className="min-w-0 overflow-x-hidden">
-        <header className="flex h-16 items-center gap-2 border-b px-4">
-          <SidebarTrigger />
-          <span className="text-sm font-medium">Admin</span>
+        <header className="flex h-16 items-center justify-between gap-2 border-b px-4">
+          <div className="flex items-center gap-2">
+            <SidebarTrigger />
+            <span className="text-sm font-medium">Admin</span>
+          </div>
+          <UserButton afterSignOutUrl="/" />
         </header>
         <main className="p-4 md:p-6">{children}</main>
       </SidebarInset>

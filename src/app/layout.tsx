@@ -5,8 +5,6 @@ import "./globals.css";
 import "../styles/design-system/styles.css";
 import { Inter } from "next/font/google";
 import { cn } from "@/lib/utils";
-import Footer from "@/components/Footer";
-import { ConsultationProvider } from "@/components/ConsultationModal";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -20,14 +18,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className={cn("antialiased", "font-sans", inter.variable)}>
       <body className="min-h-screen bg-olive-700 text-ink-900 font-body">
-        <ClerkProvider>
-          <ConsultationProvider>
-            <div className="mx-auto w-full min-h-screen max-w-[1480px] bg-olive-50 shadow-lg">
-              {children}
-              <Footer />
-            </div>
-          </ConsultationProvider>
-        </ClerkProvider>
+        <ClerkProvider>{children}</ClerkProvider>
       </body>
     </html>
   );

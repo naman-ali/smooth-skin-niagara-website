@@ -1,12 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import { Pencil, Plus, Trash2, Upload } from "lucide-react";
 import ImportDialog from "./ImportDialog";
 import ApproveDialog from "./ApproveDialog";
-import { Button, buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -45,6 +43,76 @@ type Contact = {
   createdAt: string;
 };
 
+const COLUMNS = [
+  { key: "name", label: "Name" },
+  { key: "email", label: "Email" },
+  { key: "phone", label: "Phone" },
+  { key: "type", label: "Type" },
+  { key: "source", label: "Source" },
+  { key: "approved", label: "Approved" },
+  { key: "created", label: "Created" },
+] as const;
+
+const DEFAULT_VISIBLE: Record<string, boolean> = {
+  name: true,
+  email: true,
+  phone: true,
+  type: false,
+  source: false,
+  approved: false,
+  created: true,
+};
+
+function renderContactCell(
+  col: { key: string; label: string },
+  contact: Contact,
+) {
+  switch (col.key) {
+    case "name":
+      return (
+        <TableCell key={col.key} className="font-medium">
+          {contact.name}
+        </TableCell>
+      );
+    case "email":
+      return <TableCell key={col.key}>{contact.email}</TableCell>;
+    case "phone":
+      return <TableCell key={col.key}>{contact.phone || "-"}</TableCell>;
+    case "type":
+      return (
+        <TableCell key={col.key} className="capitalize">
+          {contact.contactType || "client"}
+        </TableCell>
+      );
+    case "source":
+      return (
+        <TableCell key={col.key}>
+          {contact.source
+            .replace(/_/g, " ")
+            .replace(/(^.|\s\w)/g, (m) => m.toUpperCase())}
+        </TableCell>
+      );
+    case "approved":
+      return (
+        <TableCell key={col.key}>
+          {contact.approved ? (
+            <span className="text-green-600">Yes</span>
+          ) : (
+            <span className="text-amber-600">No</span>
+          )}
+        </TableCell>
+      );
+    case "created":
+      return (
+        <TableCell key={col.key}>
+          {new Date(contact.createdAt).toLocaleString()}
+        </TableCell>
+      );
+    default:
+      return null;
+  }
+}
+
 export default function ContactsManager({
   contacts: initial,
 }: {
@@ -61,6 +129,7 @@ export default function ContactsManager({
   const [typeFilter, setTypeFilter] = useState("all");
   const [importOpen, setImportOpen] = useState(false);
   const [approveOpen, setApproveOpen] = useState(false);
+  const [visible, setVisible] = useState(DEFAULT_VISIBLE);
   const unapprovedCount = contacts.filter((c) => !c.approved).length;
 
   const resetForm = () => {
@@ -149,6 +218,32 @@ export default function ContactsManager({
                 <option value="lead">Lead</option>
               </select>
             </div>
+            <details className="relative">
+              <summary className="flex h-9 cursor-pointer list-none items-center justify-center rounded-md border border-input bg-background px-3 text-sm font-medium ring-offset-background transition-colors hover:bg-accent hover:text-accent-foreground">
+                Columns
+              </summary>
+              <div className="absolute right-0 z-50 mt-2 w-48 rounded-md border bg-background p-2 shadow-lg">
+                {COLUMNS.map((col) => (
+                  <label
+                    key={col.key}
+                    className="flex cursor-pointer items-center gap-2 rounded px-2 py-1.5 text-sm hover:bg-accent"
+                  >
+                    <input
+                      type="checkbox"
+                      className="size-4 rounded border-gray-300"
+                      checked={visible[col.key]}
+                      onChange={() =>
+                        setVisible((prev) => ({
+                          ...prev,
+                          [col.key]: !prev[col.key],
+                        }))
+                      }
+                    />
+                    {col.label}
+                  </label>
+                ))}
+              </div>
+            </details>
             <div className="flex gap-2">
               <Button variant="outline" onClick={() => setImportOpen(true)}>
                 <Upload className="size-4 mr-2" />
@@ -165,13 +260,12 @@ export default function ContactsManager({
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Name</TableHead>
-                <TableHead>Email</TableHead>
-                <TableHead>Phone</TableHead>
-                <TableHead>Type</TableHead>
-                <TableHead>Source</TableHead>
-                <TableHead>Approved</TableHead>
-                <TableHead>Created</TableHead>
+                {COLUMNS.map(
+                  (col) =>
+                    visible[col.key] && (
+                      <TableHead key={col.key}>{col.label}</TableHead>
+                    ),
+                )}
                 <TableHead className="text-right">Actions</TableHead>
               </TableRow>
             </TableHeader>
@@ -182,40 +276,11 @@ export default function ContactsManager({
                 )
                 .map((c) => (
                   <TableRow key={c.id}>
-                    <TableCell className="font-medium">{c.name}</TableCell>
-                    <TableCell>{c.email}</TableCell>
-                    <TableCell>{c.phone || "-"}</TableCell>
-                    <TableCell className="capitalize">
-                      {c.contactType || "client"}
-                    </TableCell>
-                    <TableCell>
-                      {c.source
-                        .replace(/_/g, " ")
-                        .replace(/(^.|\s\w)/g, (m) => m.toUpperCase())}
-                    </TableCell>
-                    <TableCell>
-                      {c.approved ? (
-                        <span className="text-green-600">Yes</span>
-                      ) : (
-                        <span className="text-amber-600">No</span>
-                      )}
-                    </TableCell>
-                    <TableCell>
-                      {new Date(c.createdAt).toLocaleString()}
-                    </TableCell>
+                    {COLUMNS.map(
+                      (col) => visible[col.key] && renderContactCell(col, c),
+                    )}
                     <TableCell className="text-right">
                       <div className="flex justify-end gap-2">
-                        <Link
-                          href={`/admin/clients/${c.id}`}
-                          className={cn(
-                            buttonVariants({
-                              variant: "outline",
-                              size: "sm",
-                            }),
-                          )}
-                        >
-                          View
-                        </Link>
                         <Button
                           size="icon"
                           variant="outline"

@@ -153,7 +153,7 @@ export default function ClientFormSubmissionsManager({
       <Card>
         <CardHeader className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div className="space-y-1.5">
-            <CardTitle>Submissions</CardTitle>
+            <CardTitle>Submissions ({submissions.length})</CardTitle>
             <CardDescription>
               Completed client intake forms, most recent first.
             </CardDescription>

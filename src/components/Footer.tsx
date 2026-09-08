@@ -12,7 +12,7 @@ export default function Footer() {
     >
       <div className="max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto">
         <div className="grid grid-cols-2 gap-6 gap-y-8 md:grid-cols-4 md:gap-12">
-          <div>
+          <div className="min-w-0">
             <img
               src="/assets/logo.png"
               alt="Smooth Skin Niagara"
@@ -43,7 +43,7 @@ export default function Footer() {
             </div>
           </div>
 
-          <div>
+          <div className="min-w-0">
             <h4 className="font-[var(--font-display)] text-[18px] font-medium text-[var(--color-text-primary)] mt-0 mr-0 mb-[20px] ml-0 tracking-[0.02em]">
               Services
             </h4>
@@ -70,7 +70,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          <div>
+          <div className="min-w-0">
             <h4 className="font-[var(--font-display)] text-[18px] font-medium text-[var(--color-text-primary)] mt-0 mr-0 mb-[20px] ml-0 tracking-[0.02em]">
               Company
             </h4>
@@ -94,7 +94,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          <div>
+          <div className="min-w-0">
             <h4 className="font-[var(--font-display)] text-[18px] font-medium text-[var(--color-text-primary)] mt-0 mr-0 mb-[20px] ml-0 tracking-[0.02em]">
               Contact
             </h4>
@@ -114,7 +114,7 @@ export default function Footer() {
             <p className="m-0">
               <a
                 href="mailto:ashley@smoothskinniagara.com"
-                className="text-[var(--color-text-secondary)] no-underline text-[15px]"
+                className="text-[var(--color-text-secondary)] no-underline text-[15px] break-all"
               >
                 Ashley@smoothskinniagara.com
               </a>

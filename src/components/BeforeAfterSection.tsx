@@ -5,8 +5,9 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 export type BeforeAfterItem = {
-  beforeSrc: string;
-  afterSrc: string;
+  beforeSrc?: string;
+  afterSrc?: string;
+  src?: string;
   title?: string;
   aspectRatio?: string;
   objectPosition?: string;
@@ -91,18 +92,42 @@ export function BeforeAfterSection({
         )}
 
         <div className={`grid ${gridClass}`} style={{ gap }}>
-          {items.map((item, index) => (
-            <BeforeAfter
-              key={item.title || index}
-              beforeSrc={item.beforeSrc}
-              afterSrc={item.afterSrc}
-              title={item.title}
-              aspectRatio={item.aspectRatio}
-              objectPosition={item.objectPosition}
-              beforeClassName={item.beforeClassName}
-              afterClassName={item.afterClassName}
-            />
-          ))}
+          {items.map((item, index) =>
+            item.src ? (
+              <div
+                key={item.title || index}
+                className="overflow-hidden rounded-[18px] bg-[#fff]"
+                style={{ border: "1px solid var(--color-border)" }}
+              >
+                <img
+                  src={item.src}
+                  alt={
+                    item.title
+                      ? `${item.title} before and after`
+                      : "Before and after result"
+                  }
+                  loading="lazy"
+                  className="h-auto w-full object-contain"
+                />
+                {item.title && (
+                  <p className="mt-0 py-3 text-center text-[13px] font-[var(--font-body)] text-[var(--color-text-secondary)]">
+                    {item.title}
+                  </p>
+                )}
+              </div>
+            ) : (
+              <BeforeAfter
+                key={item.title || index}
+                beforeSrc={item.beforeSrc!}
+                afterSrc={item.afterSrc!}
+                title={item.title}
+                aspectRatio={item.aspectRatio}
+                objectPosition={item.objectPosition}
+                beforeClassName={item.beforeClassName}
+                afterClassName={item.afterClassName}
+              />
+            ),
+          )}
         </div>
       </div>
     </section>

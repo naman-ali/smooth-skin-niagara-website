@@ -959,7 +959,7 @@ function MicroneedlingVideo() {
                 aria-label="Play eDermaStamp introduction video"
                 className={cn(
                   "relative h-full w-full cursor-pointer border-0 p-0",
-                  "bg-[url('/assets/smooth-skin-tech.png')] bg-cover bg-center",
+                  "bg-[url('/assets/youtube-thumbnail-microneedling.png')] bg-cover bg-center",
                 )}
               >
                 <span

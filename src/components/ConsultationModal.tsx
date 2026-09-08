@@ -154,11 +154,11 @@ function ReviewSlider() {
       onTouchStart={() => setPaused(true)}
       onTouchEnd={() => setPaused(false)}
     >
-      <p className="mb-[14px] font-[var(--font-body)] text-[11px] font-bold uppercase tracking-[0.18em] text-[var(--color-text-secondary)]">
+      <p className="mb-[12px] text-center font-[var(--font-body)] text-[11px] font-bold uppercase tracking-[0.18em] text-[var(--color-text-secondary)] sm:mb-[14px]">
         What clients say about Ashley
       </p>
 
-      <div className="flex items-center gap-[10px] sm:gap-[14px]">
+      <div className="flex items-center gap-[8px] sm:gap-[14px]">
         <button
           type="button"
           onClick={() => goTo(index - 1)}
@@ -283,7 +283,7 @@ function ConsultationModal({ onClose }: { onClose: () => void }) {
       onClick={(e) => {
         if (e.currentTarget === e.target) onClose();
       }}
-      className="fixed inset-0 z-[100] flex items-end justify-center bg-[rgba(31,36,24,0.55)] p-0 backdrop-blur-[6px] sm:items-center sm:p-6"
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-[rgba(31,36,24,0.55)] p-0 backdrop-blur-[6px] sm:p-6"
     >
       <style>
         {`@keyframes consultation-review-fade {
@@ -291,7 +291,7 @@ function ConsultationModal({ onClose }: { onClose: () => void }) {
           to { opacity: 1; transform: translateY(0); }
         }`}
       </style>
-      <div className="relative flex max-h-[92dvh] w-full max-w-[520px] flex-col overflow-hidden rounded-t-[24px] bg-[var(--olive-50)] shadow-[0_24px_80px_rgba(0,0,0,0.35)] sm:rounded-[24px] lg:max-h-[88dvh] lg:max-w-[940px]">
+      <div className="relative flex h-[100dvh] w-full flex-col overflow-hidden bg-[var(--olive-50)] sm:h-auto sm:max-h-[92dvh] sm:max-w-[520px] sm:rounded-[24px] sm:shadow-[0_24px_80px_rgba(0,0,0,0.35)] lg:max-h-[88dvh] lg:max-w-[940px]">
         {/* Decorative glow */}
         <div
           className="pointer-events-none absolute -top-[120px] left-1/2 h-[260px] w-[420px] -translate-x-1/2 rounded-full lg:left-[27%]"
@@ -306,16 +306,16 @@ function ConsultationModal({ onClose }: { onClose: () => void }) {
           type="button"
           onClick={onClose}
           aria-label="Close"
-          className="absolute right-[16px] top-[16px] z-10 flex h-[40px] w-[40px] cursor-pointer items-center justify-center rounded-full border border-[var(--color-border)] bg-[rgba(255,255,255,0.7)] text-[var(--color-text-secondary)] transition-colors duration-200 hover:bg-white hover:text-[var(--color-text-primary)]"
+          className="absolute right-[12px] top-[12px] z-10 flex h-[44px] w-[44px] cursor-pointer items-center justify-center rounded-full border border-[var(--color-border)] bg-[rgba(255,255,255,0.7)] text-[var(--color-text-secondary)] transition-colors duration-200 hover:bg-white hover:text-[var(--color-text-primary)] sm:right-[16px] sm:top-[16px] sm:h-[40px] sm:w-[40px]"
         >
           <X size={18} strokeWidth={1.75} />
         </button>
 
         <div className="relative flex-1 overflow-y-auto overflow-x-hidden lg:grid lg:grid-cols-[1.15fr_1fr]">
           {/* Left column — CTA */}
-          <div className="px-6 pb-[30px] pt-16 text-center sm:px-[42px] sm:pb-[36px] sm:pt-[44px] lg:flex lg:flex-col lg:justify-center">
+          <div className="px-5 pb-[24px] pt-[54px] text-center sm:px-[42px] sm:pb-[36px] sm:pt-[44px] lg:flex lg:flex-col lg:justify-center">
             {/* Avatar */}
-            <div className="mx-auto mb-[18px] flex h-[104px] w-[104px] items-center justify-center rounded-full bg-[var(--olive-100)] p-[5px] shadow-[0_10px_30px_rgba(79,91,58,0.22)] ring-1 ring-[var(--olive-500)]">
+            <div className="mx-auto mb-[14px] flex h-[84px] w-[84px] items-center justify-center rounded-full bg-[var(--olive-100)] p-[5px] shadow-[0_10px_30px_rgba(79,91,58,0.22)] ring-1 ring-[var(--olive-500)] sm:mb-[18px] sm:h-[104px] sm:w-[104px]">
               <img
                 src="/assets/ashley-about.jpg"
                 alt="Ashley, founder of Smooth Skin Niagara"
@@ -323,15 +323,15 @@ function ConsultationModal({ onClose }: { onClose: () => void }) {
               />
             </div>
 
-            <p className="mb-[10px] font-[var(--font-body)] text-[12px] font-bold uppercase tracking-[0.18em] text-[var(--color-brand-primary)]">
+            <p className="mb-[8px] font-[var(--font-body)] text-[11px] font-bold uppercase tracking-[0.18em] text-[var(--color-brand-primary)] sm:mb-[10px] sm:text-[12px]">
               Ashley · Founder, Smooth Skin Niagara
             </p>
 
-            <h2 className="mx-auto mb-[14px] mt-0 max-w-[400px] text-balance break-words font-[var(--font-display)] text-[28px] font-medium leading-[1.12] text-[var(--color-text-primary)] sm:text-[36px]">
+            <h2 className="mx-auto mb-[12px] mt-0 max-w-[400px] text-balance break-words font-[var(--font-display)] text-[26px] font-medium leading-[1.15] text-[var(--color-text-primary)] sm:mb-[14px] sm:text-[36px] sm:leading-[1.12]">
               Let&apos;s find the right treatment for you
             </h2>
 
-            <p className="mx-auto mb-[26px] mt-0 max-w-[400px] text-balance font-[var(--font-body)] text-[15px] leading-[1.65] text-[var(--color-text-secondary)] sm:text-[16px]">
+            <p className="mx-auto mb-[20px] mt-0 max-w-[400px] text-balance font-[var(--font-body)] text-[14px] leading-[1.6] text-[var(--color-text-secondary)] sm:mb-[26px] sm:text-[16px] sm:leading-[1.65]">
               Call or text Ashley directly and she&apos;ll answer your questions
               and help you book your free consultation.
             </p>
@@ -359,7 +359,7 @@ function ConsultationModal({ onClose }: { onClose: () => void }) {
             </div>
 
             {/* Trust points */}
-            <div className="mt-[24px] flex flex-wrap items-center justify-center gap-x-[18px] gap-y-[8px]">
+            <div className="mt-[18px] flex flex-wrap items-center justify-center gap-x-[16px] gap-y-[8px] sm:mt-[24px] sm:gap-x-[18px]">
               {trustPoints.map((point) => (
                 <span
                   key={point}
@@ -375,7 +375,7 @@ function ConsultationModal({ onClose }: { onClose: () => void }) {
               ))}
             </div>
 
-            <div className="mt-[20px] flex items-center justify-center gap-[7px] border-t border-[var(--color-border)] pt-[18px]">
+            <div className="mt-[16px] flex items-center justify-center gap-[7px] border-t border-[var(--color-border)] pt-[14px] sm:mt-[20px] sm:pt-[18px]">
               <MapPin
                 size={14}
                 strokeWidth={1.75}
@@ -388,7 +388,7 @@ function ConsultationModal({ onClose }: { onClose: () => void }) {
           </div>
 
           {/* Right column — client reviews */}
-          <div className="flex border-t border-[var(--color-border)] bg-[var(--olive-100)] px-6 py-[28px] text-center sm:px-[34px] lg:border-l lg:border-t-0 lg:py-[36px]">
+          <div className="flex border-t border-[var(--color-border)] bg-[var(--olive-100)] px-5 py-[22px] text-center sm:px-[34px] sm:py-[28px] lg:border-l lg:border-t-0 lg:py-[36px]">
             <ReviewSlider />
           </div>
         </div>

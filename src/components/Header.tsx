@@ -24,11 +24,10 @@ const PhoneCallout = (
 
 const serviceItems = [
   { label: "Laser Hair Removal", href: "/laser-hair-removal" },
-  { label: "Microneedling", href: "/edermastamp-microneedling" },
-  { label: "Chemical Peels", href: "/cosmetic-grade-pca-skin-peels" },
-  { label: "OxyGeneo Facials", href: "/oxygeneo-3-1-super-facial" },
-  { label: "RF Skin Tightening", href: "#" },
+  { label: "PCA Skin Peels", href: "/cosmetic-grade-pca-skin-peels" },
+  { label: "Microneedling CIT", href: "/edermastamp-microneedling" },
   { label: "Celluma LED Light Therapy", href: "/celluma-led-light-therapy" },
+  { label: "OXYgeneo 3-1 Super Facial", href: "/oxygeneo-3-1-super-facial" },
   { label: "Eyelash Extensions", href: "/eyelash-extensions" },
 ];
 

@@ -7,7 +7,8 @@ import { prisma } from "@/lib/prisma";
 async function requireAdmin() {
   const { userId } = await auth();
   if (!userId) return null;
-  return userId;
+  const profile = await prisma.profile.findUnique({ where: { userId } });
+  return profile?.role === "admin" ? userId : null;
 }
 
 function parseContacts(text: string) {

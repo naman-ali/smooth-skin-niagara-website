@@ -1,10 +1,13 @@
 import { auth } from "@clerk/nextjs/server";
 import { get } from "@vercel/blob";
 import { type NextRequest, NextResponse } from "next/server";
+import { prisma } from "@/lib/prisma";
 
 async function requireAdmin() {
   const { userId } = await auth();
-  return userId || null;
+  if (!userId) return null;
+  const profile = await prisma.profile.findUnique({ where: { userId } });
+  return profile?.role === "admin" ? userId : null;
 }
 
 export async function GET(request: NextRequest) {

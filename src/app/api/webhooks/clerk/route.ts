@@ -8,7 +8,7 @@ export async function POST(request: NextRequest) {
   if (!SIGNING_SECRET) {
     return NextResponse.json(
       { error: "Missing CLERK_WEBHOOK_SECRET" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 
@@ -32,15 +32,15 @@ export async function POST(request: NextRequest) {
   if (event.type === "user.created" || event.type === "user.updated") {
     const { id, email_addresses, primary_email_address_id } = event.data;
     const primary =
-      email_addresses?.find(
-        (e: any) => e.id === primary_email_address_id
-      ) || email_addresses?.[0];
+      email_addresses?.find((e: any) => e.id === primary_email_address_id) ||
+      email_addresses?.[0];
     const email = primary?.email_address || "";
+    const env = process.env.VERCEL_ENV || process.env.NODE_ENV || "development";
 
     await prisma.profile.upsert({
       where: { userId: id },
-      update: { email },
-      create: { userId: id, email, role: "user" },
+      update: { email, env },
+      create: { userId: id, email, env, role: "user" },
     });
   }
 

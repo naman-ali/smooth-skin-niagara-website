@@ -53,7 +53,7 @@ export function OtherTextField({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className={cn(compact ? "h-8 text-sm" : "h-11 text-base")}
+        className={cn(compact ? "h-8" : "h-11")}
       />
     </div>
   );

@@ -1,7 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { Pencil, Plus, Trash2, Upload } from "lucide-react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { Eye, Pencil, Plus, Trash2, Upload } from "lucide-react";
 import ImportDialog from "./ImportDialog";
 import ApproveDialog from "./ApproveDialog";
 import { Button } from "@/components/ui/button";
@@ -70,8 +72,13 @@ function renderContactCell(
   switch (col.key) {
     case "name":
       return (
-        <TableCell key={col.key} className="font-medium">
-          {contact.name}
+        <TableCell key={col.key}>
+          <Link
+            href={`/admin/contacts/${contact.id}`}
+            className="font-medium hover:underline"
+          >
+            {contact.name}
+          </Link>
         </TableCell>
       );
     case "email":
@@ -118,6 +125,7 @@ export default function ContactsManager({
 }: {
   contacts: Contact[];
 }) {
+  const router = useRouter();
   const [contacts, setContacts] = useState<Contact[]>(initial);
   const [form, setForm] = useState({
     name: "",
@@ -281,6 +289,14 @@ export default function ContactsManager({
                     )}
                     <TableCell className="text-right">
                       <div className="flex justify-end gap-2">
+                        <Button
+                          size="icon"
+                          variant="outline"
+                          onClick={() => router.push(`/admin/contacts/${c.id}`)}
+                        >
+                          <Eye className="size-4" />
+                          <span className="sr-only">View</span>
+                        </Button>
                         <Button
                           size="icon"
                           variant="outline"

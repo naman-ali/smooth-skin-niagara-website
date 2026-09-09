@@ -89,7 +89,7 @@ export function TextQuestion({
           rows={compact ? 2 : 4}
           aria-describedby={ariaDescribedBy}
           aria-invalid={error ? true : undefined}
-          className={cn("text-sm", compact ? "min-h-[80px]" : "min-h-[110px]")}
+          className={cn(compact ? "min-h-[80px]" : "min-h-[110px]")}
           {...register(name as never)}
         />
       ) : (
@@ -102,7 +102,7 @@ export function TextQuestion({
           placeholder={placeholder}
           aria-describedby={ariaDescribedBy}
           aria-invalid={error ? true : undefined}
-          className={cn(compact ? "h-9 text-sm" : "h-12 text-base")}
+          className={cn(compact ? "h-9" : "h-12")}
           {...register(name as never)}
         />
       )}

@@ -52,7 +52,7 @@ export function AcknowledgementStep({
         </Label>
         <Input
           id="acknowledgement.typedName"
-          className={cn("mt-1.5", compact ? "h-9 text-sm" : "h-12 text-base")}
+          className={cn("mt-1.5", compact ? "h-9" : "h-12")}
           aria-invalid={errors.acknowledgement?.typedName ? true : undefined}
           aria-describedby={
             errors.acknowledgement?.typedName
@@ -157,7 +157,7 @@ function GuardianSection({ compact = false }: { compact?: boolean }) {
         </Label>
         <Input
           id="guardian.fullName"
-          className={cn("mt-1.5", compact ? "h-9 text-sm" : "h-12 text-base")}
+          className={cn("mt-1.5", compact ? "h-9" : "h-12")}
           aria-invalid={errors.guardian?.fullName ? true : undefined}
           aria-describedby={
             errors.guardian?.fullName ? "guardian.fullName-error" : undefined

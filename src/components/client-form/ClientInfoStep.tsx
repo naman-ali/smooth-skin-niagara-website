@@ -98,7 +98,7 @@ export function ClientInfoStep({ compact = false }: { compact?: boolean }) {
           inputMode={field.inputMode}
           aria-invalid={error ? true : undefined}
           aria-describedby={error ? `${id}-error` : undefined}
-          className={cn("mt-1.5", compact ? "h-9 text-sm" : "h-12 text-base")}
+          className={cn("mt-1.5", compact ? "h-9" : "h-12")}
           {...register(`clientInfo.${field.name}` as const)}
         />
         <FieldError
@@ -153,10 +153,7 @@ export function ClientInfoStep({ compact = false }: { compact?: boolean }) {
         <Input
           id="clientInfo.age"
           inputMode="numeric"
-          className={cn(
-            "mt-1.5 max-w-[160px]",
-            compact ? "h-9 text-sm" : "h-12 text-base",
-          )}
+          className={cn("mt-1.5 max-w-[160px]", compact ? "h-9" : "h-12")}
           aria-invalid={errors.clientInfo?.age ? true : undefined}
           aria-describedby={
             errors.clientInfo?.age ? "clientInfo.age-error" : undefined
@@ -169,12 +166,12 @@ export function ClientInfoStep({ compact = false }: { compact?: boolean }) {
         />
       </div>
 
-      <ReferralSourceField compact={compact} />
+      <ReferralSourceField />
     </div>
   );
 }
 
-function ReferralSourceField({ compact = false }: { compact?: boolean }) {
+function ReferralSourceField() {
   const {
     control,
     formState: { errors },
@@ -248,7 +245,7 @@ function ReferralSourceField({ compact = false }: { compact?: boolean }) {
                   onChange={(e) =>
                     field.onChange({ ...answer, referrerName: e.target.value })
                   }
-                  className="h-11 text-base"
+                  className="h-11"
                 />
               </div>
             ) : null}

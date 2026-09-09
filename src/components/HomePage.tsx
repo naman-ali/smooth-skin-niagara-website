@@ -137,37 +137,37 @@ function HomeHero() {
                 "mb-[28px]",
               )}
             >
-              <Link href="#services" style={{ textDecoration: "none" }}>
-                <Button
-                  variant="primary"
-                  icon={<ArrowRight size={18} />}
-                  style={{
-                    width: "min(100%, 360px)",
-                    height: 60,
-                    background: "var(--olive-600)",
-                    color: "#fff",
-                    borderColor: "var(--olive-600)",
-                  }}
-                >
-                  Find Your Treatment
-                </Button>
-              </Link>
               <Button
-                variant="secondary"
+                variant="primary"
+                icon={<ArrowRight size={18} />}
                 onClick={openConsultation}
                 style={{
                   width: "min(100%, 360px)",
-                  height: "auto",
-                  minHeight: 54,
-                  whiteSpace: "normal",
-                  background: "rgba(251, 250, 247, 0.65)",
-                  color: "var(--olive-700)",
+                  height: 60,
+                  background: "var(--olive-600)",
+                  color: "#fff",
                   borderColor: "var(--olive-600)",
-                  borderWidth: 1,
                 }}
               >
-                I want a Free Consultation
+                Free Consultation
               </Button>
+              <Link href="#services" style={{ textDecoration: "none" }}>
+                <Button
+                  variant="secondary"
+                  style={{
+                    width: "min(100%, 360px)",
+                    height: "auto",
+                    minHeight: 54,
+                    whiteSpace: "normal",
+                    background: "rgba(251, 250, 247, 0.65)",
+                    color: "var(--olive-700)",
+                    borderColor: "var(--olive-600)",
+                    borderWidth: 1,
+                  }}
+                >
+                  Find Your Treatments
+                </Button>
+              </Link>
             </div>
 
             <div className="flex justify-center">

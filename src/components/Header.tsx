@@ -2,7 +2,8 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { useAuth, UserButton } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@clerk/nextjs";
 import { Menu, X } from "lucide-react";
 import * as ButtonModule from "@/components/design-system/core/Button";
 import type { ButtonProps } from "@/components/design-system/core/Button";
@@ -12,6 +13,7 @@ import * as PhoneCalloutModule from "@/components/design-system/navigation/Phone
 import type { PhoneCalloutProps } from "@/components/design-system/navigation/PhoneCallout";
 import { cn } from "@/lib/utils";
 import { useConsultation } from "@/components/ConsultationModal";
+import { getCurrentUserRole } from "@/lib/auth";
 
 const Button = (ButtonModule as unknown as { Button: React.FC<ButtonProps> })
   .Button;
@@ -53,8 +55,20 @@ const dividerStyle = {
 
 export default function Header() {
   const [open, setOpen] = React.useState(false);
+  const [userRole, setUserRole] = React.useState<string | null>(null);
   const { isLoaded, userId } = useAuth();
   const { open: openConsultation } = useConsultation();
+  const router = useRouter();
+
+  React.useEffect(() => {
+    let active = true;
+    getCurrentUserRole().then((role) => {
+      if (active) setUserRole(role);
+    });
+    return () => {
+      active = false;
+    };
+  }, []);
 
   const closeMenu = () => setOpen(false);
 
@@ -89,7 +103,15 @@ export default function Header() {
         <Button variant="primary" size="sm" onClick={openConsultation}>
           I want a Free Consultation
         </Button>
-        {isLoaded && userId && <UserButton />}
+        {isLoaded && userId && userRole === "admin" && (
+          <Button
+            variant="primary"
+            size="sm"
+            onClick={() => router.push("/admin")}
+          >
+            Dashboard
+          </Button>
+        )}
       </div>
 
       <button
@@ -149,7 +171,19 @@ export default function Header() {
             >
               I want a Free Consultation
             </Button>
-            {isLoaded && userId && <UserButton />}
+            {isLoaded && userId && userRole === "admin" && (
+              <Button
+                variant="primary"
+                size="sm"
+                onClick={() => {
+                  closeMenu();
+                  router.push("/admin");
+                }}
+                style={{ width: "100%", justifyContent: "center" }}
+              >
+                Dashboard
+              </Button>
+            )}
           </div>
         </div>
       )}

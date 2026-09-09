@@ -77,6 +77,7 @@ export default function Footer() {
             <ul className="p-0 m-0" style={{ listStyle: "none" }}>
               {[
                 { label: "About Us", href: "/about-us" },
+                { label: "After-Care", href: "/after-cares" },
                 { label: "Testimonials", href: "#" },
                 { label: "Contact", href: "#" },
                 { label: "Privacy", href: "/privacy-policy" },

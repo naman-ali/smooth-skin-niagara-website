@@ -62,7 +62,7 @@ export function AdminSidebar({ children }: { children: React.ReactNode }) {
             <SidebarTrigger />
             <span className="text-sm font-medium">Admin</span>
           </div>
-          <UserButton afterSignOutUrl="/" />
+          <UserButton />
         </header>
         <main className="p-4 md:p-6">{children}</main>
       </SidebarInset>

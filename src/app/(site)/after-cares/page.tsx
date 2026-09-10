@@ -24,7 +24,7 @@ const treatments: AfterCareTreatment[] = [
           Soprano ICE Platinum
         </h3>
 
-        <ul className="space-y-[16px] font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+        <ul className="list-disc pl-[20px] space-y-[16px] font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
           <li className="pl-[6px]">
             Each client&apos;s results will vary due to their age, genetics,
             family background, skin type and hormonal imbalances. Please keep
@@ -152,6 +152,18 @@ const treatments: AfterCareTreatment[] = [
     ),
   },
   {
+    id: "eyelash-extensions",
+    label: "Eyelash Extensions",
+    shortName: "Eyelash Extensions",
+    content: <EyelashExtensionsAftercare />,
+  },
+  {
+    id: "lash-lift-tint",
+    label: "Lash Lift & Tint",
+    shortName: "Lash Lift & Tint",
+    content: <LashLiftTintAftercare />,
+  },
+  {
     id: "pca-skin-peels",
     label: "PCA SKIN Peels",
     shortName: "PCA SKIN Peels",
@@ -219,26 +231,277 @@ const treatments: AfterCareTreatment[] = [
       </p>
     ),
   },
-  {
-    id: "eyelash-extensions",
-    label: "Eyelash Extensions",
-    shortName: "Eyelash Extensions",
-    content: (
-      <p className="font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
-        After-care guide coming soon. Please contact Ashley at{" "}
+];
+
+const DEFAULT_TREATMENT_ID = treatments[0].id;
+
+function EyelashExtensionsAftercare() {
+  return (
+    <>
+      <h2 className="mb-[12px] font-[var(--font-display)] text-[30px] font-normal leading-[1.2] text-[var(--color-text-primary)] md:text-[36px]">
+        Eyelash Aftercare
+      </h2>
+      <p className="mb-[24px] font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+        Follow the aftercare instructions for your treatment to help protect
+        your lashes and keep your results looking their best.
+      </p>
+
+      <h3 className="mb-[16px] font-[var(--font-display)] text-[24px] font-normal leading-[1.3] text-[var(--color-text-primary)]">
+        Eyelash Extensions Aftercare
+      </h3>
+      <p className="mb-[12px] font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+        Your natural lashes continuously grow and shed, so some extension loss
+        is completely normal.
+      </p>
+      <p className="mb-[20px] font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+        For the best results, maintenance fills are generally recommended every{" "}
+        <strong>2–3 weeks</strong>.
+      </p>
+
+      <h4 className="mb-[12px] font-[var(--font-body)] text-[14px] font-semibold uppercase tracking-[0.12em] text-[var(--color-brand-primary)]">
+        First 24 Hours
+      </h4>
+      <p className="mb-[12px] font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+        The first 24 hours are especially important while the lash adhesive
+        fully cures.
+      </p>
+      <ul className="list-disc pl-[20px] mb-[24px] space-y-[12px] font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+        <li className="pl-[6px]">
+          Keep your lashes completely dry for the first{" "}
+          <strong>24 hours</strong>.
+        </li>
+        <li className="pl-[6px]">
+          Avoid water, steam, high humidity, saunas, and excessive moisture.
+        </li>
+        <li className="pl-[6px]">
+          Do not wash or soak the lashes during this time.
+        </li>
+      </ul>
+
+      <h4 className="mb-[12px] font-[var(--font-body)] text-[14px] font-semibold uppercase tracking-[0.12em] text-[var(--color-brand-primary)]">
+        Daily Care
+      </h4>
+      <p className="mb-[12px] font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+        After the first 24 hours:
+      </p>
+      <ul className="list-disc pl-[20px] mb-[24px] space-y-[12px] font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+        <li className="pl-[6px]">
+          Gently clean your lashes every day using an{" "}
+          <strong>oil-free foaming cleanser</strong>.
+        </li>
+        <li className="pl-[6px]">
+          Brush your extensions daily with a clean lash spoolie.
+        </li>
+        <li className="pl-[6px]">
+          Avoid oil-based products around the eyes, as oils can weaken the
+          adhesive.
+        </li>
+        <li className="pl-[6px]">Do not pick, pull, or rub your extensions.</li>
+        <li className="pl-[6px]">
+          Try not to sleep directly on your face or press your lashes into your
+          pillow.
+        </li>
+      </ul>
+
+      <h4 className="mb-[12px] font-[var(--font-body)] text-[14px] font-semibold uppercase tracking-[0.12em] text-[var(--color-brand-primary)]">
+        Natural Lash Shedding
+      </h4>
+      <p className="mb-[12px] font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+        It is normal to lose extensions as your natural lashes shed.
+      </p>
+      <p className="mb-[24px] font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+        Lash growth happens in cycles, so your lashes may look fuller some weeks
+        than others. You may also notice more shedding during certain times of
+        the year.
+      </p>
+
+      <h4 className="mb-[12px] font-[var(--font-body)] text-[14px] font-semibold uppercase tracking-[0.12em] text-[var(--color-brand-primary)]">
+        Lash Fills
+      </h4>
+      <p className="mb-[12px] font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+        For the best appearance, book your fill within <strong>3 weeks</strong>.
+      </p>
+      <p className="mb-[24px] font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+        Appointments after 3 weeks may require additional work and could be
+        charged differently or require a new full set.
+      </p>
+
+      <h4 className="mb-[12px] font-[var(--font-body)] text-[14px] font-semibold uppercase tracking-[0.12em] text-[var(--color-brand-primary)]">
+        Problems or Reactions
+      </h4>
+      <p className="mb-[12px] font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+        If you experience any problems with your extensions, please contact
+        Ashley as soon as possible, preferably within <strong>3 days</strong> of
+        your appointment.
+      </p>
+      <p className="mb-[12px] font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+        If you experience an allergic reaction, contact Ashley immediately so
+        the extensions can be professionally removed.
+      </p>
+      <p className="mb-[24px] font-[var(--font-body)] text-[16px] font-semibold leading-[1.7] text-[var(--color-text-primary)]">
+        Do not attempt to remove eyelash extensions yourself, as this may damage
+        your natural lashes.
+      </p>
+
+      <h3 className="mb-[16px] font-[var(--font-display)] text-[24px] font-normal leading-[1.3] text-[var(--color-text-primary)]">
+        Questions or Concerns
+      </h3>
+      <p className="mb-[24px] font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+        If you have any questions or concerns about your lashes, please contact
+        Ashley.
+      </p>
+      <p className="mb-[32px] font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+        <strong>Phone/Text:</strong>{" "}
         <a
           href="tel:+19059207229"
           className="font-semibold text-[var(--color-brand-primary)] no-underline"
         >
-          905 920 7229
-        </a>{" "}
-        for personalized instructions.
+          (905) 920-7229
+        </a>
       </p>
-    ),
-  },
-];
 
-const DEFAULT_TREATMENT_ID = treatments[0].id;
+      <h3 className="mb-[16px] font-[var(--font-display)] text-[24px] font-normal leading-[1.3] text-[var(--color-text-primary)]">
+        Appointment &amp; Cancellation Policy
+      </h3>
+      <p className="mb-[12px] font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+        Please arrive on time for your appointment.
+      </p>
+      <p className="mb-[12px] font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+        Arriving late may reduce your treatment time, but the full appointment
+        price will still apply.
+      </p>
+      <p className="mb-[12px] font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+        For cancellations within <strong>48 hours</strong> or missed
+        appointments:
+      </p>
+      <ul className="list-disc pl-[20px] mb-[12px] space-y-[12px] font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+        <li className="pl-[6px]">
+          After the first occurrence, a credit card may be required to book
+          another appointment.
+        </li>
+        <li className="pl-[6px]">
+          If a second late cancellation or no-show occurs, the card may be
+          charged the full cost of the appointment.
+        </li>
+      </ul>
+      <p className="mb-[32px] font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+        This policy helps cover appointment times that cannot be filled at short
+        notice.
+      </p>
+
+      <h3 className="mb-[16px] font-[var(--font-display)] text-[24px] font-normal leading-[1.3] text-[var(--color-text-primary)]">
+        Loyalty Program
+      </h3>
+      <p className="mb-[12px] font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+        Love your lashes?
+      </p>
+      <p className="mb-[12px] font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+        Refer someone using Ashley&apos;s referral card. If they book and attend
+        their appointment, you can receive{" "}
+        <strong>$5 off your next fill</strong>.
+      </p>
+      <p className="font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+        You can also leave a review on the Custom Lash Facebook page to receive
+        another <strong>$5 off</strong>.
+      </p>
+    </>
+  );
+}
+
+function LashLiftTintAftercare() {
+  return (
+    <>
+      <h2 className="mb-[12px] font-[var(--font-display)] text-[30px] font-normal leading-[1.2] text-[var(--color-text-primary)] md:text-[36px]">
+        Lash Lift &amp; Tint Aftercare
+      </h2>
+      <p className="mb-[24px] font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+        Your lashes may initially look slightly clumped because of the
+        conditioning oil applied after your treatment. This oil helps keep the
+        natural lashes moisturized after the lifting process.
+      </p>
+
+      <h4 className="mb-[12px] font-[var(--font-body)] text-[14px] font-semibold uppercase tracking-[0.12em] text-[var(--color-brand-primary)]">
+        First 24 Hours
+      </h4>
+      <p className="mb-[12px] font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+        Allow your lash lift to fully set for the first{" "}
+        <strong>24 hours</strong>.
+      </p>
+      <p className="mb-[12px] font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+        During this time:
+      </p>
+      <ul className="list-disc pl-[20px] mb-[24px] space-y-[12px] font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+        <li className="pl-[6px]">Do not wash your lashes.</li>
+        <li className="pl-[6px]">Avoid showering or getting the lashes wet.</li>
+        <li className="pl-[6px]">Avoid steam and excessive moisture.</li>
+        <li className="pl-[6px]">Do not apply mascara.</li>
+      </ul>
+
+      <h4 className="mb-[12px] font-[var(--font-body)] text-[14px] font-semibold uppercase tracking-[0.12em] text-[var(--color-brand-primary)]">
+        Brushing Your Lashes
+      </h4>
+      <p className="mb-[12px] font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+        Use your lash spoolie regularly to keep the lashes separated and
+        maintain the lift.
+      </p>
+      <ul className="list-disc pl-[20px] mb-[24px] space-y-[12px] font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+        <li className="pl-[6px]">
+          Always brush your lashes <strong>upward</strong>.
+        </li>
+        <li className="pl-[6px]">Avoid brushing them downward.</li>
+        <li className="pl-[6px]">Brush gently to maintain the curl.</li>
+      </ul>
+
+      <h4 className="mb-[12px] font-[var(--font-body)] text-[14px] font-semibold uppercase tracking-[0.12em] text-[var(--color-brand-primary)]">
+        Keep Your Lashes Conditioned
+      </h4>
+      <p className="mb-[12px] font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+        Keeping your lashes moisturized is an important part of your aftercare.
+      </p>
+      <ul className="list-disc pl-[20px] mb-[12px] space-y-[12px] font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+        <li className="pl-[6px]">
+          Apply the provided conditioning oil in the evenings for at least{" "}
+          <strong>2 weeks</strong>.
+        </li>
+        <li className="pl-[6px]">
+          Apply a small amount of oil to your lash spoolie and gently brush
+          upward through the lashes.
+        </li>
+      </ul>
+      <p className="mb-[12px] font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+        Once your provided oil runs out, the original aftercare guidance
+        recommends products such as:
+      </p>
+      <ul className="list-disc pl-[20px] mb-[12px] space-y-[12px] font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+        <li className="pl-[6px]">Vitamin E oil</li>
+        <li className="pl-[6px]">Coconut oil</li>
+        <li className="pl-[6px]">Baby oil</li>
+        <li className="pl-[6px]">Bio-Oil</li>
+        <li className="pl-[6px]">Xtreme Lash Growth Serum</li>
+      </ul>
+      <p className="mb-[24px] font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+        A mixture of castor oil, Vitamin E oil, and coconut oil may also be used
+        according to the original aftercare instructions.
+      </p>
+
+      <h4 className="mb-[12px] font-[var(--font-body)] text-[14px] font-semibold uppercase tracking-[0.12em] text-[var(--color-brand-primary)]">
+        Sleeping
+      </h4>
+      <p className="mb-[24px] font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+        Try not to sleep with your face pressed into your pillow, as this can
+        affect the direction and shape of the lifted lashes.
+      </p>
+
+      <h4 className="mb-[12px] font-[var(--font-body)] text-[14px] font-semibold uppercase tracking-[0.12em] text-[var(--color-brand-primary)]">
+        How Long Will My Lash Lift Last?
+      </h4>
+      <p className="font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+        With proper aftercare, your lash lift should last approximately{" "}
+        <strong>4–8 weeks</strong>.
+      </p>
+    </>
+  );
+}
 
 export default function AfterCaresPage() {
   const [selectedId, setSelectedId] = useState<string>(DEFAULT_TREATMENT_ID);

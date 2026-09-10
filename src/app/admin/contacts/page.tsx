@@ -32,7 +32,6 @@ export default async function AdminContactsPage() {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold mb-8">Admin Contacts</h1>
       <ContactsManager contacts={serializedContacts} />
     </div>
   );

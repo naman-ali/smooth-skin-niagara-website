@@ -74,6 +74,11 @@ export function AshleySection() {
       style={{ backgroundSize: "auto 118%", backgroundPosition: "center 8%" }}
     >
       <div className="relative max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto flex flex-wrap gap-[32px] items-start">
+        <img
+          src="/assets/ashley-mobile.jpg"
+          alt="Ashley portrait"
+          className="w-full max-w-[440px] h-auto object-contain mx-auto lg:hidden"
+        />
         <div className="w-full min-w-0 lg:flex-[1_1_320px] lg:min-w-[280px] lg:max-w-[380px]">
           <div className="flex items-center gap-[13px] mb-[22px]">
             <span className="font-[var(--font-body)] text-[12px] tracking-[0.16em] uppercase text-[var(--color-brand-primary)] font-bold">
@@ -125,11 +130,6 @@ export function AshleySection() {
             />
           </div>
         </div>
-        <img
-          src="/assets/ashley-section-bg-4.png"
-          alt="Ashley portrait"
-          className="w-full max-w-[440px] h-auto object-contain mx-auto lg:hidden"
-        />
         <div className="hidden lg:block lg:flex-[0_1_32%] lg:min-w-0" />
         <div className="hidden lg:flex w-full min-w-0 lg:flex-[1_1_260px] lg:min-w-[260px] lg:max-w-[340px] flex-col gap-[18px]">
           {rightTestimonials.map((t, i) => (

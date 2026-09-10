@@ -11,7 +11,16 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { SubmissionDetail } from "@/app/admin/client-form/ClientFormSubmissionsManager";
+import { getTreatmentDefinition } from "@/lib/client-form/schema";
 import type { ClientFormSubmission } from "@/lib/client-form/submission";
 import { cn } from "@/lib/utils";
 import {
@@ -35,6 +44,10 @@ function sourceLabel(source: string): string {
   return source
     .replace(/_/g, " ")
     .replace(/(^\w|\s\w)/g, (m) => m.toUpperCase());
+}
+
+function treatmentLabel(id: string): string {
+  return getTreatmentDefinition(id)?.name ?? id;
 }
 
 export default async function ContactDetailPage({
@@ -93,9 +106,7 @@ export default async function ContactDetailPage({
       <Card>
         <CardHeader>
           <CardTitle>Contact Details</CardTitle>
-          <CardDescription>
-            Basic information for this contact.
-          </CardDescription>
+          <CardDescription>Basic information for this contact.</CardDescription>
         </CardHeader>
         <CardContent>
           <dl className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -138,6 +149,28 @@ export default async function ContactDetailPage({
         </CardContent>
       </Card>
 
+      {contact.imageUrl ? (
+        <Card>
+          <CardHeader>
+            <CardTitle>Uploaded Source Image</CardTitle>
+            <CardDescription>
+              The image uploaded with this contact (e.g. signed waiver form).
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="overflow-hidden rounded-lg border bg-muted">
+              <img
+                src={`/api/images/view?pathname=${encodeURIComponent(
+                  contact.imageUrl,
+                )}`}
+                alt={`Uploaded source document for ${contact.name}`}
+                className="h-auto w-full object-contain"
+              />
+            </div>
+          </CardContent>
+        </Card>
+      ) : null}
+
       <div className="space-y-3">
         <h2 className="text-2xl font-bold">
           Client Form Submissions ({contact.clientFormSubmissions.length})
@@ -146,6 +179,49 @@ export default async function ContactDetailPage({
           <p className="text-muted-foreground">
             No intake forms have been submitted for this contact yet.
           </p>
+        ) : contact.clientFormSubmissions.length > 1 ? (
+          <Card>
+            <CardContent className="p-0">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Submitted</TableHead>
+                    <TableHead>Treatments</TableHead>
+                    <TableHead>Form Version</TableHead>
+                    <TableHead className="text-right">Actions</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {contact.clientFormSubmissions.map((submission) => (
+                    <TableRow key={submission.id}>
+                      <TableCell className="whitespace-nowrap">
+                        {formatDate(submission.submittedAt)}
+                      </TableCell>
+                      <TableCell>
+                        {submission.selectedTreatments
+                          .map((t) => treatmentLabel(t))
+                          .join(", ")}
+                      </TableCell>
+                      <TableCell className="text-sm text-muted-foreground">
+                        {submission.formVersion}
+                      </TableCell>
+                      <TableCell className="text-right">
+                        <Link
+                          href={`/admin/client-form/${submission.id}`}
+                          className={cn(
+                            buttonVariants({ variant: "outline", size: "sm" }),
+                            "inline-flex items-center gap-1.5",
+                          )}
+                        >
+                          View submission
+                        </Link>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </CardContent>
+          </Card>
         ) : (
           <div className="space-y-6">
             {contact.clientFormSubmissions.map((submission) => (

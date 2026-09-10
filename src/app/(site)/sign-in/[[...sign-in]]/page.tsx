@@ -7,7 +7,11 @@ export function generateStaticParams() {
 export default function SignInPage() {
   return (
     <div className="flex min-h-screen items-center justify-center">
-      <SignIn />
+      <SignIn
+        fallbackRedirectUrl="/post-login"
+        forceRedirectUrl="/post-login"
+        signUpUrl="/sign-up"
+      />
     </div>
   );
 }

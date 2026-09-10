@@ -246,7 +246,7 @@ function Hero() {
 
           <h1
             className={cn(
-              "text-[44px] leading-[1.05] lg:text-[76px]",
+              "text-[34px] leading-[1.05] sm:text-[40px] lg:text-[76px] break-words",
               "font-[var(--font-display)] font-normal text-[var(--color-text-primary)] mt-0 mr-0 mb-[31px] ml-0",
             )}
           >

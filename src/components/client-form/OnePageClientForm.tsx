@@ -87,8 +87,9 @@ export function OnePageClientForm() {
       "clientInfo.province",
       "clientInfo.postalCode",
       "clientInfo.age",
-      "clientInfo.emergencyContact",
       "clientInfo.referralSource",
+      "clientInfo.emergencyContactName",
+      "clientInfo.emergencyContactPhone",
     ];
 
     for (const definition of selectedDefinitions) {

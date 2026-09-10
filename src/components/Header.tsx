@@ -28,6 +28,8 @@ const serviceItems = [
   { label: "Laser Hair Removal", href: "/laser-hair-removal" },
   { label: "PCA Skin Peels", href: "/cosmetic-grade-pca-skin-peels" },
   { label: "Microneedling CIT", href: "/edermastamp-microneedling" },
+  { label: "ReadyMedical", href: "/readymedical" },
+  { label: "Exosome Therapy", href: "/exosome-therapy" },
   { label: "Celluma LED Light Therapy", href: "/celluma-led-light-therapy" },
   { label: "OXYgeneo 3-1 Super Facial", href: "/oxygeneo-3-1-super-facial" },
   { label: "Eyelash Extensions", href: "/eyelash-extensions" },

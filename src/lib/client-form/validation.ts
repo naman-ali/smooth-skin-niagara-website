@@ -171,12 +171,10 @@ function buildClientInfoErrors(
     requiredText("Age is required.").pipe(ageSchema).safeParse(clientInfo.age),
   );
 
-  setIfError(
-    "emergencyContact",
-    requiredText("Emergency contact is required.").safeParse(
-      clientInfo.emergencyContact,
-    ),
-  );
+  const emergencyPhone = clientInfo.emergencyContactPhone.trim();
+  if (emergencyPhone) {
+    setIfError("emergencyContactPhone", phoneSchema.safeParse(emergencyPhone));
+  }
 
   if (
     clientInfo.referralSource.value === "other" &&

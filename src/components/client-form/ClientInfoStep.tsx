@@ -56,12 +56,20 @@ const CONTACT_FIELDS: FieldConfig[] = [
   },
 ];
 
-const EMERGENCY_CONTACT_FIELD: FieldConfig = {
-  name: "emergencyContact",
-  label: "Emergency contact",
-  required: true,
-  span: "full",
-};
+const EMERGENCY_CONTACT_FIELDS: FieldConfig[] = [
+  {
+    name: "emergencyContactName",
+    label: "Emergency contact name",
+    span: "half",
+  },
+  {
+    name: "emergencyContactPhone",
+    label: "Emergency contact phone",
+    type: "tel",
+    span: "half",
+    inputMode: "tel",
+  },
+];
 
 export function ClientInfoStep({ compact = false }: { compact?: boolean }) {
   const {
@@ -117,7 +125,6 @@ export function ClientInfoStep({ compact = false }: { compact?: boolean }) {
 
       <div className={cn("grid gap-5 sm:grid-cols-2", compact && "gap-3")}>
         {CONTACT_FIELDS.map(renderField)}
-        {renderField(EMERGENCY_CONTACT_FIELD)}
       </div>
 
       <div className="space-y-1.5">
@@ -167,6 +174,10 @@ export function ClientInfoStep({ compact = false }: { compact?: boolean }) {
       </div>
 
       <ReferralSourceField />
+
+      <div className={cn("grid gap-5 sm:grid-cols-2", compact && "gap-3")}>
+        {EMERGENCY_CONTACT_FIELDS.map(renderField)}
+      </div>
     </div>
   );
 }

@@ -105,8 +105,9 @@ export function getStepFieldNames(
         "clientInfo.province",
         "clientInfo.postalCode",
         "clientInfo.age",
-        "clientInfo.emergencyContact",
         "clientInfo.referralSource",
+        "clientInfo.emergencyContactName",
+        "clientInfo.emergencyContactPhone",
       ];
     case "shared-health":
       return getSharedQuestionsForTreatments(selectedTreatments).map(

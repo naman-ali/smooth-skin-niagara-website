@@ -438,7 +438,15 @@ export function SubmissionDetail({
             ) : null}
             {submission.client.emergencyContact ? (
               <span className="inline-flex items-center gap-1.5">
-                Emergency contact: {submission.client.emergencyContact}
+                Emergency contact:{" "}
+                {typeof submission.client.emergencyContact === "string"
+                  ? submission.client.emergencyContact
+                  : [
+                      submission.client.emergencyContact.name,
+                      submission.client.emergencyContact.phone,
+                    ]
+                      .filter(Boolean)
+                      .join(" — ") || "—"}
               </span>
             ) : null}
             <span className="inline-flex items-center gap-1.5">

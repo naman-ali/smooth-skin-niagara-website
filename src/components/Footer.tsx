@@ -5,6 +5,11 @@ export default function Footer() {
   const headingStyle =
     "font-[var(--font-display)] text-[18px] font-medium text-[var(--color-text-primary)] mt-0 mr-0 mb-3 md:mb-5 ml-0 tracking-[0.02em]";
 
+  const GOOGLE_MAPS_EMBED_URL =
+    "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2913.862739530366!2d-79.14738048839105!3d43.08638098878613!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89d344f9c1b60a79%3A0x415f82f9f0ae72bd!2sSmooth%20Skin%20Niagara!5e0!3m2!1sen!2suk!4v1788992224588!5m2!1sen!2suk";
+  const GOOGLE_MAPS_DIRECTIONS_URL =
+    "https://www.google.com/maps/dir/?api=1&destination=43.08638098878613,-79.14738048839105";
+
   return (
     <footer
       className="bg-[var(--olive-100)] pt-12 px-3 pb-6 md:pt-16 md:pb-8 lg:px-[53px] text-[var(--color-text-primary)] font-[var(--font-body)]"
@@ -49,21 +54,33 @@ export default function Footer() {
             </h4>
             <ul className="p-0 m-0" style={{ listStyle: "none" }}>
               {[
-                "Laser Hair Removal",
-                "PCA Skin Peels",
-                "Microneedling CIT",
-                "ReadyMedical",
-                "Exosome Therapy",
-                "Celluma LED Light Therapy",
-                "OXYgeneo 3-1 Super Facial",
-                "Eyelash Extensions",
+                { label: "Laser Hair Removal", href: "/laser-hair-removal" },
+                {
+                  label: "PCA Skin Peels",
+                  href: "/cosmetic-grade-pca-skin-peels",
+                },
+                {
+                  label: "Microneedling CIT",
+                  href: "/edermastamp-microneedling",
+                },
+                { label: "ReadyMedical", href: "/readymedical" },
+                { label: "Exosome Therapy", href: "/exosome-therapy" },
+                {
+                  label: "Celluma LED Light Therapy",
+                  href: "/celluma-led-light-therapy",
+                },
+                {
+                  label: "OXYgeneo 3-1 Super Facial",
+                  href: "/oxygeneo-3-1-super-facial",
+                },
+                { label: "Eyelash Extensions", href: "/eyelash-extensions" },
               ].map((item) => (
-                <li key={item} className="mb-[8px]">
+                <li key={item.label} className="mb-[8px]">
                   <a
-                    href="#"
+                    href={item.href}
                     className="text-[var(--color-text-secondary)] no-underline text-[15px] leading-[1.8] font-[var(--font-body)]"
                   >
-                    {item}
+                    {item.label}
                   </a>
                 </li>
               ))}
@@ -78,10 +95,7 @@ export default function Footer() {
               {[
                 { label: "About Us", href: "/about-us" },
                 { label: "After-Care", href: "/after-cares" },
-                { label: "Testimonials", href: "#" },
-                { label: "Contact", href: "#" },
                 { label: "Privacy", href: "/privacy-policy" },
-                { label: "Terms of Service", href: "#" },
               ].map((item) => (
                 <li key={item.label} className="mb-[8px]">
                   <a
@@ -121,6 +135,28 @@ export default function Footer() {
               </a>
             </p>
           </div>
+        </div>
+
+        <div className="mt-8 md:mt-12">
+          <h4 className={headingStyle}>Find us</h4>
+          <div className="relative overflow-hidden rounded-[12px] border border-[var(--color-border)] h-[220px] md:h-[300px]">
+            <iframe
+              className="absolute inset-0 h-full w-full border-0"
+              src={GOOGLE_MAPS_EMBED_URL}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Smooth Skin Niagara location"
+              allowFullScreen
+            />
+          </div>
+          <a
+            href={GOOGLE_MAPS_DIRECTIONS_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="mt-3 inline-block font-semibold no-underline text-[15px] text-[var(--color-brand-primary)]"
+          >
+            Get directions
+          </a>
         </div>
 
         <div

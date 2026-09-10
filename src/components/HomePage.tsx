@@ -108,16 +108,11 @@ function HomeHero() {
                 "font-[var(--font-display)] font-normal text-[var(--color-text-primary)] mt-0 mr-0 mb-[28px] ml-0",
               )}
             >
-              Feel Good in Your Skin.
+              The Right Skin Treatment.
               <br className="hidden md:inline" />
-              <span
-                className={cn(
-                  "italic",
-                  "font-[var(--font-display)] text-[var(--olive-600)]",
-                )}
-              >
-                At Every Stage.
-              </span>
+              Results You Can See.
+              <br className="hidden md:inline" />
+              Care You Can Trust.
             </h1>
 
             <p

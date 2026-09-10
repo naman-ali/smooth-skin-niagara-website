@@ -59,7 +59,7 @@ export type ClientFormSubmission = {
       postalCode: string;
     };
     age?: number;
-    emergencyContact?: string;
+    emergencyContact?: { name?: string; phone?: string } | string;
     referralSource?: {
       value: string;
       label: string;
@@ -134,7 +134,13 @@ function buildClient(client: ClientInfoValues): ClientFormSubmission["client"] {
       postalCode: client.postalCode.trim(),
     },
     age: Number.isFinite(parsedAge) ? parsedAge : undefined,
-    emergencyContact: client.emergencyContact.trim() || undefined,
+    emergencyContact:
+      client.emergencyContactName.trim() || client.emergencyContactPhone.trim()
+        ? {
+            name: client.emergencyContactName.trim() || undefined,
+            phone: client.emergencyContactPhone.trim() || undefined,
+          }
+        : undefined,
     referralSource: buildReferralSource(client.referralSource),
   };
 }

@@ -137,8 +137,12 @@ export function ReviewStep({
           />
           <ReviewItem label="Age" value={values.clientInfo.age} />
           <ReviewItem
-            label="Emergency contact"
-            value={values.clientInfo.emergencyContact}
+            label="Emergency contact name"
+            value={values.clientInfo.emergencyContactName}
+          />
+          <ReviewItem
+            label="Emergency contact phone"
+            value={values.clientInfo.emergencyContactPhone}
           />
           {values.clientInfo.referralSource.value ? (
             <ReviewItem

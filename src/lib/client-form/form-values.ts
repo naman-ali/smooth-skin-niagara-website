@@ -19,7 +19,8 @@ export type ClientInfoValues = {
   province: string;
   postalCode: string;
   age: string;
-  emergencyContact: string;
+  emergencyContactName: string;
+  emergencyContactPhone: string;
   referralSource: ReferralSourceValue;
 };
 
@@ -82,7 +83,8 @@ export const EMPTY_CLIENT_INFO: ClientInfoValues = {
   province: "",
   postalCode: "",
   age: "",
-  emergencyContact: "",
+  emergencyContactName: "",
+  emergencyContactPhone: "",
   referralSource: { value: "", otherText: "", referrerName: "" },
 };
 

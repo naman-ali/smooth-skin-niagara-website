@@ -19,7 +19,7 @@ export default function Footer() {
         <div className="grid grid-cols-2 gap-6 gap-y-8 md:grid-cols-4 md:gap-12">
           <div className="min-w-0">
             <img
-              src="/assets/logo.png"
+              src="/assets/smooth-skin-niagara-logo.png"
               alt="Smooth Skin Niagara"
               className="h-[52px] mb-4"
             />

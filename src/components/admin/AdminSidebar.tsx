@@ -45,7 +45,7 @@ export function AdminSidebar({ children }: { children: React.ReactNode }) {
       <Sidebar className="border-r border-black/5 bg-[#fafaf7]">
         <SidebarHeader className="flex-row items-center justify-center gap-0 border-b border-black/5 px-6 py-7">
           <img
-            src="/assets/logo.png"
+            src="/assets/smooth-skin-niagara-logo.png"
             alt="Smooth Skin Niagara"
             className="h-auto w-[195px]"
           />

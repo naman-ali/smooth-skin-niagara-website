@@ -70,14 +70,20 @@ export function AshleySection() {
 
   return (
     <section
-      className="relative pt-[90px] px-3 pb-[90px] lg:px-[53px] overflow-hidden bg-none lg:bg-[url('/assets/ashley-section-bg-4.png')] bg-no-repeat"
-      style={{ backgroundSize: "auto 118%", backgroundPosition: "center 8%" }}
+      className="relative pt-[90px] px-3 pb-[90px] lg:px-[53px] overflow-hidden"
+      style={{
+        backgroundImage: "url('/assets/ashley-section-background.png')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        backgroundColor: "var(--olive-100)",
+      }}
     >
       <div className="relative max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto flex flex-wrap gap-[32px] items-start">
         <img
-          src="/assets/ashley-mobile.jpg"
-          alt="Ashley portrait"
-          className="w-full max-w-[440px] h-auto object-contain mx-auto lg:hidden"
+          src="/assets/ashley-1.png"
+          alt="Ashley Romano, founder of Smooth Skin Niagara"
+          className="w-full max-w-[440px] h-[360px] sm:h-[420px] object-cover mx-auto lg:hidden"
         />
         <div className="w-full min-w-0 lg:flex-[1_1_320px] lg:min-w-[280px] lg:max-w-[380px]">
           <div className="flex items-center gap-[13px] mb-[22px]">
@@ -166,6 +172,14 @@ export function AshleySection() {
           ))}
         </div>
       </div>
+      <img
+        src="/assets/ashley-1.png"
+        alt="Ashley Romano, founder of Smooth Skin Niagara"
+        className="hidden lg:block absolute bottom-0 left-1/2 -translate-x-1/2 h-[90%] w-auto object-contain pointer-events-none"
+        style={{
+          filter: "drop-shadow(0 24px 40px rgba(79, 91, 58, 0.18))",
+        }}
+      />
     </section>
   );
 }

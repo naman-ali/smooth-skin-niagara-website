@@ -82,7 +82,7 @@ export default function Header() {
       <div className="flex items-center gap-[56px] flex-[1_1_auto] min-w-0">
         <Link href="/" style={{ flexShrink: 0 }}>
           <img
-            src="/assets/logo.png"
+            src="/assets/smooth-skin-niagara-logo.png"
             alt="Smooth Skin Niagara"
             className="h-[64px] block"
           />

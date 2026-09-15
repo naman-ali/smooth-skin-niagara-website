@@ -35,6 +35,11 @@ const serviceItems = [
   { label: "Eyelash Extensions", href: "/eyelash-extensions" },
 ];
 
+const resourceItems = [
+  { label: "Client Form", href: "/client-form" },
+  { label: "After-Care", href: "/after-cares" },
+];
+
 const desktopLinkStyle =
   "text-[var(--color-text-primary)] no-underline text-[16px] font-medium font-[var(--font-body)] whitespace-nowrap";
 
@@ -93,10 +98,11 @@ export default function Header() {
             "items-center gap-[32px] text-[16px] min-w-0",
           )}
         >
-          <NavDropdown label="Services" items={serviceItems} />
+          <NavDropdown label="Treatments" items={serviceItems} />
           <Link href="/about-us" className={desktopLinkStyle}>
             About
           </Link>
+          <NavDropdown label="Resources" items={resourceItems} />
         </nav>
       </div>
 
@@ -158,6 +164,17 @@ export default function Header() {
             <Link href="/about-us" onClick={closeMenu} style={mobileLinkStyle}>
               About
             </Link>
+            <hr style={dividerStyle} />
+            {resourceItems.map((item) => (
+              <a
+                key={item.label}
+                href={item.href}
+                onClick={closeMenu}
+                style={mobileLinkStyle}
+              >
+                {item.label}
+              </a>
+            ))}
           </nav>
 
           <div className="mt-[auto] pt-[32px] flex flex-col gap-[16px]">

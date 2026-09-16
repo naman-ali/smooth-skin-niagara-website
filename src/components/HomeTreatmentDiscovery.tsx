@@ -147,10 +147,12 @@ function TreatmentCard({
   treatment: Treatment;
   index: number;
 }) {
+  const horizontalGradient =
+    "linear-gradient(90deg, rgba(248,245,237,.98) 0%, rgba(248,245,237,.92) 35%, rgba(248,245,237,.55) 58%, rgba(248,245,237,.10) 78%, transparent 100%)";
   const gradient =
     treatment.size === "large"
       ? "linear-gradient(0deg, rgba(248,245,237,.98) 0%, rgba(248,245,237,.90) 32%, rgba(248,245,237,.35) 58%, transparent 78%)"
-      : "linear-gradient(90deg, rgba(248,245,237,.98) 0%, rgba(248,245,237,.92) 35%, rgba(248,245,237,.55) 58%, rgba(248,245,237,.10) 78%, transparent 100%)";
+      : horizontalGradient;
 
   return (
     <Link
@@ -168,7 +170,11 @@ function TreatmentCard({
         className="object-cover transition-transform duration-[350ms] motion-reduce:transition-none motion-reduce:transform-none group-hover:scale-[1.035]"
       />
       <div
-        className="pointer-events-none absolute inset-0 z-10"
+        className="pointer-events-none absolute inset-0 z-10 lg:hidden"
+        style={{ background: horizontalGradient }}
+      />
+      <div
+        className="pointer-events-none absolute inset-0 z-10 hidden lg:block"
         style={{ background: gradient }}
       />
       <div

@@ -188,7 +188,7 @@ function HomeHero() {
             "rounded-[14px]",
           )}
         >
-          <div className="grid grid-cols-2 gap-y-6 divide-y divide-olive-300 py-6 lg:grid-cols-4 lg:gap-0 lg:divide-x lg:divide-y-0">
+          <div className="grid grid-cols-2 gap-6 py-6 lg:grid-cols-4 lg:gap-0 lg:divide-x lg:divide-olive-300">
             {trustPoints.map((point, i) => (
               <div
                 key={point.title}

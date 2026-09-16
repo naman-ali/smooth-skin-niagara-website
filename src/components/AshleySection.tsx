@@ -72,7 +72,7 @@ export function AshleySection() {
     <section
       className="relative pt-[90px] px-3 pb-[90px] lg:px-[53px] overflow-hidden"
       style={{
-        backgroundImage: "url('/assets/ashley-section-background.png')",
+        backgroundImage: "url('/assets/ashley-section-background.jpg')",
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
@@ -83,7 +83,10 @@ export function AshleySection() {
         <img
           src="/assets/ashley-1.png"
           alt="Ashley Romano, founder of Smooth Skin Niagara"
-          className="w-full max-w-[440px] h-[360px] sm:h-[420px] object-cover mx-auto lg:hidden"
+          className="w-full max-w-[480px] h-[400px] sm:h-[460px] object-cover object-top mx-auto lg:hidden"
+          style={{
+            filter: "drop-shadow(0 20px 32px rgba(79, 91, 58, 0.16))",
+          }}
         />
         <div className="w-full min-w-0 lg:flex-[1_1_320px] lg:min-w-[280px] lg:max-w-[380px]">
           <div className="flex items-center gap-[13px] mb-[22px]">

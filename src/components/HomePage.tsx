@@ -122,7 +122,7 @@ function HomeHero() {
               )}
             >
               Advanced skincare, laser and beauty treatments thoughtfully
-              selected around your skin, your goals and the way you want to
+              selected around skin, your goals and the way you want to
               feel.
             </p>
 

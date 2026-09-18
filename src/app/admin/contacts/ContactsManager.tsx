@@ -21,6 +21,7 @@ import {
   Table,
   TableBody,
   TableCell,
+  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
@@ -139,6 +140,10 @@ export default function ContactsManager({
   const [approveOpen, setApproveOpen] = useState(false);
   const [visible, setVisible] = useState(DEFAULT_VISIBLE);
   const unapprovedCount = contacts.filter((c) => !c.approved).length;
+  const filteredContacts = contacts.filter(
+    (c) => typeFilter === "all" || c.contactType === typeFilter,
+  );
+  const visibleColCount = COLUMNS.filter((col) => visible[col.key]).length + 1;
 
   const resetForm = () => {
     setForm({ name: "", email: "", phone: "" });
@@ -278,46 +283,53 @@ export default function ContactsManager({
               </TableRow>
             </TableHeader>
             <TableBody>
-              {contacts
-                .filter(
-                  (c) => typeFilter === "all" || c.contactType === typeFilter,
-                )
-                .map((c) => (
-                  <TableRow key={c.id}>
-                    {COLUMNS.map(
-                      (col) => visible[col.key] && renderContactCell(col, c),
-                    )}
-                    <TableCell className="text-right">
-                      <div className="flex justify-end gap-2">
-                        <Button
-                          size="icon"
-                          variant="outline"
-                          onClick={() => router.push(`/admin/contacts/${c.id}`)}
-                        >
-                          <Eye className="size-4" />
-                          <span className="sr-only">View</span>
-                        </Button>
-                        <Button
-                          size="icon"
-                          variant="outline"
-                          onClick={() => startEdit(c)}
-                        >
-                          <Pencil className="size-4" />
-                          <span className="sr-only">Edit</span>
-                        </Button>
-                        <Button
-                          size="icon"
-                          variant="destructive"
-                          onClick={() => onDelete(c.id)}
-                        >
-                          <Trash2 className="size-4" />
-                          <span className="sr-only">Delete</span>
-                        </Button>
-                      </div>
-                    </TableCell>
-                  </TableRow>
-                ))}
+              {filteredContacts.map((c) => (
+                <TableRow key={c.id}>
+                  {COLUMNS.map(
+                    (col) => visible[col.key] && renderContactCell(col, c),
+                  )}
+                  <TableCell className="text-right">
+                    <div className="flex justify-end gap-2">
+                      <Button
+                        size="icon"
+                        variant="outline"
+                        onClick={() => router.push(`/admin/contacts/${c.id}`)}
+                      >
+                        <Eye className="size-4" />
+                        <span className="sr-only">View</span>
+                      </Button>
+                      <Button
+                        size="icon"
+                        variant="outline"
+                        onClick={() => startEdit(c)}
+                      >
+                        <Pencil className="size-4" />
+                        <span className="sr-only">Edit</span>
+                      </Button>
+                      <Button
+                        size="icon"
+                        variant="destructive"
+                        onClick={() => onDelete(c.id)}
+                      >
+                        <Trash2 className="size-4" />
+                        <span className="sr-only">Delete</span>
+                      </Button>
+                    </div>
+                  </TableCell>
+                </TableRow>
+              ))}
             </TableBody>
+            <TableFooter>
+              <TableRow>
+                <TableCell
+                  colSpan={visibleColCount}
+                  className="text-sm text-muted-foreground"
+                >
+                  Showing {filteredContacts.length} of {contacts.length} contact
+                  {contacts.length === 1 ? "" : "s"}
+                </TableCell>
+              </TableRow>
+            </TableFooter>
           </Table>
         </CardContent>
       </Card>

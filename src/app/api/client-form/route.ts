@@ -1,6 +1,7 @@
 import { auth } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { syncContactToAlienrise } from "@/lib/alienrise";
 import { clientFormResolver } from "@/lib/client-form/validation";
 import { buildClientFormSubmission } from "@/lib/client-form/submission";
 import type { FormValues } from "@/lib/client-form/form-values";
@@ -92,6 +93,7 @@ export async function POST(request: NextRequest) {
 
   const submission = buildClientFormSubmission(values);
   const contact = await findOrCreateContact(submission.client);
+  await syncContactToAlienrise(contact);
 
   const created = await prisma.clientFormSubmission.create({
     data: {

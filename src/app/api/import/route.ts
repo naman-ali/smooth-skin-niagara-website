@@ -3,6 +3,7 @@ import { parsePhoneNumber } from "libphonenumber-js";
 import { auth } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { syncContactToAlienrise } from "@/lib/alienrise";
 
 async function requireAdmin() {
   const { userId } = await auth();
@@ -128,7 +129,7 @@ export async function POST(request: NextRequest) {
             const parsed = rawPhone
               ? parsePhoneNumber(rawPhone, "US")
               : undefined;
-            return prisma.contact.create({
+            const contact = await prisma.contact.create({
               data: {
                 name: c.name || "",
                 email: c.email || "",
@@ -138,6 +139,10 @@ export async function POST(request: NextRequest) {
                 imageUrl,
               },
             });
+            if (contact.contactType !== "lead") {
+              await syncContactToAlienrise(contact);
+            }
+            return contact;
           }),
         );
       }),

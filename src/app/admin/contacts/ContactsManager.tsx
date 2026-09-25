@@ -3,10 +3,20 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { Eye, Pencil, Plus, Trash2, Upload } from "lucide-react";
+import {
+  Download,
+  Eye,
+  Loader2,
+  Pencil,
+  Plus,
+  Star,
+  Trash2,
+  Upload,
+} from "lucide-react";
 import ImportDialog from "./ImportDialog";
 import ApproveDialog from "./ApproveDialog";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Card,
   CardContent,
@@ -135,15 +145,105 @@ export default function ContactsManager({
   });
   const [editing, setEditing] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
-  const [typeFilter, setTypeFilter] = useState("all");
   const [importOpen, setImportOpen] = useState(false);
   const [approveOpen, setApproveOpen] = useState(false);
   const [visible, setVisible] = useState(DEFAULT_VISIBLE);
+  const [selected, setSelected] = useState<Set<string>>(new Set());
+  const [actionsOpen, setActionsOpen] = useState(false);
+  const [pushing, setPushing] = useState(false);
+  const [actionMsg, setActionMsg] = useState<string | null>(null);
   const unapprovedCount = contacts.filter((c) => !c.approved).length;
-  const filteredContacts = contacts.filter(
-    (c) => typeFilter === "all" || c.contactType === typeFilter,
-  );
-  const visibleColCount = COLUMNS.filter((col) => visible[col.key]).length + 1;
+  const filteredContacts = contacts;
+  const visibleColCount = COLUMNS.filter((col) => visible[col.key]).length + 2;
+  const selectedContacts = contacts.filter((c) => selected.has(c.id));
+  const allFilteredSelected =
+    filteredContacts.length > 0 &&
+    filteredContacts.every((c) => selected.has(c.id));
+  const someFilteredSelected =
+    !allFilteredSelected && filteredContacts.some((c) => selected.has(c.id));
+
+  const toggleSelect = (id: string) =>
+    setSelected((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+
+  const toggleSelectAll = () =>
+    setSelected((prev) => {
+      const next = new Set(prev);
+      filteredContacts.forEach((c) =>
+        allFilteredSelected ? next.delete(c.id) : next.add(c.id),
+      );
+      return next;
+    });
+
+  const escapeCsv = (value: string) =>
+    /[",\n]/.test(value) ? `"${value.replace(/"/g, '""')}"` : value;
+
+  const exportCsv = () => {
+    const header = [
+      "Name",
+      "Email",
+      "Phone",
+      "Type",
+      "Source",
+      "Approved",
+      "Created",
+    ];
+    const rows = selectedContacts.map((c) => [
+      c.name,
+      c.email,
+      c.phone ?? "",
+      c.contactType,
+      c.source,
+      c.approved ? "Yes" : "No",
+      c.createdAt,
+    ]);
+    const csv = [header, ...rows]
+      .map((row) => row.map(escapeCsv).join(","))
+      .join("\r\n");
+    const url = URL.createObjectURL(
+      new Blob([csv], { type: "text/csv;charset=utf-8" }),
+    );
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `contacts-${new Date().toISOString().slice(0, 10)}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+    setActionsOpen(false);
+  };
+
+  const pushToAlienrise = async () => {
+    setPushing(true);
+    setActionMsg(null);
+    try {
+      const res = await fetch("/api/contacts/review-requests", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ids: selectedContacts.map((c) => c.id) }),
+      });
+      if (!res.ok) throw new Error((await res.text()) || "Request failed");
+      const { results } = (await res.json()) as {
+        results: { contactId: string; ok: boolean }[];
+      };
+      const failed = results.filter((r) => !r.ok).length;
+      const sent = results.length - failed;
+      setActionMsg(
+        failed
+          ? `AlienRise: ${sent} review request${sent === 1 ? "" : "s"} submitted, ${failed} failed.`
+          : `AlienRise: ${sent} review request${sent === 1 ? "" : "s"} submitted.`,
+      );
+    } catch (err) {
+      setActionMsg(
+        err instanceof Error ? err.message : "Push to AlienRise failed",
+      );
+    } finally {
+      setPushing(false);
+      setActionsOpen(false);
+    }
+  };
 
   const resetForm = () => {
     setForm({ name: "", email: "", phone: "" });
@@ -209,6 +309,9 @@ export default function ContactsManager({
           </Button>
         </div>
       )}
+      {actionMsg && (
+        <p className="rounded-lg border bg-muted/50 p-3 text-sm">{actionMsg}</p>
+      )}
       <Card>
         <CardHeader className="flex flex-row flex-wrap items-center justify-between gap-4">
           <div className="space-y-1.5">
@@ -216,21 +319,39 @@ export default function ContactsManager({
             <CardDescription>Manage all contact records.</CardDescription>
           </div>
           <div className="flex flex-wrap items-center gap-4">
-            <div className="flex items-center gap-2">
-              <label htmlFor="type-filter" className="text-sm font-medium">
-                Type
-              </label>
-              <select
-                id="type-filter"
-                value={typeFilter}
-                onChange={(e) => setTypeFilter(e.target.value)}
-                className="h-9 rounded-md border border-input bg-background px-3 py-1 text-sm"
-              >
-                <option value="all">All</option>
-                <option value="client">Client</option>
-                <option value="lead">Lead</option>
-              </select>
-            </div>
+            <details
+              className="relative"
+              open={actionsOpen}
+              onToggle={(e) => setActionsOpen(e.currentTarget.open)}
+            >
+              <summary className="flex h-9 cursor-pointer list-none items-center justify-center rounded-md border border-input bg-background px-3 text-sm font-medium ring-offset-background transition-colors hover:bg-accent hover:text-accent-foreground">
+                Actions{selected.size > 0 ? ` (${selected.size})` : ""}
+              </summary>
+              <div className="absolute right-0 z-50 mt-2 w-72 rounded-md border bg-background p-2 shadow-lg">
+                <button
+                  type="button"
+                  disabled={selected.size === 0}
+                  onClick={exportCsv}
+                  className="flex w-full items-center gap-2 rounded px-2 py-1.5 text-left text-sm hover:bg-accent disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  <Download className="size-4" />
+                  Export as CSV
+                </button>
+                <button
+                  type="button"
+                  disabled={selected.size === 0 || pushing}
+                  onClick={pushToAlienrise}
+                  className="flex w-full items-center gap-2 rounded px-2 py-1.5 text-left text-sm hover:bg-accent disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  {pushing ? (
+                    <Loader2 className="size-4 animate-spin" />
+                  ) : (
+                    <Star className="size-4" />
+                  )}
+                  Push to AlienRise for Review Collection
+                </button>
+              </div>
+            </details>
             <details className="relative">
               <summary className="flex h-9 cursor-pointer list-none items-center justify-center rounded-md border border-input bg-background px-3 text-sm font-medium ring-offset-background transition-colors hover:bg-accent hover:text-accent-foreground">
                 Columns
@@ -273,6 +394,14 @@ export default function ContactsManager({
           <Table>
             <TableHeader>
               <TableRow>
+                <TableHead className="w-8">
+                  <Checkbox
+                    aria-label="Select all contacts"
+                    checked={allFilteredSelected}
+                    indeterminate={someFilteredSelected}
+                    onCheckedChange={toggleSelectAll}
+                  />
+                </TableHead>
                 {COLUMNS.map(
                   (col) =>
                     visible[col.key] && (
@@ -284,7 +413,17 @@ export default function ContactsManager({
             </TableHeader>
             <TableBody>
               {filteredContacts.map((c) => (
-                <TableRow key={c.id}>
+                <TableRow
+                  key={c.id}
+                  data-state={selected.has(c.id) ? "selected" : undefined}
+                >
+                  <TableCell>
+                    <Checkbox
+                      aria-label={`Select ${c.name || "contact"}`}
+                      checked={selected.has(c.id)}
+                      onCheckedChange={() => toggleSelect(c.id)}
+                    />
+                  </TableCell>
                   {COLUMNS.map(
                     (col) => visible[col.key] && renderContactCell(col, c),
                   )}

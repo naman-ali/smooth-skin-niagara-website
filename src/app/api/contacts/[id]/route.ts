@@ -1,6 +1,7 @@
 import { auth } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { syncContactToAlienrise } from "@/lib/alienrise";
 
 async function requireAdmin() {
   const { userId } = await auth();
@@ -23,6 +24,9 @@ export async function PATCH(
     where: { id },
     data: body,
   });
+  if (contact.contactType !== "lead") {
+    await syncContactToAlienrise(contact);
+  }
   return NextResponse.json(contact);
 }
 

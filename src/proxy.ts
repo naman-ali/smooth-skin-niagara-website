@@ -1,4 +1,5 @@
 import { clerkMiddleware } from "@clerk/nextjs/server";
+import type { NextFetchEvent, NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
 const CANONICAL_HOST = "smoothskinniagara.com";
@@ -12,7 +13,7 @@ function isLocalHost(host: string) {
   );
 }
 
-export default clerkMiddleware(async (auth, req) => {
+const clerkHandler = clerkMiddleware(async (auth, req) => {
   const host = (req.headers.get("host") ?? "").split(":")[0].toLowerCase();
 
   // Enforce a single canonical host in production.
@@ -22,15 +23,24 @@ export default clerkMiddleware(async (auth, req) => {
     url.protocol = "https:";
     return NextResponse.redirect(url, 308);
   }
+});
+
+export default async function middleware(
+  req: NextRequest,
+  event: NextFetchEvent,
+) {
+  // Let Clerk middleware run on every host — bypassing it left server-side
+  // auth (currentUser/getAuth) empty, which caused a sign-in/post-login loop.
+  const res = (await clerkHandler(req, event)) ?? NextResponse.next();
+  const host = (req.headers.get("host") ?? "").split(":")[0].toLowerCase();
 
   // Keep preview/staging deployments (e.g. *.vercel.app) out of the index
   // while production remains indexable.
-  if (!isLocalHost(host) && host !== CANONICAL_HOST) {
-    const res = NextResponse.next();
+  if (!isLocalHost(host) && host !== CANONICAL_HOST && host !== WWW_HOST) {
     res.headers.set("X-Robots-Tag", "noindex, nofollow");
-    return res;
   }
-});
+  return res;
+}
 
 export const config = {
   matcher: [

@@ -20,7 +20,7 @@ Canonical production domain: `https://smoothskinniagara.com` (apex; `www` 308-re
 
 - [ ] Confirm GBP name/categories/hours/address match footer + schema NAP (`5985 Ernest Crescent, Niagara Falls, ON L2H 0H8`, `(905) 920-7229`). Add `openingHours` to schema only once hours are confirmed (old Contact page had conflicting hours — none were copied).
 - [ ] Verify live "5.0 / 61+ reviews" figures on Google before keeping them hard-coded (`src/lib/reviews.ts`, `GoogleReviews` props).
-- [ ] Have Ashley review medical/clinical claims (ReadyMedical wound-healing/sterility, exosome efficacy, "pain-free"/"safe for all" phrasing on laser, after-care guidance, consent-form legal entity names still saying "Custom Lash Lounge Inc.").
+- [ ] Have Ashley review medical/clinical claims (ReadyMedical wound-healing/sterility, exosome efficacy, "pain-free"/"safe for all" phrasing on laser, after-care guidance, consent-form legal entity names still saying "Custom Lash Lounge Inc."; the ported Privacy Policy also references "Custom Lash Lounge inc." / "Custom Lash & Laser" verbatim — approve a find-replace to "Smooth Skin Niagara" or update the legal entity).
 - [ ] Unused asset: `public/assets/ChatGPT Image Sep 5, 2026, 10_42_47 PM.jpg` — delete or use.
 
 ## At cutover

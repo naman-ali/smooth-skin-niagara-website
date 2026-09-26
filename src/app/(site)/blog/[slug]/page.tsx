@@ -10,6 +10,8 @@ import {
   getBlogPost,
 } from "@/lib/blog-posts";
 
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return BLOG_POSTS.map((post) => ({ slug: post.slug }));
 }

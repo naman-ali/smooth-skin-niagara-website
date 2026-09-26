@@ -6,6 +6,7 @@ import * as React from "react";
 import { ArrowRight, Heart, Shield, Sparkles, User } from "lucide-react";
 import * as ButtonModule from "@/components/design-system/core/Button";
 import type { ButtonProps } from "@/components/design-system/core/Button";
+import { useConsultation } from "@/components/ConsultationModal";
 import { cn } from "@/lib/utils";
 
 const Button = (ButtonModule as unknown as { Button: React.FC<ButtonProps> })
@@ -102,7 +103,7 @@ const treatments: Treatment[] = [
     href: "/oxygeneo-3-1-super-facial",
     image: "/assets/oxygenero.jpg",
     alt: "Client receiving an OxyGeneo facial treatment",
-    size: "large",
+    size: "small",
     objectPosition: "center",
     linkText: "Explore OxyGeneo",
   },
@@ -224,12 +225,62 @@ function TreatmentCard({
   );
 }
 
+function ConsultationCtaCard() {
+  const { open: openConsultation } = useConsultation();
+
+  return (
+    <div
+      className={cn(
+        "relative flex h-[340px] w-full flex-col items-center justify-center overflow-hidden",
+        "rounded-[24px] border border-[rgba(191,174,151,0.35)] bg-[var(--olive-600)]",
+        "p-6 text-center md:h-[360px] md:p-8 lg:h-full",
+        "lg:col-start-1 lg:row-start-3 lg:row-span-2",
+      )}
+    >
+      <span
+        className={cn(
+          "mb-3 block text-[11px] font-semibold uppercase tracking-[0.15em]",
+          "font-[var(--font-body)] text-white/80",
+        )}
+      >
+        Free Consultation
+      </span>
+      <h3
+        className={cn(
+          "text-[30px] leading-[1.1] lg:text-[38px]",
+          "font-[var(--font-display)] font-normal text-white mt-0 mr-0 mb-[12px] ml-0",
+        )}
+      >
+        Not Sure Which Treatment Is Right for You?
+      </h3>
+      <p
+        className={cn(
+          "mx-auto max-w-[380px] text-[15px] leading-[1.55] lg:text-[16px]",
+          "font-[var(--font-body)] text-white/85 mt-0 mr-0 mb-[26px] ml-0",
+        )}
+      >
+        Tell Ashley your skin goals and she will help you choose the treatment
+        that fits — no pressure, no obligation.
+      </p>
+      <Button
+        variant="secondary"
+        icon={<ArrowRight size={18} />}
+        onClick={openConsultation}
+        style={{ background: "#fff", color: "var(--olive-700)" }}
+      >
+        Book a Free Consultation
+      </Button>
+    </div>
+  );
+}
+
 function TreatmentGrid() {
   return (
     <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-2 lg:grid-rows-[repeat(4,260px)]">
       {treatments.map((treatment, index) => (
         <TreatmentCard key={treatment.id} treatment={treatment} index={index} />
       ))}
+      <ConsultationCtaCard />
     </div>
   );
 }

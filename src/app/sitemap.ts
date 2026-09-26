@@ -10,7 +10,6 @@ const PUBLIC_ROUTES = [
   "/blog",
   "/laser-hair-removal",
   "/edermastamp-microneedling",
-  "/cosmetic-grade-pca-skin-peels",
   "/celluma-led-light-therapy",
   "/oxygeneo-3-1-super-facial",
   "/eyelash-extensions",

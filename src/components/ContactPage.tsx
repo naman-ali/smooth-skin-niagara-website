@@ -11,7 +11,6 @@ const Button = (ButtonModule as unknown as { Button: React.FC<ButtonProps> })
 
 const services = [
   { label: "Laser Hair Removal", href: "/laser-hair-removal" },
-  { label: "PCA Skin Peels", href: "/cosmetic-grade-pca-skin-peels" },
   { label: "Microneedling CIT", href: "/edermastamp-microneedling" },
   { label: "Celluma LED Light Therapy", href: "/celluma-led-light-therapy" },
   { label: "OXYgeneo 3-1 Super Facial", href: "/oxygeneo-3-1-super-facial" },
@@ -38,9 +37,9 @@ export function ContactPage() {
               Contact Smooth Skin Niagara in Niagara Falls
             </h1>
             <p className="mb-[48px] max-w-[640px] font-[var(--font-body)] text-[17px] leading-[1.6] text-[var(--color-text-secondary)]">
-              Questions about a treatment, or ready to book? Call, text or
-              email anytime and Ashley will help you find the right treatment
-              and an appointment that works for you.
+              Questions about a treatment, or ready to book? Call, text or email
+              anytime and Ashley will help you find the right treatment and an
+              appointment that works for you.
             </p>
 
             <div className="grid grid-cols-1 gap-[28px] lg:grid-cols-2">

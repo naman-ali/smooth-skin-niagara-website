@@ -15,6 +15,7 @@ Canonical production domain: `https://smoothskinniagara.com` (apex; `www` 308-re
 - Image filenames with spaces renamed (`oxygeneo-step-*.jpg`); Xwrap image in `EyelashFaq` moved off the old WordPress URL to `public/assets/xwrap.jpg`.
 - Branded 404 (`src/app/not-found.tsx` + `(site)/not-found.tsx`): header/footer, "Back to Home" + "Contact Us" links — important for old-URL visitors and crawl hygiene (status stays 404).
 - Restored all 5 old blog articles at `/blog/<slug>` (`src/lib/blog-posts.ts`, `/blog` index): original copy pulled from the live WordPress site, all 11 images self-hosted in `public/assets/blog/`, `BlogPosting` + `BreadcrumbList` JSON-LD, per-post metadata/OG image, consultation CTA per article. Old dated URLs (`/YYYY/MM/slug`) 301 to the new paths.
+- PCA peels page temporarily unpublished (owner request): route moved to `src/app/(site)/_disabled/cosmetic-grade-pca-skin-peels/` — `_`-prefix opts it out of routing while keeping the code. Component stays at `src/components/PcaPeelsPage.tsx`, FAQ data at `src/lib/pca-peels-faq.tsx`. All links removed (header nav, footer, contact page, home treatment card, sitemap). URL now returns the branded 404. To re-enable: move the folder back to `src/app/(site)/` and re-add the links.
 
 ## Before domain cutover — owner approvals needed
 

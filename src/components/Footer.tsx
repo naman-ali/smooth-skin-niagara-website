@@ -55,10 +55,7 @@ export default function Footer() {
             <ul className="p-0 m-0" style={{ listStyle: "none" }}>
               {[
                 { label: "Laser Hair Removal", href: "/laser-hair-removal" },
-                {
-                  label: "PCA Skin Peels",
-                  href: "/cosmetic-grade-pca-skin-peels",
-                },
+
                 {
                   label: "Microneedling CIT",
                   href: "/edermastamp-microneedling",

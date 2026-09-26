@@ -68,19 +68,6 @@ const treatments: Treatment[] = [
     linkText: "Explore Microneedling",
   },
   {
-    id: "pca",
-    eyebrow: "PROFESSIONAL PEELS",
-    title: "PCA SKIN Peels",
-    description:
-      "Professional chemical peels selected around your skin type and concerns.",
-    href: "/cosmetic-grade-pca-skin-peels",
-    image: "/assets/pca.jpg",
-    alt: "Professional chemical peel being applied to a client's face",
-    size: "small",
-    objectPosition: "75% center",
-    linkText: "Explore PCA SKIN Peels",
-  },
-  {
     id: "celluma",
     eyebrow: "LED THERAPY",
     title: "Celluma LED Light Therapy",

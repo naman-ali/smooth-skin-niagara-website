@@ -166,7 +166,7 @@ const faqItems: FaqItem[] = [
         mascara can dissolve the bonding agent and shorten the life of your
         eyelash extensions causing them to fall sooner. Care also needs to be
         taken in washing off the mascara. Only use a water based eye makeup
-        remover. Custom Lash & Laser sells a volumizing water based mascara and
+        remover. Smooth Skin Niagara sells a volumizing water based mascara and
         oil free makeup remover.
       </p>
     ),
@@ -285,7 +285,7 @@ const faqItems: FaqItem[] = [
           <li>Defined lash line giving the look of wearing eyeliner!</li>
         </ul>
         <img
-          src="https://smoothskinniagara.com/wp-content/uploads/2021/09/Xwrap-5c2d30a4b1ada.jpg"
+          src="/assets/xwrap.jpg"
           alt="Xwrap Eyelash Extension"
           className="mt-[16px] max-w-[175px] rounded-[8px] block"
         />
@@ -307,21 +307,21 @@ const faqItems: FaqItem[] = [
     q: "What is a Lash Lift and Tint?",
     a: (
       <p>
-        The Lash Lift and Tint is a new service to Custom Lash and clients are
-        raving about it! The Lash Lift is essentially perming the natural lashes
-        to gain a beautiful natural curl and to top the look off we add a tint
-        to darken the lash line (optional). This option is a great alternative
-        if you are perhaps taking a break from eyelash extensions or not yet
-        ready to try the extensions out. The process takes about 45-60mins, we
-        apply eyepatches to the lower lashes and place silicone pads to the
-        upper eyelid to help with the perming process. You will leave with a
-        nourishing oil on the lashes and are asked not to get them wet for
-        24hrs. After the 24 hours you can continue with your regular daily
-        routine and apply makeup and mascara as you wish. After the treatment
-        it’s recommended to keep the natural lashes soft during the evening so a
-        lash growth serum, Vitamin E or coconut oil will help keep the lashes
-        strong and will promote growth. Refer to the gallery section for before
-        and after photo’s.
+        The Lash Lift and Tint is a newer service at Smooth Skin Niagara and
+        clients are raving about it! The Lash Lift is essentially perming the
+        natural lashes to gain a beautiful natural curl and to top the look off
+        we add a tint to darken the lash line (optional). This option is a great
+        alternative if you are perhaps taking a break from eyelash extensions or
+        not yet ready to try the extensions out. The process takes about
+        45-60mins, we apply eyepatches to the lower lashes and place silicone
+        pads to the upper eyelid to help with the perming process. You will
+        leave with a nourishing oil on the lashes and are asked not to get them
+        wet for 24hrs. After the 24 hours you can continue with your regular
+        daily routine and apply makeup and mascara as you wish. After the
+        treatment it’s recommended to keep the natural lashes soft during the
+        evening so a lash growth serum, Vitamin E or coconut oil will help keep
+        the lashes strong and will promote growth. Refer to the gallery section
+        for before and after photo’s.
       </p>
     ),
   },
@@ -357,33 +357,43 @@ export function EyelashFaq() {
         <div className="flex flex-col gap-[14px]">
           {faqItems.map((item, i) => {
             const isOpen = openIndex === i;
+            const answerId = `eyelash-faq-${i}`;
             return (
               <div
                 key={i}
-                onClick={() => toggle(i)}
-                className="bg-[#fff] rounded-[14px] pt-[20px] pr-[22px] pb-[20px] pl-[22px] cursor-pointer"
+                className="bg-[#fff] rounded-[14px] pt-[20px] pr-[22px] pb-[20px] pl-[22px]"
                 style={{
                   border: "1px solid var(--color-border)",
                   transition: "box-shadow 0.15s ease",
                   boxShadow: isOpen ? "0 4px 16px rgba(37,38,36,0.04)" : "none",
                 }}
               >
-                <div className="flex items-center justify-between gap-[16px]">
-                  <h4 className="font-[var(--font-body)] text-[16px] font-semibold text-[var(--color-text-primary)] m-0 leading-[1.4]">
+                <button
+                  type="button"
+                  onClick={() => toggle(i)}
+                  aria-expanded={isOpen}
+                  aria-controls={answerId}
+                  className="flex w-full cursor-pointer items-center justify-between gap-[16px] border-0 bg-transparent p-0 text-left"
+                >
+                  <span className="font-[var(--font-body)] text-[16px] font-semibold text-[var(--color-text-primary)] m-0 leading-[1.4]">
                     {item.q}
-                  </h4>
-                  <span className="shrink-0 font-[var(--font-body)] text-[22px] text-[var(--color-brand-primary)] leading-[1]">
+                  </span>
+                  <span
+                    aria-hidden="true"
+                    className="shrink-0 font-[var(--font-body)] text-[22px] text-[var(--color-brand-primary)] leading-[1]"
+                  >
                     {isOpen ? "−" : "+"}
                   </span>
+                </button>
+                <div
+                  id={answerId}
+                  role="region"
+                  hidden={!isOpen}
+                  className="mt-[14px] pt-[18px] font-[var(--font-body)] text-[15px] leading-[1.65] text-[var(--color-text-secondary)]"
+                  style={{ borderTop: "1px solid var(--color-border)" }}
+                >
+                  {item.a}
                 </div>
-                {isOpen && (
-                  <div
-                    className="mt-[14px] pt-[18px] font-[var(--font-body)] text-[15px] leading-[1.65] text-[var(--color-text-secondary)]"
-                    style={{ borderTop: "1px solid var(--color-border)" }}
-                  >
-                    {item.a}
-                  </div>
-                )}
               </div>
             );
           })}

@@ -401,8 +401,16 @@ function EyelashExtensionsAftercare() {
         <strong>$5 off your next fill</strong>.
       </p>
       <p className="font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
-        You can also leave a review on the Custom Lash Facebook page to receive
-        another <strong>$5 off</strong>.
+        You can also leave a review on the{" "}
+        <a
+          href="https://www.facebook.com/eyelashextensionsniagarafalls/"
+          target="_blank"
+          rel="noreferrer"
+          className="font-semibold text-[var(--color-brand-primary)] no-underline"
+        >
+          Smooth Skin Niagara Facebook page
+        </a>{" "}
+        to receive another <strong>$5 off</strong>.
       </p>
     </>
   );
@@ -549,7 +557,9 @@ export default function AfterCaresPage() {
                     key={treatment.id}
                     type="button"
                     role="tab"
+                    id={`aftercare-tab-${treatment.id}`}
                     aria-selected={isSelected}
+                    aria-controls={`aftercare-panel-${treatment.id}`}
                     onClick={() => handleSelect(treatment.id)}
                     className={`
                       rounded-[12px] px-[18px] py-[16px] text-left transition-all duration-200
@@ -577,7 +587,17 @@ export default function AfterCaresPage() {
               className="rounded-[20px] border bg-[#fff] px-[24px] py-[30px] md:px-[36px] md:py-[42px]"
               style={{ borderColor: "var(--color-border)" }}
             >
-              {selectedTreatment.content}
+              {treatments.map((treatment) => (
+                <div
+                  key={treatment.id}
+                  role="tabpanel"
+                  id={`aftercare-panel-${treatment.id}`}
+                  aria-labelledby={`aftercare-tab-${treatment.id}`}
+                  hidden={treatment.id !== selectedTreatment.id}
+                >
+                  {treatment.content}
+                </div>
+              ))}
             </div>
           </div>
         </section>

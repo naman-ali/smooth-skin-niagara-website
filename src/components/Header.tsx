@@ -38,6 +38,7 @@ const serviceItems = [
 const resourceItems = [
   { label: "Client Form", href: "/client-form" },
   { label: "After-Care", href: "/after-cares" },
+  { label: "Reviews", href: "/testimonials" },
 ];
 
 const desktopLinkStyle =
@@ -102,6 +103,9 @@ export default function Header() {
           <Link href="/about-us" className={desktopLinkStyle}>
             About
           </Link>
+          <Link href="/contact" className={desktopLinkStyle}>
+            Contact
+          </Link>
           <NavDropdown label="Resources" items={resourceItems} />
         </nav>
       </div>
@@ -163,6 +167,9 @@ export default function Header() {
             <hr style={dividerStyle} />
             <Link href="/about-us" onClick={closeMenu} style={mobileLinkStyle}>
               About
+            </Link>
+            <Link href="/contact" onClick={closeMenu} style={mobileLinkStyle}>
+              Contact
             </Link>
             <hr style={dividerStyle} />
             {resourceItems.map((item) => (

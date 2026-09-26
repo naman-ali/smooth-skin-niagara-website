@@ -91,17 +91,17 @@ export function CellumaHero() {
         <div className="w-full min-w-0 lg:max-w-[55%] lg:min-w-[320px]">
           {/* Eyebrow */}
           <div className="flex items-center gap-[13px] mb-[31px]">
-            <span className="font-[var(--font-body)] text-[12px] tracking-[0.16em] uppercase text-[var(--color-brand-primary)] font-bold">
+            <h1 className="m-0 font-[var(--font-body)] text-[12px] tracking-[0.16em] uppercase text-[var(--color-brand-primary)] font-bold">
               Celluma LED Light Therapy{" "}
               <span className="text-[var(--color-brand-deep)]">
                 · Niagara Falls
               </span>
-            </span>
+            </h1>
             <span className="w-[48px] h-[1px] bg-[var(--color-border-strong)]" />
           </div>
 
           {/* Headline */}
-          <h1
+          <p
             className={cn(
               "font-normal text-[44px] leading-[1.05] lg:text-[80px]",
               "font-[var(--font-display)] text-[var(--color-text-primary)] mt-0 mr-0 mb-[31px] ml-0",
@@ -115,7 +115,7 @@ export function CellumaHero() {
             >
               Healthier-Looking Skin
             </span>
-          </h1>
+          </p>
 
           {/* Subheadline */}
           <p

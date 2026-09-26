@@ -1,12 +1,16 @@
-import { ReactNode } from 'react';
+import { ReactNode } from "react";
 
 export interface ButtonProps {
-  variant?: 'primary' | 'secondary' | 'ghost';
-  size?: 'md' | 'sm';
+  variant?: "primary" | "secondary" | "ghost";
+  size?: "md" | "sm";
   icon?: ReactNode;
-  iconPosition?: 'left' | 'right';
+  iconPosition?: "left" | "right";
   disabled?: boolean;
   children: ReactNode;
   onClick?: () => void;
   style?: React.CSSProperties;
+  /** Renders the button as an anchor link instead of a <button>. */
+  href?: string;
+  target?: string;
+  rel?: string;
 }

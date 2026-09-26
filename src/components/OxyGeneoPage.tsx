@@ -122,21 +122,21 @@ function OxyHero() {
       >
         <div className="w-full min-w-0 lg:max-w-[55%] lg:min-w-[320px]">
           <div className="flex items-center gap-[13px] mb-[31px]">
-            <span
+            <h1
               className={cn(
-                "text-[12px] font-bold uppercase tracking-[0.16em]",
+                "m-0 text-[12px] font-bold uppercase tracking-[0.16em]",
                 "font-[var(--font-body)] text-[var(--color-brand-primary)]",
               )}
             >
-              OXYGENEO 3-IN-1 SUPER FACIAL{" "}
+              OxyGeneo 3-in-1 Super Facial{" "}
               <span className="text-[var(--color-brand-deep)]">
-                · NIAGARA FALLS
+                · Niagara Falls
               </span>
-            </span>
+            </h1>
             <span className="w-[48px] h-[1px] bg-[var(--color-border-strong)]" />
           </div>
 
-          <h1
+          <p
             className={cn(
               "text-[44px] leading-[1.05] lg:text-[80px]",
               "font-[var(--font-display)] font-normal text-[var(--color-text-primary)] mt-0 mr-0 mb-[31px] ml-0",
@@ -152,7 +152,7 @@ function OxyHero() {
             >
               All in One Facial.
             </span>
-          </h1>
+          </p>
 
           <p
             className={cn(
@@ -174,14 +174,13 @@ function OxyHero() {
             >
               I want a Free Consultation →
             </Button>
-            <Link href="#treatment-options">
-              <Button
-                variant="secondary"
-                style={{ width: "100%", whiteSpace: "normal" }}
-              >
-                Explore Treatment Options
-              </Button>
-            </Link>
+            <Button
+              variant="secondary"
+              href="#treatment-options"
+              style={{ width: "100%", whiteSpace: "normal" }}
+            >
+              Explore Treatment Options
+            </Button>
           </div>
 
           <GoogleReviews rating="5.0" count="61+" />
@@ -233,7 +232,7 @@ function OxyHowItWorks() {
       title: "Exfoliate",
       sub: "Reveal a Smoother Surface",
       text: "The OxyPod gently exfoliates the outermost layer of skin, helping remove dead surface cells and improve the look and feel of skin texture.",
-      img: "/assets/oxygeneo -step-1.jpg",
+      img: "/assets/oxygeneo-step-1.jpg",
       alt: "OxyGeneo exfoliation step",
     },
     {
@@ -241,7 +240,7 @@ function OxyHowItWorks() {
       title: "Oxygenate",
       sub: "Support Oxygenation From Within",
       text: "The OxyGeneo treatment creates carbon dioxide bubbles at the skin's surface. This triggers a natural physiological response known as the Bohr Effect, increasing oxygen-rich blood flow to the treatment area.",
-      img: "/assets/oxygeneo -step-2.jpg",
+      img: "/assets/oxygeneo-step-2.jpg",
       alt: "OxyGeneo oxygenation step",
     },
     {
@@ -249,7 +248,7 @@ function OxyHowItWorks() {
       title: "Infuse",
       sub: "Deliver Ingredients Selected for Your Skin",
       text: "While the treatment is taking place, the skin is exposed to active ingredients selected according to your concerns and treatment goals.",
-      img: "/assets/oxygeneo -step-3.jpg",
+      img: "/assets/oxygeneo-step-3.jpg",
       alt: "OxyGeneo infusion step",
     },
   ];

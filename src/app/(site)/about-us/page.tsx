@@ -90,10 +90,10 @@ export default function AboutUsPage() {
                 </div>
 
                 <h1 className="mb-[8px] font-[var(--font-display)] text-[44px] lg:text-[48px] font-medium leading-[1.1] text-[var(--color-text-primary)]">
-                  Ashley
+                  Meet Ashley
                 </h1>
                 <p className="mb-[26px] font-[var(--font-body)] text-[17px] leading-[1.7] text-[var(--color-text-secondary)]">
-                  Founder of Smooth Skin Niagara
+                  Founder of Smooth Skin Niagara in Niagara Falls
                 </p>
 
                 <div className="space-y-[18px] font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-primary)]">
@@ -125,6 +125,17 @@ export default function AboutUsPage() {
                     gone for good or treating wrinkles, acne or tightening skin
                     under the eye area, Smooth Skin Niagara has made a one stop
                     shop for all your beauty needs!
+                  </p>
+
+                  <p>
+                    Visit Ashley&apos;s studio in Niagara Falls —{" "}
+                    <a
+                      href="/contact"
+                      className="font-semibold text-[var(--color-brand-primary)] no-underline"
+                    >
+                      get in touch or book a free consultation
+                    </a>
+                    .
                   </p>
                 </div>
 
@@ -225,7 +236,9 @@ export default function AboutUsPage() {
                     IG
                   </a>
                   <a
-                    href="#"
+                    href="https://www.facebook.com/eyelashextensionsniagarafalls/"
+                    target="_blank"
+                    rel="noreferrer"
                     aria-label="Facebook"
                     className="inline-flex h-[48px] w-[48px] items-center justify-center rounded-full border border-[var(--olive-700)] font-[var(--font-body)] text-[13px] font-semibold text-[var(--olive-100)] transition-colors duration-300 hover:bg-olive-700 hover:text-white"
                   >

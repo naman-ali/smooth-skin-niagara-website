@@ -1,10 +1,13 @@
+import type { Metadata } from "next";
 import HomePage from "@/components/HomePage";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata = {
-  title: "Smooth Skin Niagara | Laser Hair Removal & Aesthetic Treatments | Niagara Falls",
+export const metadata: Metadata = pageMetadata({
+  title: "Smooth Skin Niagara | Laser & Skin Treatments in Niagara Falls",
   description:
-    "Smooth Skin Niagara offers laser hair removal, microneedling, PCA SKIN peels, OxyGeneo facials, Celluma LED therapy and eyelash extensions in Niagara Falls.",
-};
+    "Discover laser hair removal, microneedling, facials, chemical peels, LED therapy and lashes at Smooth Skin Niagara in Niagara Falls. Book a consultation.",
+  path: "/",
+});
 
 export default function Home() {
   return <HomePage />;

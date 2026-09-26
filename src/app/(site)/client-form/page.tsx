@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "Client Intake Form | Smooth Skin Niagara",
   description:
     "Complete your client intake and consent form before your visit.",
+  robots: { index: false, follow: true },
 };
 
 export default function ClientFormPage() {

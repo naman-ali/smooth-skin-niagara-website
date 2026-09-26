@@ -118,21 +118,21 @@ function PcaHero() {
       >
         <div className="w-full min-w-0 lg:max-w-[55%] lg:min-w-[320px]">
           <div className="flex items-center gap-[13px] mb-[31px]">
-            <span
+            <h1
               className={cn(
-                "text-[12px] font-bold uppercase tracking-[0.16em]",
+                "m-0 text-[12px] font-bold uppercase tracking-[0.16em]",
                 "font-[var(--font-body)] text-[var(--color-brand-primary)]",
               )}
             >
-              PROFESSIONAL PCA SKIN PEELS{" "}
+              PCA Skin Chemical Peels{" "}
               <span className="text-[var(--color-brand-deep)]">
-                · NIAGARA FALLS
+                · Niagara Falls
               </span>
-            </span>
+            </h1>
             <span className="w-[48px] h-[1px] bg-[var(--color-border-strong)]" />
           </div>
 
-          <h1
+          <p
             className={cn(
               "text-[36px] leading-[1.08] break-words text-balance md:text-[44px] lg:text-[80px]",
               "font-[var(--font-display)] font-normal text-[var(--color-text-primary)] mt-0 mr-0 mb-[31px] ml-0",
@@ -148,7 +148,7 @@ function PcaHero() {
             >
               Smoother-Looking Skin.
             </span>
-          </h1>
+          </p>
 
           <p
             className={cn(
@@ -170,14 +170,13 @@ function PcaHero() {
             >
               I want a Free Consultation →
             </Button>
-            <Link href="#peel-options">
-              <Button
-                variant="secondary"
-                style={{ width: "100%", whiteSpace: "normal" }}
-              >
-                View Peel Options
-              </Button>
-            </Link>
+            <Button
+              variant="secondary"
+              href="#peel-options"
+              style={{ width: "100%", whiteSpace: "normal" }}
+            >
+              View Peel Options
+            </Button>
           </div>
 
           <GoogleReviews rating="5.0" count="61+" />

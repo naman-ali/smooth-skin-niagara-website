@@ -13,7 +13,7 @@ import {
   Sun,
   Zap,
 } from "lucide-react";
-import Link from "next/link";
+
 import Header from "@/components/Header";
 import { CtaSection } from "@/components/CtaSection";
 import * as ButtonModule from "@/components/design-system/core/Button";
@@ -232,19 +232,21 @@ function Hero() {
       >
         <div className="w-full min-w-0 lg:max-w-[58%] lg:min-w-[320px]">
           <div className="flex items-center gap-[13px] mb-[31px]">
-            <span
+            <h1
               className={cn(
-                "text-[12px] font-bold uppercase tracking-[0.16em]",
+                "m-0 text-[12px] font-bold uppercase tracking-[0.16em]",
                 "font-[var(--font-body)] text-[var(--color-brand-primary)]",
               )}
             >
-              MIX · HEAL · BOOST{" "}
-              <span className="text-[var(--color-brand-deep)]">· NIAGARA</span>
-            </span>
+              ReadyMedical{" "}
+              <span className="text-[var(--color-brand-deep)]">
+                · Niagara Falls
+              </span>
+            </h1>
             <span className="w-[48px] h-[1px] bg-[var(--color-border-strong)]" />
           </div>
 
-          <h1
+          <p
             className={cn(
               "text-[34px] leading-[1.05] sm:text-[40px] lg:text-[76px] break-words",
               "font-[var(--font-display)] font-normal text-[var(--color-text-primary)] mt-0 mr-0 mb-[31px] ml-0",
@@ -260,7 +262,7 @@ function Hero() {
             >
               Healing Solutions
             </span>
-          </h1>
+          </p>
 
           <p
             className={cn(
@@ -281,14 +283,13 @@ function Hero() {
             >
               Book a Free Consultation &rarr;
             </Button>
-            <Link href="#solutions" scroll>
-              <Button
-                variant="secondary"
-                style={{ width: "100%", whiteSpace: "normal" }}
-              >
-                View ReadyMedical Solutions
-              </Button>
-            </Link>
+            <Button
+              variant="secondary"
+              href="#solutions"
+              style={{ width: "100%", whiteSpace: "normal" }}
+            >
+              View ReadyMedical Solutions
+            </Button>
           </div>
 
           <GoogleReviews rating="5.0" count="61+" />
@@ -631,23 +632,25 @@ export default function ReadyMedicalPage() {
   return (
     <>
       <Header />
-      <Hero />
-      <UspSection />
-      <SolutionsSection />
-      <WhenToUse />
-      <ResultsSection />
-      <CtaSection
-        eyebrow="BOOST YOUR TREATMENT RESULTS"
-        heading={
-          <>
-            Ready to Enhance
-            <br className="hidden md:inline" /> Your Aesthetic Results?
-          </>
-        }
-        subheading="Book a complimentary consultation at Smooth Skin Niagara and discover which ReadyMedical solution is right for your treatments."
-        buttonText="Book a Free Consultation"
-        variant="light"
-      />
+      <main>
+        <Hero />
+        <UspSection />
+        <SolutionsSection />
+        <WhenToUse />
+        <ResultsSection />
+        <CtaSection
+          eyebrow="BOOST YOUR TREATMENT RESULTS"
+          heading={
+            <>
+              Ready to Enhance
+              <br className="hidden md:inline" /> Your Aesthetic Results?
+            </>
+          }
+          subheading="Book a complimentary consultation at Smooth Skin Niagara and discover which ReadyMedical solution is right for your treatments."
+          buttonText="Book a Free Consultation"
+          variant="light"
+        />
+      </main>
     </>
   );
 }

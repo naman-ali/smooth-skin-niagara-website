@@ -74,22 +74,20 @@ export function EyelashHero() {
               "mb-[28px]",
             )}
           >
-            <span
+            <h1
               className={cn(
-                "text-[11px] font-semibold uppercase tracking-[0.16em]",
+                "m-0 text-[11px] font-semibold uppercase tracking-[0.16em]",
                 "font-[var(--font-body)] text-[var(--olive-600)]",
               )}
             >
-              Niagara{" "}
-              <span className="text-[var(--olive-700)]">
-                Eyelash Extensions
-              </span>
-            </span>
+              Eyelash Extensions{" "}
+              <span className="text-[var(--olive-700)]">· Niagara Falls</span>
+            </h1>
             <span className={cn("h-px w-12", "bg-[var(--olive-600)]")} />
           </div>
 
           {/* Headline */}
-          <h1
+          <p
             className={cn(
               "font-normal",
               "font-[var(--font-display)] text-[44px] leading-[1.05] text-[var(--ink-900)] lg:text-[80px] mt-0 mr-0 mb-[28px] ml-0 text-center",
@@ -98,7 +96,7 @@ export function EyelashHero() {
             Wake Up With
             <br className="hidden md:inline" />
             Lashes You <em style={{ fontStyle: "italic" }}>Love</em>.
-          </h1>
+          </p>
 
           {/* Subheadline */}
           <p

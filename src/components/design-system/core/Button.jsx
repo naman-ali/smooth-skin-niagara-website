@@ -5,7 +5,7 @@ const sizeStyles = {
   sm: { padding: '14px 22px', fontSize: 16 },
 };
 
-export function Button({ variant = 'primary', size = 'md', icon, iconPosition = 'right', disabled = false, children, onClick, style }) {
+export function Button({ variant = 'primary', size = 'md', icon, iconPosition = 'right', disabled = false, children, onClick, style, href, target, rel }) {
   const base = {
     display: 'inline-flex',
     alignItems: 'center',
@@ -33,17 +33,40 @@ export function Button({ variant = 'primary', size = 'md', icon, iconPosition = 
     ghost: { background: 'rgba(102,112,82,0.06)' },
   };
   const [isHover, setHover] = React.useState(false);
+  const content = (
+    <>
+      {icon && iconPosition === 'left' ? icon : null}
+      {children}
+      {icon && iconPosition === 'right' ? icon : null}
+    </>
+  );
+  const mergedStyle = { ...base, ...variants[variant], ...(isHover && !disabled ? hover[variant] : {}), ...style };
+  if (href) {
+    return (
+      <a
+        href={href}
+        target={target}
+        rel={rel ?? (target === '_blank' ? 'noreferrer' : undefined)}
+        aria-disabled={disabled || undefined}
+        onClick={onClick}
+        onMouseEnter={() => setHover(true)}
+        onMouseLeave={() => setHover(false)}
+        style={{ ...mergedStyle, textDecoration: 'none' }}
+      >
+        {content}
+      </a>
+    );
+  }
   return (
     <button
+      type="button"
       disabled={disabled}
       onClick={onClick}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
-      style={{ ...base, ...variants[variant], ...(isHover && !disabled ? hover[variant] : {}), ...style }}
+      style={mergedStyle}
     >
-      {icon && iconPosition === 'left' ? icon : null}
-      {children}
-      {icon && iconPosition === 'right' ? icon : null}
+      {content}
     </button>
   );
 }

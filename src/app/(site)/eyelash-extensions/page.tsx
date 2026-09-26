@@ -13,13 +13,15 @@ export default function EyelashExtensionsPage() {
   return (
     <>
       <Header />
-      <EyelashHero />
-      <AshleySection />
-      <FindYourLook id="pricing" />
-      <EyelashResults />
-      <EyelashFaq />
-      <ReviewsSection prioritizeService="lashes" />
-      <CtaSection />
+      <main>
+        <EyelashHero />
+        <AshleySection />
+        <FindYourLook id="pricing" />
+        <EyelashResults />
+        <EyelashFaq />
+        <ReviewsSection prioritizeService="lashes" />
+        <CtaSection />
+      </main>
     </>
   );
 }

@@ -2,7 +2,7 @@
 
 import { ArrowRight, Award, MapPin, Sparkles, User } from "lucide-react";
 import { HomeTreatmentDiscovery } from "./HomeTreatmentDiscovery";
-import Link from "next/link";
+
 import * as React from "react";
 import Header from "@/components/Header";
 import { AshleySection } from "@/components/AshleySection";
@@ -99,10 +99,13 @@ function HomeHero() {
           >
             <div className="flex flex-col items-center gap-[12px] mb-[28px]">
               <Eyebrow>SMOOTH SKIN NIAGARA</Eyebrow>
+              <h1 className="m-0 max-w-[560px] font-[var(--font-body)] text-[13px] font-semibold uppercase tracking-[0.14em] text-[var(--olive-700)]">
+                Laser Hair Removal &amp; Skin Treatments in Niagara Falls
+              </h1>
               <span className="w-[64px] h-[1px] bg-[var(--olive-600)] opacity-[0.4]" />
             </div>
 
-            <h1
+            <p
               className={cn(
                 "text-[46px] leading-[1.02] md:text-[62px] lg:text-[68px]",
                 "font-[var(--font-display)] font-normal text-[var(--color-text-primary)] mt-0 mr-0 mb-[28px] ml-0",
@@ -113,7 +116,7 @@ function HomeHero() {
               Results You Can See.
               <br className="hidden md:inline" />
               Care You Can Trust.
-            </h1>
+            </p>
 
             <p
               className={cn(
@@ -146,23 +149,22 @@ function HomeHero() {
               >
                 Free Consultation
               </Button>
-              <Link href="#services" style={{ textDecoration: "none" }}>
-                <Button
-                  variant="secondary"
-                  style={{
-                    width: "min(100%, 360px)",
-                    height: "auto",
-                    minHeight: 54,
-                    whiteSpace: "normal",
-                    background: "rgba(251, 250, 247, 0.65)",
-                    color: "var(--olive-700)",
-                    borderColor: "var(--olive-600)",
-                    borderWidth: 1,
-                  }}
-                >
-                  Find Your Treatments
-                </Button>
-              </Link>
+              <Button
+                variant="secondary"
+                href="#services"
+                style={{
+                  width: "min(100%, 360px)",
+                  height: "auto",
+                  minHeight: 54,
+                  whiteSpace: "normal",
+                  background: "rgba(251, 250, 247, 0.65)",
+                  color: "var(--olive-700)",
+                  borderColor: "var(--olive-600)",
+                  borderWidth: 1,
+                }}
+              >
+                Find Your Treatments
+              </Button>
             </div>
 
             <div className="flex justify-center">

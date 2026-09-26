@@ -183,19 +183,19 @@ function Hero() {
       <div className="relative max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto">
         <div className="w-full lg:max-w-[42%] lg:min-w-[320px]">
           <div className="flex items-center gap-[13px] mb-[31px]">
-            <span className="font-[var(--font-body)] text-[12px] tracking-[0.16em] uppercase text-[var(--color-brand-primary)] font-bold">
-              Niagara{" "}
+            <h1 className="m-0 font-[var(--font-body)] text-[12px] tracking-[0.16em] uppercase text-[var(--color-brand-primary)] font-bold">
+              Laser Hair Removal{" "}
               <span className="text-[var(--color-brand-deep)]">
-                Laser Hair Removal
+                · Niagara Falls
               </span>
-            </span>
+            </h1>
             <span className="w-[48px] h-[1px] bg-[var(--color-border-strong)]" />
           </div>
-          <h1 className="font-[var(--font-display)] font-normal text-[44px] leading-[1.05] text-[var(--color-text-primary)] lg:text-[80px] mt-0 mr-0 mb-[31px] ml-0">
+          <p className="font-[var(--font-display)] font-normal text-[44px] leading-[1.05] text-[var(--color-text-primary)] lg:text-[80px] mt-0 mr-0 mb-[31px] ml-0">
             Confident Skin.
             <br className="hidden md:inline" />
             Every Day.
-          </h1>
+          </p>
           <p className="font-[var(--font-body)] text-[20px] leading-[1.6] text-[var(--color-text-secondary)] mt-0 mr-0 mb-[40px] ml-0">
             Advanced laser technology meets personalized care for long-lasting
             results and beautifully smooth skin.
@@ -520,14 +520,16 @@ export default function Home() {
   return (
     <>
       <Header />
-      <Hero />
-      <AshleySection />
-      <TechnologySection />
-      <TreatmentAreas />
-      <LaserResultsSection />
-      <FaqSection />
-      <ReviewsSection prioritizeService="laser" />
-      <CtaSection />
+      <main>
+        <Hero />
+        <AshleySection />
+        <TechnologySection />
+        <TreatmentAreas />
+        <LaserResultsSection />
+        <FaqSection />
+        <ReviewsSection prioritizeService="laser" />
+        <CtaSection />
+      </main>
     </>
   );
 }

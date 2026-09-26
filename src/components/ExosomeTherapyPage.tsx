@@ -11,7 +11,7 @@ import {
   Sun,
   Zap,
 } from "lucide-react";
-import Link from "next/link";
+
 import Header from "@/components/Header";
 import { CtaSection } from "@/components/CtaSection";
 import * as ButtonModule from "@/components/design-system/core/Button";
@@ -106,21 +106,21 @@ function Hero() {
         <div className="flex flex-col items-center gap-12 lg:flex-row">
           <div className="w-full min-w-0 lg:max-w-[55%]">
             <div className="flex items-center gap-[13px] mb-[31px]">
-              <span
+              <h1
                 className={cn(
-                  "text-[12px] font-bold uppercase tracking-[0.16em]",
+                  "m-0 text-[12px] font-bold uppercase tracking-[0.16em]",
                   "font-[var(--font-body)] text-[var(--color-brand-primary)]",
                 )}
               >
-                ADVANCED SKINCARE SCIENCE{" "}
+                Exosome Therapy{" "}
                 <span className="text-[var(--color-brand-deep)]">
-                  · NIAGARA
+                  · Niagara Falls
                 </span>
-              </span>
+              </h1>
               <span className="w-[48px] h-[1px] bg-[var(--color-border-strong)]" />
             </div>
 
-            <h1
+            <p
               className={cn(
                 "text-[44px] leading-[1.05] lg:text-[76px]",
                 "font-[var(--font-display)] font-normal text-[var(--color-text-primary)] mt-0 mr-0 mb-[31px] ml-0",
@@ -136,7 +136,7 @@ function Hero() {
               >
                 Therapy
               </span>
-            </h1>
+            </p>
 
             <p
               className={cn(
@@ -157,14 +157,13 @@ function Hero() {
               >
                 Book a Free Consultation &rarr;
               </Button>
-              <Link href="#benefits" scroll>
-                <Button
-                  variant="secondary"
-                  style={{ width: "100%", whiteSpace: "normal" }}
-                >
-                  View Benefits
-                </Button>
-              </Link>
+              <Button
+                variant="secondary"
+                href="#benefits"
+                style={{ width: "100%", whiteSpace: "normal" }}
+              >
+                View Benefits
+              </Button>
             </div>
 
             <GoogleReviews rating="5.0" count="61+" />
@@ -365,23 +364,25 @@ export default function ExosomeTherapyPage() {
   return (
     <>
       <Header />
-      <Hero />
-      <ExosomeIngredientsSection />
-      <BenefitsSection />
-      <TreatmentAftercare />
-      <ProductShowcase />
-      <CtaSection
-        eyebrow="ELEVATE YOUR SKINCARE RESULTS"
-        heading={
-          <>
-            Ready to Experience
-            <br className="hidden md:inline" /> Exosome Therapy?
-          </>
-        }
-        subheading="Book a complimentary consultation at Smooth Skin Niagara and learn how exosome therapy can amplify your skin’s natural renewal."
-        buttonText="Book a Free Consultation"
-        variant="light"
-      />
+      <main>
+        <Hero />
+        <ExosomeIngredientsSection />
+        <BenefitsSection />
+        <TreatmentAftercare />
+        <ProductShowcase />
+        <CtaSection
+          eyebrow="ELEVATE YOUR SKINCARE RESULTS"
+          heading={
+            <>
+              Ready to Experience
+              <br className="hidden md:inline" /> Exosome Therapy?
+            </>
+          }
+          subheading="Book a complimentary consultation at Smooth Skin Niagara and learn how exosome therapy can amplify your skin’s natural renewal."
+          buttonText="Book a Free Consultation"
+          variant="light"
+        />
+      </main>
     </>
   );
 }

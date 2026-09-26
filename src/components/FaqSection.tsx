@@ -710,18 +710,19 @@ function QuestionItem({
   isOpen,
   onClick,
   compact,
+  id,
 }: {
   question: { q: string; a: React.ReactNode };
   isOpen: boolean;
   onClick: () => void;
   compact?: boolean;
+  id: string;
 }) {
   const baseStyle: React.CSSProperties = {
     background: "#fff",
     border: "1px solid var(--color-border)",
     borderRadius: compact ? 12 : 14,
     padding: compact ? "18px 16px" : "20px 22px",
-    cursor: "pointer",
   };
   if (compact) {
     baseStyle.minHeight = 56;
@@ -730,38 +731,44 @@ function QuestionItem({
   }
 
   return (
-    <div onClick={onClick} style={baseStyle}>
-      <div
-        className="flex items-center justify-between"
+    <div style={baseStyle}>
+      <button
+        type="button"
+        onClick={onClick}
+        aria-expanded={isOpen}
+        aria-controls={id}
+        className="flex w-full cursor-pointer items-center justify-between border-0 bg-transparent p-0 text-left"
         style={{ gap: compact ? 14 : 16 }}
       >
-        <h4
+        <span
           className="font-[var(--font-body)] font-semibold text-[var(--color-text-primary)] m-0 leading-[1.4]"
           style={{ fontSize: compact ? 15 : 16 }}
         >
           {question.q}
-        </h4>
+        </span>
         <span
           className="shrink-0 font-[var(--font-body)] text-[var(--color-brand-primary)] leading-[1]"
           style={{ fontSize: compact ? 20 : 22 }}
+          aria-hidden="true"
         >
           {isOpen ? "−" : "+"}
         </span>
+      </button>
+      <div
+        id={id}
+        role="region"
+        hidden={!isOpen}
+        className="font-[var(--font-body)] text-[var(--color-text-secondary)]"
+        style={{
+          marginTop: compact ? 12 : 14,
+          paddingTop: compact ? 14 : 18,
+          borderTop: "1px solid var(--color-border)",
+          fontSize: compact ? 16 : 15,
+          lineHeight: compact ? 1.6 : 1.65,
+        }}
+      >
+        {question.a}
       </div>
-      {isOpen && (
-        <div
-          className="font-[var(--font-body)] text-[var(--color-text-secondary)]"
-          style={{
-            marginTop: compact ? 12 : 14,
-            paddingTop: compact ? 14 : 18,
-            borderTop: "1px solid var(--color-border)",
-            fontSize: compact ? 16 : 15,
-            lineHeight: compact ? 1.6 : 1.65,
-          }}
-        >
-          {question.a}
-        </div>
-      )}
     </div>
   );
 }
@@ -777,7 +784,6 @@ export function FaqSection({
   const [openQuestion, setOpenQuestion] = useState<number | null>(null);
   const isDesktop = useMediaQuery("(min-width: 1024px)");
   const categories = categoriesProp ?? defaultCategories;
-  const current = categories[activeCategory];
 
   const selectCategory = useCallback((index: number) => {
     setActiveCategory(index);
@@ -827,19 +833,26 @@ export function FaqSection({
               )}
             </div>
             <div>
-              <div className="flex flex-col gap-[14px]">
-                {current.questions.map((item, i) => {
-                  const isOpen = openQuestion === i;
-                  return (
-                    <QuestionItem
-                      key={i}
-                      question={item}
-                      isOpen={isOpen}
-                      onClick={() => toggleQuestion(i)}
-                    />
-                  );
-                })}
-              </div>
+              {categories.map((cat, ci) => (
+                <div
+                  key={cat.id}
+                  hidden={ci !== activeCategory}
+                  className="flex flex-col gap-[14px]"
+                >
+                  {cat.questions.map((item, i) => {
+                    const isOpen = ci === activeCategory && openQuestion === i;
+                    return (
+                      <QuestionItem
+                        key={i}
+                        id={`faq-${cat.id}-${i}`}
+                        question={item}
+                        isOpen={isOpen}
+                        onClick={() => toggleQuestion(i)}
+                      />
+                    );
+                  })}
+                </div>
+              ))}
             </div>
           </div>
         ) : (
@@ -852,6 +865,7 @@ export function FaqSection({
                   return (
                     <QuestionItem
                       key={i}
+                      id={`faq-m-${i}`}
                       question={item}
                       isOpen={isOpen}
                       onClick={() => toggleQuestion(i)}

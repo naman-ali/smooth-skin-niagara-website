@@ -11,15 +11,16 @@ Canonical production domain: `https://smoothskinniagara.com` (apex; `www` 308-re
 - `BeautySalon` JSON-LD sitewide (`src/app/(site)/layout.tsx`), plus `Service` + `BreadcrumbList` on treatment pages. No `aggregateRating`, no `openingHours` (unverified).
 - Legacy WordPress redirects in `next.config.ts` (`/edermastamp`, laser variants, blog paths, thank-you, products, old article URLs).
 - `/contact` and `/testimonials` pages created; linked in header/footer.
-- `<main>` landmarks on all pages; descriptive H1s naming service + Niagara Falls; FAQ answers and after-care panels rendered in HTML (hidden, not click-injected); `<a><button>` nesting removed (`Button` supports `href`).
-- Image filenames with spaces renamed (`oxygeneo-step-*.jpg`).
+- `<main>` landmarks on all pages; each hero uses a small eyebrow `<h1>` naming the service + Niagara Falls (e.g. "Laser Hair Removal · Niagara Falls") with the original large marketing headline kept as styled `<p>` text — one H1 per page, unchanged visual design. FAQ answers and after-care panels rendered in HTML (hidden, not click-injected); `<a><button>` nesting removed (`Button` supports `href`).
+- Image filenames with spaces renamed (`oxygeneo-step-*.jpg`); Xwrap image in `EyelashFaq` moved off the old WordPress URL to `public/assets/xwrap.jpg`.
+- Branded 404 (`src/app/not-found.tsx` + `(site)/not-found.tsx`): header/footer, "Back to Home" + "Contact Us" links — important for old-URL visitors and crawl hygiene (status stays 404).
+- Restored all 5 old blog articles at `/blog/<slug>` (`src/lib/blog-posts.ts`, `/blog` index): original copy pulled from the live WordPress site, all 11 images self-hosted in `public/assets/blog/`, `BlogPosting` + `BreadcrumbList` JSON-LD, per-post metadata/OG image, consultation CTA per article. Old dated URLs (`/YYYY/MM/slug`) 301 to the new paths.
 
 ## Before domain cutover — owner approvals needed
 
 - [ ] Confirm GBP name/categories/hours/address match footer + schema NAP (`5985 Ernest Crescent, Niagara Falls, ON L2H 0H8`, `(905) 920-7229`). Add `openingHours` to schema only once hours are confirmed (old Contact page had conflicting hours — none were copied).
 - [ ] Verify live "5.0 / 61+ reviews" figures on Google before keeping them hard-coded (`src/lib/reviews.ts`, `GoogleReviews` props).
 - [ ] Have Ashley review medical/clinical claims (ReadyMedical wound-healing/sterility, exosome efficacy, "pain-free"/"safe for all" phrasing on laser, after-care guidance, consent-form legal entity names still saying "Custom Lash Lounge Inc.").
-- [ ] Replace broken image in `EyelashFaq` — it loads `smoothskinniagara.com/wp-content/uploads/.../Xwrap-*.jpg` from the old WordPress site and will 404 after cutover. Move the file into `public/assets`.
 - [ ] Unused asset: `public/assets/ChatGPT Image Sep 5, 2026, 10_42_47 PM.jpg` — delete or use.
 
 ## At cutover
@@ -27,7 +28,7 @@ Canonical production domain: `https://smoothskinniagara.com` (apex; `www` 308-re
 - [ ] Point `smoothskinniagara.com` (and `www`) at this deployment; verify HTTPS, `http→https`, trailing-slash normalization, and every legacy redirect lands on a 200 page (no chains beyond slash-normalization hop).
 - [ ] Keep `.vercel.app` noindex or redirect it to canonical paths once the domain is live.
 - [ ] Verify GBP website URL, hours, services and booking link point to the live site.
-- [ ] Restore the 5 old blog articles only if their original copy is approved for reuse; currently they 301 to the closest treatment page.
+- [ ] Blog articles restored verbatim from the old site — have Ashley re-read them once for accuracy (they're her own 2023–2026 copy; e.g. "becoming a lash tech" is personal narrative).
 
 ## After launch
 

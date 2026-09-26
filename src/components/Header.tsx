@@ -39,6 +39,7 @@ const resourceItems = [
   { label: "Client Form", href: "/client-form" },
   { label: "After-Care", href: "/after-cares" },
   { label: "Reviews", href: "/testimonials" },
+  { label: "Blog", href: "/blog" },
 ];
 
 const desktopLinkStyle =

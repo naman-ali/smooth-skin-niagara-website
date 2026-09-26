@@ -12,33 +12,31 @@ const LEGACY_REDIRECTS = [
   { source: "/soprano-ice-platinum-promo", destination: "/laser-hair-removal" },
   // Renamed treatment pages
   { source: "/edermastamp", destination: "/edermastamp-microneedling" },
-  // Old utility/blog routes without a dedicated equivalent
+  // Old utility routes without a dedicated equivalent
   { source: "/new-home-page", destination: "/" },
   { source: "/products", destination: "/" },
   { source: "/thank-you", destination: "/" },
   { source: "/thank-you-promo-240", destination: "/" },
-  { source: "/blog", destination: "/" },
-  { source: "/blog/:path*", destination: "/" },
-  // Old blog articles -> closest current treatment pages
+  // Old dated WordPress blog URLs -> restored articles on the new /blog
   {
     source: "/2023/02/becoming-a-lash-tech",
-    destination: "/eyelash-extensions",
+    destination: "/blog/becoming-a-lash-tech",
   },
   {
     source: "/2023/03/how-long-do-lash-extensions-last",
-    destination: "/eyelash-extensions",
+    destination: "/blog/how-long-do-lash-extensions-last",
   },
   {
     source: "/2023/02/is-laser-hair-removal-worth-it",
-    destination: "/laser-hair-removal",
+    destination: "/blog/is-laser-hair-removal-worth-it",
   },
   {
     source: "/2023/03/does-laser-hair-removal-hurt",
-    destination: "/laser-hair-removal",
+    destination: "/blog/does-laser-hair-removal-hurt",
   },
   {
     source: "/2026/01/laser-hair-removal-in-niagara-falls",
-    destination: "/laser-hair-removal",
+    destination: "/blog/laser-hair-removal-in-niagara-falls",
   },
 ];
 

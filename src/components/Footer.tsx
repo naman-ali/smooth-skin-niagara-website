@@ -8,7 +8,7 @@ export default function Footer() {
   const GOOGLE_MAPS_EMBED_URL =
     "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2913.862739530366!2d-79.14738048839105!3d43.08638098878613!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89d344f9c1b60a79%3A0x415f82f9f0ae72bd!2sSmooth%20Skin%20Niagara!5e0!3m2!1sen!2suk!4v1788992224588!5m2!1sen!2suk";
   const GOOGLE_MAPS_DIRECTIONS_URL =
-    "https://www.google.com/maps/dir/?api=1&destination=43.08638098878613,-79.14738048839105";
+    "https://maps.app.goo.gl/fMvuTENjgikkLwFP7";
 
   return (
     <footer
@@ -96,6 +96,7 @@ export default function Footer() {
                 { label: "About Us", href: "/about-us" },
                 { label: "Contact", href: "/contact" },
                 { label: "Reviews", href: "/testimonials" },
+                { label: "Blog", href: "/blog" },
                 { label: "Client Form", href: "/client-form" },
                 { label: "After-Care", href: "/after-cares" },
                 { label: "Privacy", href: "/privacy-policy" },

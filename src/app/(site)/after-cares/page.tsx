@@ -164,72 +164,22 @@ const treatments: AfterCareTreatment[] = [
     content: <LashLiftTintAftercare />,
   },
   {
-    id: "pca-skin-peels",
-    label: "PCA SKIN Peels",
-    shortName: "PCA SKIN Peels",
-    content: (
-      <p className="font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
-        After-care guide coming soon. Please contact Ashley at{" "}
-        <a
-          href="tel:+19059207229"
-          className="font-semibold text-[var(--color-brand-primary)] no-underline"
-        >
-          905 920 7229
-        </a>{" "}
-        for personalized instructions.
-      </p>
-    ),
-  },
-  {
     id: "microneedling",
     label: "Microneedling CIT",
     shortName: "eDermaStamp Microneedling",
-    content: (
-      <p className="font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
-        After-care guide coming soon. Please contact Ashley at{" "}
-        <a
-          href="tel:+19059207229"
-          className="font-semibold text-[var(--color-brand-primary)] no-underline"
-        >
-          905 920 7229
-        </a>{" "}
-        for personalized instructions.
-      </p>
-    ),
+    content: <MicroneedlingAftercare />,
   },
   {
     id: "celluma-led",
     label: "Celluma LED Light Therapy",
     shortName: "Celluma LED",
-    content: (
-      <p className="font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
-        After-care guide coming soon. Please contact Ashley at{" "}
-        <a
-          href="tel:+19059207229"
-          className="font-semibold text-[var(--color-brand-primary)] no-underline"
-        >
-          905 920 7229
-        </a>{" "}
-        for personalized instructions.
-      </p>
-    ),
+    content: <CellumaLedAftercare />,
   },
   {
     id: "oxygeneo",
     label: "OxyGeneo 3-1 Super Facial",
     shortName: "OxyGeneo 3-1 Facial",
-    content: (
-      <p className="font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
-        After-care guide coming soon. Please contact Ashley at{" "}
-        <a
-          href="tel:+19059207229"
-          className="font-semibold text-[var(--color-brand-primary)] no-underline"
-        >
-          905 920 7229
-        </a>{" "}
-        for personalized instructions.
-      </p>
-    ),
+    content: <OxyGeneoAftercare />,
   },
 ];
 
@@ -507,6 +457,494 @@ function LashLiftTintAftercare() {
         With proper aftercare, your lash lift should last approximately{" "}
         <strong>4–8 weeks</strong>.
       </p>
+    </>
+  );
+}
+
+function MicroneedlingAftercare() {
+  return (
+    <>
+      <h2 className="mb-[12px] font-[var(--font-display)] text-[30px] font-normal leading-[1.2] text-[var(--color-text-primary)] md:text-[36px]">
+        Microneedling Aftercare
+      </h2>
+      <p className="mb-[12px] font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+        Microneedling is an extremely safe and effective cosmetic procedure.
+        However, as with all treatments, it&rsquo;s essential to take special
+        care of your skin before and after the procedure for fast recovery and
+        best results.
+      </p>
+      <p className="mb-[12px] font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+        Microneedling is an innovative cosmetic procedure that uses a device
+        covered with tiny, shallow needles to cause a
+        &ldquo;micro-injury.&rdquo; This prompts the skin to stimulate collagen
+        production.
+      </p>
+      <p className="mb-[12px] font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+        In this way, it promotes smoother, softer, and more youthful-looking
+        skin after just 4&ndash;5 treatment sessions. It can be used effectively
+        for a number of concerns, including:
+      </p>
+      <ul className="list-disc pl-[20px] mb-[28px] space-y-[12px] font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+        <li className="pl-[6px]">Fine lines and deep wrinkles</li>
+        <li className="pl-[6px]">Scars caused by acne or surgery</li>
+        <li className="pl-[6px]">Skin pigmentation issues</li>
+        <li className="pl-[6px]">
+          Skin that has lost its plump, youthful appearance
+        </li>
+      </ul>
+
+      <h3 className="mb-[16px] font-[var(--font-display)] text-[24px] font-normal leading-[1.3] text-[var(--color-text-primary)]">
+        Microneedling Pre-Treatment Instructions
+      </h3>
+      <p className="mb-[16px] font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+        Following the right pre-treatment instructions ensures that your
+        treatment will go smoothly and helps minimize side effects.
+      </p>
+
+      <h4 className="mb-[12px] font-[var(--font-body)] text-[14px] font-semibold uppercase tracking-[0.12em] text-[var(--color-brand-primary)]">
+        Pre-Treatment Tips
+      </h4>
+      <ul className="list-disc pl-[20px] mb-[28px] space-y-[12px] font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+        <li className="pl-[6px]">
+          Avoid Accutane in the six months prior to beginning your treatment
+          sessions.
+        </li>
+        <li className="pl-[6px]">
+          Do not use topical agents that may increase the sensitivity of your
+          skin, such as retinoids, exfoliants, topical antibiotics, or acids,
+          5&ndash;7 days prior to your treatment.
+        </li>
+        <li className="pl-[6px]">
+          Do not take anti-inflammatory medications such as ibuprofen, Motrin,
+          or Advil for at least 3 days prior to your microneedling session.
+          These may interfere with the natural inflammatory process that is
+          critical for skin rejuvenation.
+        </li>
+        <li className="pl-[6px]">
+          Avoid IPL/laser procedures, unprotected sun exposure, or sunburn for
+          at least 2 weeks prior to your procedure.
+        </li>
+        <li className="pl-[6px]">
+          No waxing, depilatory creams, or electrolysis to the area being
+          treated for 5&ndash;7 days prior.
+        </li>
+        <li className="pl-[6px]">
+          Do not shave the day of the procedure to avoid skin irritation. If
+          there is dense hair present in the treatment area, shave the day
+          before you arrive for your appointment.
+        </li>
+        <li className="pl-[6px]">
+          If you&rsquo;re prone to cold sores, take an antiviral agent for 2
+          days prior to and the day of the treatment.
+        </li>
+        <li className="pl-[6px]">
+          Avoid blood-thinning agents for one week prior because bruising is a
+          common side effect of microneedling.
+        </li>
+      </ul>
+
+      <h3 className="mb-[16px] font-[var(--font-display)] text-[24px] font-normal leading-[1.3] text-[var(--color-text-primary)]">
+        Day of Treatment
+      </h3>
+      <p className="mb-[16px] font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+        Knowing what to expect on the day of your microneedling treatment will
+        make this procedure as comfortable and anxiety-free as possible for you.
+      </p>
+
+      <h4 className="mb-[12px] font-[var(--font-body)] text-[14px] font-semibold uppercase tracking-[0.12em] text-[var(--color-brand-primary)]">
+        What to Expect at Your Appointment
+      </h4>
+      <ul className="list-disc pl-[20px] mb-[28px] space-y-[12px] font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+        <li className="pl-[6px]">
+          Your skin will be cleaned so it&rsquo;s free of lotion, oil, makeup,
+          powder, or sunscreen. If you wish, you can wash your face in the
+          office upon arrival.
+        </li>
+        <li className="pl-[6px]">
+          You will be asked to inform your skin care specialist about any
+          relevant changes in your medical history and all the medications
+          you&rsquo;re taking.
+        </li>
+        <li className="pl-[6px]">
+          Your specialist will ask if there are any cosmetic tattoos in the
+          treatment areas.
+        </li>
+        <li className="pl-[6px]">
+          30&ndash;45 minutes prior to your treatment, topical lidocaine will be
+          applied to your skin.
+        </li>
+        <li className="pl-[6px]">
+          The microneedling treatment is an in-office procedure that typically
+          takes up to 60 minutes to complete.
+        </li>
+      </ul>
+
+      <h3 className="mb-[16px] font-[var(--font-display)] text-[24px] font-normal leading-[1.3] text-[var(--color-text-primary)]">
+        Post-Treatment Instructions
+      </h3>
+      <p className="mb-[16px] font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+        As with any cosmetic skin treatment, it&rsquo;s important to look after
+        your skin following a microneedling procedure for best results.
+      </p>
+
+      <h4 className="mb-[12px] font-[var(--font-body)] text-[14px] font-semibold uppercase tracking-[0.12em] text-[var(--color-brand-primary)]">
+        Post-Treatment Tips
+      </h4>
+      <ul className="list-disc pl-[20px] mb-[28px] space-y-[12px] font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+        <li className="pl-[6px]">
+          Do not take any anti-inflammatory medications for one week after the
+          procedure.
+        </li>
+        <li className="pl-[6px]">
+          Do not use ice on your face, and avoid using arnica/bromelain. These
+          may interfere with the natural inflammatory process that&rsquo;s
+          critical for your skin rejuvenation.
+        </li>
+        <li className="pl-[6px]">
+          Avoid sun tanning and prolonged exposure to direct sunlight for at
+          least 2 weeks. After 24 hours, always use sunblock (SPF 30 or higher)
+          and wear a hat if you&rsquo;re outside.
+        </li>
+        <li className="pl-[6px]">
+          Use a painkiller, such as Tylenol, if you experience any soreness.
+        </li>
+      </ul>
+
+      <h3 className="mb-[16px] font-[var(--font-display)] text-[24px] font-normal leading-[1.3] text-[var(--color-text-primary)]">
+        The Healing Process: What to Expect
+      </h3>
+      <p className="mb-[16px] font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+        Microneedling is a quick and non-invasive cosmetic procedure with
+        minimal side effects. However, it&rsquo;s quite normal to experience the
+        following:
+      </p>
+
+      <h4 className="mb-[12px] font-[var(--font-body)] text-[14px] font-semibold uppercase tracking-[0.12em] text-[var(--color-brand-primary)]">
+        Day 1&ndash;3
+      </h4>
+      <p className="mb-[12px] font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+        A sunburn-like effect is normal. Your skin may feel tight, dry, or
+        sensitive to touch. Treat the skin gently by washing it with a gentle
+        cleanser and cool water, and use only your hands to pat dry no earlier
+        than 4 hours after treatment.
+      </p>
+      <p className="mb-[12px] font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+        Some redness may also be present, and in some cases, patients may
+        experience slight bruising that can last for 5&ndash;7 days and
+        temporary swelling for 2&ndash;4 days.
+      </p>
+      <ul className="list-disc pl-[20px] mb-[24px] space-y-[12px] font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+        <li className="pl-[6px]">
+          Avoid strenuous exercise that causes sweating, as well as jacuzzis,
+          saunas, and steam baths for up to 48 hours.
+        </li>
+        <li className="pl-[6px]">Use only mineral makeup after 24 hours.</li>
+        <li className="pl-[6px]">
+          Sleep on your back with the head of the bed elevated to minimize
+          swelling or pain as needed.
+        </li>
+      </ul>
+
+      <h4 className="mb-[12px] font-[var(--font-body)] text-[14px] font-semibold uppercase tracking-[0.12em] text-[var(--color-brand-primary)]">
+        Day 2&ndash;7
+      </h4>
+      <p className="mb-[12px] font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+        Peeling may start 3&ndash;5 days after the treatment. You&rsquo;ll
+        notice skin dryness and flaking, which is due to an increased turnover
+        of skin cells.
+      </p>
+      <p className="mb-[12px] font-[var(--font-body)] text-[16px] font-semibold leading-[1.7] text-[var(--color-text-primary)]">
+        DO NOT pick, scratch, or scrub treated skin.
+      </p>
+      <p className="mb-[24px] font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+        <strong>Important information:</strong> You must allow the old skin to
+        flake off naturally and keep it moisturized at all times. Talk to your
+        skin specialist about which products to use.
+      </p>
+
+      <h4 className="mb-[12px] font-[var(--font-body)] text-[14px] font-semibold uppercase tracking-[0.12em] text-[var(--color-brand-primary)]">
+        Day 5&ndash;7
+      </h4>
+      <p className="mb-[12px] font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+        You may start your regular skin care products again once your skin no
+        longer feels irritated. Most patients notice continued skin improvement
+        over the months following their last treatment.
+      </p>
+      <p className="mb-[28px] font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+        For best results, we recommend follow-up and repeat microneedling
+        treatments every 4&ndash;6 weeks, with a series of 3&ndash;5 treatments
+        depending on your personalized care plan.
+      </p>
+
+      <div className="mt-[36px] rounded-[16px] bg-[var(--olive-100)] px-[24px] py-[22px]">
+        <p className="m-0 font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+          For further questions or concerns, please contact Ashley at{" "}
+          <a
+            href="tel:+19059207229"
+            className="font-semibold text-[var(--color-brand-primary)] no-underline"
+          >
+            905 920 7229
+          </a>
+          .
+        </p>
+      </div>
+    </>
+  );
+}
+
+function CellumaLedAftercare() {
+  return (
+    <>
+      <h2 className="mb-[12px] font-[var(--font-display)] text-[30px] font-normal leading-[1.2] text-[var(--color-text-primary)] md:text-[36px]">
+        Celluma LED Aftercare
+      </h2>
+      <p className="mb-[12px] font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+        Celluma LED light therapy is a gentle, non-invasive treatment with no
+        downtime. Following a few simple guidelines before and after your
+        session helps you get the most out of each treatment.
+      </p>
+      <p className="mb-[28px] font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+        Each session lasts about <strong>30 minutes</strong>, during which the
+        light panel is positioned close to your skin while you relax. You may
+        feel mild warmth &mdash; most clients find the treatment comfortable and
+        relaxing.
+      </p>
+
+      <h3 className="mb-[16px] font-[var(--font-display)] text-[24px] font-normal leading-[1.3] text-[var(--color-text-primary)]">
+        Before Your Treatment
+      </h3>
+      <p className="mb-[12px] font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+        LED light works best on bare skin &mdash; many skincare and makeup
+        formulas contain minerals that can deflect the light and reduce how much
+        energy your skin absorbs.
+      </p>
+      <ul className="list-disc pl-[20px] mb-[28px] space-y-[12px] font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+        <li className="pl-[6px]">
+          Arrive with skin that is clean, bare, and dry &mdash; free of makeup,
+          moisturizer, sunscreen, lotions, or oils.
+        </li>
+        <li className="pl-[6px]">
+          If needed, you can cleanse your skin at the studio before your
+          session.
+        </li>
+        <li className="pl-[6px]">
+          Protective goggles are provided &mdash; avoid looking directly at the
+          light during your session.
+        </li>
+        <li className="pl-[6px]">
+          Let Ashley know about any medications or products you&rsquo;re using
+          that may increase light sensitivity.
+        </li>
+      </ul>
+
+      <h3 className="mb-[16px] font-[var(--font-display)] text-[24px] font-normal leading-[1.3] text-[var(--color-text-primary)]">
+        After Your Treatment
+      </h3>
+      <p className="mb-[12px] font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+        Your skin may be slightly more sensitive to sunlight after LED therapy,
+        so protection and gentle care are key.
+      </p>
+
+      <h4 className="mb-[12px] font-[var(--font-body)] text-[14px] font-semibold uppercase tracking-[0.12em] text-[var(--color-brand-primary)]">
+        First 24&ndash;48 Hours
+      </h4>
+      <ul className="list-disc pl-[20px] mb-[24px] space-y-[12px] font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+        <li className="pl-[6px]">
+          Apply a broad-spectrum <strong>SPF 30+</strong> sunscreen daily, and
+          avoid direct sun exposure for 24&ndash;48 hours.
+        </li>
+        <li className="pl-[6px]">
+          Avoid hot showers, saunas, steam rooms, and vigorous exercise for at
+          least 24 hours, as heat can aggravate sensitive skin.
+        </li>
+        <li className="pl-[6px]">
+          Skip exfoliating products, retinoids, and strong acids (AHAs/BHAs) for
+          at least 48 hours.
+        </li>
+        <li className="pl-[6px]">
+          If possible, let your skin breathe and avoid makeup for 24 hours. If
+          makeup is needed, choose a lightweight, non-comedogenic or mineral
+          formula.
+        </li>
+        <li className="pl-[6px]">
+          Avoid picking or scratching the treated area if it feels sensitive or
+          tight.
+        </li>
+      </ul>
+
+      <h4 className="mb-[12px] font-[var(--font-body)] text-[14px] font-semibold uppercase tracking-[0.12em] text-[var(--color-brand-primary)]">
+        Keep Skin Hydrated
+      </h4>
+      <ul className="list-disc pl-[20px] mb-[24px] space-y-[12px] font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+        <li className="pl-[6px]">
+          Apply a gentle, hydrating moisturizer &mdash; ingredients like
+          hyaluronic acid, glycerin, or ceramides work well.
+        </li>
+        <li className="pl-[6px]">
+          Drink plenty of water to keep your skin hydrated from the inside out.
+        </li>
+        <li className="pl-[6px]">
+          Right after treatment is a great time for your serum or moisturizer
+          &mdash; your skin absorbs products especially well in the first
+          30&ndash;60 minutes post-session.
+        </li>
+      </ul>
+
+      <h4 className="mb-[12px] font-[var(--font-body)] text-[14px] font-semibold uppercase tracking-[0.12em] text-[var(--color-brand-primary)]">
+        What&rsquo;s Normal
+      </h4>
+      <p className="mb-[12px] font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+        Mild redness or sensitivity is normal and usually fades within a few
+        hours. If redness or irritation persists beyond a day or two, let Ashley
+        know.
+      </p>
+      <p className="mb-[28px] font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+        For best results, LED treatments are typically done as a series &mdash;
+        often 2&ndash;3 sessions per week over several weeks &mdash; depending
+        on your personalized plan.
+      </p>
+
+      <div className="mt-[36px] rounded-[16px] bg-[var(--olive-100)] px-[24px] py-[22px]">
+        <p className="m-0 font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+          For further questions or concerns, please contact Ashley at{" "}
+          <a
+            href="tel:+19059207229"
+            className="font-semibold text-[var(--color-brand-primary)] no-underline"
+          >
+            905 920 7229
+          </a>
+          .
+        </p>
+      </div>
+    </>
+  );
+}
+
+function OxyGeneoAftercare() {
+  return (
+    <>
+      <h2 className="mb-[12px] font-[var(--font-display)] text-[30px] font-normal leading-[1.2] text-[var(--color-text-primary)] md:text-[36px]">
+        OxyGeneo Aftercare
+      </h2>
+      <p className="mb-[12px] font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+        The OxyGeneo 3-in-1 Super Facial exfoliates, oxygenates, and infuses
+        your skin in a single treatment &mdash; with no downtime. Because the
+        exfoliation leaves fresh, new skin cells at the surface, your skin is
+        more sensitive to sunlight and active products for the first few days.
+      </p>
+      <p className="mb-[28px] font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+        Temporary redness, tightness, or tingling are normal reactions that
+        typically settle within a few hours to 72 hours, depending on your skin
+        sensitivity.
+      </p>
+
+      <h3 className="mb-[16px] font-[var(--font-display)] text-[24px] font-normal leading-[1.3] text-[var(--color-text-primary)]">
+        Before Your Treatment
+      </h3>
+      <ul className="list-disc pl-[20px] mb-[28px] space-y-[12px] font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+        <li className="pl-[6px]">
+          Stop using retinoids, alpha hydroxy acids (AHAs), and beta hydroxy
+          acids (BHAs) at least 72 hours before your facial.
+        </li>
+        <li className="pl-[6px]">
+          Do not wax, shave, thread, or receive laser hair removal on the
+          treatment area for 48 hours before your treatment.
+        </li>
+        <li className="pl-[6px]">
+          Avoid excessive direct sunlight &mdash; skin that is sunburned cannot
+          be treated.
+        </li>
+        <li className="pl-[6px]">
+          If you have a history of cold sores, let Ashley know before your
+          appointment.
+        </li>
+      </ul>
+
+      <h3 className="mb-[16px] font-[var(--font-display)] text-[24px] font-normal leading-[1.3] text-[var(--color-text-primary)]">
+        After Your Treatment
+      </h3>
+
+      <h4 className="mb-[12px] font-[var(--font-body)] text-[14px] font-semibold uppercase tracking-[0.12em] text-[var(--color-brand-primary)]">
+        First 24&ndash;48 Hours
+      </h4>
+      <ul className="list-disc pl-[20px] mb-[24px] space-y-[12px] font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+        <li className="pl-[6px]">
+          Apply a hydrating mask or moisturizer, followed by a broad-spectrum{" "}
+          <strong>SPF 30+</strong> sunscreen &mdash; the exfoliation process
+          increases your skin&rsquo;s sensitivity to sunlight.
+        </li>
+        <li className="pl-[6px]">
+          For best results, avoid makeup for 24 hours. If you must wear makeup,
+          apply a light mineral formula with a clean applicator or clean hands.
+        </li>
+        <li className="pl-[6px]">
+          No exercise, hot tubs, saunas, steam rooms, swimming pools, or massage
+          until your skin is back to normal &mdash; about 24&ndash;48 hours.
+        </li>
+        <li className="pl-[6px]">
+          Use only lukewarm water on your face for 24&ndash;72 hours.
+        </li>
+        <li className="pl-[6px]">
+          Avoid touching your face unnecessarily &mdash; do not pick or squeeze
+          any blemishes.
+        </li>
+      </ul>
+
+      <h4 className="mb-[12px] font-[var(--font-body)] text-[14px] font-semibold uppercase tracking-[0.12em] text-[var(--color-brand-primary)]">
+        Products &amp; Other Treatments
+      </h4>
+      <ul className="list-disc pl-[20px] mb-[24px] space-y-[12px] font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+        <li className="pl-[6px]">
+          Avoid mechanical and chemical exfoliation for at least 72 hours.
+        </li>
+        <li className="pl-[6px]">
+          Wait 7 days before resuming active ingredients such as Retin-A
+          (tretinoin), Renova, Differin, glycolic acids, or other exfoliating
+          agents &mdash; including cleansing brushes like Clarisonic.
+        </li>
+        <li className="pl-[6px]">
+          Do not have fillers or Botox within 1 week of treatment in the treated
+          area.
+        </li>
+        <li className="pl-[6px]">
+          Wait 3 weeks before additional treatments such as peels,
+          microdermabrasion, laser, or light therapy.
+        </li>
+        <li className="pl-[6px]">
+          No bleaching, tweezing, waxing, threading, depilatory creams, or
+          electrolysis on the treated area for 2 weeks.
+        </li>
+        <li className="pl-[6px]">
+          Keep your skin hydrated and stick to gentle skincare products while it
+          settles.
+        </li>
+      </ul>
+
+      <h4 className="mb-[12px] font-[var(--font-body)] text-[14px] font-semibold uppercase tracking-[0.12em] text-[var(--color-brand-primary)]">
+        Results &amp; Rebooking
+      </h4>
+      <p className="mb-[12px] font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+        You will likely see results immediately, and your skin can feel smooth
+        and hydrated for one to four weeks with appropriate home care.
+      </p>
+      <p className="mb-[28px] font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+        For best results, treatments are recommended about{" "}
+        <strong>4 weeks apart</strong> &mdash; prebook your next appointment
+        before you leave.
+      </p>
+
+      <div className="mt-[36px] rounded-[16px] bg-[var(--olive-100)] px-[24px] py-[22px]">
+        <p className="m-0 font-[var(--font-body)] text-[16px] leading-[1.7] text-[var(--color-text-secondary)]">
+          For further questions or concerns, please contact Ashley at{" "}
+          <a
+            href="tel:+19059207229"
+            className="font-semibold text-[var(--color-brand-primary)] no-underline"
+          >
+            905 920 7229
+          </a>
+          .
+        </p>
+      </div>
     </>
   );
 }

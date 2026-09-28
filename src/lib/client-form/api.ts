@@ -15,11 +15,12 @@ export class ClientFormSubmitError extends Error {
  */
 export async function submitClientForm(
   values: FormValues,
+  honeypot?: string,
 ): Promise<{ id: string }> {
   const response = await fetch("/api/client-form", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ values }),
+    body: JSON.stringify({ values, website: honeypot || undefined }),
   });
 
   if (!response.ok) {

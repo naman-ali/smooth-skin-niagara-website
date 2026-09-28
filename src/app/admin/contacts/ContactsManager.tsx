@@ -9,7 +9,7 @@ import {
   Loader2,
   Pencil,
   Plus,
-  Star,
+  RefreshCw,
   Trash2,
   Upload,
 } from "lucide-react";
@@ -215,11 +215,11 @@ export default function ContactsManager({
     setActionsOpen(false);
   };
 
-  const pushToAlienrise = async () => {
+  const syncToAlienrise = async () => {
     setPushing(true);
     setActionMsg(null);
     try {
-      const res = await fetch("/api/contacts/review-requests", {
+      const res = await fetch("/api/contacts/sync", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ids: selectedContacts.map((c) => c.id) }),
@@ -232,12 +232,12 @@ export default function ContactsManager({
       const sent = results.length - failed;
       setActionMsg(
         failed
-          ? `AlienRise: ${sent} review request${sent === 1 ? "" : "s"} submitted, ${failed} failed.`
-          : `AlienRise: ${sent} review request${sent === 1 ? "" : "s"} submitted.`,
+          ? `AlienRise: ${sent} contact${sent === 1 ? "" : "s"} synced, ${failed} failed.`
+          : `AlienRise: ${sent} contact${sent === 1 ? "" : "s"} synced.`,
       );
     } catch (err) {
       setActionMsg(
-        err instanceof Error ? err.message : "Push to AlienRise failed",
+        err instanceof Error ? err.message : "Sync to AlienRise failed",
       );
     } finally {
       setPushing(false);
@@ -340,15 +340,15 @@ export default function ContactsManager({
                 <button
                   type="button"
                   disabled={selected.size === 0 || pushing}
-                  onClick={pushToAlienrise}
+                  onClick={syncToAlienrise}
                   className="flex w-full items-center gap-2 rounded px-2 py-1.5 text-left text-sm hover:bg-accent disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   {pushing ? (
                     <Loader2 className="size-4 animate-spin" />
                   ) : (
-                    <Star className="size-4" />
+                    <RefreshCw className="size-4" />
                   )}
-                  Push to AlienRise for Review Collection
+                  Sync to AlienRise
                 </button>
               </div>
             </details>

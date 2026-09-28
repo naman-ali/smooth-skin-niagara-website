@@ -20,6 +20,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { SubmissionDetail } from "@/app/admin/client-form/ClientFormSubmissionsManager";
+import { AlienriseRequestStatus } from "./AlienriseRequestStatus";
 import { getTreatmentDefinition } from "@/lib/client-form/schema";
 import type { ClientFormSubmission } from "@/lib/client-form/submission";
 import { cn } from "@/lib/utils";
@@ -145,6 +146,12 @@ export default async function ContactDetailPage({
                 Source: {sourceLabel(contact.source)}
               </span>
             </div>
+            <AlienriseRequestStatus
+              contactId={contact.id}
+              status={contact.alienriseReviewRequestStatus}
+              submittedAt={contact.alienriseReviewSubmittedAt}
+              error={contact.alienriseReviewRequestError}
+            />
           </dl>
         </CardContent>
       </Card>

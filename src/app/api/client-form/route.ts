@@ -1,7 +1,10 @@
 import { auth } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { syncContactToAlienrise } from "@/lib/alienrise";
+import {
+  submitAlienriseReviewApproval,
+  syncContactToAlienrise,
+} from "@/lib/alienrise";
 import { clientFormResolver } from "@/lib/client-form/validation";
 import { buildClientFormSubmission } from "@/lib/client-form/submission";
 import type { FormValues } from "@/lib/client-form/form-values";
@@ -71,6 +74,13 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Invalid JSON body." }, { status: 400 });
   }
 
+  // Honeypot — bots that fill the hidden `website` field get a fake success
+  // without touching the database or AlienRise.
+  const honeypot = (body as { website?: unknown } | null)?.website;
+  if (typeof honeypot === "string" && honeypot.trim() !== "") {
+    return NextResponse.json({ id: "ok" }, { status: 201 });
+  }
+
   const values = (body as { values?: FormValues } | null)?.values;
   if (!values || typeof values !== "object") {
     return NextResponse.json(
@@ -93,6 +103,16 @@ export async function POST(request: NextRequest) {
 
   const submission = buildClientFormSubmission(values);
   const contact = await findOrCreateContact(submission.client);
+
+  // The qualifying "new live customer" event is the FIRST client-form
+  // submission for this contact — not the Contact row itself, which admin
+  // adds, imports, and edits also touch without implying review intent.
+  const priorSubmissions = await prisma.clientFormSubmission.count({
+    where: { contactId: contact.id },
+  });
+
+  // Contact sync is facts-only and stays a separate operation from the
+  // review-candidate queueing below.
   await syncContactToAlienrise(contact);
 
   const created = await prisma.clientFormSubmission.create({
@@ -108,6 +128,17 @@ export async function POST(request: NextRequest) {
       contact: { connect: { id: contact.id } },
     },
   });
+
+  // Explicit review intent: submit a requiresApproval request when this is
+  // the customer's first qualifying submission, or when a previous attempt
+  // failed and this submission is a natural retry point. AlienRise — not
+  // this site — decides whether the customer already has a review process.
+  if (
+    priorSubmissions === 0 ||
+    contact.alienriseReviewRequestStatus === "failed"
+  ) {
+    await submitAlienriseReviewApproval(contact, created.id);
+  }
 
   return NextResponse.json({ id: created.id }, { status: 201 });
 }

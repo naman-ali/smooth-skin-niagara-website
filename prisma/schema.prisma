@@ -14,16 +14,24 @@ datasource db {
 }
 
 model Contact {
-  id                    String                 @id @default(auto()) @map("_id") @db.ObjectId
-  name                  String
-  email                 String
-  phone                 String?
-  approved              Boolean                @default(true)
-  contactType           String                 @default("client")
-  source                String                 @default("manual")
-  imageUrl              String?
-  createdAt             DateTime               @default(now())
-  clientFormSubmissions ClientFormSubmission[]
+  id                           String                 @id @default(auto()) @map("_id") @db.ObjectId
+  name                         String
+  email                        String
+  phone                        String?
+  approved                     Boolean                @default(true)
+  contactType                  String                 @default("client")
+  source                       String                 @default("manual")
+  imageUrl                     String?
+  createdAt                    DateTime               @default(now())
+  // AlienRise review-request submission status — admin VISIBILITY ONLY.
+  // Records only whether THIS SITE's /review-requests call was successfully
+  // submitted (submitted/failed + last error) so failures are visible and
+  // retryable. Smooth Skin does not track or decide approval, queueing, or
+  // workflow state — AlienRise owns all of that.
+  alienriseReviewRequestStatus String? // 'submitted' | 'failed'
+  alienriseReviewSubmittedAt   DateTime?
+  alienriseReviewRequestError  String?
+  clientFormSubmissions        ClientFormSubmission[]
 }
 
 model Profile {

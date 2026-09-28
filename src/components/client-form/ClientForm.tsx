@@ -38,6 +38,7 @@ export function ClientForm({ showHeader = true }: { showHeader?: boolean }) {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const topRef = useRef<HTMLDivElement>(null);
+  const honeypotRef = useRef<HTMLInputElement>(null);
 
   const watchedTreatments = useWatch({ control, name: "selectedTreatments" });
   const selectedTreatments = useMemo(
@@ -109,7 +110,7 @@ export function ClientForm({ showHeader = true }: { showHeader?: boolean }) {
     setIsSubmitting(true);
     setSubmitError(null);
     try {
-      await submitClientForm(getValues());
+      await submitClientForm(getValues(), honeypotRef.current?.value ?? "");
       setIsSubmitted(true);
       scrollToTop(topRef.current);
     } catch (error) {
@@ -151,6 +152,17 @@ export function ClientForm({ showHeader = true }: { showHeader?: boolean }) {
         ref={topRef}
         className={cn("w-full", showHeader && "pb-6 pt-8 sm:pt-12")}
       >
+        {/* Honeypot — invisible to humans, bots that fill it are dropped
+            server-side before any database or AlienRise work happens. */}
+        <input
+          ref={honeypotRef}
+          type="text"
+          name="website"
+          tabIndex={-1}
+          autoComplete="off"
+          aria-hidden="true"
+          className="sr-only"
+        />
         {showHeader ? (
           <div className="mb-6 space-y-1">
             <p className="text-sm font-medium uppercase tracking-wide text-ink-600">

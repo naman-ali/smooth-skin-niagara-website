@@ -11,13 +11,15 @@ type AlienriseContact = {
 };
 
 /**
- * Kill-switch for ALL outbound AlienRise calls (contact sync AND review
- * requests). Set ALIENRISE_ENABLED=false to disable the integration
- * without removing the API key — useful for local dev or pausing sync.
- * Defaults to enabled.
+ * Kill-switch for AUTOMATIC AlienRise calls only — the background contact
+ * sync on form submissions/imports/edits and the automatic review-request
+ * submission. Set ALIENRISE_AUTO_SYNC=false to pause those automatic flows
+ * without removing the API key. Explicit admin actions (manual "Sync to
+ * AlienRise" bulk sync, review-request retry) are NOT affected. Defaults
+ * to enabled.
  */
-function alienriseEnabled() {
-  return process.env.ALIENRISE_ENABLED !== "false";
+export function alienriseAutoSyncEnabled() {
+  return process.env.ALIENRISE_AUTO_SYNC !== "false";
 }
 
 function config() {
@@ -62,9 +64,6 @@ export type AlienriseResult = { ok: true } | { ok: false; error: string };
 export async function syncContactToAlienrise(
   contact: AlienriseContact,
 ): Promise<AlienriseResult> {
-  if (!alienriseEnabled()) {
-    return { ok: false, error: "AlienRise integration disabled" };
-  }
   const cfg = config();
   if (!cfg) return { ok: false, error: "ALIENRISE_API is not configured" };
 
@@ -110,9 +109,6 @@ export async function requestReviewFromAlienrise(
   contact: AlienriseContact,
   idempotencyKey: string,
 ): Promise<AlienriseResult> {
-  if (!alienriseEnabled()) {
-    return { ok: false, error: "AlienRise integration disabled" };
-  }
   const cfg = config();
   if (!cfg) return { ok: false, error: "ALIENRISE_API is not configured" };
 

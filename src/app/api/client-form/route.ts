@@ -2,6 +2,7 @@ import { auth } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import {
+  alienriseAutoSyncEnabled,
   submitAlienriseReviewApproval,
   syncContactToAlienrise,
 } from "@/lib/alienrise";
@@ -107,13 +108,20 @@ export async function POST(request: NextRequest) {
   // The qualifying "new live customer" event is the FIRST client-form
   // submission for this contact — not the Contact row itself, which admin
   // adds, imports, and edits also touch without implying review intent.
-  const priorSubmissions = await prisma.clientFormSubmission.count({
+  // Its ID also backs the temporary Idempotency-Key, so retries reuse the
+  // original qualifying submission's key rather than inventing a new one.
+  const firstSubmission = await prisma.clientFormSubmission.findFirst({
     where: { contactId: contact.id },
+    orderBy: { submittedAt: "asc" },
+    select: { id: true },
   });
 
   // Contact sync is facts-only and stays a separate operation from the
-  // review-candidate queueing below.
-  await syncContactToAlienrise(contact);
+  // review-request submission below. Both are automatic flows, gated by
+  // ALIENRISE_AUTO_SYNC — manual admin sync/retry still works either way.
+  if (alienriseAutoSyncEnabled()) {
+    await syncContactToAlienrise(contact);
+  }
 
   const created = await prisma.clientFormSubmission.create({
     data: {
@@ -129,15 +137,19 @@ export async function POST(request: NextRequest) {
     },
   });
 
-  // Explicit review intent: submit a requiresApproval request when this is
-  // the customer's first qualifying submission, or when a previous attempt
-  // failed and this submission is a natural retry point. AlienRise — not
-  // this site — decides whether the customer already has a review process.
+  // Explicit review intent: submit a requiresApproval request when this
+  // contact has never had a successful submission — i.e. their first
+  // qualifying form, plus natural retries after a failed/skipped attempt.
+  // AlienRise — not this site — decides whether the customer already has a
+  // review process and whether another request is allowed.
   if (
-    priorSubmissions === 0 ||
-    contact.alienriseReviewRequestStatus === "failed"
+    alienriseAutoSyncEnabled() &&
+    contact.alienriseReviewRequestStatus !== "submitted"
   ) {
-    await submitAlienriseReviewApproval(contact, created.id);
+    await submitAlienriseReviewApproval(
+      contact,
+      firstSubmission?.id ?? created.id,
+    );
   }
 
   return NextResponse.json({ id: created.id }, { status: 201 });

@@ -3,7 +3,10 @@ import { parsePhoneNumber } from "libphonenumber-js";
 import { auth } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { syncContactToAlienrise } from "@/lib/alienrise";
+import {
+  alienriseAutoSyncEnabled,
+  syncContactToAlienrise,
+} from "@/lib/alienrise";
 
 async function requireAdmin() {
   const { userId } = await auth();
@@ -139,7 +142,7 @@ export async function POST(request: NextRequest) {
                 imageUrl,
               },
             });
-            if (contact.contactType !== "lead") {
+            if (alienriseAutoSyncEnabled() && contact.contactType !== "lead") {
               await syncContactToAlienrise(contact);
             }
             return contact;

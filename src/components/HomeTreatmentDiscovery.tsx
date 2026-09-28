@@ -392,6 +392,19 @@ export function HomeTreatmentDiscovery() {
 
         <TreatmentGrid />
 
+        <div className="mt-10 text-center">
+          <Link
+            href="/treatments"
+            className={cn(
+              "inline-flex items-center gap-2 text-[15px] font-semibold lg:text-[16px]",
+              "font-[var(--font-body)] text-[var(--olive-700)] no-underline",
+            )}
+          >
+            View the Full Treatments &amp; Services Menu
+            <ArrowRight size={16} />
+          </Link>
+        </div>
+
         {/* <div style={{ marginTop: 64 }}>
           <GuidancePanel />
         </div> */}

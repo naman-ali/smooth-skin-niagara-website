@@ -54,6 +54,7 @@ export default function Footer() {
             </h4>
             <ul className="p-0 m-0" style={{ listStyle: "none" }}>
               {[
+                { label: "All Treatments", href: "/treatments" },
                 { label: "Laser Hair Removal", href: "/laser-hair-removal" },
 
                 {

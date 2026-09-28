@@ -8,6 +8,7 @@ const PUBLIC_ROUTES = [
   "/contact",
   "/testimonials",
   "/blog",
+  "/treatments",
   "/laser-hair-removal",
   "/edermastamp-microneedling",
   "/celluma-led-light-therapy",

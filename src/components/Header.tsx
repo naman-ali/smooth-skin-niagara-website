@@ -100,6 +100,9 @@ export default function Header() {
           )}
         >
           <NavDropdown label="Treatments" items={serviceItems} />
+          <Link href="/treatments" className="sr-only">
+            All Treatments
+          </Link>
           <Link href="/about-us" className={desktopLinkStyle}>
             About
           </Link>

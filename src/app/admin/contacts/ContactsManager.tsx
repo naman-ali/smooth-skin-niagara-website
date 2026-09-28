@@ -10,6 +10,7 @@ import {
   Pencil,
   Plus,
   RefreshCw,
+  Search,
   Trash2,
   Upload,
 } from "lucide-react";
@@ -152,8 +153,24 @@ export default function ContactsManager({
   const [actionsOpen, setActionsOpen] = useState(false);
   const [pushing, setPushing] = useState(false);
   const [actionMsg, setActionMsg] = useState<string | null>(null);
+  const [search, setSearch] = useState("");
   const unapprovedCount = contacts.filter((c) => !c.approved).length;
-  const filteredContacts = contacts;
+  const query = search.trim().toLowerCase();
+  const queryDigits = query.replace(/\D/g, "");
+  const filteredContacts = query
+    ? contacts.filter((c) => {
+        if (c.name.toLowerCase().includes(query)) return true;
+        if (c.email.toLowerCase().includes(query)) return true;
+        const phone = c.phone?.toLowerCase() ?? "";
+        if (phone.includes(query)) return true;
+        // Match digit-only searches against the normalized phone so
+        // "905321" finds "+1 (905) 321-…" too.
+        return (
+          queryDigits.length >= 3 &&
+          phone.replace(/\D/g, "").includes(queryDigits)
+        );
+      })
+    : contacts;
   const visibleColCount = COLUMNS.filter((col) => visible[col.key]).length + 2;
   const selectedContacts = contacts.filter((c) => selected.has(c.id));
   const allFilteredSelected =
@@ -319,6 +336,17 @@ export default function ContactsManager({
             <CardDescription>Manage all contact records.</CardDescription>
           </div>
           <div className="flex flex-wrap items-center gap-4">
+            <div className="relative">
+              <Search className="pointer-events-none absolute left-2.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+              <Input
+                type="search"
+                placeholder="Search name, email, phone…"
+                aria-label="Search contacts"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="h-9 w-56 pl-8"
+              />
+            </div>
             <details
               className="relative"
               open={actionsOpen}

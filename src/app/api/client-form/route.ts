@@ -8,6 +8,7 @@ import {
 } from "@/lib/alienrise";
 import { clientFormResolver } from "@/lib/client-form/validation";
 import { buildClientFormSubmission } from "@/lib/client-form/submission";
+import { sendWaiverCompletedNotification } from "@/lib/email";
 import type { FormValues } from "@/lib/client-form/form-values";
 import type { ClientFormSubmission } from "@/lib/client-form/submission";
 import { parsePhoneNumberFromString } from "libphonenumber-js";
@@ -151,6 +152,10 @@ export async function POST(request: NextRequest) {
       firstSubmission?.id ?? created.id,
     );
   }
+
+  // Owner notification for every completed waiver. Runs last and never
+  // throws — a Resend outage must not fail an otherwise-valid submission.
+  await sendWaiverCompletedNotification(submission, created.id);
 
   return NextResponse.json({ id: created.id }, { status: 201 });
 }

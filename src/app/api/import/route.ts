@@ -1,5 +1,5 @@
 import { put } from "@vercel/blob";
-import { parsePhoneNumber } from "libphonenumber-js";
+import { normalizePhone } from "@/lib/phone";
 import { auth } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
@@ -128,15 +128,11 @@ export async function POST(request: NextRequest) {
 
         return Promise.all(
           contactsToCreate.map(async (c: any) => {
-            const rawPhone = c.phone || "";
-            const parsed = rawPhone
-              ? parsePhoneNumber(rawPhone, "US")
-              : undefined;
             const contact = await prisma.contact.create({
               data: {
                 name: c.name || "",
                 email: c.email || "",
-                phone: parsed ? parsed.format("E.164") : rawPhone || null,
+                phone: normalizePhone(c.phone) || null,
                 approved: false,
                 source: "image_import",
                 imageUrl,

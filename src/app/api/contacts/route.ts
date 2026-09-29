@@ -1,6 +1,7 @@
 import { auth } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { normalizePhone } from "@/lib/phone";
 import {
   alienriseAutoSyncEnabled,
   syncContactToAlienrise,
@@ -34,7 +35,7 @@ export async function POST(request: NextRequest) {
   const contacts = await Promise.all(
     items.map((data: any) =>
       prisma.contact.create({
-        data: { ...data, phone: data.phone || null },
+        data: { ...data, phone: normalizePhone(data.phone) || null },
       }),
     ),
   );

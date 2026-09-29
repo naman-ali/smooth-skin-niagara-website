@@ -1,5 +1,6 @@
 import { Resend } from "resend";
 import { getTreatmentDefinition } from "@/lib/client-form/schema";
+import { formatPhoneDisplay } from "@/lib/phone";
 import type { ClientFormSubmission } from "@/lib/client-form/submission";
 
 const globalForResend = globalThis as unknown as {
@@ -66,7 +67,7 @@ export async function sendWaiverCompletedNotification(
       <table style="border-collapse:collapse;">
         ${row("Name", escapeHtml(clientName))}
         ${row("Email", escapeHtml(submission.client.email))}
-        ${row("Phone", escapeHtml(submission.client.phone || "-"))}
+        ${row("Phone", escapeHtml(formatPhoneDisplay(submission.client.phone) || "-"))}
         ${row("Treatments", escapeHtml(treatments || "-"))}
         ${row("Submitted", escapeHtml(new Date(submission.submittedAt).toLocaleString("en-CA")))}
       </table>

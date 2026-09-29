@@ -9,22 +9,15 @@ import {
 import { clientFormResolver } from "@/lib/client-form/validation";
 import { buildClientFormSubmission } from "@/lib/client-form/submission";
 import { sendWaiverCompletedNotification } from "@/lib/email";
+import { normalizePhone } from "@/lib/phone";
 import type { FormValues } from "@/lib/client-form/form-values";
 import type { ClientFormSubmission } from "@/lib/client-form/submission";
-import { parsePhoneNumberFromString } from "libphonenumber-js";
 
 async function requireAdmin() {
   const { userId } = await auth();
   if (!userId) return null;
   const profile = await prisma.profile.findUnique({ where: { userId } });
   return profile?.role === "admin" ? userId : null;
-}
-
-function normalizePhone(raw: string): string {
-  const trimmed = raw.trim();
-  if (!trimmed) return "";
-  const parsed = parsePhoneNumberFromString(trimmed);
-  return parsed?.isValid() ? parsed.formatInternational() : trimmed;
 }
 
 async function findOrCreateContact(client: ClientFormSubmission["client"]) {
@@ -47,7 +40,11 @@ async function findOrCreateContact(client: ClientFormSubmission["client"]) {
   if (byEmail) {
     return prisma.contact.update({
       where: { id: byEmail.id },
-      data: { contactType: "client" },
+      // Heal legacy/raw stored numbers with the freshly normalized one.
+      data: {
+        contactType: "client",
+        ...(normalizedPhone ? { phone: normalizedPhone } : {}),
+      },
     });
   }
 

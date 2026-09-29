@@ -1,6 +1,7 @@
 import { auth } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { normalizePhone } from "@/lib/phone";
 import {
   alienriseAutoSyncEnabled,
   syncContactToAlienrise,
@@ -23,6 +24,9 @@ export async function PATCH(
   }
   const { id } = await params;
   const body = await request.json();
+  if (typeof body?.phone === "string") {
+    body.phone = normalizePhone(body.phone) || null;
+  }
   const contact = await prisma.contact.update({
     where: { id },
     data: body,

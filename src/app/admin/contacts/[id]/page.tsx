@@ -22,6 +22,7 @@ import {
 import { SubmissionDetail } from "@/app/admin/client-form/ClientFormSubmissionsManager";
 import { AlienriseRequestStatus } from "./AlienriseRequestStatus";
 import { getTreatmentDefinition } from "@/lib/client-form/schema";
+import { formatPhoneDisplay } from "@/lib/phone";
 import type { ClientFormSubmission } from "@/lib/client-form/submission";
 import { cn } from "@/lib/utils";
 import {
@@ -117,7 +118,7 @@ export default async function ContactDetailPage({
             </div>
             <div className="flex items-center gap-2">
               <Phone className="size-4 shrink-0 text-muted-foreground" />
-              <span>{contact.phone || "—"}</span>
+              <span>{formatPhoneDisplay(contact.phone) || "—"}</span>
             </div>
             <div className="flex items-center gap-2">
               <User className="size-4 shrink-0 text-muted-foreground" />

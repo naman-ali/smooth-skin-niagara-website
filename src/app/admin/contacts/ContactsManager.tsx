@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import ImportDialog from "./ImportDialog";
 import ApproveDialog from "./ApproveDialog";
+import { formatPhoneDisplay } from "@/lib/phone";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
@@ -44,6 +45,13 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 type Contact = {
   id: string;
@@ -96,7 +104,11 @@ function renderContactCell(
     case "email":
       return <TableCell key={col.key}>{contact.email}</TableCell>;
     case "phone":
-      return <TableCell key={col.key}>{contact.phone || "-"}</TableCell>;
+      return (
+        <TableCell key={col.key}>
+          {formatPhoneDisplay(contact.phone) || "-"}
+        </TableCell>
+      );
     case "type":
       return (
         <TableCell key={col.key} className="capitalize">
@@ -150,7 +162,6 @@ export default function ContactsManager({
   const [approveOpen, setApproveOpen] = useState(false);
   const [visible, setVisible] = useState(DEFAULT_VISIBLE);
   const [selected, setSelected] = useState<Set<string>>(new Set());
-  const [actionsOpen, setActionsOpen] = useState(false);
   const [pushing, setPushing] = useState(false);
   const [actionMsg, setActionMsg] = useState<string | null>(null);
   const [search, setSearch] = useState("");
@@ -229,7 +240,6 @@ export default function ContactsManager({
     a.download = `contacts-${new Date().toISOString().slice(0, 10)}.csv`;
     a.click();
     URL.revokeObjectURL(url);
-    setActionsOpen(false);
   };
 
   const syncToAlienrise = async () => {
@@ -258,7 +268,6 @@ export default function ContactsManager({
       );
     } finally {
       setPushing(false);
-      setActionsOpen(false);
     }
   };
 
@@ -347,29 +356,21 @@ export default function ContactsManager({
                 className="h-9 w-56 pl-8"
               />
             </div>
-            <details
-              className="relative"
-              open={actionsOpen}
-              onToggle={(e) => setActionsOpen(e.currentTarget.open)}
-            >
-              <summary className="flex h-9 cursor-pointer list-none items-center justify-center rounded-md border border-input bg-background px-3 text-sm font-medium ring-offset-background transition-colors hover:bg-accent hover:text-accent-foreground">
+            <DropdownMenu>
+              <DropdownMenuTrigger render={<Button variant="outline" />}>
                 Actions{selected.size > 0 ? ` (${selected.size})` : ""}
-              </summary>
-              <div className="absolute right-0 z-50 mt-2 w-72 rounded-md border bg-background p-2 shadow-lg">
-                <button
-                  type="button"
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-72">
+                <DropdownMenuItem
                   disabled={selected.size === 0}
                   onClick={exportCsv}
-                  className="flex w-full items-center gap-2 rounded px-2 py-1.5 text-left text-sm hover:bg-accent disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   <Download className="size-4" />
                   Export as CSV
-                </button>
-                <button
-                  type="button"
+                </DropdownMenuItem>
+                <DropdownMenuItem
                   disabled={selected.size === 0 || pushing}
                   onClick={syncToAlienrise}
-                  className="flex w-full items-center gap-2 rounded px-2 py-1.5 text-left text-sm hover:bg-accent disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   {pushing ? (
                     <Loader2 className="size-4 animate-spin" />
@@ -377,35 +378,31 @@ export default function ContactsManager({
                     <RefreshCw className="size-4" />
                   )}
                   Sync to AlienRise
-                </button>
-              </div>
-            </details>
-            <details className="relative">
-              <summary className="flex h-9 cursor-pointer list-none items-center justify-center rounded-md border border-input bg-background px-3 text-sm font-medium ring-offset-background transition-colors hover:bg-accent hover:text-accent-foreground">
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+            <DropdownMenu>
+              <DropdownMenuTrigger render={<Button variant="outline" />}>
                 Columns
-              </summary>
-              <div className="absolute right-0 z-50 mt-2 w-48 rounded-md border bg-background p-2 shadow-lg">
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-48">
                 {COLUMNS.map((col) => (
-                  <label
+                  <DropdownMenuCheckboxItem
                     key={col.key}
-                    className="flex cursor-pointer items-center gap-2 rounded px-2 py-1.5 text-sm hover:bg-accent"
+                    label={col.label}
+                    checked={visible[col.key]}
+                    onCheckedChange={(checked) =>
+                      setVisible((prev) => ({
+                        ...prev,
+                        [col.key]: checked,
+                      }))
+                    }
                   >
-                    <input
-                      type="checkbox"
-                      className="size-4 rounded border-gray-300"
-                      checked={visible[col.key]}
-                      onChange={() =>
-                        setVisible((prev) => ({
-                          ...prev,
-                          [col.key]: !prev[col.key],
-                        }))
-                      }
-                    />
                     {col.label}
-                  </label>
+                  </DropdownMenuCheckboxItem>
                 ))}
-              </div>
-            </details>
+              </DropdownMenuContent>
+            </DropdownMenu>
             <div className="flex gap-2">
               <Button variant="outline" onClick={() => setImportOpen(true)}>
                 <Upload className="size-4 mr-2" />

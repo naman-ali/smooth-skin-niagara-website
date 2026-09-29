@@ -41,6 +41,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { getTreatmentDefinition } from "@/lib/client-form/schema";
+import { formatPhoneDisplay } from "@/lib/phone";
 import { getSharedQuestionsForTreatments } from "@/lib/client-form/schema/shared-questions";
 import {
   photoReleaseConsent,
@@ -207,7 +208,9 @@ export default function ClientFormSubmissionsManager({
                     <TableCell>
                       <div className="text-sm">
                         <p className="text-foreground">{s.email}</p>
-                        <p className="text-muted-foreground">{s.phone}</p>
+                        <p className="text-muted-foreground">
+                          {formatPhoneDisplay(s.phone)}
+                        </p>
                       </div>
                     </TableCell>
                     <TableCell>
@@ -421,7 +424,8 @@ export function SubmissionDetail({
               <Mail className="size-3.5" /> {submission.client.email}
             </span>
             <span className="inline-flex items-center gap-1.5">
-              <Phone className="size-3.5" /> {submission.client.phone}
+              <Phone className="size-3.5" />{" "}
+              {formatPhoneDisplay(submission.client.phone)}
             </span>
           </div>
           <p className="inline-flex items-center gap-1.5 text-muted-foreground">
@@ -443,7 +447,9 @@ export function SubmissionDetail({
                   ? submission.client.emergencyContact
                   : [
                       submission.client.emergencyContact.name,
-                      submission.client.emergencyContact.phone,
+                      formatPhoneDisplay(
+                        submission.client.emergencyContact.phone,
+                      ),
                     ]
                       .filter(Boolean)
                       .join(" — ") || "—"}

@@ -132,8 +132,7 @@ export const edermastampMicroneedling: TreatmentFormDefinition = {
         {
           id: "edermastamp_allergies",
           type: "yesNo",
-          label:
-            "Do you have any allergies, including to cosmetic products?",
+          label: "Do you have any allergies, including to cosmetic products?",
           required: true,
           followUp: {
             id: "edermastamp_allergies_details",
@@ -183,8 +182,7 @@ export const edermastampMicroneedling: TreatmentFormDefinition = {
         {
           id: "edermastamp_contra_infections",
           type: "checkbox",
-          label:
-            "Any active bacterial, viral or fungal infections.",
+          label: "Any active bacterial, viral or fungal infections.",
           required: false,
         },
         {
@@ -197,15 +195,13 @@ export const edermastampMicroneedling: TreatmentFormDefinition = {
         {
           id: "edermastamp_contra_accutane_retin_a",
           type: "checkbox",
-          label:
-            "Any recent use of products such as Accutane or Retin A.",
+          label: "Any recent use of products such as Accutane or Retin A.",
           required: false,
         },
         {
           id: "edermastamp_contra_blood_meds",
           type: "checkbox",
-          label:
-            "Taking blood pressure, blood thinning or heart medications.",
+          label: "Taking blood pressure, blood thinning or heart medications.",
           required: false,
         },
         {
@@ -219,8 +215,7 @@ export const edermastampMicroneedling: TreatmentFormDefinition = {
     {
       id: "edermastamp-acknowledgements",
       title: "Complications, Risks & Treatment Acknowledgements",
-      description:
-        "Please initial each line to confirm you understand.",
+      description: "Please initial each line to confirm you understand.",
       questions: [
         {
           id: "edermastamp_ack_erythema",
@@ -310,7 +305,7 @@ export const edermastampMicroneedling: TreatmentFormDefinition = {
   consent: {
     treatmentId: "edermastamp-microneedling",
     title: "eDermaStamp / Dermaroller Treatment Consent",
-    version: "edermastamp-consent-2026-09-01",
+    version: "edermastamp-consent-2026-09-29",
     status: "approved",
     acceptanceLabel:
       "I acknowledge that I have read and filled out the patient registration and medical history form fully and correctly to the best of my knowledge, and that the information that I have supplied is correct.",
@@ -370,6 +365,14 @@ export const edermastampMicroneedling: TreatmentFormDefinition = {
       {
         kind: "paragraph",
         text: "I have thoroughly read and understand the instructions and reviewed them with the treatment provider.",
+      },
+      {
+        kind: "notice",
+        text: "Package Expiry",
+      },
+      {
+        kind: "paragraph",
+        text: "I understand that all treatment packages purchased expire one (1) year from the date of purchase. It is my responsibility to book and complete all sessions in my package within this period. Any sessions remaining after the expiry date are forfeited and are non-refundable and non-transferable, unless otherwise agreed in writing by the clinic.",
       },
       {
         kind: "notice",

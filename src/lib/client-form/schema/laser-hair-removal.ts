@@ -351,7 +351,7 @@ export const laserHairRemoval: TreatmentFormDefinition = {
   consent: {
     treatmentId: "laser-hair-removal",
     title: "Laser Hair Removal Consent & Waiver",
-    version: "laser-waiver-2026-08-31",
+    version: "laser-waiver-2026-09-29",
     status: "approved",
     acceptanceLabel:
       "I certify that I have been given the opportunity to ask questions and that I have read and fully understand the contents of this consent form.",

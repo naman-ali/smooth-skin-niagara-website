@@ -121,7 +121,7 @@ export const oxygeneo: TreatmentFormDefinition = {
   consent: {
     treatmentId: "oxygeneo",
     title: "OxyGeneo Treatment Consent",
-    version: "oxygeneo-consent-2026-09-01",
+    version: "oxygeneo-consent-2026-09-29",
     status: "approved",
     acceptanceLabel:
       "I confirm that I have read and understand the above information and consented to the treatment out of my own free will.",
@@ -182,6 +182,14 @@ export const oxygeneo: TreatmentFormDefinition = {
       {
         kind: "paragraph",
         text: "These publications should be done while maintaining my privacy and identification.",
+      },
+      {
+        kind: "notice",
+        text: "Package Expiry",
+      },
+      {
+        kind: "paragraph",
+        text: "I understand that all treatment packages purchased expire one (1) year from the date of purchase. It is my responsibility to book and complete all sessions in my package within this period. Any sessions remaining after the expiry date are forfeited and are non-refundable and non-transferable, unless otherwise agreed in writing by the clinic.",
       },
       {
         kind: "notice",

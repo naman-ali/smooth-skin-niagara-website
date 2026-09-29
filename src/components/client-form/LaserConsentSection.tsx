@@ -59,7 +59,7 @@ export const ACKNOWLEDGEMENTS: AcknowledgementItem[] = [
   {
     id: "promotionalExpiry",
     kind: "checkbox",
-    text: "I understand all laser promotional packages expire after 1 year from the date of purchase.",
+    text: "I understand that all laser hair removal packages purchased, including promotional packages, expire one (1) year from the date of purchase. It is my responsibility to book and complete all sessions in my package within this period. Any sessions remaining after the expiry date are forfeited and are non-refundable and non-transferable, unless otherwise agreed in writing by the clinic.",
   },
 ];
 

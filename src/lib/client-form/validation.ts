@@ -239,8 +239,7 @@ const ACKNOWLEDGEMENT_LABELS: Record<
   cancellationPolicy: "Please acknowledge the cancellation policy.",
   recommendedTreatments:
     "Please acknowledge the recommended number of treatments.",
-  promotionalExpiry:
-    "Please acknowledge the promotional package expiry information.",
+  promotionalExpiry: "Please acknowledge the package expiry policy.",
 };
 
 function buildLaserConsentErrors(

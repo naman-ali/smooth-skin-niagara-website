@@ -163,6 +163,8 @@ export default function ContactsManager({
   const [visible, setVisible] = useState(DEFAULT_VISIBLE);
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [pushing, setPushing] = useState(false);
+  const [deleteTarget, setDeleteTarget] = useState<Contact | null>(null);
+  const [deleting, setDeleting] = useState(false);
   const [actionMsg, setActionMsg] = useState<string | null>(null);
   const [search, setSearch] = useState("");
   const unapprovedCount = contacts.filter((c) => !c.approved).length;
@@ -302,10 +304,24 @@ export default function ContactsManager({
     resetForm();
   };
 
-  const onDelete = async (id: string) => {
-    const res = await fetch(`/api/contacts/${id}`, { method: "DELETE" });
-    if (!res.ok) return;
-    setContacts((prev) => prev.filter((c) => c.id !== id));
+  const onDelete = async () => {
+    if (!deleteTarget) return;
+    setDeleting(true);
+    try {
+      const res = await fetch(`/api/contacts/${deleteTarget.id}`, {
+        method: "DELETE",
+      });
+      if (!res.ok) return;
+      setContacts((prev) => prev.filter((c) => c.id !== deleteTarget.id));
+      setSelected((prev) => {
+        const next = new Set(prev);
+        next.delete(deleteTarget.id);
+        return next;
+      });
+      setDeleteTarget(null);
+    } finally {
+      setDeleting(false);
+    }
   };
 
   const startEdit = (contact: Contact) => {
@@ -473,7 +489,7 @@ export default function ContactsManager({
                       <Button
                         size="icon"
                         variant="destructive"
-                        onClick={() => onDelete(c.id)}
+                        onClick={() => setDeleteTarget(c)}
                       >
                         <Trash2 className="size-4" />
                         <span className="sr-only">Delete</span>
@@ -557,6 +573,40 @@ export default function ContactsManager({
               </Button>
             </div>
           </form>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog
+        open={deleteTarget !== null}
+        onOpenChange={(open) => {
+          if (!open) setDeleteTarget(null);
+        }}
+      >
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Delete contact?</DialogTitle>
+            <DialogDescription>
+              This will permanently delete{" "}
+              {deleteTarget?.name || "this contact"}. This action cannot be
+              undone.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="flex gap-2 pt-2">
+            <Button
+              variant="destructive"
+              onClick={onDelete}
+              disabled={deleting}
+            >
+              {deleting ? "Deleting…" : "Delete"}
+            </Button>
+            <Button
+              variant="outline"
+              onClick={() => setDeleteTarget(null)}
+              disabled={deleting}
+            >
+              Cancel
+            </Button>
+          </div>
         </DialogContent>
       </Dialog>
 

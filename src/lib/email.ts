@@ -56,10 +56,10 @@ export async function sendWaiverCompletedNotification(
   const treatments = submission.selectedTreatments
     .map((id) => getTreatmentDefinition(id)?.name ?? id)
     .join(", ");
-  const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? "").replace(/\/+$/, "");
-  const adminUrl = siteUrl
-    ? `${siteUrl}/admin/client-form/${submissionId}`
-    : `/admin/client-form/${submissionId}`;
+  const siteUrl = (
+    process.env.NEXT_PUBLIC_SITE_URL ?? "https://smoothskinniagara.com"
+  ).replace(/\/+$/, "");
+  const adminUrl = `${siteUrl}/admin/client-form/${submissionId}`;
 
   const html = `
     <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;max-width:560px;">

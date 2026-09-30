@@ -2,7 +2,6 @@
 
 import { Controller, useFormContext } from "react-hook-form";
 import { cn } from "@/lib/utils";
-import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import type { ConsentDefinition } from "@/lib/client-form/types";
@@ -27,24 +26,15 @@ export function ConsentSection({
       )}
       aria-labelledby={`${consent.treatmentId}-consent-heading`}
     >
-      <div className="flex flex-wrap items-center justify-between gap-2">
-        <h3
-          id={`${consent.treatmentId}-consent-heading`}
-          className={cn(
-            "font-display font-medium text-foreground",
-            compact ? "text-base" : "text-xl",
-          )}
-        >
-          {consent.title}
-        </h3>
-        <Badge
-          variant={consent.status === "approved" ? "default" : "secondary"}
-        >
-          {consent.status === "approved"
-            ? "Approved wording"
-            : "Pending clinic content"}
-        </Badge>
-      </div>
+      <h3
+        id={`${consent.treatmentId}-consent-heading`}
+        className={cn(
+          "font-display font-medium text-foreground",
+          compact ? "text-base" : "text-xl",
+        )}
+      >
+        {consent.title}
+      </h3>
 
       <div
         className={cn(

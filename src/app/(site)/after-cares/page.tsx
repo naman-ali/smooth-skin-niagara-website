@@ -951,6 +951,7 @@ function OxyGeneoAftercare() {
 
 export default function AfterCaresPage() {
   const [selectedId, setSelectedId] = useState<string>(DEFAULT_TREATMENT_ID);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const selectedTreatment = useMemo(
     () => treatments.find((t) => t.id === selectedId) ?? treatments[0],
@@ -959,31 +960,149 @@ export default function AfterCaresPage() {
 
   const handleSelect = (id: string) => {
     setSelectedId(id);
+    setDropdownOpen(false);
   };
 
   return (
     <>
       <Header />
       <main className="min-h-screen bg-olive-50">
-        <section className="px-3 py-[64px] md:px-10 lg:py-[90px]">
+        <section className="px-3 py-[40px] md:px-10 md:py-[64px] lg:py-[90px]">
           <div className="mx-auto max-w-[860px]">
-            <div className="mb-[30px] flex items-center gap-[12px]">
+            <div className="mb-[20px] flex items-center gap-[12px] md:mb-[30px]">
               <span className="h-[1px] w-[40px] bg-[var(--color-border-strong)]" />
               <span className="font-[var(--font-body)] text-[12px] font-bold uppercase tracking-[0.16em] text-[var(--color-brand-primary)]">
                 Client Care
               </span>
             </div>
 
-            <h1 className="mb-[14px] font-[var(--font-display)] text-[40px] font-normal leading-[1.1] text-[var(--color-text-primary)] md:text-[56px]">
+            <h1 className="mb-[10px] font-[var(--font-display)] text-[32px] font-normal leading-[1.1] text-[var(--color-text-primary)] md:mb-[14px] md:text-[56px]">
               After-Care Instructions
             </h1>
-            <p className="mb-[40px] max-w-[620px] font-[var(--font-body)] text-[17px] leading-[1.6] text-[var(--color-text-secondary)]">
+            <p className="mb-[24px] max-w-[620px] font-[var(--font-body)] text-[16px] leading-[1.6] text-[var(--color-text-secondary)] md:mb-[32px] md:text-[17px]">
               Select your treatment below to view the after-care guidelines and
               tips tailored to your service.
             </p>
 
+            {/* Mobile treatment selector */}
+            <div className="relative mb-[24px] md:hidden">
+              <button
+                type="button"
+                aria-haspopup="listbox"
+                aria-expanded={dropdownOpen}
+                aria-label="Select a treatment"
+                onClick={() => setDropdownOpen((open) => !open)}
+                className="flex w-full items-center justify-between gap-[14px] rounded-[14px] border bg-[#fff] px-[18px] py-[15px] text-left transition-shadow duration-200 focus:outline-none focus:ring-2 focus:ring-[var(--color-ring)]"
+                style={{
+                  borderColor: "var(--color-border)",
+                  boxShadow: "0 1px 3px rgba(37,38,36,0.06)",
+                }}
+              >
+                <span className="min-w-0">
+                  <span className="block text-[11px] font-semibold uppercase tracking-[0.14em] text-[var(--color-brand-primary)]">
+                    {selectedTreatment.label}
+                  </span>
+                  <span className="block truncate font-[var(--font-body)] text-[16px] font-semibold leading-[1.35] text-[var(--color-text-primary)]">
+                    {selectedTreatment.shortName}
+                  </span>
+                </span>
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="var(--color-brand-primary)"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className={`shrink-0 transition-transform duration-300 ${dropdownOpen ? "rotate-180" : ""}`}
+                >
+                  <path d="M6 9l6 6 6-6" />
+                </svg>
+              </button>
+
+              {dropdownOpen && (
+                <button
+                  type="button"
+                  aria-hidden="true"
+                  tabIndex={-1}
+                  onClick={() => setDropdownOpen(false)}
+                  className="fixed inset-0 z-[20] cursor-default"
+                />
+              )}
+
+              <div
+                role="listbox"
+                aria-label="Treatments"
+                className={`absolute left-0 right-0 top-full z-[30] mt-[8px] overflow-hidden rounded-[14px] border bg-[#fff] transition-all duration-200 ${
+                  dropdownOpen
+                    ? "visible translate-y-0 opacity-100"
+                    : "invisible pointer-events-none -translate-y-[6px] opacity-0"
+                }`}
+                style={{
+                  borderColor: "var(--color-border)",
+                  boxShadow: "0 12px 32px rgba(37,38,36,0.14)",
+                }}
+              >
+                {treatments.map((treatment) => {
+                  const isSelected = treatment.id === selectedId;
+                  return (
+                    <button
+                      key={treatment.id}
+                      type="button"
+                      role="option"
+                      aria-selected={isSelected}
+                      onClick={() => handleSelect(treatment.id)}
+                      className={`flex w-full items-center justify-between gap-[12px] px-[18px] py-[14px] text-left font-[var(--font-body)] transition-colors duration-150 focus:outline-none ${
+                        isSelected
+                          ? "bg-[var(--olive-100)]"
+                          : "bg-[#fff] hover:bg-[var(--olive-50)]"
+                      }`}
+                    >
+                      <span className="min-w-0">
+                        <span
+                          className={`block text-[11px] font-semibold uppercase tracking-[0.12em] ${
+                            isSelected
+                              ? "text-[var(--color-brand-primary)]"
+                              : "text-[var(--color-text-secondary)]"
+                          }`}
+                        >
+                          {treatment.label}
+                        </span>
+                        <span
+                          className={`block truncate text-[15px] leading-[1.35] ${
+                            isSelected
+                              ? "font-semibold text-[var(--color-text-primary)]"
+                              : "font-medium text-[var(--color-text-secondary)]"
+                          }`}
+                        >
+                          {treatment.shortName}
+                        </span>
+                      </span>
+                      {isSelected && (
+                        <svg
+                          width="18"
+                          height="18"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="var(--color-brand-primary)"
+                          strokeWidth="2.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="shrink-0"
+                        >
+                          <path d="M20 6L9 17l-5-5" />
+                        </svg>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Desktop treatment selector */}
             <div
-              className="mb-[40px] grid grid-cols-1 gap-[12px] rounded-[20px] border bg-[#fff] p-[16px] md:grid-cols-2 lg:grid-cols-3"
+              className="mb-[40px] hidden grid-cols-1 gap-[12px] rounded-[20px] border bg-[#fff] p-[16px] md:grid md:grid-cols-2 lg:grid-cols-3"
               style={{ borderColor: "var(--color-border)" }}
               role="tablist"
               aria-label="Select a treatment"

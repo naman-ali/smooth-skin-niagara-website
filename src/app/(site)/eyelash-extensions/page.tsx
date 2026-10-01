@@ -15,8 +15,8 @@ export default function EyelashExtensionsPage() {
       <Header />
       <main>
         <EyelashHero />
-        <AshleySection />
         <FindYourLook id="pricing" />
+        <AshleySection />
         <EyelashResults />
         <EyelashFaq />
         <ReviewsSection prioritizeService="lashes" />

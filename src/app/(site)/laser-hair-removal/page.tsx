@@ -522,8 +522,8 @@ export default function Home() {
       <Header />
       <main>
         <Hero />
-        <AshleySection />
         <TechnologySection />
+        <AshleySection />
         <TreatmentAreas />
         <LaserResultsSection />
         <FaqSection />

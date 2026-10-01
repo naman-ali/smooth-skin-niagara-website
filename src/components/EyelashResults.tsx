@@ -65,11 +65,11 @@ export function EyelashResults() {
             <span className="w-[48px] h-[1px] bg-[var(--color-border-strong)]" />
           </div>
           <h2 className="font-[var(--font-display)] font-normal text-[36px] leading-[1.1] lg:text-[48px] text-[var(--color-text-primary)] mt-0 mr-0 mb-[16px] ml-0">
-            Before &amp; After
+            Our Work
           </h2>
           <p className="font-[var(--font-body)] text-[17px] leading-[1.6] text-[var(--color-text-secondary)] mt-0 mr-auto mb-0 ml-auto max-w-[560px]">
-            See the difference customized lash extensions can make — from subtle
-            definition to full, fluffy volume.
+            Customized lash extensions — from subtle definition to full, fluffy
+            volume.
           </p>
           <div className="flex flex-wrap justify-center gap-[12px] mt-[28px]">
             {categories.map((category) => (
@@ -94,6 +94,7 @@ export function EyelashResults() {
                 aspectRatio={r.aspectRatio}
                 objectPosition={r.objectPosition}
                 beforeClassName="grayscale"
+                interactive={false}
               />
             </div>
           ))}

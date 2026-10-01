@@ -31,9 +31,13 @@ import { SubmissionSuccess } from "./SubmissionSuccess";
  * submit everything in one continuous view. Optimised for larger
  * tablets and small desktops where vertical scrolling is fine.
  */
-export function OnePageClientForm() {
+export function OnePageClientForm({
+  initialValues,
+}: {
+  initialValues?: FormValues;
+}) {
   const methods = useForm<FormValues>({
-    defaultValues: DEFAULT_FORM_VALUES,
+    defaultValues: initialValues ?? DEFAULT_FORM_VALUES,
     resolver: clientFormResolver,
     mode: "onSubmit",
   });

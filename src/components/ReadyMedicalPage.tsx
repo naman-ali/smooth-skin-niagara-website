@@ -15,7 +15,9 @@ import {
 } from "lucide-react";
 
 import Header from "@/components/Header";
+import { AshleySection } from "@/components/AshleySection";
 import { CtaSection } from "@/components/CtaSection";
+import { ReviewsSection } from "@/components/ReviewsSection";
 import * as ButtonModule from "@/components/design-system/core/Button";
 import type { ButtonProps } from "@/components/design-system/core/Button";
 import * as GoogleReviewsModule from "@/components/design-system/trust/GoogleReviews";
@@ -638,6 +640,8 @@ export default function ReadyMedicalPage() {
         <SolutionsSection />
         <WhenToUse />
         <ResultsSection />
+        <AshleySection />
+        <ReviewsSection />
         <CtaSection
           eyebrow="BOOST YOUR TREATMENT RESULTS"
           heading={

@@ -16,10 +16,10 @@ export default function EyelashExtensionsPage() {
       <main>
         <EyelashHero />
         <FindYourLook id="pricing" />
-        <AshleySection />
         <EyelashResults />
-        <EyelashFaq />
+        <AshleySection />
         <ReviewsSection prioritizeService="lashes" />
+        <EyelashFaq />
         <CtaSection />
       </main>
     </>

@@ -24,6 +24,7 @@ import { FaqSection } from "@/components/FaqSection";
 import Header from "@/components/Header";
 import * as ButtonModule from "@/components/design-system/core/Button";
 import { useConsultation } from "@/components/ConsultationModal";
+import { AshleySection } from "@/components/AshleySection";
 import { ReviewsSection } from "@/components/ReviewsSection";
 import type { ButtonProps } from "@/components/design-system/core/Button";
 import * as GoogleReviewsModule from "@/components/design-system/trust/GoogleReviews";
@@ -1030,6 +1031,7 @@ export default function OxyGeneoPage() {
         <OxyAddOns />
         <OxyResults />
         <OxyFaq />
+        <AshleySection />
         <ReviewsSection prioritizeService="facial" />
         <OxyFinalCta />
       </main>

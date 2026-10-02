@@ -21,6 +21,7 @@ import { FaqSection } from "@/components/FaqSection";
 import Header from "@/components/Header";
 import * as ButtonModule from "@/components/design-system/core/Button";
 import { useConsultation } from "@/components/ConsultationModal";
+import { AshleySection } from "@/components/AshleySection";
 import { ReviewsSection } from "@/components/ReviewsSection";
 import type { ButtonProps } from "@/components/design-system/core/Button";
 import * as GoogleReviewsModule from "@/components/design-system/trust/GoogleReviews";
@@ -174,7 +175,7 @@ function MicroneedlingHero() {
             <Button
               variant="secondary"
               href="#treatment-options"
-              style={{ width: "100%", whiteSpace: "normal" }}
+              style={{ maxWidth: "100%", whiteSpace: "normal" }}
             >
               View Treatment Options
             </Button>
@@ -1111,12 +1112,13 @@ export default function MicroneedlingPage() {
         <MicroneedlingHero />
         <MicroneedlingConcerns />
         <MicroneedlingHowItWorks />
-        <MicroneedlingPricing />
         <MicroneedlingResults />
+        <AshleySection />
+        <ReviewsSection prioritizeService="microneedling" />
+        <MicroneedlingPricing />
         <MicroneedlingProcess />
         <MicroneedlingVideo />
         <MicroneedlingFaq />
-        <ReviewsSection prioritizeService="microneedling" />
         <MicroneedlingFinalCta />
       </main>
     </>

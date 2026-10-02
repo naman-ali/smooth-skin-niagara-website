@@ -7,6 +7,7 @@ import { CellumaHero } from "@/components/CellumaHero";
 import { CellumaPricingSection } from "@/components/CellumaPricingSection";
 import { CellumaScienceSection } from "@/components/CellumaScienceSection";
 import { cellumaFaqCategories } from "@/lib/celluma-faq";
+import { AshleySection } from "@/components/AshleySection";
 import { ReviewsSection } from "@/components/ReviewsSection";
 import { CtaSection } from "@/components/CtaSection";
 
@@ -97,6 +98,7 @@ export default function CellumaLedLightTherapyPage() {
           subheading="Learn what Celluma feels like, how treatments work, when you may see results, and whether LED light therapy may be right for you."
           categories={cellumaFaqCategories}
         />
+        <AshleySection />
         <ReviewsSection prioritizeService="celluma" />
         <CtaSection />
       </main>

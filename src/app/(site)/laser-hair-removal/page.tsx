@@ -526,8 +526,8 @@ export default function Home() {
         <AshleySection />
         <TreatmentAreas />
         <LaserResultsSection />
-        <FaqSection />
         <ReviewsSection prioritizeService="laser" />
+        <FaqSection />
         <CtaSection />
       </main>
     </>

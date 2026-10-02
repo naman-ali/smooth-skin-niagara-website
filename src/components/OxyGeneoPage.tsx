@@ -178,7 +178,7 @@ function OxyHero() {
             <Button
               variant="secondary"
               href="#treatment-options"
-              style={{ width: "100%", whiteSpace: "normal" }}
+              style={{ maxWidth: "100%", whiteSpace: "normal" }}
             >
               Explore Treatment Options
             </Button>
@@ -1029,10 +1029,10 @@ export default function OxyGeneoPage() {
         <OxyOxyPods />
         <OxyAdvancedTech />
         <OxyAddOns />
-        <OxyResults />
-        <OxyFaq />
+        {/* <OxyResults /> */}
         <AshleySection />
         <ReviewsSection prioritizeService="facial" />
+        <OxyFaq />
         <OxyFinalCta />
       </main>
     </>

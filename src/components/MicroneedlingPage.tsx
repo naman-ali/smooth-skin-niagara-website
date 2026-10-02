@@ -174,10 +174,10 @@ function MicroneedlingHero() {
             </Button>
             <Button
               variant="secondary"
-              href="#treatment-options"
+              href="#results"
               style={{ maxWidth: "100%", whiteSpace: "normal" }}
             >
-              View Treatment Options
+              View Results
             </Button>
           </div>
 
@@ -754,6 +754,7 @@ const microneedlingResults = [
 function MicroneedlingResults() {
   return (
     <section
+      id="results"
       className={cn(`${sectionPadding} bg-olive-50`, "py-16 lg:py-[90px]")}
     >
       <div className="max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto">

@@ -173,7 +173,7 @@ function PcaHero() {
             <Button
               variant="secondary"
               href="#peel-options"
-              style={{ width: "100%", whiteSpace: "normal" }}
+              style={{ maxWidth: "100%", whiteSpace: "normal" }}
             >
               View Peel Options
             </Button>

@@ -80,7 +80,21 @@ export default function AboutUsPage() {
         {/* Bio / Intro */}
         <section className="relative overflow-hidden px-3 py-[90px] md:px-10">
           <div className="mx-auto max-w-[var(--container-max)]">
-            <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:items-start">
+            <div className="grid grid-cols-1 gap-10 lg:grid-cols-[260px_1fr] lg:items-start lg:gap-12">
+              <div className="relative">
+                <div className="relative mx-auto h-[200px] w-[200px] overflow-hidden rounded-full bg-olive-200 shadow-[0_10px_30px_rgba(79,91,58,0.15)] ring-1 ring-[var(--color-border)] lg:mx-0 lg:h-[240px] lg:w-[240px]">
+                  <img
+                    src="/assets/ashley-about.jpg"
+                    alt="Ashley, founder of Smooth Skin Niagara"
+                    className="h-full w-full object-cover"
+                    style={{ objectPosition: "center -20px" }}
+                    onError={(e) => {
+                      e.currentTarget.style.display = "none";
+                    }}
+                  />
+                </div>
+              </div>
+
               <div>
                 <div className="mb-[22px] flex items-center gap-[13px]">
                   <span className="font-[var(--font-body)] text-[12px] font-bold uppercase tracking-[0.16em] text-[var(--color-brand-primary)]">
@@ -148,19 +162,6 @@ export default function AboutUsPage() {
                     — Ashley
                   </footer>
                 </blockquote>
-              </div>
-
-              <div className="relative">
-                <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[24px] bg-olive-200">
-                  <img
-                    src="/assets/ashley-about.jpg"
-                    alt="Ashley, founder of Smooth Skin Niagara"
-                    className="h-full w-full object-cover"
-                    onError={(e) => {
-                      e.currentTarget.style.display = "none";
-                    }}
-                  />
-                </div>
               </div>
             </div>
           </div>

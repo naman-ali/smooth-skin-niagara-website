@@ -162,7 +162,7 @@ function Hero() {
               <Button
                 variant="secondary"
                 href="#benefits"
-                style={{ width: "100%", whiteSpace: "normal" }}
+                style={{ maxWidth: "100%", whiteSpace: "normal" }}
               >
                 View Benefits
               </Button>

@@ -92,14 +92,14 @@ export default function CellumaLedLightTherapyPage() {
           columns={2}
         />
         <CellumaPricingSection />
+        <AshleySection />
+        <ReviewsSection prioritizeService="celluma" />
         <FaqSection
           eyebrow="Frequently Asked Questions"
           heading="Everything You Want to Know About Celluma LED Light Therapy"
           subheading="Learn what Celluma feels like, how treatments work, when you may see results, and whether LED light therapy may be right for you."
           categories={cellumaFaqCategories}
         />
-        <AshleySection />
-        <ReviewsSection prioritizeService="celluma" />
         <CtaSection />
       </main>
     </>

@@ -614,7 +614,12 @@ export default function ContactsManager({
       <Card>
         <CardHeader className="flex flex-row flex-wrap items-center justify-between gap-4">
           <div className="space-y-1.5">
-            <CardTitle>Contacts</CardTitle>
+            <CardTitle>
+              Contacts{" "}
+              <span className="font-normal text-muted-foreground">
+                ({contacts.length})
+              </span>
+            </CardTitle>
             <CardDescription>Manage all contact records.</CardDescription>
           </div>
           <div className="flex flex-wrap items-center gap-4">

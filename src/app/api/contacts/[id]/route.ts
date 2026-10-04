@@ -2,6 +2,7 @@ import { auth } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { normalizePhone } from "@/lib/phone";
+import { findDuplicateContact, normalizeEmail } from "@/lib/contacts";
 import {
   alienriseAutoSyncEnabled,
   syncContactToAlienrise,
@@ -26,6 +27,27 @@ export async function PATCH(
   const body = await request.json();
   if (typeof body?.phone === "string") {
     body.phone = normalizePhone(body.phone) || null;
+  }
+  if (typeof body?.email === "string") {
+    body.email = normalizeEmail(body.email);
+  }
+  const current = await prisma.contact.findUnique({ where: { id } });
+  if (!current) {
+    return new NextResponse("Not found", { status: 404 });
+  }
+  const duplicate = await findDuplicateContact({
+    email: "email" in body ? body.email : current.email,
+    phone: "phone" in body ? body.phone : current.phone,
+    excludeId: id,
+  });
+  if (duplicate) {
+    return NextResponse.json(
+      {
+        error: `Duplicate: ${duplicate.name || duplicate.email || duplicate.phone} already has this email or phone.`,
+        existing: duplicate,
+      },
+      { status: 409 },
+    );
   }
   const contact = await prisma.contact.update({
     where: { id },

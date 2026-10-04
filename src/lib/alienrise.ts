@@ -32,11 +32,23 @@ function config() {
 }
 
 /**
- * Normalize into the AlienRise contact shape. Returns null when there is
- * no usable identifier — the API requires at least one of email/phone.
+ * Placeholder emails staff typed when a customer had none. Sending one
+ * makes AlienRise merge unrelated people who share it — treat them as
+ * no email so the contact syncs phone-only.
+ */
+const PLACEHOLDER_EMAILS = new Set(["no-email-address-provided@na.com"]);
+
+/**
+ * Normalize into the AlienRise contact shape. Returns null when the
+ * contact isn't syncable — the API requires a name and at least one of
+ * email/phone.
  */
 function toAlienriseContact(contact: AlienriseContact) {
-  const email = contact.email?.trim() || undefined;
+  const rawEmail = contact.email?.trim();
+  const email =
+    rawEmail && !PLACEHOLDER_EMAILS.has(rawEmail.toLowerCase())
+      ? rawEmail
+      : undefined;
   const phone = contact.phone?.trim() || undefined;
   if (!email && !phone) return null;
 
@@ -47,8 +59,14 @@ function toAlienriseContact(contact: AlienriseContact) {
     firstName = parts.shift() || undefined;
     lastName = parts.join(" ") || undefined;
   }
+  if (firstName === undefined && lastName === undefined) return null;
 
   return { firstName, lastName, email, phone };
+}
+
+/** Whether a contact has everything AlienRise needs to accept an upsert. */
+export function alienriseSyncable(contact: AlienriseContact): boolean {
+  return toAlienriseContact(contact) !== null;
 }
 
 export type AlienriseResult = { ok: true } | { ok: false; error: string };

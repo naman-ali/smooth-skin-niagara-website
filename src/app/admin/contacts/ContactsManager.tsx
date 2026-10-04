@@ -6,6 +6,7 @@ import Link from "next/link";
 import {
   AlertTriangle,
   CheckCircle2,
+  Copy,
   Download,
   Eye,
   Loader2,
@@ -18,7 +19,7 @@ import {
 } from "lucide-react";
 import ImportDialog from "./ImportDialog";
 import ApproveDialog from "./ApproveDialog";
-import { formatPhoneDisplay } from "@/lib/phone";
+import { formatPhoneDisplay, normalizePhone } from "@/lib/phone";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
@@ -81,6 +82,19 @@ const COLUMNS = [
   { key: "approved", label: "Approved" },
   { key: "created", label: "Created" },
 ] as const;
+
+/** Human-readable label for a failed/skipped sync result. */
+function issueReason(result: {
+  skipped?: boolean;
+  reason?: string;
+  error?: string;
+}): string {
+  if (result.skipped) return result.reason ?? "Missing info";
+  const status = /AlienRise (\d+)/.exec(result.error ?? "")?.[1];
+  if (status === "429") return "Rate limited";
+  if (status) return `AlienRise error ${status}`;
+  return "Network error";
+}
 
 function formatDuration(seconds: number) {
   if (seconds >= 90) {
@@ -171,6 +185,7 @@ export default function ContactsManager({
     phone: "",
   });
   const [editing, setEditing] = useState<string | null>(null);
+  const [formError, setFormError] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
   const [importOpen, setImportOpen] = useState(false);
   const [approveOpen, setApproveOpen] = useState(false);
@@ -185,7 +200,26 @@ export default function ContactsManager({
     total: number;
     synced: number;
     failed: number;
+    skipped: number;
+    issues: { contactId: string; reason: string }[];
     etaSeconds: number | null;
+  } | null>(null);
+  const [dupesOpen, setDupesOpen] = useState(false);
+  const [dupesLoading, setDupesLoading] = useState(false);
+  const [dupes, setDupes] = useState<{
+    total: number;
+    distinct: number;
+    groups: {
+      shared: { type: string; value: string }[];
+      members: {
+        id: string;
+        name: string;
+        email: string;
+        phone: string | null;
+        source: string;
+        createdAt: string;
+      }[];
+    }[];
   } | null>(null);
   const [search, setSearch] = useState("");
   const unapprovedCount = contacts.filter((c) => !c.approved).length;
@@ -280,7 +314,9 @@ export default function ContactsManager({
     const pending = selectedContacts.map((c) => c.id);
     let sent = 0;
     let failed = 0;
+    let skipped = 0;
     let stalled = 0;
+    const issues: { contactId: string; reason: string }[] = [];
     const startedAt = Date.now();
     setPushing(true);
     setSync({
@@ -289,6 +325,8 @@ export default function ContactsManager({
       total,
       synced: 0,
       failed: 0,
+      skipped: 0,
+      issues,
       etaSeconds: null,
     });
     try {
@@ -306,13 +344,34 @@ export default function ContactsManager({
           });
           if (!res.ok) throw new Error((await res.text()) || "Request failed");
           const { results, remaining } = (await res.json()) as {
-            results: { contactId: string; ok: boolean }[];
+            results: {
+              contactId: string;
+              ok?: boolean;
+              skipped?: boolean;
+              reason?: string;
+              error?: string;
+            }[];
             remaining: string[];
           };
           sent += results.filter((r) => r.ok).length;
-          failed += results.filter((r) => !r.ok).length;
+          failed += results.filter((r) => r.ok === false).length;
+          skipped += results.filter((r) => r.skipped).length;
           pending.push(...remaining);
+          for (const r of results) {
+            if (!r.ok) {
+              issues.push({ contactId: r.contactId, reason: issueReason(r) });
+            }
+          }
           // Ids neither returned nor re-queued don't resolve to contacts.
+          const accounted = new Set([
+            ...results.map((r) => r.contactId),
+            ...remaining,
+          ]);
+          for (const id of batch) {
+            if (!accounted.has(id)) {
+              issues.push({ contactId: id, reason: "Contact not found" });
+            }
+          }
           failed += batch.length - results.length - remaining.length;
           // Give up if the server repeatedly makes no progress at all
           // (e.g. AlienRise is down and every call eats the time budget).
@@ -335,6 +394,8 @@ export default function ContactsManager({
           total,
           synced: sent,
           failed,
+          skipped,
+          issues,
           etaSeconds,
         });
       }
@@ -344,6 +405,8 @@ export default function ContactsManager({
         total,
         synced: sent,
         failed,
+        skipped,
+        issues,
         etaSeconds: null,
       });
     } finally {
@@ -351,8 +414,21 @@ export default function ContactsManager({
     }
   };
 
+  const findDuplicates = async () => {
+    setDupesOpen(true);
+    if (dupes) return;
+    setDupesLoading(true);
+    try {
+      const res = await fetch("/api/contacts/duplicates");
+      if (res.ok) setDupes(await res.json());
+    } finally {
+      setDupesLoading(false);
+    }
+  };
+
   const resetForm = () => {
     setForm({ name: "", email: "", phone: "" });
+    setFormError(null);
     setEditing(null);
     setOpen(false);
   };
@@ -364,6 +440,22 @@ export default function ContactsManager({
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    // Same identity rule as the server and AlienRise: email OR phone
+    // match = duplicate. Check locally first for instant feedback.
+    const emailKey = form.email.trim().toLowerCase();
+    const phoneKey = normalizePhone(form.phone) || null;
+    const dupe = contacts.find(
+      (c) =>
+        c.id !== editing &&
+        ((emailKey.length > 0 && c.email.trim().toLowerCase() === emailKey) ||
+          (phoneKey !== null && c.phone === phoneKey)),
+    );
+    if (dupe) {
+      setFormError(
+        `Duplicate of ${dupe.name || "an existing contact"} (${dupe.email || formatPhoneDisplay(dupe.phone)}) — same email or phone.`,
+      );
+      return;
+    }
     const url = editing ? `/api/contacts/${editing}` : "/api/contacts";
     const method = editing ? "PATCH" : "POST";
     const body = editing ? form : { ...form, approved: true, source: "manual" };
@@ -372,6 +464,11 @@ export default function ContactsManager({
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
     });
+    if (res.status === 409) {
+      const data = await res.json().catch(() => null);
+      setFormError(data?.error ?? "A contact with this email or phone exists.");
+      return;
+    }
     if (!res.ok) return;
     const saved = await res.json();
     if (editing) {
@@ -450,6 +547,7 @@ export default function ContactsManager({
               <p className="w-full text-xs tabular-nums text-muted-foreground">
                 {Math.round((sync.done / sync.total) * 100)}% · {sync.synced}{" "}
                 synced
+                {sync.skipped > 0 ? ` · ${sync.skipped} skipped` : ""}
                 {sync.failed > 0 ? ` · ${sync.failed} failed` : ""} ·{" "}
                 {sync.etaSeconds != null
                   ? `~${formatDuration(sync.etaSeconds)} left`
@@ -461,22 +559,54 @@ export default function ContactsManager({
                 from your browser.
               </p>
             </Progress>
-          ) : sync.failed === 0 ? (
-            <div className="flex items-center gap-2 text-sm">
-              <CheckCircle2 className="size-4 shrink-0 text-emerald-600 dark:text-emerald-400" />
-              <span>
-                {sync.synced} contact{sync.synced === 1 ? "" : "s"} synced to
-                AlienRise.
-              </span>
-            </div>
           ) : (
             <div className="flex items-center gap-2 text-sm">
-              <AlertTriangle className="size-4 shrink-0 text-amber-600 dark:text-amber-400" />
+              {sync.failed === 0 ? (
+                <CheckCircle2 className="size-4 shrink-0 text-emerald-600 dark:text-emerald-400" />
+              ) : (
+                <AlertTriangle className="size-4 shrink-0 text-amber-600 dark:text-amber-400" />
+              )}
               <span>
                 AlienRise: {sync.synced} contact
-                {sync.synced === 1 ? "" : "s"} synced, {sync.failed} failed —
-                select them and sync again to retry.
+                {sync.synced === 1 ? "" : "s"} synced
+                {sync.skipped > 0
+                  ? `, ${sync.skipped} skipped (missing name or contact info)`
+                  : ""}
+                {sync.failed > 0
+                  ? `, ${sync.failed} failed — select them and sync again to retry`
+                  : ""}
+                .
               </span>
+            </div>
+          )}
+          {sync.issues.length > 0 && (
+            <div className="mt-3 border-t pt-3">
+              <p className="text-xs font-medium text-muted-foreground">
+                Not synced ({sync.issues.length})
+              </p>
+              <ul className="mt-1.5 max-h-40 space-y-1 overflow-y-auto">
+                {sync.issues.map((issue) => {
+                  const contact = contacts.find(
+                    (c) => c.id === issue.contactId,
+                  );
+                  return (
+                    <li
+                      key={issue.contactId}
+                      className="flex items-center justify-between gap-3 text-sm"
+                    >
+                      <Link
+                        href={`/admin/contacts/${issue.contactId}`}
+                        className="truncate font-medium hover:underline"
+                      >
+                        {contact?.name || "(no name)"}
+                      </Link>
+                      <span className="shrink-0 text-xs text-muted-foreground">
+                        {issue.reason}
+                      </span>
+                    </li>
+                  );
+                })}
+              </ul>
             </div>
           )}
         </div>
@@ -523,6 +653,10 @@ export default function ContactsManager({
                   {pushing && sync?.phase === "running"
                     ? `Syncing ${Math.round((sync.done / sync.total) * 100)}%`
                     : "Sync to AlienRise"}
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={findDuplicates}>
+                  <Copy className="size-4" />
+                  Find duplicates
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -676,7 +810,6 @@ export default function ContactsManager({
                   placeholder="Email"
                   value={form.email}
                   onChange={(e) => setForm({ ...form, email: e.target.value })}
-                  required
                 />
               </div>
               <div className="space-y-2 md:col-span-2">
@@ -689,6 +822,7 @@ export default function ContactsManager({
                 />
               </div>
             </div>
+            {formError && <p className="text-sm text-red-600">{formError}</p>}
             <div className="flex gap-2 pt-2">
               <Button type="submit">
                 {editing ? "Update Contact" : "Add Contact"}
@@ -736,6 +870,73 @@ export default function ContactsManager({
               Cancel
             </Button>
           </div>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={dupesOpen} onOpenChange={setDupesOpen}>
+        <DialogContent className="max-h-[80vh] overflow-y-auto sm:max-w-2xl">
+          <DialogHeader>
+            <DialogTitle>Duplicate contacts</DialogTitle>
+            <DialogDescription>
+              Contacts that share an email or phone number merge into a single
+              contact when synced to AlienRise.
+            </DialogDescription>
+          </DialogHeader>
+          {dupesLoading ? (
+            <div className="flex items-center justify-center gap-2 py-10 text-sm text-muted-foreground">
+              <Loader2 className="size-4 animate-spin" />
+              Checking for duplicates...
+            </div>
+          ) : !dupes ? null : dupes.groups.length === 0 ? (
+            <p className="py-10 text-center text-sm text-muted-foreground">
+              No duplicates found.
+            </p>
+          ) : (
+            <div className="space-y-4">
+              <p className="text-xs text-muted-foreground">
+                {dupes.total} contacts collapse into {dupes.distinct} unique
+                identities — {dupes.total - dupes.distinct} duplicates across{" "}
+                {dupes.groups.length} groups.
+              </p>
+              {dupes.groups.map((group, i) => (
+                <div key={i} className="space-y-1.5 rounded-lg border p-3">
+                  <p className="text-xs font-medium text-muted-foreground">
+                    Shared{" "}
+                    {group.shared
+                      .map((s) =>
+                        s.type === "phone"
+                          ? formatPhoneDisplay(s.value) || s.value
+                          : s.value,
+                      )
+                      .join(" · ")}
+                  </p>
+                  {group.members.map((m) => (
+                    <div
+                      key={m.id}
+                      className="flex flex-wrap items-center gap-x-3 gap-y-0.5 text-sm"
+                    >
+                      <Link
+                        href={`/admin/contacts/${m.id}`}
+                        className="font-medium hover:underline"
+                      >
+                        {m.name || "(no name)"}
+                      </Link>
+                      <span className="text-muted-foreground">
+                        {m.email || "—"}
+                      </span>
+                      <span className="tabular-nums text-muted-foreground">
+                        {formatPhoneDisplay(m.phone) || "—"}
+                      </span>
+                      <span className="ml-auto text-xs capitalize text-muted-foreground">
+                        {m.source.replace(/_/g, " ")} ·{" "}
+                        {new Date(m.createdAt).toLocaleDateString()}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </div>
+          )}
         </DialogContent>
       </Dialog>
 

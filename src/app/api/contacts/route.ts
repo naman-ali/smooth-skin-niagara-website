@@ -2,6 +2,7 @@ import { auth } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { normalizePhone } from "@/lib/phone";
+import { findDuplicateContact, normalizeEmail } from "@/lib/contacts";
 import {
   alienriseAutoSyncEnabled,
   syncContactToAlienrise,
@@ -31,13 +32,36 @@ export async function POST(request: NextRequest) {
     return new NextResponse("Forbidden", { status: 403 });
   }
   const body = await request.json();
-  const items = Array.isArray(body) ? body : [body];
+  const items = (Array.isArray(body) ? body : [body]).map(
+    (data: {
+      name: string;
+      email?: string;
+      phone?: string | null;
+      approved?: boolean;
+      contactType?: string;
+      source?: string;
+      imageUrl?: string | null;
+    }) => ({
+      ...data,
+      email: normalizeEmail(data.email),
+      phone: normalizePhone(data.phone) || null,
+    }),
+  );
+  // Same identity rule AlienRise applies: email OR phone match = duplicate.
+  for (const data of items) {
+    const existing = await findDuplicateContact(data);
+    if (existing) {
+      return NextResponse.json(
+        {
+          error: `Duplicate: ${existing.name || existing.email || existing.phone} already has this email or phone.`,
+          existing,
+        },
+        { status: 409 },
+      );
+    }
+  }
   const contacts = await Promise.all(
-    items.map((data: any) =>
-      prisma.contact.create({
-        data: { ...data, phone: normalizePhone(data.phone) || null },
-      }),
-    ),
+    items.map((data) => prisma.contact.create({ data })),
   );
   if (alienriseAutoSyncEnabled()) {
     await Promise.all(

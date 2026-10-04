@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import {
@@ -81,6 +81,13 @@ const COLUMNS = [
   { key: "approved", label: "Approved" },
   { key: "created", label: "Created" },
 ] as const;
+
+function formatDuration(seconds: number) {
+  if (seconds >= 90) {
+    return `${Math.floor(seconds / 60)}m ${Math.round(seconds % 60)}s`;
+  }
+  return `${Math.max(1, Math.ceil(seconds))}s`;
+}
 
 const DEFAULT_VISIBLE: Record<string, boolean> = {
   name: true,
@@ -178,6 +185,7 @@ export default function ContactsManager({
     total: number;
     synced: number;
     failed: number;
+    etaSeconds: number | null;
   } | null>(null);
   const [search, setSearch] = useState("");
   const unapprovedCount = contacts.filter((c) => !c.approved).length;
@@ -204,6 +212,15 @@ export default function ContactsManager({
     filteredContacts.every((c) => selected.has(c.id));
   const someFilteredSelected =
     !allFilteredSelected && filteredContacts.some((c) => selected.has(c.id));
+
+  // The sync is driven client-side in batches — warn before the tab is
+  // closed or reloaded mid-run.
+  useEffect(() => {
+    if (!pushing) return;
+    const warn = (e: BeforeUnloadEvent) => e.preventDefault();
+    window.addEventListener("beforeunload", warn);
+    return () => window.removeEventListener("beforeunload", warn);
+  }, [pushing]);
 
   const toggleSelect = (id: string) =>
     setSelected((prev) => {
@@ -264,8 +281,16 @@ export default function ContactsManager({
     let sent = 0;
     let failed = 0;
     let stalled = 0;
+    const startedAt = Date.now();
     setPushing(true);
-    setSync({ phase: "running", done: 0, total, synced: 0, failed: 0 });
+    setSync({
+      phase: "running",
+      done: 0,
+      total,
+      synced: 0,
+      failed: 0,
+      etaSeconds: null,
+    });
     try {
       // Sequential batches keep each server invocation short and stay
       // under AlienRise's 120 req/min rate limit. If the server runs out
@@ -299,15 +324,28 @@ export default function ContactsManager({
         } catch {
           failed += batch.length;
         }
+        const done = total - pending.length;
+        const elapsed = (Date.now() - startedAt) / 1000;
+        // Project remaining time from the measured rate — upstream
+        // latency varies too much for a fixed per-contact estimate.
+        const etaSeconds = done > 0 ? (elapsed / done) * pending.length : null;
         setSync({
           phase: "running",
-          done: total - pending.length,
+          done,
           total,
           synced: sent,
           failed,
+          etaSeconds,
         });
       }
-      setSync({ phase: "done", done: total, total, synced: sent, failed });
+      setSync({
+        phase: "done",
+        done: total,
+        total,
+        synced: sent,
+        failed,
+        etaSeconds: null,
+      });
     } finally {
       setPushing(false);
     }
@@ -412,8 +450,15 @@ export default function ContactsManager({
               <p className="w-full text-xs tabular-nums text-muted-foreground">
                 {Math.round((sync.done / sync.total) * 100)}% · {sync.synced}{" "}
                 synced
-                {sync.failed > 0 ? ` · ${sync.failed} failed` : ""} · ~
-                {Math.max(1, Math.ceil((sync.total - sync.done) * 0.8))}s left
+                {sync.failed > 0 ? ` · ${sync.failed} failed` : ""} ·{" "}
+                {sync.etaSeconds != null
+                  ? `~${formatDuration(sync.etaSeconds)} left`
+                  : "calculating time left..."}
+              </p>
+              <p className="flex w-full items-center gap-1.5 text-xs font-medium text-amber-600 dark:text-amber-400">
+                <AlertTriangle className="size-3.5 shrink-0" />
+                Keep this tab open and don&apos;t navigate away — the sync runs
+                from your browser.
               </p>
             </Progress>
           ) : sync.failed === 0 ? (

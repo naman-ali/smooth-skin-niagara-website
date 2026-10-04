@@ -24,9 +24,11 @@ const TIME_BUDGET_MS = 45_000;
  * for approval. One failed contact does not break the batch; per-contact
  * results are returned for partial-success reporting.
  *
- * Contacts are synced sequentially with a short delay between requests:
- * the AlienRise API is rate-limited to 120 req/min, and firing a large
- * batch in parallel produced waves of 429s plus upstream 500/504s.
+ * Contacts are synced by a small worker pool with a short delay between
+ * requests: the AlienRise API is rate-limited to 120 req/min (~2 req/s),
+ * so 4 workers keeps throughput near ~1.5 req/s while absorbing the
+ * upstream's ~2.5s per-request latency. 429s/5xx are retried inside
+ * syncContactToAlienrise.
  */
 export async function POST(request: NextRequest) {
   const adminId = await requireAdmin();
@@ -54,16 +56,19 @@ export async function POST(request: NextRequest) {
   });
   const results: { contactId: string; ok: boolean; error?: string }[] = [];
   const deadline = Date.now() + TIME_BUDGET_MS;
-  for (const contact of contacts) {
-    if (results.length > 0) {
-      if (Date.now() > deadline) break;
-      await new Promise((r) => setTimeout(r, 400));
-    }
-    results.push({
-      contactId: contact.id,
-      ...(await syncContactToAlienrise(contact)),
-    });
-  }
+  let cursor = 0;
+  await Promise.all(
+    Array.from({ length: 4 }, async () => {
+      while (cursor < contacts.length && Date.now() < deadline) {
+        const contact = contacts[cursor++];
+        results.push({
+          contactId: contact.id,
+          ...(await syncContactToAlienrise(contact)),
+        });
+        await new Promise((r) => setTimeout(r, 200));
+      }
+    }),
+  );
   const done = new Set(results.map((r) => r.contactId));
   return NextResponse.json({
     results,

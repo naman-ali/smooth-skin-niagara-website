@@ -4,6 +4,8 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import {
+  AlertTriangle,
+  CheckCircle2,
   Download,
   Eye,
   Loader2,
@@ -52,6 +54,11 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  Progress,
+  ProgressLabel,
+  ProgressValue,
+} from "@/components/ui/progress";
 
 type Contact = {
   id: string;
@@ -165,7 +172,13 @@ export default function ContactsManager({
   const [pushing, setPushing] = useState(false);
   const [deleteTarget, setDeleteTarget] = useState<Contact | null>(null);
   const [deleting, setDeleting] = useState(false);
-  const [actionMsg, setActionMsg] = useState<string | null>(null);
+  const [sync, setSync] = useState<{
+    phase: "running" | "done";
+    done: number;
+    total: number;
+    synced: number;
+    failed: number;
+  } | null>(null);
   const [search, setSearch] = useState("");
   const unapprovedCount = contacts.filter((c) => !c.approved).length;
   const query = search.trim().toLowerCase();
@@ -245,29 +258,56 @@ export default function ContactsManager({
   };
 
   const syncToAlienrise = async () => {
+    const total = selectedContacts.length;
+    const BATCH = 25;
+    const pending = selectedContacts.map((c) => c.id);
+    let sent = 0;
+    let failed = 0;
+    let stalled = 0;
     setPushing(true);
-    setActionMsg(null);
+    setSync({ phase: "running", done: 0, total, synced: 0, failed: 0 });
     try {
-      const res = await fetch("/api/contacts/sync", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ids: selectedContacts.map((c) => c.id) }),
-      });
-      if (!res.ok) throw new Error((await res.text()) || "Request failed");
-      const { results } = (await res.json()) as {
-        results: { contactId: string; ok: boolean }[];
-      };
-      const failed = results.filter((r) => !r.ok).length;
-      const sent = results.length - failed;
-      setActionMsg(
-        failed
-          ? `AlienRise: ${sent} contact${sent === 1 ? "" : "s"} synced, ${failed} failed.`
-          : `AlienRise: ${sent} contact${sent === 1 ? "" : "s"} synced.`,
-      );
-    } catch (err) {
-      setActionMsg(
-        err instanceof Error ? err.message : "Sync to AlienRise failed",
-      );
+      // Sequential batches keep each server invocation short and stay
+      // under AlienRise's 120 req/min rate limit. If the server runs out
+      // of its time budget it returns unprocessed ids in `remaining`,
+      // which get re-queued here.
+      while (pending.length) {
+        const batch = pending.splice(0, BATCH);
+        try {
+          const res = await fetch("/api/contacts/sync", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ ids: batch }),
+          });
+          if (!res.ok) throw new Error((await res.text()) || "Request failed");
+          const { results, remaining } = (await res.json()) as {
+            results: { contactId: string; ok: boolean }[];
+            remaining: string[];
+          };
+          sent += results.filter((r) => r.ok).length;
+          failed += results.filter((r) => !r.ok).length;
+          pending.push(...remaining);
+          // Ids neither returned nor re-queued don't resolve to contacts.
+          failed += batch.length - results.length - remaining.length;
+          // Give up if the server repeatedly makes no progress at all
+          // (e.g. AlienRise is down and every call eats the time budget).
+          stalled = results.length === 0 ? stalled + 1 : 0;
+          if (stalled >= 2) {
+            failed += pending.length;
+            break;
+          }
+        } catch {
+          failed += batch.length;
+        }
+        setSync({
+          phase: "running",
+          done: total - pending.length,
+          total,
+          synced: sent,
+          failed,
+        });
+      }
+      setSync({ phase: "done", done: total, total, synced: sent, failed });
     } finally {
       setPushing(false);
     }
@@ -351,8 +391,50 @@ export default function ContactsManager({
           </Button>
         </div>
       )}
-      {actionMsg && (
-        <p className="rounded-lg border bg-muted/50 p-3 text-sm">{actionMsg}</p>
+      {sync && (
+        <div
+          className="rounded-lg border bg-muted/50 p-4"
+          role="status"
+          aria-live="polite"
+        >
+          {sync.phase === "running" ? (
+            <Progress
+              value={Math.round((sync.done / sync.total) * 100)}
+              className="w-full"
+            >
+              <div className="flex w-full items-center gap-2">
+                <Loader2 className="size-4 shrink-0 animate-spin text-primary" />
+                <ProgressLabel>Syncing contacts to AlienRise</ProgressLabel>
+                <ProgressValue>
+                  {() => `${sync.done} of ${sync.total}`}
+                </ProgressValue>
+              </div>
+              <p className="w-full text-xs tabular-nums text-muted-foreground">
+                {Math.round((sync.done / sync.total) * 100)}% · {sync.synced}{" "}
+                synced
+                {sync.failed > 0 ? ` · ${sync.failed} failed` : ""} · ~
+                {Math.max(1, Math.ceil((sync.total - sync.done) * 0.8))}s left
+              </p>
+            </Progress>
+          ) : sync.failed === 0 ? (
+            <div className="flex items-center gap-2 text-sm">
+              <CheckCircle2 className="size-4 shrink-0 text-emerald-600 dark:text-emerald-400" />
+              <span>
+                {sync.synced} contact{sync.synced === 1 ? "" : "s"} synced to
+                AlienRise.
+              </span>
+            </div>
+          ) : (
+            <div className="flex items-center gap-2 text-sm">
+              <AlertTriangle className="size-4 shrink-0 text-amber-600 dark:text-amber-400" />
+              <span>
+                AlienRise: {sync.synced} contact
+                {sync.synced === 1 ? "" : "s"} synced, {sync.failed} failed —
+                select them and sync again to retry.
+              </span>
+            </div>
+          )}
+        </div>
       )}
       <Card>
         <CardHeader className="flex flex-row flex-wrap items-center justify-between gap-4">
@@ -393,7 +475,9 @@ export default function ContactsManager({
                   ) : (
                     <RefreshCw className="size-4" />
                   )}
-                  Sync to AlienRise
+                  {pushing && sync?.phase === "running"
+                    ? `Syncing ${Math.round((sync.done / sync.total) * 100)}%`
+                    : "Sync to AlienRise"}
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

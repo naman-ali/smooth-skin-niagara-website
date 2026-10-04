@@ -53,6 +53,22 @@ function toAlienriseContact(contact: AlienriseContact) {
 
 export type AlienriseResult = { ok: true } | { ok: false; error: string };
 
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+/**
+ * Suggested retry delay (ms) from a failed response — the Retry-After
+ * header first, then retryAfterSeconds in the API error body.
+ */
+function retryDelayMs(res: Response, body: string): number | null {
+  const header = Number(res.headers.get("retry-after"));
+  if (Number.isFinite(header) && header > 0) return header * 1000;
+  try {
+    const seconds = JSON.parse(body)?.error?.details?.retryAfterSeconds;
+    if (typeof seconds === "number" && seconds > 0) return seconds * 1000;
+  } catch {}
+  return null;
+}
+
 /**
  * Upsert a customer in AlienRise through the Developer API
  * (POST /api/v1/contacts/upsert). The API dedupes on email/phone, so
@@ -60,6 +76,11 @@ export type AlienriseResult = { ok: true } | { ok: false; error: string };
  * review intent. Never throws — a failed sync must not break contact
  * creation — but the result is returned so callers (e.g. the admin bulk
  * sync) can report per-contact outcomes.
+ *
+ * Transient failures (429 rate-limits and 5xx) are retried with backoff,
+ * honouring the server's requested delay. The AlienRise API is limited to
+ * 120 req/min, so bulk callers must still pace themselves — retries are a
+ * safety net, not a licence to burst.
  */
 export async function syncContactToAlienrise(
   contact: AlienriseContact,
@@ -70,25 +91,37 @@ export async function syncContactToAlienrise(
   const body = toAlienriseContact(contact);
   if (!body) return { ok: false, error: "Contact has no email or phone" };
 
-  try {
-    const res = await fetch(`${cfg.baseUrl}/contacts/upsert`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${cfg.apiKey}`,
-      },
-      body: JSON.stringify(body),
-    });
-    if (!res.ok) {
+  const MAX_ATTEMPTS = 4;
+  for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
+    const backoff = Math.min(1000 * 2 ** (attempt - 1), 8000);
+    try {
+      const res = await fetch(`${cfg.baseUrl}/contacts/upsert`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${cfg.apiKey}`,
+        },
+        body: JSON.stringify(body),
+      });
+      if (res.ok) return { ok: true };
+
       const text = await res.text().catch(() => "");
+      if ((res.status === 429 || res.status >= 500) && attempt < MAX_ATTEMPTS) {
+        await sleep(Math.min(retryDelayMs(res, text) ?? backoff, 30_000));
+        continue;
+      }
       console.error(`AlienRise contact upsert failed (${res.status}):`, text);
       return { ok: false, error: `AlienRise ${res.status}: ${text}` };
+    } catch (error) {
+      if (attempt < MAX_ATTEMPTS) {
+        await sleep(backoff);
+        continue;
+      }
+      console.error("AlienRise contact upsert error:", error);
+      return { ok: false, error: String(error) };
     }
-    return { ok: true };
-  } catch (error) {
-    console.error("AlienRise contact upsert error:", error);
-    return { ok: false, error: String(error) };
   }
+  return { ok: false, error: "AlienRise upsert failed" };
 }
 
 /**

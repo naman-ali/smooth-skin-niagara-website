@@ -9,6 +9,7 @@ import {
   Copy,
   Download,
   Eye,
+  ListFilter,
   Loader2,
   Pencil,
   Plus,
@@ -82,7 +83,7 @@ const COLUMNS = [
   { key: "type", label: "Type" },
   { key: "source", label: "Source" },
   { key: "approved", label: "Approved" },
-  { key: "dnc", label: "DNC" },
+  { key: "dnc", label: "Do Not Contact" },
   { key: "created", label: "Created" },
 ] as const;
 
@@ -105,6 +106,14 @@ function formatDuration(seconds: number) {
   }
   return `${Math.max(1, Math.ceil(seconds))}s`;
 }
+
+type DncFilter = "all" | "dnc-only" | "hide-dnc";
+
+const DNC_FILTERS: { value: DncFilter; label: string }[] = [
+  { value: "all", label: "All contacts" },
+  { value: "dnc-only", label: "Do not contact only" },
+  { value: "hide-dnc", label: "Hide do-not-contact" },
+];
 
 const DEFAULT_VISIBLE: Record<string, boolean> = {
   name: true,
@@ -236,23 +245,24 @@ export default function ContactsManager({
     }[];
   } | null>(null);
   const [search, setSearch] = useState("");
+  const [dncFilter, setDncFilter] = useState<DncFilter>("all");
   const unapprovedCount = contacts.filter((c) => !c.approved).length;
   const query = search.trim().toLowerCase();
   const queryDigits = query.replace(/\D/g, "");
-  const filteredContacts = query
-    ? contacts.filter((c) => {
-        if (c.name.toLowerCase().includes(query)) return true;
-        if (c.email.toLowerCase().includes(query)) return true;
-        const phone = c.phone?.toLowerCase() ?? "";
-        if (phone.includes(query)) return true;
-        // Match digit-only searches against the normalized phone so
-        // "905321" finds "+1 (905) 321-…" too.
-        return (
-          queryDigits.length >= 3 &&
-          phone.replace(/\D/g, "").includes(queryDigits)
-        );
-      })
-    : contacts;
+  const filteredContacts = contacts.filter((c) => {
+    if (dncFilter === "dnc-only" && !c.dnc) return false;
+    if (dncFilter === "hide-dnc" && c.dnc) return false;
+    if (!query) return true;
+    if (c.name.toLowerCase().includes(query)) return true;
+    if (c.email.toLowerCase().includes(query)) return true;
+    const phone = c.phone?.toLowerCase() ?? "";
+    if (phone.includes(query)) return true;
+    // Match digit-only searches against the normalized phone so
+    // "905321" finds "+1 (905) 321-…" too.
+    return (
+      queryDigits.length >= 3 && phone.replace(/\D/g, "").includes(queryDigits)
+    );
+  });
   const visibleColCount = COLUMNS.filter((col) => visible[col.key]).length + 2;
   const selectedContacts = contacts.filter((c) => selected.has(c.id));
   const allFilteredSelected =
@@ -693,6 +703,23 @@ export default function ContactsManager({
                 className="h-9 w-56 pl-8"
               />
             </div>
+            <DropdownMenu>
+              <DropdownMenuTrigger render={<Button variant="outline" />}>
+                <ListFilter className="size-4" />
+                {DNC_FILTERS.find((f) => f.value === dncFilter)?.label}
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-56">
+                {DNC_FILTERS.map((f) => (
+                  <DropdownMenuCheckboxItem
+                    key={f.value}
+                    checked={dncFilter === f.value}
+                    onCheckedChange={() => setDncFilter(f.value)}
+                  >
+                    {f.label}
+                  </DropdownMenuCheckboxItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
             <DropdownMenu>
               <DropdownMenuTrigger render={<Button variant="outline" />}>
                 Actions{selected.size > 0 ? ` (${selected.size})` : ""}

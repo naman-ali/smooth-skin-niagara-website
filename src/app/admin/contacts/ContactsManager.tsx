@@ -117,15 +117,19 @@ const DEFAULT_VISIBLE: Record<string, boolean> = {
   created: true,
 };
 
-function renderContactCell(
-  col: { key: string; label: string },
-  contact: Contact,
-  onToggleDnc: (contact: Contact) => void,
-) {
+function ContactCell({
+  col,
+  contact,
+  onToggleDnc,
+}: {
+  col: { key: string; label: string };
+  contact: Contact;
+  onToggleDnc: (contact: Contact) => void;
+}) {
   switch (col.key) {
     case "name":
       return (
-        <TableCell key={col.key}>
+        <TableCell>
           <Link
             href={`/admin/contacts/${contact.id}`}
             className="font-medium hover:underline"
@@ -135,22 +139,18 @@ function renderContactCell(
         </TableCell>
       );
     case "email":
-      return <TableCell key={col.key}>{contact.email}</TableCell>;
+      return <TableCell>{contact.email}</TableCell>;
     case "phone":
-      return (
-        <TableCell key={col.key}>
-          {formatPhoneDisplay(contact.phone) || "-"}
-        </TableCell>
-      );
+      return <TableCell>{formatPhoneDisplay(contact.phone) || "-"}</TableCell>;
     case "type":
       return (
-        <TableCell key={col.key} className="capitalize">
+        <TableCell className="capitalize">
           {contact.contactType || "client"}
         </TableCell>
       );
     case "source":
       return (
-        <TableCell key={col.key}>
+        <TableCell>
           {contact.source
             .replace(/_/g, " ")
             .replace(/(^.|\s\w)/g, (m) => m.toUpperCase())}
@@ -158,7 +158,7 @@ function renderContactCell(
       );
     case "approved":
       return (
-        <TableCell key={col.key}>
+        <TableCell>
           {contact.approved ? (
             <span className="text-green-600">Yes</span>
           ) : (
@@ -168,7 +168,7 @@ function renderContactCell(
       );
     case "dnc":
       return (
-        <TableCell key={col.key}>
+        <TableCell>
           <Switch
             aria-label={`Flag ${contact.name || "contact"} as do not contact`}
             checked={contact.dnc}
@@ -179,9 +179,7 @@ function renderContactCell(
       );
     case "created":
       return (
-        <TableCell key={col.key}>
-          {new Date(contact.createdAt).toLocaleString()}
-        </TableCell>
+        <TableCell>{new Date(contact.createdAt).toLocaleString()}</TableCell>
       );
     default:
       return null;
@@ -795,7 +793,14 @@ export default function ContactsManager({
                   </TableCell>
                   {COLUMNS.map(
                     (col) =>
-                      visible[col.key] && renderContactCell(col, c, toggleDnc),
+                      visible[col.key] && (
+                        <ContactCell
+                          key={col.key}
+                          col={col}
+                          contact={c}
+                          onToggleDnc={toggleDnc}
+                        />
+                      ),
                   )}
                   <TableCell className="text-right">
                     <div className="flex justify-end gap-2">

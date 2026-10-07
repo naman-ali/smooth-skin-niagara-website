@@ -27,6 +27,7 @@ import type { ClientFormSubmission } from "@/lib/client-form/submission";
 import { cn } from "@/lib/utils";
 import {
   ArrowLeft,
+  Ban,
   Calendar,
   CheckCircle2,
   Mail,
@@ -141,6 +142,12 @@ export default async function ContactDetailPage({
                 <Badge variant="destructive">
                   <XCircle className="size-3" />
                   Pending approval
+                </Badge>
+              )}
+              {contact.dnc && (
+                <Badge variant="destructive">
+                  <Ban className="size-3" />
+                  Do not contact
                 </Badge>
               )}
               <span className="text-sm text-muted-foreground">

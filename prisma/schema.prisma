@@ -19,6 +19,9 @@ model Contact {
   email                        String
   phone                        String?
   approved                     Boolean                @default(true)
+  // Do Not Contact — admin flag meaning this person must not be
+  // contacted (marketing, review requests, outreach).
+  dnc                          Boolean                @default(false)
   contactType                  String                 @default("client")
   source                       String                 @default("manual")
   imageUrl                     String?

@@ -31,23 +31,33 @@ export async function PATCH(
   if (typeof body?.email === "string") {
     body.email = normalizeEmail(body.email);
   }
+  if ("dnc" in body && typeof body.dnc !== "boolean") {
+    return NextResponse.json(
+      { error: "dnc must be a boolean" },
+      { status: 400 },
+    );
+  }
   const current = await prisma.contact.findUnique({ where: { id } });
   if (!current) {
     return new NextResponse("Not found", { status: 404 });
   }
-  const duplicate = await findDuplicateContact({
-    email: "email" in body ? body.email : current.email,
-    phone: "phone" in body ? body.phone : current.phone,
-    excludeId: id,
-  });
-  if (duplicate) {
-    return NextResponse.json(
-      {
-        error: `Duplicate: ${duplicate.name || duplicate.email || duplicate.phone} already has this email or phone.`,
-        existing: duplicate,
-      },
-      { status: 409 },
-    );
+  // Only re-check identity when email/phone actually change — flag-only
+  // updates (e.g. dnc) shouldn't 409 on a pre-existing duplicate.
+  if ("email" in body || "phone" in body) {
+    const duplicate = await findDuplicateContact({
+      email: "email" in body ? body.email : current.email,
+      phone: "phone" in body ? body.phone : current.phone,
+      excludeId: id,
+    });
+    if (duplicate) {
+      return NextResponse.json(
+        {
+          error: `Duplicate: ${duplicate.name || duplicate.email || duplicate.phone} already has this email or phone.`,
+          existing: duplicate,
+        },
+        { status: 409 },
+      );
+    }
   }
   const contact = await prisma.contact.update({
     where: { id },

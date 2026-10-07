@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import {
@@ -30,6 +30,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { Switch } from "@/components/ui/switch";
 import { PhoneInput } from "@/components/ui/phone-input";
 import { Label } from "@/components/ui/label";
 import {
@@ -67,6 +68,7 @@ type Contact = {
   email: string;
   phone: string | null;
   approved: boolean;
+  dnc: boolean;
   contactType: string;
   source: string;
   imageUrl: string | null;
@@ -80,6 +82,7 @@ const COLUMNS = [
   { key: "type", label: "Type" },
   { key: "source", label: "Source" },
   { key: "approved", label: "Approved" },
+  { key: "dnc", label: "DNC" },
   { key: "created", label: "Created" },
 ] as const;
 
@@ -110,12 +113,14 @@ const DEFAULT_VISIBLE: Record<string, boolean> = {
   type: false,
   source: false,
   approved: false,
+  dnc: true,
   created: true,
 };
 
 function renderContactCell(
   col: { key: string; label: string },
   contact: Contact,
+  onToggleDnc: (contact: Contact) => void,
 ) {
   switch (col.key) {
     case "name":
@@ -159,6 +164,17 @@ function renderContactCell(
           ) : (
             <span className="text-amber-600">No</span>
           )}
+        </TableCell>
+      );
+    case "dnc":
+      return (
+        <TableCell key={col.key}>
+          <Switch
+            aria-label={`Flag ${contact.name || "contact"} as do not contact`}
+            checked={contact.dnc}
+            onCheckedChange={() => onToggleDnc(contact)}
+            className="data-checked:bg-destructive"
+          />
         </TableCell>
       );
     case "created":
@@ -273,6 +289,48 @@ export default function ContactsManager({
       return next;
     });
 
+  // Per-contact DNC toggle state so rapid flips resolve to the latest
+  // request: `confirmed` is the last value the server accepted, `latest`
+  // is the value the optimistic UI currently shows.
+  const dncToggles = useRef(
+    new Map<string, { confirmed: boolean; latest: boolean }>(),
+  );
+
+  const toggleDnc = async (contact: Contact) => {
+    const entry = dncToggles.current.get(contact.id) ?? {
+      confirmed: contact.dnc,
+      latest: contact.dnc,
+    };
+    const next = !entry.latest;
+    entry.latest = next;
+    dncToggles.current.set(contact.id, entry);
+    setContacts((prev) =>
+      prev.map((c) => (c.id === contact.id ? { ...c, dnc: next } : c)),
+    );
+    try {
+      const res = await fetch(`/api/contacts/${contact.id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ dnc: next }),
+      });
+      if (!res.ok) throw new Error(await res.text());
+      entry.confirmed = next;
+    } catch {
+      // Revert only when no newer toggle superseded this one — a newer
+      // in-flight request owns the final state.
+      if (entry.latest === next) {
+        setContacts((prev) =>
+          prev.map((c) =>
+            c.id === contact.id ? { ...c, dnc: entry.confirmed } : c,
+          ),
+        );
+      }
+    }
+    if (entry.latest === entry.confirmed) {
+      dncToggles.current.delete(contact.id);
+    }
+  };
+
   const escapeCsv = (value: string) =>
     /[",\n]/.test(value) ? `"${value.replace(/"/g, '""')}"` : value;
 
@@ -284,6 +342,7 @@ export default function ContactsManager({
       "Type",
       "Source",
       "Approved",
+      "DNC",
       "Created",
     ];
     const rows = selectedContacts.map((c) => [
@@ -293,6 +352,7 @@ export default function ContactsManager({
       c.contactType,
       c.source,
       c.approved ? "Yes" : "No",
+      c.dnc ? "Yes" : "No",
       c.createdAt,
     ]);
     const csv = [header, ...rows]
@@ -734,7 +794,8 @@ export default function ContactsManager({
                     />
                   </TableCell>
                   {COLUMNS.map(
-                    (col) => visible[col.key] && renderContactCell(col, c),
+                    (col) =>
+                      visible[col.key] && renderContactCell(col, c, toggleDnc),
                   )}
                   <TableCell className="text-right">
                     <div className="flex justify-end gap-2">

@@ -20,6 +20,7 @@ type Contact = {
   email: string;
   phone: string | null;
   approved: boolean;
+  dnc: boolean;
   contactType: string;
   source: string;
   imageUrl: string | null;

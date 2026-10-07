@@ -203,6 +203,9 @@ export async function submitAlienriseReviewApproval(
   contact: Contact,
   clientFormSubmissionId: string,
 ): Promise<void> {
+  // DNC is a hard stop: a flagged contact must never receive review
+  // outreach, whether triggered by intake or an admin retry.
+  if (contact.dnc) return;
   try {
     const result = await requestReviewFromAlienrise(
       contact,

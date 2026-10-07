@@ -317,6 +317,7 @@ export default function ContactsManager({
       // Revert only when no newer toggle superseded this one — a newer
       // in-flight request owns the final state.
       if (entry.latest === next) {
+        entry.latest = entry.confirmed;
         setContacts((prev) =>
           prev.map((c) =>
             c.id === contact.id ? { ...c, dnc: entry.confirmed } : c,

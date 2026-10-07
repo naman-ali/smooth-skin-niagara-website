@@ -33,6 +33,12 @@ export async function POST(
   if (!contact) {
     return new NextResponse("Not found", { status: 404 });
   }
+  if (contact.dnc) {
+    return new NextResponse(
+      "Cannot retry: this contact is flagged do-not-contact.",
+      { status: 422 },
+    );
+  }
 
   const firstSubmission = await prisma.clientFormSubmission.findFirst({
     where: { contactId: contact.id },

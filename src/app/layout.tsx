@@ -11,6 +11,14 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
+  icons: {
+    icon: [
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+    ],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
+  },
+  manifest: "/site.webmanifest",
   title: `${SITE_NAME} | Laser & Skin Treatments in Niagara Falls`,
   description:
     "Discover laser hair removal, microneedling, facials, chemical peels, LED therapy and lashes at Smooth Skin Niagara in Niagara Falls. Book a consultation.",

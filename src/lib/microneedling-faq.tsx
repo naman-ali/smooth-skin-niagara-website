@@ -224,28 +224,28 @@ export const microneedlingFaqCategories = [
             >
               <li>
                 <strong>
-                  Signature / Face + Neck / Face + Neck + Décolleté
+                  Signature / Face + Neck / Face + Neck + Décolleté:
                 </strong>{" "}
-                — our classic collagen-induction treatment, extended across the
+                our classic collagen-induction treatment, extended across the
                 areas you want to treat.
               </li>
               <li>
-                <strong>Growth Factor Rejuvenation</strong> — an advanced option
-                using professional growth-factor technology to support skin
-                renewal and collagen production.
+                <strong>Growth Factor Rejuvenation:</strong> pairs microneedling
+                with professional growth factors, signal proteins that tell skin
+                cells to repair and renew, supporting collagen production.
               </li>
               <li>
-                <strong>PDRN Rejuvenation</strong> — an advanced skin-repair
-                treatment combining microneedling with PDRN-based professional
-                skincare.
+                <strong>PDRN Rejuvenation:</strong> combines microneedling with
+                PDRN (Salmon DNA) and DMAE to support skin repair and renewal
+                while promoting a firmer, more toned appearance.
               </li>
               <li>
-                <strong>Advanced Regenerative eDermaStamp®</strong> — our most
-                advanced facial microneedling experience, customized with
-                premium regenerative skincare.
+                <strong>Advanced Regenerative eDermaStamp®:</strong> our most
+                advanced option, pairing microneedling with sterile Milk
+                Exosomes and PDRN for elevated regenerative support.
               </li>
               <li>
-                <strong>Targeted Correction</strong> — customized protocols for
+                <strong>Targeted Correction:</strong> customized protocols for
                 acne scarring/texture and pigment or sun-damage concerns.
               </li>
             </ul>
@@ -263,8 +263,7 @@ export const microneedlingFaqCategories = [
             <p>
               Yes, Celluma LED light therapy may be incorporated after selected
               microneedling treatments when appropriate. Smooth Skin Niagara
-              offers a Celluma add-on for $40 — a calming, restorative finishing
-              step.
+              offers a calming, restorative Celluma add-on for $40.
             </p>
           </>
         ),
@@ -278,6 +277,71 @@ export const microneedlingFaqCategories = [
               skincare, pregnancy, recent procedures, active skin conditions,
               history of poor wound healing or abnormal scarring, and anything
               else that may affect treatment or healing.
+            </p>
+          </>
+        ),
+      },
+    ],
+  },
+  {
+    id: "pricing",
+    label: "PRICING & PROGRAMS",
+    heading: "Pricing & Programs",
+    description:
+      "How treatment areas, skincare options and specialized programs are priced.",
+    icon: ({ color = "currentColor" }: { color?: string }) => (
+      <Calendar color={color} size={20} strokeWidth={1.5} />
+    ),
+    questions: [
+      {
+        q: "What is the difference between standard microneedling and advanced serum treatments?",
+        a: (
+          <>
+            <p>
+              All options use eDermaStamp® microneedling. Standard treatments
+              include professional hydrating skincare, while advanced options
+              incorporate specialized formulations such as growth factors or
+              PDRN. Your skincare selection depends on your concerns and
+              treatment suitability.
+            </p>
+          </>
+        ),
+      },
+      {
+        q: "Can I choose which areas to treat?",
+        a: (
+          <>
+            <p>
+              Treatments can be customized for different areas, including the
+              face, neck and décolleté. Available combinations and pricing are
+              confirmed during your consultation.
+            </p>
+          </>
+        ),
+      },
+      {
+        q: "Why does the Pigment Correction Program include seven sessions?",
+        a: (
+          <>
+            <p>
+              The specialized pigment correction system follows a
+              manufacturer-recommended seven-session protocol using seven
+              targeted serum ampoules. Seven is the recommended program
+              structure, not a guarantee that every person&apos;s pigmentation
+              requires exactly seven sessions. Progress and treatment
+              suitability are assessed individually.
+            </p>
+          </>
+        ),
+      },
+      {
+        q: "Can I combine different skincare upgrades?",
+        a: (
+          <>
+            <p>
+              The available formulations and appropriate combinations depend on
+              your skin concerns and professional assessment. Your treatment
+              provider can recommend the most suitable option.
             </p>
           </>
         ),

@@ -60,7 +60,7 @@ const MODAL_REVIEWS: ModalReview[] = [
   {
     name: "Stephanie D",
     relativeDate: "Google review",
-    text: "Not only have I seen great results — Ashley is very knowledgeable, personable and it's clear she is passionate about her work. She made me feel at ease right away.",
+    text: "Not only have I seen great results. Ashley is very knowledgeable, personable and it's clear she is passionate about her work. She made me feel at ease right away.",
     highlights: ["seen great results", "made me feel at ease right away"],
   },
   {

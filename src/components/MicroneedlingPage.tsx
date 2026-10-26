@@ -4,6 +4,7 @@ import {
   Check,
   CheckCircle,
   Clock,
+  Info,
   Leaf,
   Plus,
   Phone,
@@ -159,7 +160,7 @@ function MicroneedlingHero() {
             )}
           >
             Professional eDermaStamp microneedling creates controlled
-            microchannels in the skin to activate its natural renewal response —
+            microchannels in the skin to activate its natural renewal response,
             helping improve the appearance of fine lines, acne scars, uneven
             texture and overall skin quality.
           </p>
@@ -400,12 +401,17 @@ function MicroneedlingHowItWorks() {
 interface PricingItem {
   tag: string;
   name: string;
+  programBadge?: string;
   text: string;
   bestFor: string[];
   price: string;
+  priceCaption?: string;
   meta?: string;
   note?: string;
 }
+
+// Provisional price pending Ashley's confirmation
+const PIGMENT_PROGRAM_PRICE = "$2,000";
 
 const treatmentGroups: { label: string; items: PricingItem[] }[] = [
   {
@@ -414,7 +420,7 @@ const treatmentGroups: { label: string; items: PricingItem[] }[] = [
       {
         tag: "SIGNATURE",
         name: "Signature eDermaStamp® Face",
-        text: "Our classic collagen-induction treatment for the face, customized to your skin concerns. Includes professional-grade hydrating serum and customized post-treatment care.",
+        text: "Our classic collagen-induction treatment for the face, customized to your skin concerns. Infused with a sterile, high-potency hyaluronic acid serum and finished with customized post-treatment care.",
         bestFor: [
           "Fine Lines",
           "Texture",
@@ -436,7 +442,7 @@ const treatmentGroups: { label: string; items: PricingItem[] }[] = [
       {
         tag: "MOST COMPREHENSIVE",
         name: "eDermaStamp® Face + Neck + Décolleté",
-        text: "Our most comprehensive collagen-induction treatment — a beautiful choice for improving the appearance of sun-damaged, aging or textured skin across these commonly neglected areas.",
+        text: "Our most comprehensive collagen-induction treatment, a beautiful choice for improving the appearance of sun-damaged, aging or textured skin across these commonly neglected areas.",
         bestFor: ["Sun Damage", "Aging Skin", "Texture", "Rejuvenation"],
         price: "$500",
         meta: "≈ 90 minutes",
@@ -449,7 +455,7 @@ const treatmentGroups: { label: string; items: PricingItem[] }[] = [
       {
         tag: "GROWTH FACTORS",
         name: "Growth Factor Rejuvenation",
-        text: "Advanced microneedling incorporating professional growth-factor technology to support skin renewal and collagen production.",
+        text: "Advanced eDermaStamp® microneedling infused with professional growth factors (signal proteins that act like little instructions telling your skin cells to repair and renew) to support collagen production and overall skin rejuvenation.",
         bestFor: [
           "Fine Lines",
           "Firmness",
@@ -463,7 +469,7 @@ const treatmentGroups: { label: string; items: PricingItem[] }[] = [
       {
         tag: "SKIN REPAIR",
         name: "PDRN Rejuvenation",
-        text: "An advanced skin-repair treatment combining eDermaStamp® microneedling with PDRN-based professional skincare.",
+        text: "A targeted skin-rejuvenation treatment combining eDermaStamp® microneedling with PDRN (Salmon DNA) and DMAE. PDRN provides DNA fragments that support the skin's natural repair and renewal processes, while DMAE helps promote a firmer, more toned appearance. Together, this advanced combination helps improve the appearance of fine lines, wrinkles, loss of firmness, elasticity and overall skin texture, leaving the skin looking smoother, refreshed and revitalized.",
         bestFor: [
           "Fine Lines",
           "Elasticity",
@@ -476,7 +482,7 @@ const treatmentGroups: { label: string; items: PricingItem[] }[] = [
       {
         tag: "MOST ADVANCED",
         name: "Advanced Regenerative eDermaStamp®",
-        text: "Our most advanced facial microneedling experience — eDermaStamp® combined with premium regenerative skincare selected for your individual skin concerns.",
+        text: "An advanced skin-renewal treatment combining sterile Milk Exosomes and PDRN with eDermaStamp® microneedling. This regenerative combination supports the skin's natural repair and renewal processes while helping improve the appearance of fine lines, wrinkles, uneven texture, elasticity and overall skin quality. Ideal for clients looking for an elevated rejuvenation treatment to promote smoother, healthier-looking, more revitalized skin.",
         bestFor: ["Rejuvenation", "Firmness", "Radiance", "Skin Quality"],
         price: "$550",
         meta: "Face treatment",
@@ -489,17 +495,19 @@ const treatmentGroups: { label: string; items: PricingItem[] }[] = [
       {
         tag: "SCARRING + TEXTURE",
         name: "Acne Scarring / Texture",
-        text: "Customized eDermaStamp® treatment designed specifically around acne scarring, enlarged pores and uneven skin texture. Treatment intensity and areas are customized to your skin and goals.",
+        text: "Customized eDermaStamp® treatment designed specifically around acne scarring, enlarged pores and uneven skin texture, paired with a medical-grade acne serum to support clearer-looking skin. Treatment intensity and areas are customized to your skin and goals.",
         bestFor: ["Acne Scarring", "Enlarged Pores", "Uneven Texture"],
         price: "Starting at $400",
       },
       {
         tag: "PIGMENT + SUN DAMAGE",
         name: "Pigment & Sun-Damage Correction",
-        text: "A customized treatment designed to improve the appearance of uneven pigmentation, sun damage and overall skin tone.",
-        bestFor: ["Pigmentation", "Sun Damage", "Uneven Tone"],
-        price: "$400",
-        note: "Treatment is customized to your pigmentation concerns and skin type. Active melasma and other pigmentation disorders may require a separate treatment plan.",
+        programBadge: "7-Session Program",
+        text: "A specialized seven-session eDermaStamp® program designed to improve the appearance of uneven pigmentation, sun damage and skin tone. Each session uses a targeted pigment-correcting serum, with a take-home roller included to support your at-home care routine.",
+        bestFor: ["Specialized Serums", "Take-Home Roller"],
+        price: PIGMENT_PROGRAM_PRICE,
+        priceCaption: "Complete Program",
+        note: "Includes all seven professional sessions, specialized serum ampoules and a take-home roller. Consultation recommended before starting. Treatment suitability is assessed individually.",
       },
     ],
   },
@@ -511,7 +519,7 @@ const seriesPackages = [
   { name: "Face + Neck + Décolleté", price: "$1,350", regular: "$1,500" },
 ];
 
-function MicroneedlingPricing() {
+export function MicroneedlingPricing() {
   const { open: openConsultation } = useConsultation();
   return (
     <section
@@ -532,8 +540,8 @@ function MicroneedlingPricing() {
               "font-[var(--font-body)] text-[var(--color-text-secondary)] leading-[1.6]",
             )}
           >
-            Performed by Ashley with 8+ years of microneedling experience —
-            every treatment is customized to your skin and your goals.
+            Performed by Ashley with 8+ years of microneedling experience. Every
+            treatment is customized to your skin and your goals.
           </p>
         </div>
 
@@ -577,6 +585,14 @@ function MicroneedlingPricing() {
                   <h3 className="font-[var(--font-display)] font-normal text-[var(--color-text-primary)] text-[24px] mt-0 mr-0 mb-[12px] ml-0">
                     {t.name}
                   </h3>
+                  {t.programBadge && (
+                    <span
+                      className="inline-block font-[var(--font-body)] text-[11px] font-bold uppercase tracking-[0.18em] text-[var(--color-brand-primary)] bg-[var(--olive-100)] pt-[4px] pr-[10px] pb-[4px] pl-[10px] rounded-[999px] mb-[12px]"
+                      style={{ border: "1px solid var(--color-border)" }}
+                    >
+                      {t.programBadge}
+                    </span>
+                  )}
                   <p
                     className={cn(
                       "text-[15px] leading-relaxed",
@@ -597,11 +613,16 @@ function MicroneedlingPricing() {
                     ))}
                   </div>
                   <div className="mt-[auto]">
-                    <div className="flex items-baseline gap-[12px] mb-[6px]">
+                    <div className="flex items-baseline gap-[12px] mb-[4px]">
                       <span className="font-[var(--font-display)] text-[32px] font-medium text-[var(--color-text-primary)]">
                         {t.price}
                       </span>
                     </div>
+                    {t.priceCaption && (
+                      <span className="block font-[var(--font-body)] text-[12px] font-semibold uppercase tracking-[0.18em] text-[var(--color-brand-primary)] mb-[6px]">
+                        {t.priceCaption}
+                      </span>
+                    )}
                     {t.note && (
                       <p className="font-[var(--font-body)] text-[var(--color-text-secondary)] text-[13px] leading-[1.5] mt-[8px] mb-0">
                         {t.note}
@@ -631,8 +652,8 @@ function MicroneedlingPricing() {
                 Enhance with Celluma® LED Light Therapy
               </h4>
               <p className="font-[var(--font-body)] text-[14px] leading-[1.55] text-[var(--color-text-secondary)] m-0 mt-[4px]">
-                A calming, restorative finishing step — especially beneficial
-                for additional soothing and post-treatment support.
+                A calming, restorative finishing step, especially beneficial for
+                additional soothing and post-treatment support.
               </p>
             </div>
           </div>
@@ -702,6 +723,871 @@ function MicroneedlingPricing() {
           >
             I want a Free Consultation →
           </Button>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+interface ConfiguratorArea {
+  id: string;
+  label: string;
+  summaryName?: string;
+  description?: string;
+  price?: number;
+  duration?: string;
+}
+
+interface ConfiguratorSerum {
+  id: string;
+  name: string;
+  description: string;
+  concerns: string[];
+  faceUpgrade: number;
+}
+
+const configuratorAreas: ConfiguratorArea[] = [
+  {
+    id: "face",
+    label: "Face",
+    summaryName: "Face",
+    price: 350,
+    duration: "≈ 60 minutes",
+  },
+  { id: "neck", label: "Neck Only", price: 350, duration: "≈ 45 minutes" },
+  {
+    id: "decollete",
+    label: "Décolleté Only",
+    price: 350,
+    duration: "≈ 45 minutes",
+  },
+  {
+    id: "neck-decollete",
+    label: "Neck + Décolleté",
+    price: 425,
+    duration: "≈ 60 minutes",
+  },
+  {
+    id: "face-neck",
+    label: "Face + Neck",
+    price: 425,
+    duration: "≈ 75 minutes",
+  },
+  {
+    id: "face-neck-decollete",
+    label: "Face + Neck + Décolleté",
+    price: 500,
+    duration: "≈ 90 minutes",
+  },
+];
+
+// Serum upgrade amounts apply on top of any confirmed treatment-area price.
+const serumUpgradeConfirmedAreas = new Set(configuratorAreas.map((a) => a.id));
+
+const CELLUMA_ADDON_PRICE = 40;
+
+// Applied during every treatment; advanced serums are added on top.
+const baseSerum: ConfiguratorSerum = {
+  id: "signature-hydrating",
+  name: "Signature Hydrating Serum",
+  description:
+    "A sterile, high-potency hyaluronic acid serum applied during every treatment. It deeply hydrates, supports the skin's recovery and creates the smooth base every advanced serum builds on.",
+  concerns: ["Hydration", "Recovery", "Glow"],
+  faceUpgrade: 0,
+};
+
+// Serum upgrades are priced per vial; one vial is used per session.
+const configuratorSerums: ConfiguratorSerum[] = [
+  {
+    id: "rm-growth-factor",
+    name: "Ready Medical Growth Factor",
+    description:
+      "A sterile Ready Medical formulation featuring growth factors, signal proteins that tell your skin cells to repair and renew. Supports collagen production and skin regeneration, a popular choice for softening the look of fine lines and improving overall texture.",
+    concerns: ["Fine Lines", "Skin Texture", "Skin Renewal", "Post-Acne Skin"],
+    faceUpgrade: 115,
+  },
+  {
+    id: "rm-vitamin-c",
+    name: "Ready Medical Vitamin C",
+    description:
+      "A sterile Ready Medical vitamin C formulation that helps brighten the complexion, supports collagen and improves the look of dullness, uneven tone and pigmentation.",
+    concerns: ["Dullness", "Uneven Tone", "Pigmentation", "Radiance"],
+    faceUpgrade: 115,
+  },
+  {
+    id: "rm-acne-solution",
+    name: "Ready Medical Acne Solution",
+    description:
+      "A sterile Ready Medical formulation designed for acne-prone and congested skin. Helps calm the look of breakouts, refine the appearance of enlarged pores and support clearer-looking skin.",
+    concerns: ["Acne-Prone Skin", "Breakouts", "Enlarged Pores", "Congestion"],
+    faceUpgrade: 115,
+  },
+  {
+    id: "pdrn-dmae-ha",
+    name: "PDRN + DMAE + HA",
+    description:
+      "An advanced formulation combining PDRN (salmon DNA) to support the skin's natural repair and renewal, DMAE to promote a firmer, more toned appearance, and hyaluronic acid for deep hydration. A great choice for firmness, elasticity, fine lines and overall skin texture.",
+    concerns: ["Fine Lines", "Firmness", "Elasticity", "Hydration"],
+    faceUpgrade: 150,
+  },
+];
+
+const SERIES_DISCOUNT = 0.1;
+
+const configuratorSessions = [
+  { id: "single", label: "Single Session", count: 1, discount: 0 },
+  { id: "series-3", label: "Series of 3", count: 3, discount: SERIES_DISCOUNT },
+  { id: "series-6", label: "Series of 6", count: 6, discount: SERIES_DISCOUNT },
+];
+
+const pigmentProgramIncludes = [
+  "Seven professional microneedling sessions",
+  "Seven XCellarisPRO High Light serum ampoules",
+  "Take-home roller",
+];
+
+const pigmentProgramIngredients = [
+  "Niacinamide",
+  "Mandelic Acid",
+  "Morus Alba Root Extract",
+];
+
+const pigmentKitImageSrc = "/assets/xcellarispro-high-light-serum.jpg";
+
+// Dark luxury treatment for the specialized pigment program card.
+const pigmentDark = {
+  bg: "linear-gradient(150deg, #2E3B21 0%, #212B17 55%, #182110 100%)",
+  border: "rgba(245,242,235,0.16)",
+  gold: "#C8B48A",
+  goldBg: "rgba(200,180,138,0.12)",
+  goldBorder: "rgba(200,180,138,0.38)",
+  title: "#F5F2EB",
+  body: "rgba(245,242,235,0.72)",
+  muted: "rgba(245,242,235,0.52)",
+  chipBg: "rgba(245,242,235,0.07)",
+  chipBorder: "rgba(245,242,235,0.18)",
+};
+
+const configuratorRadioCard =
+  "group block cursor-pointer rounded-[16px] border border-[var(--color-border)] bg-white p-[18px] transition-colors has-[:checked]:border-[var(--color-brand-primary)] has-[:checked]:bg-[var(--olive-100)] has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-[var(--color-brand-primary)] has-[:focus-visible]:ring-offset-2";
+
+const configuratorRadioDot =
+  "mt-[2px] h-[18px] w-[18px] shrink-0 rounded-full border-2 border-[var(--color-border-strong)] bg-transparent transition-all group-has-[:checked]:border-[var(--color-brand-primary)] group-has-[:checked]:bg-[var(--color-brand-primary)] group-has-[:checked]:shadow-[inset_0_0_0_3px_#fff]";
+
+const configuratorCheckboxBox =
+  "mt-[2px] flex h-[22px] w-[22px] shrink-0 items-center justify-center rounded-[6px] border-2 border-[var(--color-border-strong)] transition-all group-has-[:checked]:border-[var(--color-brand-primary)] group-has-[:checked]:bg-[var(--color-brand-primary)]";
+
+const configuratorCheckboxCheck =
+  "text-white opacity-0 transition group-has-[:checked]:opacity-100";
+
+function TreatmentAreaIcon({ areaId }: { areaId: string }) {
+  const showFace = areaId === "face" || areaId.startsWith("face-");
+  const showNeck = areaId.includes("neck");
+  const showDecollete = areaId.includes("decollete");
+  return (
+    <svg
+      viewBox="0 0 64 64"
+      aria-hidden="true"
+      className="h-[72px] w-[72px] shrink-0"
+    >
+      <g fill="var(--olive-200)">
+        {showFace && <ellipse cx="32" cy="15.5" rx="9.5" ry="10.5" />}
+        {showNeck && <path d="M28.5 24 h7 v9.5 h-7 Z" />}
+        {showDecollete && (
+          <path d="M28.5 33.5 L35.5 33.5 Q41 37 43 43 Q32 49 21 43 Q23 37 28.5 33.5 Z" />
+        )}
+      </g>
+      <g
+        fill="none"
+        stroke="var(--color-text-secondary)"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+      >
+        <ellipse cx="32" cy="15.5" rx="9.5" ry="10.5" />
+        <path d="M28.5 24.5 L28.5 34" />
+        <path d="M35.5 24.5 L35.5 34" />
+        <path d="M28.5 34 Q24 36 21 40" />
+        <path d="M35.5 34 Q40 36 43 40" />
+        <path d="M8 54 C13 40 22 33 32 33 C42 33 51 40 56 54" />
+      </g>
+    </svg>
+  );
+}
+
+function MicroneedlingConfigurator() {
+  const { open: openConsultation } = useConsultation();
+  const [areaId, setAreaId] = useState("face");
+  const [serumIds, setSerumIds] = useState<string[]>([]);
+  const [sessionId, setSessionId] = useState("single");
+  const [celluma, setCelluma] = useState(false);
+  const [showBaseSerumNote, setShowBaseSerumNote] = useState(false);
+
+  const area = configuratorAreas.find((a) => a.id === areaId)!;
+  const selectedSerums = configuratorSerums.filter((s) =>
+    serumIds.includes(s.id),
+  );
+  const serumUpgrade = selectedSerums.reduce((sum, s) => sum + s.faceUpgrade, 0);
+  const toggleSerum = (id: string) =>
+    setSerumIds((prev) =>
+      prev.includes(id) ? prev.filter((s) => s !== id) : [...prev, id],
+    );
+  const upgradeConfirmed =
+    serumUpgrade === 0 || serumUpgradeConfirmedAreas.has(area.id);
+  const priceConfirmed = area.price !== undefined && upgradeConfirmed;
+  const session = configuratorSessions.find((s) => s.id === sessionId)!;
+  const serumUpgradeDetail = [
+    selectedSerums.length > 1 ? `${selectedSerums.length} serums` : null,
+    session.count > 1 && serumUpgrade > 0
+      ? `${session.count} × $${serumUpgrade.toLocaleString("en-CA")} per session`
+      : null,
+  ]
+    .filter(Boolean)
+    .join(", ");
+  const perSession = (area.price ?? 0) + serumUpgrade;
+  const seriesUndiscounted = perSession * session.count;
+  const seriesDiscountAmount =
+    Math.round(seriesUndiscounted) -
+    Math.round(seriesUndiscounted * (1 - session.discount));
+  const total = priceConfirmed
+    ? Math.round(seriesUndiscounted * (1 - session.discount)) +
+      (celluma ? CELLUMA_ADDON_PRICE * session.count : 0)
+    : null;
+
+  return (
+    <section
+      id="customize-treatment"
+      className={cn(`${sectionPadding} bg-olive-50`, "pt-[90px] pb-[90px]")}
+    >
+      <div className="max-w-[var(--container-max)] mt-0 mr-auto mb-0 ml-auto">
+        <div className="mb-14 text-center">
+          <SectionEyebrow>eDermaStamp® Microneedling</SectionEyebrow>
+          <SectionHeading style={{ margin: "22px 0 16px" }}>
+            Estimate Your Treatment Cost
+          </SectionHeading>
+          <p
+            className={cn(
+              "mx-auto max-w-[680px] text-base lg:text-[17px]",
+              "font-[var(--font-body)] text-[var(--color-text-secondary)] leading-[1.6]",
+            )}
+          >
+            Choose your options below for an instant estimate. Every treatment
+            is performed by Ashley with 8+ years of microneedling experience,
+            and the final plan is tailored to your skin during a free
+            consultation.
+          </p>
+        </div>
+
+        <div className="border border-transparent p-0 sm:rounded-[24px] sm:border-[var(--color-border)] sm:bg-white sm:p-[36px]">
+          <fieldset className="m-0 min-w-0 border-0 p-0">
+            <legend className="mb-[18px] p-0">
+              <span className={eyebrowStyle}>Step 1</span>
+              <span className="mt-[6px] block font-[var(--font-display)] text-[20px] lg:text-[22px] font-normal text-[var(--color-text-primary)]">
+                eDermaStamp® Microneedling — Choose Your Treatment Area
+              </span>
+            </legend>
+            <div className="grid grid-cols-1 gap-[12px] sm:grid-cols-2 lg:grid-cols-3">
+              {configuratorAreas.map((a) => (
+                <label key={a.id} className={configuratorRadioCard}>
+                  <input
+                    type="radio"
+                    name="mn-treatment-area"
+                    value={a.id}
+                    checked={areaId === a.id}
+                    onChange={() => setAreaId(a.id)}
+                    className="sr-only"
+                  />
+                  <span className="flex items-start justify-between gap-[12px]">
+                    <span className="flex min-w-0 items-start gap-[12px]">
+                      <TreatmentAreaIcon areaId={a.id} />
+                      <span className="min-w-0">
+                        <span className="block font-[var(--font-body)] text-[15px] font-semibold text-[var(--color-text-primary)]">
+                          {a.label}
+                        </span>
+                        {a.description && (
+                          <span className="mt-[4px] block font-[var(--font-body)] text-[12px] leading-[1.55] text-[var(--color-text-secondary)]">
+                            {a.description}
+                          </span>
+                        )}
+                        {a.price !== undefined ? (
+                          <span className="mt-[4px] block font-[var(--font-display)] text-[22px] font-medium text-[var(--color-text-primary)]">
+                            ${a.price}
+                          </span>
+                        ) : (
+                          <span className="mt-[4px] block font-[var(--font-body)] text-[13px] text-[var(--color-text-secondary)]">
+                            Price to be confirmed
+                          </span>
+                        )}
+                        {a.duration && (
+                          <span className="mt-[2px] block font-[var(--font-body)] text-[12px] text-[var(--color-text-secondary)]">
+                            {a.duration}
+                          </span>
+                        )}
+                        {a.price === undefined && (
+                          <span className="mt-[6px] inline-block font-[var(--font-body)] text-[10px] font-bold uppercase tracking-[0.14em] text-[var(--color-text-secondary)]">
+                            Proposed
+                          </span>
+                        )}
+                      </span>
+                    </span>
+                    <span aria-hidden="true" className={configuratorRadioDot} />
+                  </span>
+                </label>
+              ))}
+            </div>
+          </fieldset>
+
+          <fieldset className="m-0 mt-[34px] min-w-0 border-0 p-0">
+            <legend className="mb-[6px] p-0">
+              <span className={eyebrowStyle}>Step 2</span>
+              <span className="mt-[6px] block font-[var(--font-display)] text-[20px] lg:text-[22px] font-normal text-[var(--color-text-primary)]">
+                Choose Your Serums
+              </span>
+            </legend>
+            <p className="mt-0 mr-0 mb-[18px] ml-0 font-[var(--font-body)] text-[14px] leading-[1.6] text-[var(--color-text-secondary)]">
+              Every treatment includes our Signature Hydrating Serum, applied as
+              the hydrating base during your treatment. Add one or more advanced
+              serums to target your specific skin goals — each is priced per
+              vial.
+            </p>
+            <button
+              type="button"
+              onClick={() => setShowBaseSerumNote((v) => !v)}
+              aria-expanded={showBaseSerumNote}
+              aria-controls="mn-base-serum-note"
+              className="block w-full cursor-pointer rounded-[16px] border border-[var(--color-brand-primary)] bg-[var(--olive-100)] p-[18px] text-left"
+            >
+              <span className="flex items-start justify-between gap-[12px]">
+                <span className="min-w-0">
+                  <span className="block font-[var(--font-body)] text-[15px] font-semibold text-[var(--color-text-primary)]">
+                    {baseSerum.name}
+                  </span>
+                  <span className="mt-[2px] block font-[var(--font-display)] text-[16px] font-medium text-[var(--color-text-primary)]">
+                    Included
+                    <span className="ml-[4px] font-[var(--font-body)] text-[12px] font-normal text-[var(--color-text-secondary)]">
+                      in every treatment
+                    </span>
+                  </span>
+                  <span className="mt-[8px] block font-[var(--font-body)] text-[13px] leading-[1.55] text-[var(--color-text-secondary)]">
+                    {baseSerum.description}
+                  </span>
+                  <span className="mt-[10px] flex flex-wrap gap-[6px]">
+                    {baseSerum.concerns.map((c) => (
+                      <span
+                        key={c}
+                        className="font-[var(--font-body)] text-[11px] font-semibold text-[var(--olive-700)] bg-white pt-[3px] pr-[8px] pb-[3px] pl-[8px] rounded-[999px]"
+                        style={{ border: "1px solid var(--color-border)" }}
+                      >
+                        {c}
+                      </span>
+                    ))}
+                  </span>
+                </span>
+                <span className="relative mt-[2px] shrink-0">
+                  <span
+                    aria-hidden="true"
+                    className="flex h-[22px] w-[22px] items-center justify-center rounded-[6px] border-2 border-[var(--color-brand-primary)] bg-[var(--color-brand-primary)]"
+                  >
+                    <Check size={14} strokeWidth={3} className="text-white" />
+                  </span>
+                  {showBaseSerumNote && (
+                    <span
+                      id="mn-base-serum-note"
+                      className="absolute right-0 top-[calc(100%+12px)] z-10 block w-[230px] rounded-[14px] bg-white px-[14px] py-[11px] font-[var(--font-body)] text-[13px] leading-[1.55] text-[var(--color-text-secondary)] shadow-[0_10px_30px_rgba(0,0,0,0.14)]"
+                      style={{ border: "1px solid var(--color-border)" }}
+                    >
+                      <span
+                        aria-hidden="true"
+                        className="absolute -top-[7px] right-[5px] h-[12px] w-[12px] rotate-45 bg-white"
+                        style={{
+                          borderLeft: "1px solid var(--color-border)",
+                          borderTop: "1px solid var(--color-border)",
+                        }}
+                      />
+                      This serum can&apos;t be removed — it&apos;s the hydrating
+                      base applied during every treatment so the device glides
+                      smoothly and your skin stays protected. Advanced serums
+                      are added on top of it.
+                    </span>
+                  )}
+                </span>
+              </span>
+            </button>
+            <span className="mt-[22px] mb-[12px] block font-[var(--font-body)] text-[11px] font-bold uppercase tracking-[0.14em] text-[var(--color-text-secondary)]">
+              Optional Upgrades
+            </span>
+            <div className="grid grid-cols-1 gap-[12px] md:grid-cols-2">
+              {configuratorSerums.map((s) => (
+                <label key={s.id} className={configuratorRadioCard}>
+                  <input
+                    type="checkbox"
+                    name="mn-serum"
+                    value={s.id}
+                    checked={serumIds.includes(s.id)}
+                    onChange={() => toggleSerum(s.id)}
+                    className="sr-only"
+                  />
+                  <span className="flex items-start justify-between gap-[12px]">
+                    <span className="min-w-0">
+                      <span className="block font-[var(--font-body)] text-[15px] font-semibold text-[var(--color-text-primary)]">
+                        {s.name}
+                      </span>
+                      <span className="mt-[2px] block font-[var(--font-display)] text-[16px] font-medium text-[var(--color-text-primary)]">
+                        +${s.faceUpgrade}
+                        <span className="ml-[4px] font-[var(--font-body)] text-[12px] font-normal text-[var(--color-text-secondary)]">
+                          per vial
+                        </span>
+                      </span>
+                      <span className="mt-[8px] block font-[var(--font-body)] text-[13px] leading-[1.55] text-[var(--color-text-secondary)]">
+                        {s.description}
+                      </span>
+                      <span className="mt-[10px] flex flex-wrap gap-[6px]">
+                        {s.concerns.map((c) => (
+                          <span
+                            key={c}
+                            className="font-[var(--font-body)] text-[11px] font-semibold text-[var(--olive-700)] bg-[var(--olive-100)] pt-[3px] pr-[8px] pb-[3px] pl-[8px] rounded-[999px]"
+                            style={{ border: "1px solid var(--color-border)" }}
+                          >
+                            {c}
+                          </span>
+                        ))}
+                      </span>
+                    </span>
+                    <span
+                      aria-hidden="true"
+                      className={configuratorCheckboxBox}
+                    >
+                      <Check
+                        size={14}
+                        strokeWidth={3}
+                        className={configuratorCheckboxCheck}
+                      />
+                    </span>
+                  </span>
+                </label>
+              ))}
+            </div>
+          </fieldset>
+
+          <fieldset className="m-0 mt-[34px] min-w-0 border-0 p-0">
+            <legend className="mb-[6px] p-0">
+              <span className={eyebrowStyle}>Step 3</span>
+              <span className="mt-[6px] block font-[var(--font-display)] text-[20px] lg:text-[22px] font-normal text-[var(--color-text-primary)]">
+                Choose Your Sessions — Single or Series
+              </span>
+            </legend>
+            <p className="mt-0 mr-0 mb-[18px] ml-0 font-[var(--font-body)] text-[14px] leading-[1.6] text-[var(--color-text-secondary)]">
+              A series is recommended for progressive improvement in collagen,
+              texture and overall skin quality. Save 10% with a series of 3 or 6
+              sessions.
+            </p>
+            <div className="grid grid-cols-1 gap-[12px] sm:grid-cols-3">
+              {configuratorSessions.map((s) => {
+                const preview = priceConfirmed
+                  ? Math.round(perSession * s.count * (1 - s.discount)) +
+                    (celluma ? CELLUMA_ADDON_PRICE * s.count : 0)
+                  : null;
+                return (
+                  <label key={s.id} className={configuratorRadioCard}>
+                    <input
+                      type="radio"
+                      name="mn-sessions"
+                      value={s.id}
+                      checked={sessionId === s.id}
+                      onChange={() => setSessionId(s.id)}
+                      className="sr-only"
+                    />
+                    <span className="flex items-start justify-between gap-[12px]">
+                      <span className="min-w-0">
+                        <span className="block font-[var(--font-body)] text-[15px] font-semibold text-[var(--color-text-primary)]">
+                          {s.label}
+                        </span>
+                        {s.discount > 0 && (
+                          <span className="mt-[6px] inline-block font-[var(--font-body)] text-[10px] font-bold uppercase tracking-[0.14em] text-[var(--color-brand-primary)] bg-[var(--olive-100)] pt-[3px] pr-[8px] pb-[3px] pl-[8px] rounded-[999px]">
+                            Save {s.discount * 100}%
+                          </span>
+                        )}
+                        <span className="mt-[6px] block font-[var(--font-display)] text-[20px] font-medium text-[var(--color-text-primary)]">
+                          {preview !== null
+                            ? `$${preview.toLocaleString("en-CA")}`
+                            : "Price to be confirmed"}
+                        </span>
+                      </span>
+                      <span
+                        aria-hidden="true"
+                        className={configuratorRadioDot}
+                      />
+                    </span>
+                  </label>
+                );
+              })}
+            </div>
+          </fieldset>
+
+          <div className="mt-[26px]">
+            <span className={eyebrowStyle}>Complementary Treatments</span>
+            <label className={cn(configuratorRadioCard, "mt-[12px] flex")}>
+              <input
+                type="checkbox"
+                checked={celluma}
+                onChange={(e) => setCelluma(e.target.checked)}
+                className="sr-only"
+              />
+              <span className="flex min-w-0 flex-1 items-start gap-[14px]">
+                <span aria-hidden="true" className={configuratorCheckboxBox}>
+                  <Check
+                    size={14}
+                    strokeWidth={3}
+                    className={configuratorCheckboxCheck}
+                  />
+                </span>
+                <span className="min-w-0">
+                  <span className="block font-[var(--font-body)] text-[15px] font-semibold text-[var(--color-text-primary)]">
+                    Enhance Your Treatment with Celluma® LED Light Therapy
+                  </span>
+                  <span className="mt-[4px] block font-[var(--font-body)] text-[13px] leading-[1.55] text-[var(--color-text-secondary)]">
+                    An optional calming LED light therapy session to complement
+                    your treatment.
+                  </span>
+                </span>
+              </span>
+              <span className="shrink-0 font-[var(--font-display)] text-[20px] font-medium text-[var(--color-text-primary)]">
+                +${CELLUMA_ADDON_PRICE}
+              </span>
+            </label>
+          </div>
+
+          <div
+            aria-live="polite"
+            className="mt-[36px] rounded-[20px] bg-white p-[24px] sm:bg-[var(--olive-50)] sm:p-[32px]"
+            style={{ border: "1px solid var(--color-border)" }}
+          >
+            <div className="mb-[26px] max-w-[680px]">
+              <span className={eyebrowStyle}>Your Treatment Estimate</span>
+              <h4 className="mt-[10px] mr-0 mb-[10px] ml-0 font-[var(--font-display)] text-[24px] font-normal leading-[1.2] text-[var(--color-text-primary)] sm:text-[28px]">
+                Your Selections and Estimated Cost
+              </h4>
+              <p className="m-0 font-[var(--font-body)] text-[14px] leading-[1.65] text-[var(--color-text-secondary)]">
+                These selections are a starting point to help you explore your
+                options and estimate the cost. Every client&apos;s skin is
+                unique, and your final treatment plan and pricing will be
+                confirmed during a free consultation with Ashley.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 gap-[20px] lg:grid-cols-2">
+              <div
+                className="rounded-[16px] bg-[var(--olive-50)] p-[22px] sm:bg-white sm:p-[26px]"
+                style={{ border: "1px solid var(--color-border)" }}
+              >
+                <span className={eyebrowStyle}>Your Selected Options</span>
+                <dl className="mt-[14px] font-[var(--font-body)] text-[14px]">
+                  <div className="flex items-baseline justify-between gap-[14px] border-b border-[var(--color-border)] pb-[9px]">
+                    <dt className="text-[var(--color-text-secondary)]">
+                      Treatment area
+                    </dt>
+                    <dd className="m-0 text-right font-semibold text-[var(--color-text-primary)]">
+                      {area.label}
+                    </dd>
+                  </div>
+                  <div className="flex items-baseline justify-between gap-[14px] border-b border-[var(--color-border)] py-[9px]">
+                    <dt className="text-[var(--color-text-secondary)]">
+                      Skincare formulation
+                    </dt>
+                    <dd className="m-0 text-right font-semibold text-[var(--color-text-primary)]">
+                      {selectedSerums.length > 0
+                        ? `${baseSerum.name} + ${selectedSerums.map((s) => s.name).join(", ")}`
+                        : baseSerum.name}
+                    </dd>
+                  </div>
+                  <div className="flex items-baseline justify-between gap-[14px] border-b border-[var(--color-border)] py-[9px]">
+                    <dt className="text-[var(--color-text-secondary)]">
+                      Treatment package
+                    </dt>
+                    <dd className="m-0 text-right font-semibold text-[var(--color-text-primary)]">
+                      {session.label}
+                      {session.count > 1 ? " sessions" : ""}
+                    </dd>
+                  </div>
+                  {celluma && (
+                    <div className="flex items-baseline justify-between gap-[14px] border-b border-[var(--color-border)] py-[9px]">
+                      <dt className="text-[var(--color-text-secondary)]">
+                        Celluma® LED Light Therapy
+                      </dt>
+                      <dd className="m-0 text-right font-semibold text-[var(--color-text-primary)]">
+                        Included in estimate
+                        {session.count > 1
+                          ? ` (${session.count} sessions)`
+                          : ""}
+                      </dd>
+                    </div>
+                  )}
+                </dl>
+
+                <div className="mt-[16px] space-y-[8px] font-[var(--font-body)] text-[14px]">
+                  <div className="flex items-baseline justify-between gap-[14px]">
+                    <span className="text-[var(--color-text-secondary)]">
+                      Treatment
+                      {session.count > 1 && area.price !== undefined
+                        ? ` (${session.count} × $${area.price.toLocaleString("en-CA")})`
+                        : ""}
+                    </span>
+                    <span className="font-medium tabular-nums text-[var(--color-text-primary)]">
+                      {area.price !== undefined
+                        ? `$${(area.price * session.count).toLocaleString("en-CA")}`
+                        : "To be confirmed"}
+                    </span>
+                  </div>
+                  <div className="flex items-baseline justify-between gap-[14px]">
+                    <span className="text-[var(--color-text-secondary)]">
+                      Serum upgrade
+                      {serumUpgradeDetail ? ` (${serumUpgradeDetail})` : ""}
+                    </span>
+                    <span className="font-medium tabular-nums text-[var(--color-text-primary)]">
+                      {serumUpgrade === 0
+                        ? "Included"
+                        : upgradeConfirmed
+                          ? `+$${(serumUpgrade * session.count).toLocaleString("en-CA")}`
+                          : "To be confirmed"}
+                    </span>
+                  </div>
+                  {session.discount > 0 && priceConfirmed && (
+                    <div className="flex items-baseline justify-between gap-[14px] text-[var(--color-brand-primary)]">
+                      <span>Series discount ({session.discount * 100}%)</span>
+                      <span className="font-medium tabular-nums">
+                        −${seriesDiscountAmount.toLocaleString("en-CA")}
+                      </span>
+                    </div>
+                  )}
+                  {celluma && (
+                    <div className="flex items-baseline justify-between gap-[14px]">
+                      <span className="text-[var(--color-text-secondary)]">
+                        Celluma LED
+                        {session.count > 1
+                          ? ` (${session.count} × $${CELLUMA_ADDON_PRICE})`
+                          : ""}
+                      </span>
+                      <span className="font-medium tabular-nums text-[var(--color-text-primary)]">
+                        +$
+                        {(CELLUMA_ADDON_PRICE * session.count).toLocaleString(
+                          "en-CA",
+                        )}
+                      </span>
+                    </div>
+                  )}
+                  <div className="mt-[14px] flex items-baseline justify-between gap-[14px] border-t border-[var(--color-border)] pt-[14px]">
+                    <span className="font-[var(--font-body)] text-[15px] font-semibold text-[var(--color-text-primary)]">
+                      Estimated Total
+                    </span>
+                    {total !== null ? (
+                      <span className="font-[var(--font-display)] text-[30px] font-medium leading-[1.1] tabular-nums text-[var(--color-text-primary)]">
+                        ${total.toLocaleString("en-CA")}
+                        <span className="ml-[4px] font-[var(--font-body)] text-[12px] font-normal text-[var(--color-text-secondary)]">
+                          CAD
+                        </span>
+                      </span>
+                    ) : (
+                      <span className="text-right">
+                        <span className="block font-[var(--font-display)] text-[20px] font-medium leading-[1.2] text-[var(--color-text-primary)]">
+                          Price to be confirmed
+                        </span>
+                        <span className="mt-[2px] block font-[var(--font-body)] text-[12px] leading-[1.4] text-[var(--color-text-secondary)]">
+                          Pricing and availability to be confirmed during
+                          consultation.
+                        </span>
+                      </span>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              <div
+                className="flex flex-col rounded-[16px] bg-[var(--olive-100)] p-[22px] sm:p-[26px]"
+                style={{ border: "1px solid var(--color-border)" }}
+              >
+                <span className={eyebrowStyle}>A Personalized Approach</span>
+                <h4 className="mt-[10px] mr-0 mb-[10px] ml-0 font-[var(--font-display)] text-[22px] font-normal leading-[1.25] text-[var(--color-text-primary)] sm:text-[26px]">
+                  Every Skin Is Different.
+                  <br />
+                  Your Treatment Should Be Too.
+                </h4>
+                <p className="m-0 font-[var(--font-body)] text-[14px] leading-[1.65] text-[var(--color-text-secondary)]">
+                  This estimated cost is based on your selections. During your
+                  free consultation, Ashley will assess your skin, discuss your
+                  concerns and recommend a treatment plan tailored specifically
+                  to you.
+                </p>
+                <div className="mt-auto pt-[22px]">
+                  <Button
+                    variant="primary"
+                    onClick={openConsultation}
+                    style={{ width: "100%", whiteSpace: "normal" }}
+                  >
+                    Get My Personalized Treatment Plan →
+                  </Button>
+                  <p className="mb-0 mt-[10px] text-center font-[var(--font-body)] text-[12px] text-[var(--color-text-secondary)]">
+                    Free consultation · No obligation
+                  </p>
+                  <p className="mb-0 mt-[16px] flex items-start gap-[8px] border-t border-[var(--color-border)] pt-[14px] font-[var(--font-body)] text-[12px] leading-[1.5] text-[var(--color-text-secondary)]">
+                    <Info
+                      size={14}
+                      className="mt-[1px] shrink-0 text-[var(--color-text-secondary)]"
+                    />
+                    <span>
+                      Pricing shown in Canadian dollars. Treatment suitability,
+                      product selection and final pricing will be confirmed
+                      during your consultation.
+                    </span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-16">
+          <div className="mb-6 flex items-center gap-[16px]">
+            <span className={eyebrowStyle}>
+              Specialized Correction Programs
+            </span>
+            <span className="h-[1px] flex-1 bg-[var(--color-border)]" />
+          </div>
+          <p className="mt-0 mr-0 mb-8 ml-0 max-w-[640px] font-[var(--font-body)] text-[15px] leading-[1.6] text-[var(--color-text-secondary)]">
+            Targeted treatments for specific skin concerns that may require a
+            different approach.
+          </p>
+          <div
+            className="w-full rounded-[20px] p-[26px] sm:p-[34px]"
+            style={{
+              background: pigmentDark.bg,
+              border: `1px solid ${pigmentDark.border}`,
+              boxShadow: "0 28px 60px -24px rgba(24,33,16,0.5)",
+            }}
+          >
+            <div className="flex flex-col gap-[26px] lg:flex-row lg:items-stretch">
+              <div className="flex min-w-0 flex-1 flex-col">
+                <span
+                  className="mb-[18px] inline-block self-start rounded-[6px] pt-[6px] pr-[10px] pb-[6px] pl-[10px] font-[var(--font-body)] text-[11px] font-bold uppercase tracking-[0.22em]"
+                  style={{
+                    color: pigmentDark.gold,
+                    background: pigmentDark.goldBg,
+                    border: `1px solid ${pigmentDark.goldBorder}`,
+                  }}
+                >
+                  Specialized Pigment Program
+                </span>
+                <h3
+                  className="mt-0 mr-0 mb-[10px] ml-0 font-[var(--font-display)] text-[26px] font-normal sm:text-[30px]"
+                  style={{ color: pigmentDark.title }}
+                >
+                  Pigment & Sun-Damage Correction
+                </h3>
+                <span
+                  className="mb-[14px] inline-block self-start rounded-[999px] pt-[4px] pr-[10px] pb-[4px] pl-[10px] font-[var(--font-body)] text-[11px] font-bold uppercase tracking-[0.18em]"
+                  style={{
+                    color: pigmentDark.title,
+                    background: pigmentDark.chipBg,
+                    border: `1px solid ${pigmentDark.chipBorder}`,
+                  }}
+                >
+                  7-Session Program
+                </span>
+                <p
+                  className="mt-0 mr-0 mb-[14px] ml-0 font-[var(--font-body)] text-[15px] leading-relaxed"
+                  style={{ color: pigmentDark.body }}
+                >
+                  A specialized seven-session eDermaStamp® program designed to
+                  improve the appearance of uneven pigmentation, sun damage and
+                  overall skin tone. Each session pairs professional
+                  microneedling with XCellarisPRO High Light Serum by
+                  Dermaroller®, a pigment-correcting formulation that helps
+                  regulate melanin production and brighten the complexion. A
+                  take-home roller is included to support your results between
+                  visits.
+                </p>
+                <ul className="mt-0 mr-0 mb-[16px] ml-0 space-y-[8px] p-0">
+                  {pigmentProgramIncludes.map((item) => (
+                    <li
+                      key={item}
+                      className="flex items-start gap-[10px] font-[var(--font-body)] text-[14px]"
+                      style={{ color: pigmentDark.body }}
+                    >
+                      <Check
+                        size={16}
+                        strokeWidth={2}
+                        className="mt-[2px] shrink-0"
+                        style={{ color: pigmentDark.gold }}
+                      />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+                <div className="mb-[18px]">
+                  <span
+                    className="mb-[8px] block font-[var(--font-body)] text-[11px] font-bold uppercase tracking-[0.18em]"
+                    style={{ color: pigmentDark.muted }}
+                  >
+                    Key active ingredients
+                  </span>
+                  <span className="flex flex-wrap gap-[6px]">
+                    {pigmentProgramIngredients.map((ing) => (
+                      <span
+                        key={ing}
+                        className="rounded-[999px] pt-[4px] pr-[9px] pb-[4px] pl-[9px] font-[var(--font-body)] text-[11px] font-semibold"
+                        style={{
+                          color: pigmentDark.title,
+                          background: pigmentDark.chipBg,
+                          border: `1px solid ${pigmentDark.chipBorder}`,
+                        }}
+                      >
+                        {ing}
+                      </span>
+                    ))}
+                  </span>
+                </div>
+                <div
+                  className="mt-auto pt-[18px]"
+                  style={{
+                    borderTop: `1px solid ${pigmentDark.border}`,
+                  }}
+                >
+                  <span
+                    className="block font-[var(--font-display)] text-[32px] font-medium leading-[1.1]"
+                    style={{ color: pigmentDark.title }}
+                  >
+                    {PIGMENT_PROGRAM_PRICE}
+                  </span>
+                  <span
+                    className="mt-[4px] block font-[var(--font-body)] text-[12px] font-semibold uppercase tracking-[0.18em]"
+                    style={{ color: pigmentDark.gold }}
+                  >
+                    Complete Program
+                  </span>
+                  <p
+                    className="mt-[10px] mb-0 font-[var(--font-body)] text-[13px] leading-[1.5]"
+                    style={{ color: pigmentDark.muted }}
+                  >
+                    Consultation recommended before starting. Treatment
+                    suitability is assessed individually.
+                  </p>
+                </div>
+              </div>
+              <div className="shrink-0 lg:w-[420px]">
+                <img
+                  src={pigmentKitImageSrc}
+                  alt="XCellarisPRO High Light Serum pigment correction ampoules by Dermaroller"
+                  className="w-full rounded-[14px]"
+                  style={{ border: `1px solid ${pigmentDark.border}` }}
+                />
+                <p
+                  className="mt-[8px] font-[var(--font-body)] text-[11px] leading-[1.5]"
+                  style={{ color: pigmentDark.muted }}
+                >
+                  XCellarisPRO® High Light Serum for Pigment Correction by
+                  Dermaroller®
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -1116,7 +2002,7 @@ export default function MicroneedlingPage() {
         <MicroneedlingResults />
         <AshleySection />
         <ReviewsSection prioritizeService="microneedling" />
-        <MicroneedlingPricing />
+        <MicroneedlingConfigurator />
         <MicroneedlingProcess />
         <MicroneedlingVideo />
         <MicroneedlingFaq />

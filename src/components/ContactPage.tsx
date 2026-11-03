@@ -91,9 +91,12 @@ export function ContactPage() {
                     className="mt-[22px] pt-[20px]"
                     style={{ borderTop: "1px solid var(--color-border)" }}
                   >
-                    <h3 className="mb-[12px] font-[var(--font-display)] text-[18px] font-normal text-[var(--color-text-primary)]">
+                    <h3 className="mb-[6px] font-[var(--font-display)] text-[18px] font-normal text-[var(--color-text-primary)]">
                       Studio Hours
                     </h3>
+                    <p className="m-0 mb-[12px] font-[var(--font-body)] text-[13px] italic text-[var(--color-text-secondary)]">
+                      By appointment only
+                    </p>
                     <dl className="m-0 p-0">
                       {BUSINESS.hours.map((h) => (
                         <div

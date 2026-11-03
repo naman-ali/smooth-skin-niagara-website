@@ -138,7 +138,10 @@ export default function Footer() {
                 Ashley@smoothskinniagara.com
               </a>
             </p>
-            <dl className="m-0 mt-[18px] p-0">
+            <p className="m-0 mt-[18px] text-[13px] italic text-[var(--color-text-secondary)]">
+              By appointment only
+            </p>
+            <dl className="m-0 mt-[6px] p-0">
               {BUSINESS.hours.map((h) => (
                 <div
                   key={h.days}

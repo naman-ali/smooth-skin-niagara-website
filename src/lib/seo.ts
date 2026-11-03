@@ -27,10 +27,12 @@ export const BUSINESS = {
   },
   directionsUrl: "https://maps.app.goo.gl/fMvuTENjgikkLwFP7",
   hours: [
+    { days: "Mon", time: "10 a.m. – 3 p.m." },
     { days: "Tue & Thu", time: "9 a.m. – 8 p.m." },
     { days: "Wed", time: "9 a.m. – 5 p.m." },
     { days: "Fri", time: "9 a.m. – 3 p.m." },
-    { days: "Sat – Mon", time: "Closed" },
+    { days: "Every other Sat", time: "9 a.m. – 12 p.m." },
+    { days: "Sun", time: "Closed" },
   ],
   mapsEmbedUrl:
     "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2913.862739530366!2d-79.14738048839105!3d43.08638098878613!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89d344f9c1b60a79%3A0x415f82f9f0ae72bd!2sSmooth%20Skin%20Niagara!5e0!3m2!1sen!2suk!4v1788992224588!5m2!1sen!2suk",
@@ -112,6 +114,12 @@ export function localBusinessJsonLd() {
     openingHoursSpecification: [
       {
         "@type": "OpeningHoursSpecification",
+        dayOfWeek: "Monday",
+        opens: "10:00",
+        closes: "15:00",
+      },
+      {
+        "@type": "OpeningHoursSpecification",
         dayOfWeek: ["Tuesday", "Thursday"],
         opens: "09:00",
         closes: "20:00",
@@ -127,6 +135,12 @@ export function localBusinessJsonLd() {
         dayOfWeek: "Friday",
         opens: "09:00",
         closes: "15:00",
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: "Saturday",
+        opens: "09:00",
+        closes: "12:00",
       },
     ],
     sameAs: [BUSINESS.social.facebook, BUSINESS.social.instagram],

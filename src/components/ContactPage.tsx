@@ -87,6 +87,29 @@ export function ContactPage() {
                   >
                     Get directions →
                   </a>
+                  <div
+                    className="mt-[22px] pt-[20px]"
+                    style={{ borderTop: "1px solid var(--color-border)" }}
+                  >
+                    <h3 className="mb-[12px] font-[var(--font-display)] text-[18px] font-normal text-[var(--color-text-primary)]">
+                      Studio Hours
+                    </h3>
+                    <dl className="m-0 p-0">
+                      {BUSINESS.hours.map((h) => (
+                        <div
+                          key={h.days}
+                          className="flex items-baseline justify-between gap-4 py-[3px] font-[var(--font-body)] text-[15px]"
+                        >
+                          <dt className="text-[var(--color-text-secondary)]">
+                            {h.days}
+                          </dt>
+                          <dd className="m-0 text-[var(--color-text-primary)]">
+                            {h.time}
+                          </dd>
+                        </div>
+                      ))}
+                    </dl>
+                  </div>
                 </div>
 
                 <div

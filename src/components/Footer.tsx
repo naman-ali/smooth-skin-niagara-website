@@ -1,3 +1,5 @@
+import { BUSINESS } from "@/lib/seo";
+
 export default function Footer() {
   const linkStyle =
     "text-[var(--color-text-secondary)] no-underline text-[15px] leading-[1.8] font-[var(--font-body)]";
@@ -136,6 +138,21 @@ export default function Footer() {
                 Ashley@smoothskinniagara.com
               </a>
             </p>
+            <dl className="m-0 mt-[18px] p-0">
+              {BUSINESS.hours.map((h) => (
+                <div
+                  key={h.days}
+                  className="flex items-baseline justify-between gap-3 text-[14px] leading-[1.9]"
+                >
+                  <dt className="text-[var(--color-text-secondary)]">
+                    {h.days}
+                  </dt>
+                  <dd className="m-0 whitespace-nowrap text-[var(--color-text-primary)]">
+                    {h.time}
+                  </dd>
+                </div>
+              ))}
+            </dl>
           </div>
         </div>
 

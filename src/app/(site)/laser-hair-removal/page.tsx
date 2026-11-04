@@ -412,7 +412,7 @@ function TreatmentAreas() {
             <span className="w-[48px] h-[1px] bg-[var(--color-border-strong)]" />
           </div>
           <h2 className="text-balance font-[var(--font-display)] font-normal text-[36px] leading-[1.1] lg:text-[48px] text-[var(--color-text-primary)] mt-0 mr-0 mb-[16px] ml-0">
-            Smooth Skin, Anywhere You Want It
+            Laser Hair Removal Treatment Areas
           </h2>
           <p className="font-[var(--font-body)] text-[17px] leading-[1.6] text-[var(--color-text-secondary)] mt-0 mr-auto mb-0 ml-auto max-w-[560px]">
             Personalized laser hair removal treatments for the face, body and
@@ -490,7 +490,7 @@ function LaserResultsSection() {
             <span className="w-[48px] h-[1px] bg-[var(--color-border-strong)]" />
           </div>
           <h2 className="text-balance font-[var(--font-display)] font-normal text-[36px] leading-[1.1] lg:text-[48px] text-[var(--color-text-primary)] mt-0 mr-0 mb-[16px] ml-0">
-            See Real Transformations
+            Laser Hair Removal Results
           </h2>
           <p className="font-[var(--font-body)] text-[17px] leading-[1.6] text-[var(--color-text-secondary)] mt-0 mr-auto mb-0 ml-auto max-w-[560px]">
             Real before-and-after results from clients who trusted Smooth Skin
@@ -527,7 +527,7 @@ export default function Home() {
         <TreatmentAreas />
         <LaserResultsSection />
         <ReviewsSection prioritizeService="laser" />
-        <FaqSection />
+        <FaqSection heading="Laser Hair Removal FAQs" />
         <CtaSection />
       </main>
     </>

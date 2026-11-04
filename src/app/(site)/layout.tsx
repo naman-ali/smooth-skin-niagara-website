@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { AnalyticsConsent } from "@/components/AnalyticsConsent";
 import { ConditionalFooter } from "@/components/ConditionalFooter";
 import { ConsultationProvider } from "@/components/ConsultationModal";
 import { JsonLd } from "@/components/JsonLd";
@@ -12,6 +13,7 @@ export default function SiteLayout({ children }: { children: ReactNode }) {
         {children}
         <ConditionalFooter />
       </div>
+      <AnalyticsConsent />
     </ConsultationProvider>
   );
 }

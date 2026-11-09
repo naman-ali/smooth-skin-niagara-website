@@ -42,7 +42,17 @@ const LEGACY_REDIRECTS = [
 
 const nextConfig: NextConfig = {
   async redirects() {
-    return LEGACY_REDIRECTS.map((r) => ({ ...r, permanent: true }));
+    return [
+      // AlienRise review links: smoothskinniagara.com/r/<code> is printed in
+      // SMS/email and forwards to the platform flow. Temporary (307) so the
+      // target can change without fighting browser redirect caches.
+      {
+        source: "/r/:code",
+        destination: "https://alienrise.ai/r/:code",
+        permanent: false,
+      },
+      ...LEGACY_REDIRECTS.map((r) => ({ ...r, permanent: true })),
+    ];
   },
 };
 

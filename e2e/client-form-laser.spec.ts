@@ -19,7 +19,8 @@ const CLIENT = {
   province: "ON",
   postalCode: "L2G 1A1",
   age: "32",
-  emergencyContact: "Partner 416-555-0200",
+  emergencyContactName: "Partner",
+  emergencyContactPhone: "416-555-0200",
 };
 
 function fieldByPath(page: any, path: string) {
@@ -47,6 +48,14 @@ async function continueStep(page: any) {
 }
 
 test.describe("Laser Hair Removal client form", () => {
+  test.beforeEach(async ({ page }) => {
+    // Pre-dismiss the analytics consent banner so it doesn't cover the
+    // sticky Continue button at the bottom of the viewport.
+    await page.addInitScript(() => {
+      window.localStorage.setItem("ssn-analytics-consent", "denied");
+    });
+  });
+
   test("completes the full wizard and stores all answers correctly", async ({
     page,
   }) => {
@@ -68,8 +77,11 @@ test.describe("Laser Hair Removal client form", () => {
     await fieldByPath(page, "clientInfo.province").fill(CLIENT.province);
     await fieldByPath(page, "clientInfo.postalCode").fill(CLIENT.postalCode);
     await fieldByPath(page, "clientInfo.age").fill(CLIENT.age);
-    await fieldByPath(page, "clientInfo.emergencyContact").fill(
-      CLIENT.emergencyContact,
+    await fieldByPath(page, "clientInfo.emergencyContactName").fill(
+      CLIENT.emergencyContactName,
+    );
+    await fieldByPath(page, "clientInfo.emergencyContactPhone").fill(
+      CLIENT.emergencyContactPhone,
     );
 
     // Referral source: "Other" so we exercise the conditional text field.
@@ -159,6 +171,13 @@ test.describe("Laser Hair Removal client form", () => {
       page,
       `${laserPrefix}.laser_previous_treatment_details`,
     ).fill("Previous sessions went well, no side effects.");
+
+    const hairRemovalScope = fieldByPath(
+      page,
+      `${laserPrefix}.laser_current_hair_removal`,
+    );
+    await toggleMultiChip(page, hairRemovalScope, "Shaving");
+    await toggleMultiChip(page, hairRemovalScope, "Waxing");
     await continueStep(page);
 
     // 7. Consents — all 8 acknowledgements plus photo release
@@ -195,6 +214,9 @@ test.describe("Laser Hair Removal client form", () => {
       page.getByText("Underarms, Legs", { exact: true }),
     ).toBeVisible();
     await expect(page.getByText("Legs", { exact: true })).toBeVisible();
+    await expect(
+      page.getByText("Shaving, Waxing", { exact: true }),
+    ).toBeVisible();
     await expect(page.getByText("Wine on weekends")).toBeVisible();
     await expect(page.getByText("Saw an Instagram ad")).toBeVisible();
     await continueStep(page);
@@ -232,7 +254,8 @@ test.describe("Laser Hair Removal client form", () => {
     expect(record.firstName).toBe(CLIENT.firstName);
     expect(record.lastName).toBe(CLIENT.lastName);
     expect(record.email).toBe(CLIENT.email.toLowerCase());
-    expect(record.phone).toBe(CLIENT.phone);
+    const normalizedPhone = `+1${CLIENT.phone.replace(/\D/g, "")}`;
+    expect(record.phone).toBe(normalizedPhone);
     expect(record.selectedTreatments).toContain("laser-hair-removal");
 
     const submission = record.submission as Record<string, any>;
@@ -247,7 +270,10 @@ test.describe("Laser Hair Removal client form", () => {
       postalCode: CLIENT.postalCode,
     });
     expect(submission.client.age).toBe(Number(CLIENT.age));
-    expect(submission.client.emergencyContact).toBe(CLIENT.emergencyContact);
+    expect(submission.client.emergencyContact).toEqual({
+      name: CLIENT.emergencyContactName,
+      phone: CLIENT.emergencyContactPhone,
+    });
     expect(submission.client.referralSource).toEqual({
       value: "other",
       label: "Other",
@@ -281,6 +307,9 @@ test.describe("Laser Hair Removal client form", () => {
     expect(laser.laser_previous_treatment_details).toBe(
       "Previous sessions went well, no side effects.",
     );
+    expect(laser.laser_current_hair_removal).toMatchObject({
+      values: ["shaving", "waxing"],
+    });
 
     expect(submission.consents["laser-hair-removal"].accepted).toBe(true);
     expect(submission.consents["photo-release"].accepted).toBe(true);
@@ -301,7 +330,7 @@ test.describe("Laser Hair Removal client form", () => {
     expect(record.contact).not.toBeNull();
     assert(record.contact);
     expect(record.contact.email).toBe(CLIENT.email.toLowerCase());
-    expect(record.contact.phone).toBe(CLIENT.phone);
+    expect(record.contact.phone).toBe(normalizedPhone);
     expect(record.contact.contactType).toBe("client");
   });
 
@@ -322,8 +351,5 @@ test.describe("Laser Hair Removal client form", () => {
     await expect(page.getByText("Email address is required.")).toBeVisible();
     await expect(page.getByText("Street address is required.")).toBeVisible();
     await expect(page.getByText("Age is required.")).toBeVisible();
-    await expect(
-      page.getByText("Emergency contact is required."),
-    ).toBeVisible();
   });
 });

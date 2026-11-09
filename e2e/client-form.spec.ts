@@ -103,6 +103,14 @@ async function answerAllNo(page: Page, prefix: string, ids: string[]) {
 // -------------------------------------------------------------------------
 
 test.describe("Client intake form", () => {
+  test.beforeEach(async ({ page }) => {
+    // Pre-dismiss the analytics consent banner so it doesn't cover the
+    // sticky Continue button at the bottom of the viewport.
+    await page.addInitScript(() => {
+      window.localStorage.setItem("ssn-analytics-consent", "denied");
+    });
+  });
+
   test("completes the full happy path for both treatments and reaches success", async ({
     page,
   }) => {
@@ -154,6 +162,10 @@ test.describe("Client intake form", () => {
       "Legs",
     );
     await answerYesNo(page, `${laserPrefix}.laser_previous_treatment`, "No");
+    await clickMultiChip(
+      fieldByPath(page, `${laserPrefix}.laser_current_hair_removal`),
+      "Shaving",
+    );
     await continueStep(page);
 
     const lashPrefix = "treatmentAnswers.lash-lift-tint";
@@ -449,6 +461,13 @@ test.describe("Client intake form", () => {
     );
     await expect(notesField).toBeVisible();
     await notesField.fill("Had good results previously.");
+    await clickMultiChip(
+      fieldByPath(
+        page,
+        "treatmentAnswers.laser-hair-removal.laser_current_hair_removal",
+      ),
+      "Shaving",
+    );
     await continueStep(page);
 
     // Go back and flip the answer to No \u2014 the follow-up chain should disappear.

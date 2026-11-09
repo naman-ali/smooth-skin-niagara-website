@@ -101,6 +101,14 @@ export async function POST(request: NextRequest) {
   }
 
   const submission = buildClientFormSubmission(values);
+  // E2E tests and dev tooling submit with @example.com addresses (reserved
+  // test domain). Still persist the record — tests assert on it — but skip
+  // every external side effect so the owner isn't notified and nothing
+  // reaches AlienRise.
+  const isTestSubmission = submission.client.email
+    .trim()
+    .toLowerCase()
+    .endsWith("@example.com");
   const contact = await findOrCreateContact(submission.client);
 
   // The qualifying "new live customer" event is the FIRST client-form
@@ -117,7 +125,7 @@ export async function POST(request: NextRequest) {
   // Contact sync is facts-only and stays a separate operation from the
   // review-request submission below. Both are automatic flows, gated by
   // ALIENRISE_AUTO_SYNC — manual admin sync/retry still works either way.
-  if (alienriseAutoSyncEnabled()) {
+  if (alienriseAutoSyncEnabled() && !isTestSubmission) {
     await syncContactToAlienrise(contact);
   }
 
@@ -142,6 +150,7 @@ export async function POST(request: NextRequest) {
   // review process and whether another request is allowed.
   if (
     alienriseAutoSyncEnabled() &&
+    !isTestSubmission &&
     contact.alienriseReviewRequestStatus !== "submitted"
   ) {
     await submitAlienriseReviewApproval(
@@ -152,7 +161,9 @@ export async function POST(request: NextRequest) {
 
   // Owner notification for every completed waiver. Runs last and never
   // throws — a Resend outage must not fail an otherwise-valid submission.
-  await sendWaiverCompletedNotification(submission, created.id);
+  if (!isTestSubmission) {
+    await sendWaiverCompletedNotification(submission, created.id);
+  }
 
   return NextResponse.json({ id: created.id }, { status: 201 });
 }

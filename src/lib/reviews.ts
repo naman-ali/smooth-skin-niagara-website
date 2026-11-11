@@ -875,6 +875,14 @@ function recencyScore(r: GoogleReview): number {
   return i === -1 ? RECENCY_ORDER.length : i;
 }
 
+/** "Yashvi Mendpara" → "Yashvi M." — last name shown as an initial for privacy. */
+export function displayName(name: string): string {
+  const parts = name.trim().split(/\s+/);
+  if (parts.length < 2) return name;
+  const initial = parts[parts.length - 1][0].toUpperCase();
+  return `${parts.slice(0, -1).join(" ")} ${initial}.`;
+}
+
 export function orderReviews(prioritizeService?: ServiceKey): GoogleReview[] {
   const reviews = [...GOOGLE_REVIEWS];
   reviews.sort((a, b) => {

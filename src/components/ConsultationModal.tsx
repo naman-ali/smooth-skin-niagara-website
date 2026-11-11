@@ -11,6 +11,7 @@ import {
   ChevronRight,
   Star,
 } from "lucide-react";
+import { displayName } from "@/lib/reviews";
 
 const PHONE_DISPLAY = "(905) 920-7229";
 const PHONE_TEL = "tel:+19059207229";
@@ -186,7 +187,7 @@ function ReviewSlider() {
             &rdquo;
           </blockquote>
           <p className="mb-0 mt-[10px] font-[var(--font-body)] text-[12px] font-bold uppercase tracking-[0.12em] text-[var(--color-text-primary)]">
-            — {review.name}
+            — {displayName(review.name)}
             <span className="ml-[6px] font-medium normal-case tracking-normal text-[var(--color-text-secondary)]">
               · {review.relativeDate}
             </span>

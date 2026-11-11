@@ -4,6 +4,7 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import * as React from "react";
 import {
   GOOGLE_REVIEWS_URL,
+  displayName,
   orderReviews,
   type ServiceKey,
 } from "@/lib/reviews";
@@ -305,7 +306,7 @@ export function ReviewsSection({
                 "font-[var(--font-body)] text-[13px] font-bold tracking-[0.14em] uppercase text-[var(--ink-900)] mt-[24px] mr-0 mb-0 ml-0",
               )}
             >
-              &mdash; {review.name}
+              &mdash; {displayName(review.name)}
             </p>
             {review.services && review.services.length > 0 && (
               <p className="font-[var(--font-body)] text-[11px] tracking-[0.18em] uppercase text-[var(--olive-600)] mt-[6px] mr-0 mb-0 ml-0">
@@ -342,7 +343,7 @@ export function ReviewsSection({
               key={`${p.name}-${pi}`}
               type="button"
               onClick={() => goTo(pi)}
-              aria-label={`Show review by ${p.name}`}
+              aria-label={`Show review by ${displayName(p.name)}`}
               className={cn("px-8 text-left", "border-0 cursor-pointer")}
               style={{
                 background: "none",
@@ -361,7 +362,7 @@ export function ReviewsSection({
                   : "5-star Google rating"}
               </p>
               <span className="font-[var(--font-body)] text-[12px] font-bold tracking-[0.1em] uppercase text-[var(--ink-900)]">
-                {p.name}
+                {displayName(p.name)}
               </span>
             </button>
           ))}

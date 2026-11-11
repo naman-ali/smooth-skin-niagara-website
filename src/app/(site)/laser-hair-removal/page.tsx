@@ -9,6 +9,7 @@ import { ReviewsSection } from "@/components/ReviewsSection";
 import * as ButtonModule from "@/components/design-system/core/Button";
 import type { ButtonProps } from "@/components/design-system/core/Button";
 import * as GoogleReviewsModule from "@/components/design-system/trust/GoogleReviews";
+import { GOOGLE_RATING, GOOGLE_REVIEW_COUNT } from "@/lib/reviews";
 import type { GoogleReviewsProps } from "@/components/design-system/trust/GoogleReviews";
 import * as TrustStripModule from "@/components/design-system/trust/TrustStrip";
 import type { TrustStripProps } from "@/components/design-system/trust/TrustStrip";
@@ -220,7 +221,7 @@ function Hero() {
               View Results
             </Button>
           </div>
-          <GoogleReviews />
+          <GoogleReviews rating={GOOGLE_RATING} count={GOOGLE_REVIEW_COUNT} />
         </div>
       </div>
       <div className="relative max-w-[var(--container-max)] mt-[62px] mr-auto mb-0 ml-auto">

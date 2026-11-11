@@ -17,7 +17,6 @@ export interface GoogleReview {
 }
 
 export const GOOGLE_RATING = "5.0";
-export const GOOGLE_REVIEW_COUNT = "80+";
 export const GOOGLE_REVIEWS_URL =
   "https://www.google.com/search?q=Smooth+Skin+Niagara+reviews";
 
@@ -832,6 +831,10 @@ export const GOOGLE_REVIEWS: GoogleReview[] = [
     highlights: ["knowledgeable and professional", "relaxing and fun"],
   },
 ];
+
+// Derived from the synced review list — floored to the nearest 10 so it
+// displays as "80+" and updates automatically as reviews are added.
+export const GOOGLE_REVIEW_COUNT = `${Math.floor(GOOGLE_REVIEWS.length / 10) * 10}+`;
 
 const RECENCY_ORDER = [
   "a day ago",

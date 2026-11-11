@@ -28,6 +28,7 @@ import { AshleySection } from "@/components/AshleySection";
 import { ReviewsSection } from "@/components/ReviewsSection";
 import type { ButtonProps } from "@/components/design-system/core/Button";
 import * as GoogleReviewsModule from "@/components/design-system/trust/GoogleReviews";
+import { GOOGLE_RATING, GOOGLE_REVIEW_COUNT } from "@/lib/reviews";
 import type { GoogleReviewsProps } from "@/components/design-system/trust/GoogleReviews";
 import { oxygeneoFaqCategories } from "@/lib/oxygeneo-faq";
 import { cn } from "@/lib/utils";
@@ -184,7 +185,7 @@ function OxyHero() {
             </Button>
           </div>
 
-          <GoogleReviews rating="5.0" count="80+" />
+          <GoogleReviews rating={GOOGLE_RATING} count={GOOGLE_REVIEW_COUNT} />
 
           <div
             className={cn(

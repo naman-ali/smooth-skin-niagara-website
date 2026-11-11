@@ -21,6 +21,7 @@ import Header from "@/components/Header";
 import * as ButtonModule from "@/components/design-system/core/Button";
 import type { ButtonProps } from "@/components/design-system/core/Button";
 import * as GoogleReviewsModule from "@/components/design-system/trust/GoogleReviews";
+import { GOOGLE_RATING, GOOGLE_REVIEW_COUNT } from "@/lib/reviews";
 import type { GoogleReviewsProps } from "@/components/design-system/trust/GoogleReviews";
 import { pcaPeelsFaqCategories } from "@/lib/pca-peels-faq";
 import { useConsultation } from "@/components/ConsultationModal";
@@ -179,7 +180,7 @@ function PcaHero() {
             </Button>
           </div>
 
-          <GoogleReviews rating="5.0" count="80+" />
+          <GoogleReviews rating={GOOGLE_RATING} count={GOOGLE_REVIEW_COUNT} />
 
           <div
             className={cn(

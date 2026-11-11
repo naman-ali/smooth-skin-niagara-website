@@ -2,6 +2,7 @@
 
 import * as ButtonModule from "@/components/design-system/core/Button";
 import * as GoogleReviewsModule from "@/components/design-system/trust/GoogleReviews";
+import { GOOGLE_RATING, GOOGLE_REVIEW_COUNT } from "@/lib/reviews";
 import { cn } from "@/lib/utils";
 import { useConsultation } from "@/components/ConsultationModal";
 
@@ -136,7 +137,7 @@ export function EyelashHero() {
             </a>
           </div>
 
-          <GoogleReviews rating="5.0" count="80+" />
+          <GoogleReviews rating={GOOGLE_RATING} count={GOOGLE_REVIEW_COUNT} />
         </div>
       </div>
     </section>

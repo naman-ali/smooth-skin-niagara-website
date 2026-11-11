@@ -11,6 +11,7 @@ import { ReviewsSection } from "@/components/ReviewsSection";
 import * as ButtonModule from "@/components/design-system/core/Button";
 import type { ButtonProps } from "@/components/design-system/core/Button";
 import * as GoogleReviewsModule from "@/components/design-system/trust/GoogleReviews";
+import { GOOGLE_RATING, GOOGLE_REVIEW_COUNT } from "@/lib/reviews";
 import type { GoogleReviewsProps } from "@/components/design-system/trust/GoogleReviews";
 import { cn } from "@/lib/utils";
 import { useConsultation } from "@/components/ConsultationModal";
@@ -168,7 +169,7 @@ function HomeHero() {
             </div>
 
             <div className="flex justify-center">
-              <GoogleReviews rating="5.0" count="80+" />
+              <GoogleReviews rating={GOOGLE_RATING} count={GOOGLE_REVIEW_COUNT} />
             </div>
           </div>
         </div>

@@ -7,6 +7,7 @@ import { ArrowRight, MapPin, Phone } from "lucide-react";
 import * as ButtonModule from "@/components/design-system/core/Button";
 import type { ButtonProps } from "@/components/design-system/core/Button";
 import * as GoogleReviewsModule from "@/components/design-system/trust/GoogleReviews";
+import { GOOGLE_RATING, GOOGLE_REVIEW_COUNT } from "@/lib/reviews";
 import type { GoogleReviewsProps } from "@/components/design-system/trust/GoogleReviews";
 import Header from "@/components/Header";
 import { CtaSection } from "@/components/CtaSection";
@@ -229,7 +230,7 @@ function TreatmentsHero() {
         </div>
 
         <div className="mb-[18px] flex justify-center">
-          <GoogleReviews rating="5.0" count="80+" />
+          <GoogleReviews rating={GOOGLE_RATING} count={GOOGLE_REVIEW_COUNT} />
         </div>
 
         <p

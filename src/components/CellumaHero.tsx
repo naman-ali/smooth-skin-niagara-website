@@ -3,6 +3,7 @@
 import * as ButtonModule from "@/components/design-system/core/Button";
 import type { ButtonProps } from "@/components/design-system/core/Button";
 import * as GoogleReviewsModule from "@/components/design-system/trust/GoogleReviews";
+import { GOOGLE_RATING, GOOGLE_REVIEW_COUNT } from "@/lib/reviews";
 import type { GoogleReviewsProps } from "@/components/design-system/trust/GoogleReviews";
 import { CheckCircle2, Sparkles, Wind } from "lucide-react";
 import React from "react";
@@ -144,7 +145,7 @@ export function CellumaHero() {
             </Button>
           </div>
 
-          <GoogleReviews rating="5.0" count="80+" />
+          <GoogleReviews rating={GOOGLE_RATING} count={GOOGLE_REVIEW_COUNT} />
 
           {/* Benefits */}
           <div className="flex flex-wrap justify-between items-center gap-[24px] mt-[48px]">

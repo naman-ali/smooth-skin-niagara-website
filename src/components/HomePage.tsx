@@ -168,7 +168,7 @@ function HomeHero() {
             </div>
 
             <div className="flex justify-center">
-              <GoogleReviews rating="5.0" count="61+" />
+              <GoogleReviews rating="5.0" count="80+" />
             </div>
           </div>
         </div>

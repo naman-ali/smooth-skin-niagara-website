@@ -136,7 +136,7 @@ export function EyelashHero() {
             </a>
           </div>
 
-          <GoogleReviews rating="5.0" count="61+" />
+          <GoogleReviews rating="5.0" count="80+" />
         </div>
       </div>
     </section>

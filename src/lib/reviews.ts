@@ -17,15 +17,228 @@ export interface GoogleReview {
 }
 
 export const GOOGLE_RATING = "5.0";
-export const GOOGLE_REVIEW_COUNT = "61+";
+export const GOOGLE_REVIEW_COUNT = "80+";
 export const GOOGLE_REVIEWS_URL =
   "https://www.google.com/search?q=Smooth+Skin+Niagara+reviews";
 
 export const GOOGLE_REVIEWS: GoogleReview[] = [
   {
+    name: "Mya Diodati",
+    rating: 5,
+    relativeDate: "a day ago",
+    text: "I always have an amazing experience with Ashley. Her technique makes my lashes stay curled and tinted for a really long time, and I'm always getting compliments on them! I highly recommend!!",
+    services: ["Lash Lift"],
+    serviceKeys: ["lashes"],
+    highlights: [
+      "stay curled and tinted for a really long time",
+      "always getting compliments",
+    ],
+  },
+  {
+    name: "Tammy Semach",
+    rating: 5,
+    relativeDate: "2 days ago",
+    text: "I had my first lash lift with Ashley, and she made sure to customize everything to the look I wanted. The studio was really clean and had a warm and welcoming vibe. I also got some helpful aftercare advice. I'll definitely be recommending this place to my friends and family.",
+    services: ["Lash Lift"],
+    serviceKeys: ["lashes"],
+    highlights: [
+      "customize everything to the look I wanted",
+      "warm and welcoming vibe",
+    ],
+  },
+  {
+    name: "Simeon Tchervenelekov",
+    rating: 5,
+    relativeDate: "4 days ago",
+  },
+  {
+    name: "Kasia Seymour",
+    rating: 5,
+    relativeDate: "a week ago",
+    text: "The treatment I received was definitely better than previous experiences with laser elsewhere. Ashley was gentle and took her time explaining each part of the process, which made me feel safe during my appointment. I found the studio to be clean and welcoming, creating a relaxing atmosphere. I appreciated the tailored approach to my hair type and noticed I'm shaving much less often now. She was patient with my questions and provided helpful advice for aftercare. It has been worth traveling to Niagara for this experience, and I plan to return. I'll be recommending Smooth Skin Niagara to friends and family.",
+    services: ["Laser Hair Removal"],
+    serviceKeys: ["laser"],
+    highlights: [
+      "gentle and took her time explaining",
+      "shaving much less often now",
+    ],
+  },
+  {
+    name: "Yashvi Mendpara",
+    rating: 5,
+    relativeDate: "a week ago",
+    text: "⭐⭐⭐⭐⭐️ I had a great experience with my laser hair removal treatments! Ashley is so friendly, welcoming, and professional. She make's you feel comfortable throughout the entire process and take the time to explain everything. The service is amazing, the space is clean, and I've been really happy with my results so far. Highly recommend to anyone considering laser hair removal! 😊",
+    services: ["Laser Hair Removal"],
+    serviceKeys: ["laser"],
+    highlights: [
+      "friendly, welcoming, and professional",
+      "really happy with my results",
+    ],
+  },
+  {
+    name: "Navpreet kaur",
+    rating: 5,
+    relativeDate: "a week ago",
+    text: "I got my lash extension done by ashley. She did an amazing job plus the lashes stayed on for a long time. I got so many compliments and everyone asked where i got it from. I have also gotten lash lift and tint before and results were same- perfect and long lasting. I highly recommend getting it done from Ashley.",
+    services: ["Eyelash Extensions", "Lash Lift"],
+    serviceKeys: ["lashes"],
+    highlights: [
+      "lashes stayed on for a long time",
+      "perfect and long lasting",
+    ],
+  },
+  {
+    name: "Magdalene Gallinger",
+    rating: 5,
+    relativeDate: "a week ago",
+    text: "Walking into the clinic, I was greeted by Ashley's warm smile, instantly making me feel safe in the peaceful environment. I remember feeling a bit nervous at first, but Ashley's careful and gentle approach put my mind at ease right away. She took the time to explain every step of the process while using the Soprano ICE machine, which felt fascinating and virtually painless. Her honesty and deep knowledge truly impressed me, and I left each session feeling informed, empowered, and equipped with great tips and advice.\n\nAfter years of visits, I can genuinely say the results keep getting better and have consistently exceeded my expectations. Ashley is not only patient and caring, but she is also meticulous and thorough in her work, ensuring I felt comfortable even for intimate areas. The clinic is always clean and sterile, contributing to a relaxing atmosphere enhanced by soothing music and a comfortable treatment bed. I am so glad I found Ashley; her dedication shines through and it makes every visit a pleasure. I highly recommend her to family and friends, as the quality of care is absolutely worth the drive, making it a perfect 10 out of 10 experience at such affordable prices!",
+    services: ["Laser Hair Removal"],
+    serviceKeys: ["laser"],
+    highlights: [
+      "careful and gentle approach",
+      "consistently exceeded my expectations",
+    ],
+  },
+  {
+    name: "Noelle Sinclair",
+    rating: 5,
+    relativeDate: "2 weeks ago",
+    text: "I originally went to Ashley for a lash lift and tint, which I absolutely loved. After seeing her great attention to detail, I switched to full lash extensions, and I could not be more thrilled with the long-lasting results. Ashley is truly passionate about her work, crafting beautiful, natural-looking lashes that opened up my eyes and made mascara unnecessary. What stands out is her honesty and informative approach, as she took the time to educate me about proper lash care, which has significantly improved the health of my own lashes. Her studio is pristine and welcoming, reflecting her dedication to both her craft and her clients. I am so glad I found Ashley and highly recommend her services to anyone looking to enhance their lashes at affordable prices. You will not be disappointed!",
+    services: ["Lash Lift", "Eyelash Extensions"],
+    serviceKeys: ["lashes"],
+    highlights: [
+      "beautiful, natural-looking lashes",
+      "honesty and informative approach",
+    ],
+  },
+  {
+    name: "Amelia",
+    rating: 5,
+    relativeDate: "2 weeks ago",
+    text: "I am genuinely amazed by how effective the laser hair removal has been, especially on my coarse hair. Honestly, it's better than any other lasers I've tried, and the results keep getting better after each session! After just one or two treatments, I saw a difference right away. The treatment is comfortable, even for intimate areas, and it has such a relaxing atmosphere with soothing music that makes the experience enjoyable.\n\nAshley is truly fantastic! I was a bit nervous at first, but she is so patient and caring. She explained every step of the process and made me feel safe and at ease immediately. Her attention to detail and extensive knowledge really set her apart; she gives great tips and advice. I've been going for years and wouldn't go anywhere else; it's totally worth the drive! I highly recommend Ashley to family and friends; this has been a 10 out of 10 experience for me!",
+    services: ["Laser Hair Removal"],
+    serviceKeys: ["laser"],
+    highlights: [
+      "better than any other lasers I've tried",
+      "results keep getting better",
+    ],
+  },
+  {
+    name: "Carmel Llarena",
+    rating: 5,
+    relativeDate: "2 weeks ago",
+    text: "You know those people who are truly passionate about what they do, and you can't help but be drawn to their energy? That's Ashley! ❤️\n\nI was initially quite anxious about laser hair removal, but Ashley took the time to explain everything thoroughly and patiently answer all my questions until I felt completely comfortable. She is so welcoming, knowledgeable, and informative, and never makes you feel pressured into anything. She explains every procedure clearly, including what to expect, so you feel confident and informed every step of the way.\n\nBeyond her professionalism, Ashley is such a kind and genuinely blessed person. You can tell she truly cares about her clients and loves what she does. I've had really great results, and I'm so happy I decided to go ahead with her services!\n\nIf you're feeling nervous or unsure about laser hair removal, I highly recommend Ashley. You'll be in caring, knowledgeable, and trustworthy hands! ✨",
+    services: ["Laser Hair Removal"],
+    serviceKeys: ["laser"],
+    highlights: [
+      "never makes you feel pressured",
+      "truly cares about her clients",
+    ],
+  },
+  {
+    name: "Sarah",
+    rating: 5,
+    relativeDate: "2 weeks ago",
+    text: "My experience with Ashley during my laser hair removal session was truly exceptional. Initially, I felt a bit nervous, but her warm, professional demeanor immediately put me at ease. She is extremely knowledgeable about the Soprano ICE machine, and I found that this method works far better on coarse hair than other lasers I've tried. Each session yields results that keep getting better, making me thrilled with my progress. Ashley explained every step in detail, offering great tips and advice that made the process feel comfortable even for more intimate areas. The environment is peaceful and the treatment bed is incredibly comfortable, creating a relaxing atmosphere. With affordable prices and a 10/10 experience, her services are genuinely worth every penny. I'm so glad I found Ashley and highly recommend her to anyone considering laser hair removal!",
+    services: ["Laser Hair Removal"],
+    serviceKeys: ["laser"],
+    highlights: [
+      "works far better on coarse hair",
+      "results that keep getting better",
+    ],
+  },
+  {
+    name: "Miruna Beti",
+    rating: 5,
+    relativeDate: "2 weeks ago",
+    text: "Ashley is so knowledgeable and great at what she does. I have tried multiple laser hair removal treatments, and with her I got hands down the best results! She is patient and great at explaining what is happening with your body as during and after the treatments. I can't say enough good things about her and how great the experience is!",
+    services: ["Laser Hair Removal"],
+    serviceKeys: ["laser"],
+    highlights: [
+      "hands down the best results",
+      "patient and great at explaining",
+    ],
+  },
+  {
+    name: "Kelly Morrison",
+    rating: 5,
+    relativeDate: "3 weeks ago",
+    text: "Ashley is extremely meticulous, knowledgeable, honest and caring. The environment is relaxing, clean and sterile. I've had the laser hair removal and lash lift & tint. The laser hair removal worked on my coarse hair ! Best studio in the area! Highly recommend",
+    services: ["Laser Hair Removal", "Lash Lift"],
+    serviceKeys: ["laser", "lashes"],
+    highlights: [
+      "meticulous, knowledgeable, honest and caring",
+      "Best studio in the area",
+    ],
+  },
+  {
+    name: "Chris Thompson",
+    rating: 5,
+    relativeDate: "3 weeks ago",
+    text: "Ashley was recommended to me and i am happy to pass along my great expeience there. Ashley is a total pro and super friendly. I was pretty nervous going in the first time but she made me feel very comfortable with the entire procedure. Her salon is first class. Was thrilled with the results. Ill be back!",
+    highlights: [
+      "a total pro and super friendly",
+      "thrilled with the results",
+    ],
+  },
+  {
+    name: "Pamela Luciani",
+    rating: 5,
+    relativeDate: "3 weeks ago",
+    text: "Why settle for anything less than a truly remarkable experience when you can indulge in the exceptional service provided by this establishment? From the moment I stepped in, I was greeted with great attention to detail in a warm and welcoming oasis of beauty, complete with a comfortable treatment bed that enhanced the relaxation in the clean and sterile studio. The technician's extensive expertise was evident; they were extremely knowledgeable and took a very professional approach, offering honest and informative guidance on maintaining my long-lasting lashes, a testament to their meticulous and thorough work.\n\nThe peaceful environment and relaxing atmosphere further highlighted their meticulous nature and genuine care for clients, as they patiently and caringly ensured a top-notch experience that far exceeded my expectations. It's clear that this expert not only values professionalism but also truly cares about each client's satisfaction, setting a standard that I wouldn't trade for anything else. I wholeheartedly wouldn't go anywhere else for my lash treatments and gladly recommend this place to all my family and friends, knowing they'll also receive a 10/10 experience like mine.",
+    serviceKeys: ["lashes"],
+    highlights: [
+      "great attention to detail",
+      "far exceeded my expectations",
+    ],
+  },
+  {
+    name: "Monja Greer",
+    rating: 5,
+    relativeDate: "3 weeks ago",
+    text: "Never had a better lash lift and tint experience! Totally recommend! Ashley is such a sweet person too!",
+    services: ["Lash Lift"],
+    serviceKeys: ["lashes"],
+    highlights: [
+      "Never had a better lash lift and tint experience",
+      "such a sweet person",
+    ],
+  },
+  {
+    name: "Carly Hysert",
+    rating: 5,
+    relativeDate: "3 weeks ago",
+    text: "I would recommend Ashley to anyone. She is very knowledgeable about laser hair removal. She is very patient, and works hard to get the results you're looking for!",
+    services: ["Laser Hair Removal"],
+    serviceKeys: ["laser"],
+    highlights: [
+      "very knowledgeable about laser hair removal",
+      "works hard to get the results",
+    ],
+  },
+  {
+    name: "Julie Dion",
+    rating: 5,
+    relativeDate: "4 weeks ago",
+    text: "I had an amazing experience with Ashley!",
+    highlights: ["amazing experience with Ashley"],
+  },
+  {
+    name: "Cody Brooker",
+    rating: 5,
+    relativeDate: "4 weeks ago",
+    text: "I've been going to Smooth Skin Niagara for laser hair removal on my chest and stomach, and I'm really happy with the results so far! Ashley is friendly, professional, and makes the whole experience comfortable and easy. I'm glad I decided to get it done and would definitely recommend her to anyone considering laser hair removal!",
+    services: ["Laser Hair Removal"],
+    serviceKeys: ["laser"],
+    highlights: [
+      "friendly, professional",
+      "really happy with the results",
+    ],
+  },
+  {
     name: "Elise Cardamone",
     rating: 5,
-    relativeDate: "8 hours ago",
+    relativeDate: "2 months ago",
     text: "I highly recommend Ashley! She is so knowledgeable about the laser hair removal process and always makes me feel comfortable during my sessions. She really understands the treatment plan from start to finish, and I\u2019ve been so happy with the results! \uD83D\uDE0A",
     services: ["Laser Hair Removal"],
     serviceKeys: ["laser"],
@@ -37,7 +250,7 @@ export const GOOGLE_REVIEWS: GoogleReview[] = [
   {
     name: "Anne Beach",
     rating: 5,
-    relativeDate: "3 weeks ago",
+    relativeDate: "3 months ago",
     text: "Professional and accommodating ! There is no better place in this area ! Highly recommend.",
     services: ["Laser Hair Removal"],
     serviceKeys: ["laser"],
@@ -49,7 +262,7 @@ export const GOOGLE_REVIEWS: GoogleReview[] = [
   {
     name: "Trish",
     rating: 5,
-    relativeDate: "4 weeks ago",
+    relativeDate: "3 months ago",
     text: "such a great Experience. not only is she amazing at laser hair removal, her place is clean and welcoming. Ashley is meticulous when it comes to hair removal making sure she is strategic to address your hair type. now that I'm hairless I cant wait to book other services with Ashley because she is not only great at what she does but her conversations are open, honest, and I'm going to miss them.  thank you Ashley for the service and the best chats",
     services: ["Laser Hair Removal"],
     serviceKeys: ["laser"],
@@ -61,7 +274,7 @@ export const GOOGLE_REVIEWS: GoogleReview[] = [
   {
     name: "Yanila Santiago",
     rating: 5,
-    relativeDate: "5 months ago",
+    relativeDate: "8 months ago",
     text: "Ashley has been absolutely excellent! She makes you feel very comfortable and confident about whichever treatment you choose. I had laser hair removal, and from day one she explained everything in detail, everything I needed to know and even more, something I highly appreciate it because it made me feel very safe knowing that I was in the right hands. I truly appreciate the time Ashley invests to make her customers feel warm and welcome. I experienced that firsthand. Thank you so much! I highly recommend her 10/10!",
     services: ["Laser Hair Removal"],
     serviceKeys: ["laser"],
@@ -185,7 +398,7 @@ export const GOOGLE_REVIEWS: GoogleReview[] = [
   {
     name: "Cathy MacKinnon",
     rating: 5,
-    relativeDate: "5 months ago",
+    relativeDate: "7 months ago",
     services: ["Laser Hair Removal"],
     serviceKeys: ["laser"],
   },
@@ -621,11 +834,27 @@ export const GOOGLE_REVIEWS: GoogleReview[] = [
 ];
 
 const RECENCY_ORDER = [
-  "8 hours ago",
+  "a day ago",
+  "2 days ago",
+  "3 days ago",
+  "4 days ago",
+  "5 days ago",
+  "6 days ago",
+  "a week ago",
+  "2 weeks ago",
   "3 weeks ago",
   "4 weeks ago",
+  "a month ago",
+  "2 months ago",
+  "3 months ago",
+  "4 months ago",
   "5 months ago",
   "6 months ago",
+  "7 months ago",
+  "8 months ago",
+  "9 months ago",
+  "10 months ago",
+  "11 months ago",
   "a year ago",
   "2 years ago",
   "3 years ago",

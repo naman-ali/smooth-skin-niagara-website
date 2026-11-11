@@ -1,6 +1,6 @@
 import React from 'react';
 
-export function GoogleReviews({ rating = '5.0', count = 61 }) {
+export function GoogleReviews({ rating = '5.0', count = '80+' }) {
   return (
     <div style={{
       display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center',

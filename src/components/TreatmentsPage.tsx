@@ -229,7 +229,7 @@ function TreatmentsHero() {
         </div>
 
         <div className="mb-[18px] flex justify-center">
-          <GoogleReviews rating="5.0" count="61+" />
+          <GoogleReviews rating="5.0" count="80+" />
         </div>
 
         <p

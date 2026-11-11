@@ -168,7 +168,7 @@ function Hero() {
               </Button>
             </div>
 
-            <GoogleReviews rating="5.0" count="61+" />
+            <GoogleReviews rating="5.0" count="80+" />
           </div>
 
           <div className="hidden w-full justify-center lg:flex lg:w-[45%]">

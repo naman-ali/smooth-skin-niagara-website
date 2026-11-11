@@ -144,7 +144,7 @@ export function CellumaHero() {
             </Button>
           </div>
 
-          <GoogleReviews rating="5.0" count="61+" />
+          <GoogleReviews rating="5.0" count="80+" />
 
           {/* Benefits */}
           <div className="flex flex-wrap justify-between items-center gap-[24px] mt-[48px]">

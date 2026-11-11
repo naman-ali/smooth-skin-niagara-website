@@ -179,7 +179,7 @@ function PcaHero() {
             </Button>
           </div>
 
-          <GoogleReviews rating="5.0" count="61+" />
+          <GoogleReviews rating="5.0" count="80+" />
 
           <div
             className={cn(

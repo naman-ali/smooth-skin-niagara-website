@@ -507,7 +507,7 @@
   // components/trust/GoogleReviews.jsx
   try {
     (() => {
-      function GoogleReviews({ rating = "5.0", count = 61 }) {
+      function GoogleReviews({ rating = "5.0", count = "80+" }) {
         return /*#__PURE__*/ React.createElement(
           "div",
           {

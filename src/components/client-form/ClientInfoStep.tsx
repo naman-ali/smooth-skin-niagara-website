@@ -212,6 +212,10 @@ function ReferralSourceField() {
           <fieldset id="clientInfo.referralSource" className="space-y-2">
             <legend className="text-[15px] font-medium leading-snug text-foreground">
               How did you hear about us?
+              <span aria-hidden="true" className="text-primary">
+                {" "}
+                *
+              </span>
             </legend>
             <div
               role="radiogroup"

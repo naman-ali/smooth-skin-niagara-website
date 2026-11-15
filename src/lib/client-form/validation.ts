@@ -176,7 +176,12 @@ function buildClientInfoErrors(
     setIfError("emergencyContactPhone", phoneSchema.safeParse(emergencyPhone));
   }
 
-  if (
+  if (!clientInfo.referralSource.value) {
+    errors.referralSource = {
+      type: "validation",
+      message: "Please select how you heard about us.",
+    };
+  } else if (
     clientInfo.referralSource.value === "other" &&
     !clientInfo.referralSource.otherText.trim()
   ) {

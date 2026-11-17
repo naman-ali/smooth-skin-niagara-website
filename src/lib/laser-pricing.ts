@@ -224,6 +224,15 @@ function isZoneSubset(inner: Set<string>, outer: Set<string>): boolean {
 }
 
 /**
+ * Number of individual treatment zones covered by a selection — combined
+ * "full" options count as the zones they contain (e.g. Full Arms = 2,
+ * Full Legs = 3, Full Body Below Neck = 17).
+ */
+export function laserZoneCount(selectedIds: string[]): number {
+  return zoneSet(selectedIds).size;
+}
+
+/**
  * Returns the label of a selected option that already covers `areaId`
  * (e.g. "Full Legs" covers "upper-legs"), or null when selectable.
  */

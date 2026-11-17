@@ -18,6 +18,7 @@ import {
   laserCoveredBy,
   laserEstimate,
   laserIndividualEquivalent,
+  laserZoneCount,
   toggleLaserArea,
   type LaserMerge,
   type LaserSessionCount,
@@ -56,6 +57,7 @@ export function LaserPricingCalculator() {
   } | null>(null);
 
   const estimate = laserEstimate(selectedIds, sessions);
+  const zoneCount = laserZoneCount(selectedIds);
   const hasSelection = selectedIds.length > 0;
 
   const discountRows = [
@@ -433,8 +435,7 @@ export function LaserPricingCalculator() {
                           Treatment areas
                         </dt>
                         <dd className="m-0 text-right font-semibold text-[var(--color-text-primary)]">
-                          {selectedIds.length}{" "}
-                          {selectedIds.length === 1 ? "area" : "areas"}
+                          {zoneCount} {zoneCount === 1 ? "area" : "areas"}
                         </dd>
                       </div>
                       <div className="border-b border-[var(--color-border)] py-[9px]">

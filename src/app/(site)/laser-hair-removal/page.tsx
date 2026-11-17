@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import { AshleySection } from "@/components/AshleySection";
 import { CtaSection } from "@/components/CtaSection";
 import { FaqSection } from "@/components/FaqSection";
+import { LaserPricingCalculator } from "@/components/LaserPricingCalculator";
 import { ReviewsSection } from "@/components/ReviewsSection";
 import * as ButtonModule from "@/components/design-system/core/Button";
 import type { ButtonProps } from "@/components/design-system/core/Button";
@@ -526,6 +527,7 @@ export default function Home() {
         <TechnologySection />
         <AshleySection />
         <TreatmentAreas />
+        <LaserPricingCalculator />
         <LaserResultsSection />
         <ReviewsSection prioritizeService="laser" />
         <FaqSection heading="Laser Hair Removal FAQs" />

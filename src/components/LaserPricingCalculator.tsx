@@ -50,7 +50,7 @@ const radioDot =
 export function LaserPricingCalculator() {
   const { open: openConsultation } = useConsultation();
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
-  const [sessions, setSessions] = useState<LaserSessionCount>(3);
+  const [sessions, setSessions] = useState<LaserSessionCount>(8);
   const [mergeNotice, setMergeNotice] = useState<{
     merges: LaserMerge[];
     previousIds: string[];
@@ -267,8 +267,9 @@ export function LaserPricingCalculator() {
                   </span>
                 </legend>
                 <p className="mt-0 mr-0 mb-[18px] ml-0 font-[var(--font-body)] text-[14px] leading-[1.6] text-[var(--color-text-secondary)]">
-                  Most clients see their best results with a series of 6
-                  sessions. Longer series unlock bigger package discounts.
+                  Most clients see their best results with a series of 8
+                  sessions, with occasional touch-ups as needed afterward.
+                  Longer series unlock bigger package discounts.
                 </p>
                 <div className="grid grid-cols-1 gap-[8px] sm:grid-cols-3">
                   {LASER_SESSION_OPTIONS.map((count) => {

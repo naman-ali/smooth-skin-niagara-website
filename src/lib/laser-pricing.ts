@@ -76,7 +76,7 @@ export const LASER_AREA_GROUPS: LaserAreaGroup[] = [
       { id: "shoulders", label: "Shoulders", price: 100 },
       { id: "underarms", label: "Underarms", price: 60 },
       { id: "half-arms", label: "Half Arms", price: 110 },
-      { id: "fingers-hands", label: "Fingers & Hands", price: 90 },
+      { id: "fingers-hands", label: "Fingers & Hands", price: 60 },
       {
         id: "full-arms",
         label: "Full Arms (incl. Hands & Fingers)",
@@ -340,7 +340,7 @@ export function laserIndividualEquivalent(areaId: string): number | null {
   return sum;
 }
 
-export const LASER_SESSION_OPTIONS = [1, 3, 6] as const;
+export const LASER_SESSION_OPTIONS = [1, 4, 8] as const;
 export type LaserSessionCount = (typeof LASER_SESSION_OPTIONS)[number];
 
 export interface LaserDiscountTier {
@@ -356,19 +356,19 @@ export const LASER_DISCOUNT_TIERS: LaserDiscountTier[] = [
     minAreas: 1,
     maxAreas: 2,
     label: "1–2 areas",
-    discounts: { 1: 0, 3: 0.05, 6: 0.1 },
+    discounts: { 1: 0, 4: 0.05, 8: 0.1 },
   },
   {
     minAreas: 3,
     maxAreas: 5,
     label: "3–5 areas",
-    discounts: { 1: 0.05, 3: 0.1, 6: 0.15 },
+    discounts: { 1: 0.05, 4: 0.1, 8: 0.15 },
   },
   {
     minAreas: 6,
     maxAreas: Number.POSITIVE_INFINITY,
     label: "6+ areas",
-    discounts: { 1: 0.1, 3: 0.15, 6: 0.2 },
+    discounts: { 1: 0.1, 4: 0.15, 8: 0.2 },
   },
 ];
 
@@ -377,8 +377,8 @@ export const LASER_DISCOUNT_TIERS: LaserDiscountTier[] = [
 // session discounts apply — they never qualify for multi-area tiers.
 export const LASER_FULL_AREA_DISCOUNTS: Record<LaserSessionCount, number> = {
   1: 0,
-  3: 0.1,
-  6: 0.15,
+  4: 0.1,
+  8: 0.15,
 };
 
 export function laserDiscountPercent(
@@ -412,7 +412,7 @@ export interface LaserEstimate {
   savings: number;
   /** Extra discount earned by selecting 3–5 or 6+ individual areas. */
   multiAreaSavings: number;
-  /** Discount earned by booking 3 or 6 sessions instead of a single one. */
+  /** Discount earned by booking 4 or 8 sessions instead of a single one. */
   multiSessionSavings: number;
   /**
    * Built-in saving of combined "full" options — what their covered zones

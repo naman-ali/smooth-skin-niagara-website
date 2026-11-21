@@ -79,9 +79,9 @@ export const LASER_AREA_GROUPS: LaserAreaGroup[] = [
       { id: "fingers-hands", label: "Fingers & Hands", price: 60 },
       {
         id: "full-arms",
-        label: "Full Arms (incl. Hands & Fingers)",
-        price: 180,
-        includes: ["half-arms", "fingers-hands"],
+        label: "Full Arms (incl. Underarms, Shoulders, Hands & Fingers)",
+        price: 200,
+        includes: ["shoulders", "underarms", "half-arms", "fingers-hands"],
       },
     ],
   },
@@ -225,7 +225,7 @@ function isZoneSubset(inner: Set<string>, outer: Set<string>): boolean {
 
 /**
  * Number of individual treatment zones covered by a selection — combined
- * "full" options count as the zones they contain (e.g. Full Arms = 2,
+ * "full" options count as the zones they contain (e.g. Full Arms = 4,
  * Full Legs = 3, Full Body Below Neck = 17).
  */
 export function laserZoneCount(selectedIds: string[]): number {

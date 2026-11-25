@@ -56,6 +56,19 @@ const treatments: Treatment[] = [
     linkText: "Explore Laser Hair Removal",
   },
   {
+    id: "eyelash",
+    eyebrow: "LASHES",
+    title: "Eyelash Extensions",
+    description:
+      "Custom lash sets designed around your eye shape, natural lashes and preferred style.",
+    href: "/eyelash-extensions",
+    image: "/assets/eyelash.jpg",
+    alt: "Close-up of custom eyelash extensions",
+    size: "large",
+    objectPosition: "center 25%",
+    linkText: "Explore Eyelash Extensions",
+  },
+  {
     id: "microneedling",
     eyebrow: "SKIN RENEWAL",
     title: "Microneedling",
@@ -82,19 +95,6 @@ const treatments: Treatment[] = [
     linkText: "Explore Celluma",
   },
   {
-    id: "eyelash",
-    eyebrow: "LASHES",
-    title: "Eyelash Extensions",
-    description:
-      "Custom lash sets designed around your eye shape, natural lashes and preferred style.",
-    href: "/eyelash-extensions",
-    image: "/assets/eyelash.jpg",
-    alt: "Close-up of custom eyelash extensions",
-    size: "small",
-    objectPosition: "center 25%",
-    linkText: "Explore Eyelash Extensions",
-  },
-  {
     id: "oxygeneo",
     eyebrow: "ADVANCED FACIAL",
     title: "OxyGeneo 3-in-1 Facial",
@@ -114,15 +114,13 @@ function gridClasses(index: number) {
     case 0:
       return "lg:col-start-1 lg:row-start-1 lg:row-span-2";
     case 1:
-      return "lg:col-start-2 lg:row-start-1";
+      return "lg:col-start-2 lg:row-start-1 lg:row-span-2";
     case 2:
-      return "lg:col-start-2 lg:row-start-2";
+      return "lg:col-start-1 lg:row-start-3";
     case 3:
       return "lg:col-start-2 lg:row-start-3";
     case 4:
-      return "lg:col-start-2 lg:row-start-4";
-    case 5:
-      return "lg:col-start-1 lg:row-start-3 lg:row-span-2";
+      return "lg:col-start-1 lg:row-start-4";
     default:
       return "";
   }
@@ -139,7 +137,7 @@ function TreatmentCard({
     "linear-gradient(90deg, rgba(248,245,237,.98) 0%, rgba(248,245,237,.92) 35%, rgba(248,245,237,.55) 58%, rgba(248,245,237,.10) 78%, transparent 100%)";
   const gradient =
     treatment.size === "large"
-      ? "linear-gradient(0deg, rgba(248,245,237,.98) 0%, rgba(248,245,237,.90) 32%, rgba(248,245,237,.35) 58%, transparent 78%)"
+      ? "linear-gradient(0deg, rgba(248,245,237,.98) 0%, rgba(248,245,237,.92) 36%, rgba(248,245,237,.5) 62%, transparent 82%)"
       : horizontalGradient;
 
   return (
@@ -233,13 +231,13 @@ function ConsultationCtaCard() {
       className={cn(
         "relative flex h-[340px] w-full flex-col items-center justify-center overflow-hidden",
         "rounded-[24px] border border-[rgba(191,174,151,0.35)] bg-[var(--olive-600)]",
-        "p-6 text-center md:h-[360px] md:p-8 lg:h-full",
-        "lg:col-start-1 lg:row-start-3 lg:row-span-2",
+        "p-6 text-center md:h-[360px] md:p-8 lg:h-full lg:p-6",
+        "lg:col-start-2 lg:row-start-4",
       )}
     >
       <span
         className={cn(
-          "mb-3 block text-[11px] font-semibold uppercase tracking-[0.15em]",
+          "mb-3 block text-[11px] font-semibold uppercase tracking-[0.15em] lg:mb-2",
           "font-[var(--font-body)] text-white/80",
         )}
       >
@@ -247,7 +245,7 @@ function ConsultationCtaCard() {
       </span>
       <h3
         className={cn(
-          "text-[30px] leading-[1.1] lg:text-[38px]",
+          "text-[30px] leading-[1.1] lg:text-[28px]",
           "font-[var(--font-display)] font-normal text-white mt-0 mr-0 mb-[12px] ml-0",
         )}
       >
@@ -255,7 +253,7 @@ function ConsultationCtaCard() {
       </h3>
       <p
         className={cn(
-          "mx-auto max-w-[380px] text-[15px] leading-[1.55] lg:text-[16px]",
+          "mx-auto max-w-[380px] text-[15px] leading-[1.55] lg:hidden",
           "font-[var(--font-body)] text-white/85 mt-0 mr-0 mb-[26px] ml-0",
         )}
       >

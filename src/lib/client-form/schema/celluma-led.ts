@@ -1,10 +1,11 @@
 import type { TreatmentFormDefinition } from "../types";
+import { skinAssessmentSection } from "./skin-assessment";
 
 export const cellumaLed: TreatmentFormDefinition = {
   id: "celluma-led",
   name: "Celluma LED",
   shortDescription: "Celluma LED light therapy intake and consent.",
-  version: "2026-08-31",
+  version: "2026-11-24",
   sections: [
     {
       id: "celluma-pre-care",
@@ -118,6 +119,16 @@ export const cellumaLed: TreatmentFormDefinition = {
           type: "checkbox",
           label: "Open wounds",
           required: false,
+          followUp: {
+            id: "celluma_contra_open_wounds_details",
+            type: "textarea",
+            label: "Please explain in detail.",
+            required: true,
+            showWhen: {
+              questionId: "celluma_contra_open_wounds",
+              equals: true,
+            },
+          },
         },
         {
           id: "celluma_contra_trying_pregnant",
@@ -188,6 +199,7 @@ export const cellumaLed: TreatmentFormDefinition = {
         },
       ],
     },
+    skinAssessmentSection("celluma"),
   ],
   consent: {
     treatmentId: "celluma-led",

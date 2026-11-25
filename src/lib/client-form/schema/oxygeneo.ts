@@ -1,4 +1,5 @@
 import type { TreatmentFormDefinition } from "../types";
+import { skinAssessmentSection } from "./skin-assessment";
 
 // NOTE: The source "Personal Information" block
 // (waver-forms/smooth-skin-niagara-oxygeneo-consent.md) also asks for
@@ -12,7 +13,7 @@ export const oxygeneo: TreatmentFormDefinition = {
   id: "oxygeneo",
   name: "OxyGeneo",
   shortDescription: "OxyGeneo treatment consultation and treatment intake.",
-  version: "2026-09-01",
+  version: "2026-11-24",
   sections: [
     {
       id: "oxygeneo-health-questionnaire",
@@ -81,6 +82,16 @@ export const oxygeneo: TreatmentFormDefinition = {
           label:
             "Any active skin condition in the treatment area, such as sores, eczema, rash, fragile, swollen, burnt or injured skin, active acne, rosacea, dermatitis, psoriasis, or active Herpes Simplex.",
           required: true,
+          followUp: {
+            id: "oxygeneo_contra_active_skin_condition_details",
+            type: "textarea",
+            label: "Please explain in detail.",
+            required: true,
+            showWhen: {
+              questionId: "oxygeneo_contra_active_skin_condition",
+              equals: true,
+            },
+          },
         },
         {
           id: "oxygeneo_contra_fresh_tan",
@@ -117,6 +128,7 @@ export const oxygeneo: TreatmentFormDefinition = {
         },
       ],
     },
+    skinAssessmentSection("oxygeneo"),
   ],
   consent: {
     treatmentId: "oxygeneo",

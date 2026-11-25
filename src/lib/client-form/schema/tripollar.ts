@@ -1,4 +1,5 @@
 import type { TreatmentFormDefinition } from "../types";
+import { skinAssessmentSection } from "./skin-assessment";
 
 // NOTE: The source "Informed Consent Form for TriPollar Treatments" Personal
 // Information block also asks for Name, Date of Birth, Address, Tel./Cell
@@ -14,7 +15,7 @@ export const tripollar: TreatmentFormDefinition = {
   id: "tripollar",
   name: "TriPollar",
   shortDescription: "TriPollar treatment consultation and treatment intake.",
-  version: "2026-09-01",
+  version: "2026-11-24",
   sections: [
     {
       id: "tripollar-personal-details",
@@ -203,6 +204,16 @@ export const tripollar: TreatmentFormDefinition = {
           label:
             "Any active condition in the treatment area such as sores, hemorrhages or risk of hemorrhages, septic conditions, psoriasis, eczema and rash as well as irritated or damaged skin due to excessive fresh tanning.",
           required: false,
+          followUp: {
+            id: "tripollar_contra_active_skin_condition_details",
+            type: "textarea",
+            label: "Please explain in detail.",
+            required: true,
+            showWhen: {
+              questionId: "tripollar_contra_active_skin_condition",
+              equals: true,
+            },
+          },
         },
         {
           id: "tripollar_contra_varicose_veins",
@@ -232,6 +243,7 @@ export const tripollar: TreatmentFormDefinition = {
         },
       ],
     },
+    skinAssessmentSection("tripollar"),
   ],
   consent: {
     treatmentId: "tripollar",

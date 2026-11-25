@@ -1,4 +1,5 @@
 import type { TreatmentFormDefinition } from "../types";
+import { skinAssessmentSection } from "./skin-assessment";
 
 // NOTE: The source "Personal Information" block
 // (waver-forms/smooth-skin-niagara-edermastamp-microneedling.md) also asks
@@ -12,7 +13,7 @@ export const edermastampMicroneedling: TreatmentFormDefinition = {
   id: "edermastamp-microneedling",
   name: "eDermaStamp / DermaRoller Microneedling",
   shortDescription: "Microneedling for collagen induction and scar reduction.",
-  version: "2026-09-01",
+  version: "2026-11-24",
   sections: [
     {
       id: "edermastamp-personal-details",
@@ -178,6 +179,16 @@ export const edermastampMicroneedling: TreatmentFormDefinition = {
           label:
             "Any active condition in the treatment area such as sores, active pustular acne, rosacea, keloid or raised scars, septic conditions, psoriasis, eczema and rash as well as irritated or damaged skin due to excessive fresh tanning.",
           required: false,
+          followUp: {
+            id: "edermastamp_contra_active_skin_condition_details",
+            type: "textarea",
+            label: "Please explain in detail.",
+            required: true,
+            showWhen: {
+              questionId: "edermastamp_contra_active_skin_condition",
+              equals: true,
+            },
+          },
         },
         {
           id: "edermastamp_contra_infections",
@@ -212,6 +223,7 @@ export const edermastampMicroneedling: TreatmentFormDefinition = {
         },
       ],
     },
+    skinAssessmentSection("edermastamp"),
     {
       id: "edermastamp-acknowledgements",
       title: "Complications, Risks & Treatment Acknowledgements",
